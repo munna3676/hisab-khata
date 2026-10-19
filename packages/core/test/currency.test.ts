@@ -56,4 +56,27 @@ describe('currency', () => {
     expect(validateCurrency({ ...figma, direction: 'fromBdt', amount: 40, feeBdt: 40 })).toBe('fee')
     expect(validateCurrency(figma)).toBeNull()
   })
+  it('round trip at one rate gives the amount back, checked by hand: 250 MYR at ২৬.২০ → ৳৬,৫৫০', () => {
+    const rates = [{ code: 'MYR', buy: 26.2 }]
+    expect(calculateCurrency({ amount: 250, code: 'MYR', direction: 'toBdt', rates }).result).toBe(6550)
+    expect(calculateCurrency({ amount: 6550, code: 'MYR', direction: 'fromBdt', rates }).result).toBe(250)
+  })
+  it('spread on a per-100 quote, checked by hand: ¥10,000 at ৳80.50/100 less 2% → ৳7,889', () => {
+    // 0.805 × 0.98 = 0.7889 taka per yen
+    const r = calculateCurrency({ ...figma, amount: 10000, code: 'JPY', spreadPct: 2 })
+    expect(r.rate).toBe(0.7889)
+    expect(r.result).toBe(7889)
+  })
+  it('the table applies the spread and skips broken rows; an empty sheet gives an empty table', () => {
+    const rows = calculateCurrencyTable(1000, [...RATES, { code: 'BAD', buy: 0 }], 1)
+    expect(rows.map((r) => r.code)).toEqual(['SAR', 'AED', 'USD', 'GBP', 'JPY'])
+    // 32.641 × 0.99 = 32.31459 → 1,000 SAR = 32,314.59
+    expect(rows[0]).toEqual({ code: 'SAR', rate: 32.3146, bdt: 32314.59 })
+    expect(calculateCurrencyTable(1000, [])).toEqual([])
+  })
+  it('rejects an unknown direction and an empty rate sheet', () => {
+    expect(validateCurrency({ ...figma, direction: 'sideways' as never })).toBe('direction')
+    expect(validateCurrency({ ...figma, rates: [] })).toBe('code')
+    expect(validateCurrency({ ...figma, rates: [{ code: 'SAR', buy: 32.6, unit: 0 }] })).toBe('rates')
+  })
 })

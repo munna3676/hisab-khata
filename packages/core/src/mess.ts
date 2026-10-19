@@ -85,13 +85,12 @@ export function calculateMess(input: MessInput): MessResult {
   const totalMeals = meals.reduce((sum, m) => sum + m, 0)
   const mealCosts = allocate(input.bazarTotal, meals)
 
-  const shared = input.members.map(() => 0)
-  let equalTotal = 0
-  for (const cost of input.sharedCosts) {
-    const byMeals = cost.split === 'meals'
-    if (!byMeals) equalTotal += cost.amount
-    allocate(cost.amount, byMeals ? meals : ones).forEach((part, i) => (shared[i] = round(shared[i]! + part)))
-  }
+  // Split each kind of cost as one sum, so the leftover paisa of every bill do not all land on the first member.
+  const equalTotal = sumMoney(input.sharedCosts.filter((c) => c.split !== 'meals').map((c) => c.amount))
+  const mealsTotal = sumMoney(input.sharedCosts.filter((c) => c.split === 'meals').map((c) => c.amount))
+  const equalParts = allocate(equalTotal, ones)
+  const mealParts = allocate(mealsTotal, meals)
+  const shared = input.members.map((_, i) => round(equalParts[i]! + mealParts[i]!))
 
   const members = input.members.map((m, i): MessMemberResult => {
     const mealCost = mealCosts[i]!

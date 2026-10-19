@@ -175,18 +175,22 @@ export function validateSuccessiveDiscount(input: SuccessiveDiscountInput): Succ
   return null
 }
 
+/**
+ * Each step takes its percent off the price the shop printed after the step
+ * before (rounded to the paisa), so every row reads priceBefore − saved = priceAfter.
+ */
 export function calculateSuccessiveDiscount(input: SuccessiveDiscountInput): SuccessiveDiscountResult {
   const steps: SuccessiveDiscountStep[] = []
-  let price = input.price
+  let price = round(input.price)
   let keep = 1
   for (const discountPct of input.discountsPct) {
-    const saved = (price * discountPct) / 100
-    price -= saved
+    const saved = round((price * discountPct) / 100)
+    price = round(price - saved)
     keep *= 1 - discountPct / 100
-    steps.push({ discountPct, saved: round(saved), priceAfter: round(price) })
+    steps.push({ discountPct, saved, priceAfter: price })
   }
   return {
-    finalPrice: round(price),
+    finalPrice: price,
     saved: round(input.price - price),
     effectivePct: round((1 - keep) * 100),
     steps,

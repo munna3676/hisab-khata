@@ -66,13 +66,15 @@ export function validatePriceFromMargin(input: PriceFromMarginInput): PriceFromM
 
 /** Margin: cost ÷ (1 − margin). Markup: cost × (1 + markup). */
 export function calculatePriceFromMargin(input: PriceFromMarginInput): PriceFromMarginResult {
+  const markup = input.basis === 'markup'
   const p = input.pct / 100
-  const price = input.basis === 'markup' ? input.cost * (1 + p) : input.cost / (1 - p)
+  const price = markup ? input.cost * (1 + p) : input.cost / (1 - p)
   const profit = price - input.cost
   return {
     sellingPrice: round(price),
     profit: round(profit),
-    marginPct: price === 0 ? round(input.pct) : round((profit / price) * 100),
+    // At zero cost the price is 0 too, so read the margin off the target itself.
+    marginPct: price === 0 ? (markup ? markupToMargin(input.pct) : round(input.pct)) : round((profit / price) * 100),
     markupPct: input.cost === 0 ? null : round((profit / input.cost) * 100),
   }
 }
@@ -128,8 +130,10 @@ export function validateBreakEven(input: BreakEvenInput): BreakEvenError | null 
 export function calculateBreakEven(input: BreakEvenInput): BreakEvenResult {
   const contribution = input.pricePerUnit - input.variableCostPerUnit
   const unitsExact = (input.fixedCosts + (input.targetProfit ?? 0)) / contribution
-  // Snap float noise (2.0000000001) before rounding up.
-  const units = Math.ceil(Number(unitsExact.toPrecision(12)))
+  // Snap float noise (2.0000000000000004) before rounding up. The tolerance is
+  // relative, so a huge count keeps its real fraction (toPrecision(12) would drop it).
+  const whole = Math.round(unitsExact)
+  const units = Math.abs(unitsExact - whole) <= Math.max(1e-9, unitsExact * 1e-14) ? whole : Math.ceil(unitsExact)
   return {
     contributionPerUnit: round(contribution),
     contributionPct: round((contribution / input.pricePerUnit) * 100),

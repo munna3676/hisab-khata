@@ -66,7 +66,15 @@ export interface ZakatResult {
 
 export type ZakatError = 'assets' | 'liabilities' | 'basis' | 'rates' | 'nisab'
 
-const ASSET_KEYS: readonly (keyof ZakatAssets)[] = ['gold', 'silver', 'cash', 'bank', 'business', 'receivables', 'other']
+const ASSET_KEYS: readonly (keyof ZakatAssets)[] = [
+  'gold',
+  'silver',
+  'cash',
+  'bank',
+  'business',
+  'receivables',
+  'other',
+]
 
 function isAmount(v: number | undefined): boolean {
   return v === undefined || (v >= 0 && Number.isFinite(v))
@@ -75,11 +83,14 @@ function isAmount(v: number | undefined): boolean {
 /** Returns the field that is wrong, or null when the input can be calculated. */
 export function validateZakat(input: ZakatInput): ZakatError | null {
   if (!ASSET_KEYS.every((k) => isAmount(input.assets[k]))) return 'assets'
+  if (!Number.isFinite(ASSET_KEYS.reduce((sum, k) => sum + (input.assets[k] ?? 0), 0))) return 'assets'
   if (!(input.liabilities >= 0 && Number.isFinite(input.liabilities))) return 'liabilities'
   if (!['silver', 'gold', 'auto'].includes(input.basis)) return 'basis'
   const r = input.rates
   const positive = [r.goldPricePerVori, r.silverPricePerVori, r.nisabGoldVori, r.nisabSilverVori]
   if (!positive.every((v) => v > 0 && Number.isFinite(v)) || !(r.ratePct > 0 && r.ratePct <= 100)) return 'rates'
+  const nisabs = [r.nisabGoldVori * r.goldPricePerVori, r.nisabSilverVori * r.silverPricePerVori]
+  if (!nisabs.every(Number.isFinite)) return 'rates'
   if (input.nisabOverride !== undefined && !(input.nisabOverride > 0 && Number.isFinite(input.nisabOverride))) {
     return 'nisab'
   }
@@ -103,9 +114,21 @@ export function calculateZakat(input: ZakatInput): ZakatResult {
   const goldNisab = round(rates.nisabGoldVori * rates.goldPricePerVori)
   const silverNisab = round(rates.nisabSilverVori * rates.silverPricePerVori)
   const basis = resolveNisabBasis(input.basis, assets)
-  const nisab = input.nisabOverride !== undefined ? round(input.nisabOverride) : basis === 'gold' ? goldNisab : silverNisab
+  const fromRates = basis === 'gold' ? goldNisab : silverNisab
+  const nisab = input.nisabOverride !== undefined ? round(input.nisabOverride) : fromRates
 
   const meetsNisab = netAssets > 0 && netAssets >= nisab
   const zakat = meetsNisab ? round((netAssets * rates.ratePct) / 100) : 0
-  return { totalAssets, liabilities, netAssets, basis, nisab, goldNisab, silverNisab, meetsNisab, ratePct: rates.ratePct, zakat }
+  return {
+    totalAssets,
+    liabilities,
+    netAssets,
+    basis,
+    nisab,
+    goldNisab,
+    silverNisab,
+    meetsNisab,
+    ratePct: rates.ratePct,
+    zakat,
+  }
 }

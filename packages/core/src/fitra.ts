@@ -73,7 +73,11 @@ export function validateFitra(input: FitraInput): FitraError | null {
 /** Members × the chosen item's rate, with every other item's total alongside. */
 export function calculateFitra(input: FitraInput): FitraResult {
   const { members } = input
-  const table = input.rates.items.map((i) => ({ itemId: i.id, perPerson: i.perPerson, total: round(i.perPerson * members) }))
+  const table = input.rates.items.map((i) => ({
+    itemId: i.id,
+    perPerson: i.perPerson,
+    total: round(i.perPerson * members),
+  }))
   const item = input.rates.items.find((i) => i.id === input.itemId)!
   const chosen = table.find((r) => r.itemId === input.itemId)!
   const byRate = [...table].sort((a, b) => a.perPerson - b.perPerson)

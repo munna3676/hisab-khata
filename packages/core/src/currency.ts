@@ -45,7 +45,7 @@ export interface CurrencyTableRow {
   bdt: number
 }
 
-export type CurrencyError = 'amount' | 'code' | 'rates' | 'spread' | 'fee'
+export type CurrencyError = 'amount' | 'direction' | 'code' | 'rates' | 'spread' | 'fee'
 
 function isValidRate(rate: CurrencyRate): boolean {
   return rate.buy > 0 && (rate.sell === undefined || rate.sell > 0) && (rate.unit === undefined || rate.unit > 0)
@@ -60,6 +60,7 @@ function effectiveRate(rate: CurrencyRate, direction: CurrencyDirection, spreadP
 /** Returns the field that is wrong, or null when the input can be calculated. */
 export function validateCurrency(input: CurrencyInput): CurrencyError | null {
   if (!(input.amount > 0)) return 'amount'
+  if (!(input.direction === 'toBdt' || input.direction === 'fromBdt')) return 'direction'
   const rate = input.rates.find((r) => r.code === input.code)
   if (!rate) return 'code'
   if (!isValidRate(rate)) return 'rates'

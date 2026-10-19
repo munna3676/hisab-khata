@@ -75,8 +75,8 @@ export function calculateSalary(input: SalaryInput): SalaryResult {
   const medical = round((basic * s.medicalPctOfBasic) / 100)
   // Parts are worked out from the rounded ones so the breakdown adds up to gross exactly.
   const left = round(gross - basic - houseRent - medical)
-  const conveyance = s.conveyance ?? left
-  const otherAllowance = s.conveyance === null ? 0 : round(left - s.conveyance)
+  const conveyance = s.conveyance === null ? left : round(s.conveyance)
+  const otherAllowance = s.conveyance === null ? 0 : round(left - conveyance)
 
   const rows = deductions.map((d) => ({
     label: d.label,

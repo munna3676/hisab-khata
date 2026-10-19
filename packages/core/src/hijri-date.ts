@@ -51,6 +51,9 @@ export interface HijriDateResult {
 export type HijriDateError = 'from' | 'date' | 'offsetDays' | 'engine'
 
 // Umm al-Qura data in ICU runs 1300–1600 AH; these bounds stay well inside it.
+// ICU agrees day for day with the official Umm al-Qura tables (hijridate 2.3)
+// for 1420–1450 AH (1999–2029); outside that its month starts can differ by up
+// to 2 days, which the screen's "আনুমানিক" label and the offset chips cover.
 const MIN_YEAR = 1900
 const MAX_YEAR = 2099
 const MIN_HIJRI_YEAR = 1318

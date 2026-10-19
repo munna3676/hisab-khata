@@ -63,7 +63,15 @@ export interface LandPriceResult {
   grandTotal: number
 }
 
-export type LandPriceError = 'area' | 'areaUnit' | 'price' | 'priceUnit' | 'convention' | 'costs' | 'deedValue' | 'mouzaRate'
+export type LandPriceError =
+  | 'area'
+  | 'areaUnit'
+  | 'price'
+  | 'priceUnit'
+  | 'convention'
+  | 'costs'
+  | 'deedValue'
+  | 'mouzaRate'
 
 function isAmount(v: number | undefined): boolean {
   return v === undefined || (v >= 0 && Number.isFinite(v))
@@ -84,7 +92,14 @@ export function validateLandPrice(input: LandPriceInput): LandPriceError | null 
   if (!LAND_UNITS.includes(input.areaUnit)) return 'areaUnit'
   if (!(input.price >= 0 && Number.isFinite(input.price))) return 'price'
   if (!LAND_UNITS.includes(input.priceUnit)) return 'priceUnit'
-  if (!isValidConvention(landConvention(input.convention))) return 'convention'
+  const c = landConvention(input.convention)
+  if (!isValidConvention(c)) return 'convention'
+  // Too big to work out without overflowing to Infinity.
+  const largest = Math.max(...LAND_UNITS.map((u) => landUnitSqft(u, c)))
+  if (!Number.isFinite((input.price / landUnitSqft(input.priceUnit, c)) * largest)) return 'price'
+  const sqft = input.area * landUnitSqft(input.areaUnit, c)
+  const total = areaIn(input.area, input.areaUnit, input.priceUnit, c) * input.price
+  if (!Number.isFinite(sqft) || !Number.isFinite(total)) return 'area'
   if (input.costs && !input.costs.every(isValidCost)) return 'costs'
   if (!isAmount(input.deedValue)) return 'deedValue'
   if (input.mouzaRate && !(isAmount(input.mouzaRate.price) && LAND_UNITS.includes(input.mouzaRate.unit))) {
@@ -93,29 +108,38 @@ export function validateLandPrice(input: LandPriceInput): LandPriceError | null 
   return null
 }
 
+/** `area` of `from` counted in `to`; exactly `area` when the units match (৫ কাঠা × দাম/কাঠা has no float error). */
+function areaIn(area: number, from: LandUnit, to: LandUnit, c: LandConvention): number {
+  return from === to ? area : (area * landUnitSqft(from, c)) / landUnitSqft(to, c)
+}
+
 /** Total price, price in every unit, and registration costs on the deed value. */
 export function calculateLandPrice(input: LandPriceInput): LandPriceResult {
   const c = landConvention(input.convention)
   const sqft = input.area * landUnitSqft(input.areaUnit, c)
   const pricePerSqft = input.price / landUnitSqft(input.priceUnit, c)
-  const total = round(sqft * pricePerSqft)
+  const total = round(areaIn(input.area, input.areaUnit, input.priceUnit, c) * input.price)
 
   const pricePer = Object.fromEntries(
     LAND_UNITS.map((unit) => [unit, round(pricePerSqft * landUnitSqft(unit, c))]),
   ) as Record<LandUnit, number>
 
-  const mouzaValue = input.mouzaRate ? (sqft * input.mouzaRate.price) / landUnitSqft(input.mouzaRate.unit, c) : 0
+  const mouza = input.mouzaRate
+  const mouzaValue = mouza ? areaIn(input.area, input.areaUnit, mouza.unit, c) * mouza.price : 0
   const deedValue = round(Math.max(input.deedValue ?? total, mouzaValue))
 
   const costs = (input.costs ?? []).map((rule) => {
     const parts: number[] = []
     if (rule.pct !== undefined) parts.push((deedValue * rule.pct) / 100)
-    if (rule.perUnit !== undefined) parts.push((sqft * rule.perUnit) / landUnitSqft(rule.perUnitOf!, c))
+    if (rule.perUnit !== undefined) {
+      parts.push(areaIn(input.area, input.areaUnit, rule.perUnitOf!, c) * rule.perUnit)
+    }
     if (rule.fixed !== undefined) parts.push(rule.fixed)
     const amount = rule.combine === 'max' ? Math.max(...parts) : parts.reduce((s, v) => s + v, 0)
     return { id: rule.id, amount: round(amount) }
   })
   const totalCost = round(costs.reduce((s, line) => s + line.amount, 0))
 
-  return { total, sqft: cleanQuantity(sqft), pricePer, deedValue, costs, totalCost, grandTotal: round(total + totalCost) }
+  const grandTotal = round(total + totalCost)
+  return { total, sqft: cleanQuantity(sqft), pricePer, deedValue, costs, totalCost, grandTotal }
 }

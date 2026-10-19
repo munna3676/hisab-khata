@@ -53,6 +53,33 @@ describe('savings-goal', () => {
     expect(monthsUntil('2026-10-19', '2028-10-18')).toBe(23)
     expect(monthsUntil('2026-01-31', '2026-03-01')).toBe(1)
   })
+  it('reverse matches the future-value annuity table: ১,০০০/মাস, ১২%, ১২ মাস → ৳১২,৬৮২.৫০', () => {
+    // FV factor at 1% for 12 periods = 12.682503 (standard table)
+    const r = calculateSavingsFuture({ monthlySaving: 1000, months: 12, annualRatePct: 12 })
+    expect(r.futureValue).toBe(12682.5)
+    expect(r.profit).toBe(682.5)
+  })
+  it('current savings grow first, checked by hand: 1,20,000 in 12 months at 12% with 50,000 saved', () => {
+    // 50,000 × 1.01^12 = 56,341.25; (1,20,000 − 56,341.25) / 12.682503 = 5,019.41 → 5,019
+    const r = calculateSavingsGoal({ target: 120000, months: 12, annualRatePct: 12, currentSavings: 50000 })
+    expect(r.monthlySaving).toBe(5019)
+    expect(r.totalDeposit).toBe(110228)
+    expect(r.profit).toBe(9772)
+  })
+  it('counts a month whose goal day is the last day of a shorter month, and across a leap day', () => {
+    expect(monthsUntil('2026-01-31', '2026-02-28')).toBe(1)
+    expect(monthsUntil('2028-01-31', '2028-02-28')).toBe(0) // February 2028 has 29 days
+    expect(monthsUntil('2028-01-31', '2028-02-29')).toBe(1)
+    expect(monthsUntil('2028-02-29', '2029-02-28')).toBe(12)
+    expect(monthsUntil('2026-03-31', '2026-04-30')).toBe(1)
+    expect(monthsUntil('2026-12-15', '2027-01-14')).toBe(0)
+    expect(monthsUntil('2026-12-15', '2027-01-15')).toBe(1)
+    expect(monthsUntil('2026-10-19', '2026-10-19')).toBe(0)
+  })
+  it('a goal date in the past fails validation', () => {
+    expect(validateSavingsGoal({ ...figma, months: monthsUntil('2026-10-19', '2026-09-01') })).toBe('months')
+    expect(validateSavingsGoal({ ...figma, months: monthsUntil('2026-10-19', '2026-10-31') })).toBe('months')
+  })
   it('validates input', () => {
     expect(validateSavingsGoal({ ...figma, target: 0 })).toBe('target')
     expect(validateSavingsGoal({ ...figma, months: 0 })).toBe('months')

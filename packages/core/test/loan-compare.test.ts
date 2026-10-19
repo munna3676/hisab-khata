@@ -54,4 +54,26 @@ describe('loan-compare', () => {
     expect(validateLoanCompare({ offers: [A, { ...B, otherFees: -10 }] })).toBe('fee.1')
     expect(validateLoanCompare({ offers: [A, B] })).toBeNull()
   })
+  it('matches the published EMI table: ৳৩,৩২১.৪৩ per lakh at 12% for 36 months', () => {
+    // 1,00,000 × 0.01 / (1 − 1.01^−36) = 3,321.43; for 5 lakh 16,607.15
+    const r = calculateLoanCompare({ offers: [{ ...A, principal: 100000 }, A] })
+    expect(r.offers[0]!.emi).toBe(3321.43)
+    expect(r.offers[1]!.emi).toBe(16607.15)
+    // Not a like-for-like pair, but the smaller loan simply costs less.
+    expect(r.bestIndex).toBe(0)
+  })
+  it('a shared cheapest total among three offers names no best offer', () => {
+    // At 0% A and A' cost only their 1% fee (5,000 each); B costs 99,296.90.
+    const r = calculateLoanCompare({ offers: [{ ...A, annualRatePct: 0 }, { ...B, annualRatePct: 0, processingFeePct: 1 }, B] })
+    expect(r.offers.map((o) => o.totalCost)).toEqual([5000, 5000, 99296.9])
+    expect(r.bestIndex).toBeNull()
+    expect(r.saving).toBe(0)
+    expect(r.lowest.emi).toBeNull()
+    expect(r.lowest.fees).toBeNull()
+  })
+  it('the Figma totals: A costs ৳১,০২,৮৫৭.৬৩ and pays ৳৬,০২,৮৫৭.৬৩ in all', () => {
+    const a = calculateLoanCompare({ offers: [A, B] }).offers[0]!
+    expect(a.totalCost).toBe(102857.63)
+    expect(a.totalPayment).toBe(602857.63)
+  })
 })

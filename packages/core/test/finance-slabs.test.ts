@@ -30,4 +30,15 @@ describe('finance-slabs', () => {
     expect(isValidSlabTable([{ upTo: null }, { upTo: null }])).toBe(false)
     expect(isValidExciseTable([{ upTo: null, duty: -1 }])).toBe(false)
   })
+  it('follows the published slab wording: Tk 500 above 5 lakh up to 10 lakh, Tk 3,000 above 10 lakh', () => {
+    // Daily Star FY26 budget coverage: "Tk 500 for balances above Tk 5 lakh up to Tk 10 lakh, Tk 3,000 for Tk 10 lakh to Tk 50 lakh"
+    expect(exciseDuty(500000, EXCISE)).toBe(150)
+    expect(exciseDuty(500001, EXCISE)).toBe(500)
+    expect(exciseDuty(1000001, EXCISE)).toBe(3000)
+  })
+  it('a single open row covers everything; NaN limits or duties make a table invalid', () => {
+    expect(exciseDuty(1, [{ upTo: null, duty: 0 }])).toBe(0)
+    expect(isValidSlabTable([{ upTo: NaN }, { upTo: null }])).toBe(false)
+    expect(isValidExciseTable([{ upTo: null, duty: NaN }])).toBe(false)
+  })
 })

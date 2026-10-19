@@ -14,7 +14,7 @@ export interface DpsInput {
   compounding: DpsCompounding
   /** Tax at source on the profit in percent (from data: with TIN / without TIN); 0 for none. */
   taxPct: number
-  /** Yearly excise duty by highest balance. Leave out to ignore excise duty. */
+  /** Yearly excise duty by highest balance. Leave out (or pass []) to ignore excise duty. */
   exciseSlabs?: readonly ExciseSlab[]
 }
 
@@ -49,9 +49,11 @@ export function validateDps(input: DpsInput): DpsError | null {
   if (!(input.monthlyDeposit > 0)) return 'deposit'
   if (!(input.annualRatePct >= 0 && input.annualRatePct <= 100)) return 'rate'
   if (!(Number.isInteger(input.months) && input.months >= 1 && input.months <= 600)) return 'months'
-  if (!(input.compounding in CREDIT_EVERY_MONTHS)) return 'compounding'
+  // hasOwn, not `in`: 'constructor' or 'toString' must not pass as a mode.
+  if (!Object.hasOwn(CREDIT_EVERY_MONTHS, input.compounding)) return 'compounding'
   if (!(input.taxPct >= 0 && input.taxPct <= 100)) return 'tax'
-  if (input.exciseSlabs && !isValidExciseTable(input.exciseSlabs)) return 'excise'
+  // An empty table means no excise duty, as when it is left out.
+  if (input.exciseSlabs?.length && !isValidExciseTable(input.exciseSlabs)) return 'excise'
   return null
 }
 

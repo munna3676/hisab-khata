@@ -56,4 +56,26 @@ describe('salary', () => {
     expect(validateSalary({ ...figma, deductions: [{ label: 'x', kind: 'amount', value: -1 }] })).toBe('deductions')
     expect(validateSalary(figma)).toBeNull()
   })
+  it('works back from basic, checked by hand: basic ২৪,০০০ at 60% → gross ৪০,০০০', () => {
+    // 24,000 ÷ 0.6 = 40,000; rent 50% = 12,000; medical 10% = 2,400; conveyance = 40,000 − 38,400 = 1,600
+    const r = calculateSalary({ ...figma, from: 'basic', amount: 24000 })
+    expect([r.gross, r.basic, r.houseRent, r.medical, r.conveyance]).toEqual([40000, 24000, 12000, 2400, 1600])
+  })
+  it('a fixed conveyance with stray paisa still adds up to gross exactly', () => {
+    const r = calculateSalary({ ...figma, structure: { ...COMMON, conveyance: 1500.555 } })
+    expect(r.conveyance).toBe(1500.56)
+    expect(r.otherAllowance).toBe(499.44)
+    expect(Math.round((r.basic + r.houseRent + r.medical + r.conveyance + r.otherAllowance) * 100)).toBe(5000000)
+  })
+  it('handles 100% basic with no allowances and a very large gross', () => {
+    const r = calculateSalary({ ...figma, structure: { basicPctOfGross: 100, houseRentPctOfBasic: 0, medicalPctOfBasic: 0, conveyance: null } })
+    expect([r.basic, r.houseRent, r.medical, r.conveyance]).toEqual([50000, 0, 0, 0])
+    const big = calculateSalary({ ...figma, amount: 1e9 })
+    expect(big.basic + big.houseRent + big.medical + big.conveyance).toBe(1e9)
+  })
+  it('rejects an unknown input side and NaN', () => {
+    expect(validateSalary({ ...figma, from: 'net' as never })).toBe('amount')
+    expect(validateSalary({ ...figma, amount: NaN })).toBe('amount')
+    expect(validateSalary({ ...figma, deductions: [{ label: 'x', kind: 'other' as never, value: 1 }] })).toBe('deductions')
+  })
 })

@@ -1,5 +1,6 @@
 import { describe, expect, it } from 'vitest'
 import { calculateInvoice, validateInvoice, type InvoiceInput } from '../src/invoice.ts'
+import { calculateVat } from '../src/vat.ts'
 
 const figma: InvoiceInput = {
   items: [
@@ -54,6 +55,49 @@ describe('invoice', () => {
   it('handles a free item and a large bill', () => {
     expect(calculateInvoice({ items: [{ description: 'ফ্রি', qty: 1, unitPrice: 0 }], vatPct: 15 }).grandTotal).toBe(0)
     expect(calculateInvoice({ items: [{ description: 'জমি', qty: 1, unitPrice: 5e10 }], vatPct: 0 }).grandTotal).toBe(5e10)
+  })
+  it('hand-checked: three lines, a line discount, a taka bill discount, 5% VAT, delivery and an advance', () => {
+    // 2 × 1,250 = 2,500; 5 × 99.50 = 497.50 − 10% (49.75) = 447.75; 1 × 3,000 → 5,947.75
+    // − ৳247.75 = 5,700; VAT 5% = 285; + 60 delivery = 6,045; − 2,000 paid = 4,045 due
+    const r = calculateInvoice({
+      items: [
+        { description: 'শার্ট', qty: 2, unitPrice: 1250 },
+        { description: 'মোজা', qty: 5, unitPrice: 99.5, discountPct: 10 },
+        { description: 'জ্যাকেট', qty: 1, unitPrice: 3000 },
+      ],
+      discount: 247.75,
+      discountType: 'amount',
+      vatPct: 5,
+      delivery: 60,
+      paid: 2000,
+    })
+    expect(r.lines.map((l) => [l.gross, l.discount, l.amount])).toEqual([
+      [2500, 0, 2500],
+      [497.5, 49.75, 447.75],
+      [3000, 0, 3000],
+    ])
+    expect(r).toMatchObject({ subtotal: 5947.75, itemDiscount: 49.75, discount: 247.75, taxable: 5700, vat: 285, grandTotal: 6045, due: 4045 })
+  })
+  it('charges SD then VAT the same way as the VAT calculator', () => {
+    const r = calculateInvoice({ items: [{ description: 'সেবা', qty: 1, unitPrice: 10000 }], vatPct: 15, sdPct: 20 })
+    const vat = calculateVat({ amount: 10000, ratePct: 15, mode: 'add', sdPct: 20 })
+    expect([r.sd, r.vat, r.grandTotal]).toEqual([vat.sd, vat.vat, vat.total])
+    expect(r.grandTotal).toBe(13800)
+  })
+  it('rounds half a taka up, keeps VAT off the delivery by default and shows an overpayment as negative due', () => {
+    const half = calculateInvoice({ items: [{ description: 'x', qty: 1, unitPrice: 100.5 }], vatPct: 0, roundToTaka: true })
+    expect([half.grandTotal, half.roundOff]).toEqual([101, 0.5])
+    const free = calculateInvoice({ items: [{ description: 'x', qty: 1, unitPrice: 100 }], discount: 100, vatPct: 15, delivery: 50 })
+    expect(free).toMatchObject({ taxable: 0, vat: 0, grandTotal: 50 })
+    expect(calculateInvoice({ items: [{ description: 'x', qty: 1, unitPrice: 100 }], vatPct: 0, paid: 150 }).due).toBe(-50)
+  })
+  it('rejects NaN and allows a taka discount equal to the bill after line discounts', () => {
+    const line = { description: 'x', qty: 1, unitPrice: 100, discountPct: 50 }
+    expect(validateInvoice({ items: [line], discount: 50, discountType: 'amount', vatPct: 0 })).toBeNull()
+    expect(validateInvoice({ items: [line], discount: 50.01, discountType: 'amount', vatPct: 0 })).toBe('discount')
+    expect(validateInvoice({ ...figma, discount: Number.NaN })).toBe('discount')
+    expect(validateInvoice({ ...figma, vatPct: Number.NaN })).toBe('vat')
+    expect(validateInvoice({ items: [{ description: 'x', qty: 1, unitPrice: Number.POSITIVE_INFINITY }], vatPct: 0 })).toBe('unitPrice')
   })
   it('validates input', () => {
     expect(validateInvoice({ items: [], vatPct: 0 })).toBe('items')

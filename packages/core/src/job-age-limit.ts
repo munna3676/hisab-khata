@@ -72,10 +72,12 @@ const isWhole = (n: number | undefined, max: number) => n === undefined || (Numb
 export function validateJobAgeLimit(input: JobAgeLimitInput): JobAgeLimitError | null {
   if (!isValidDate(input.birth)) return 'birth'
   if (!isValidDate(input.referenceDate) || compareDates(input.referenceDate, input.birth) <= 0) return 'referenceDate'
+  if (!input.limit) return 'limit'
   const { minYears, maxYears } = input.limit
   if (!(Number.isInteger(maxYears) && maxYears >= 1 && maxYears <= 100)) return 'limit'
   if (!isWhole(minYears, 100) || (minYears ?? 0) >= maxYears) return 'limit'
-  if (!(input.extensions ?? []).every((e) => isWhole(e.years, 50) && isWhole(e.months, 600))) return 'extensions'
+  // `years` is required (0 for a relaxation given only in months); a missing one would make the limit NaN.
+  if (!(input.extensions ?? []).every((e) => e.years !== undefined && isWhole(e.years, 50) && isWhole(e.months, 600))) return 'extensions'
   return null
 }
 

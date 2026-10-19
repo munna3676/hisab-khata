@@ -102,9 +102,14 @@ export interface LandResult {
 
 export type LandError = 'value' | 'unit' | 'convention'
 
-/** The standard convention with the given overrides. */
+/** The standard convention with the given overrides; a field left undefined keeps the standard size. */
 export function landConvention(overrides?: Partial<LandConvention>): LandConvention {
-  return { ...STANDARD_LAND_CONVENTION, ...overrides }
+  const c = { ...STANDARD_LAND_CONVENTION }
+  for (const key of ['kathaSqft', 'kathaPerBigha', 'kaniSqft'] as const) {
+    const v = overrides?.[key]
+    if (v !== undefined) c[key] = v
+  }
+  return c
 }
 
 /** Square feet in one `unit`. */
@@ -156,12 +161,22 @@ export function splitLand(
 export function validateLand(input: LandInput): LandError | null {
   if (!(input.value >= 0 && Number.isFinite(input.value))) return 'value'
   if (!LAND_UNITS.includes(input.unit)) return 'unit'
-  if (!isValidConvention(landConvention(input.convention))) return 'convention'
+  const c = landConvention(input.convention)
+  if (!isValidConvention(c)) return 'convention'
+  // Too big to show in the smallest unit without overflowing to Infinity.
+  if (!Number.isFinite(input.value * landUnitSqft(input.unit, c) * maxUnitsPerSqft(c))) return 'value'
   return null
 }
 
+/** How many of the smallest unit make one square foot. */
+function maxUnitsPerSqft(c: LandConvention): number {
+  return Math.max(...LAND_UNITS.map((u) => 1 / landUnitSqft(u, c)))
+}
+
+/** True when every size is a positive finite number (and not so small that 1 sq ft overflows it). */
 export function isValidConvention(c: LandConvention): boolean {
-  return [c.kathaSqft, c.kathaPerBigha, c.kaniSqft].every((v) => v > 0 && Number.isFinite(v))
+  const sizes = [c.kathaSqft, c.kathaPerBigha, c.kaniSqft]
+  return sizes.every((v) => v > 0 && Number.isFinite(v)) && Number.isFinite(maxUnitsPerSqft(c))
 }
 
 /** One area in every unit at once. */

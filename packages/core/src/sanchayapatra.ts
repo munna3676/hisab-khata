@@ -63,7 +63,8 @@ export function validateSanchayapatra(input: SanchayapatraInput): SanchayapatraE
   const { scheme } = input
   if (
     !(Number.isInteger(scheme.years) && scheme.years >= 1) ||
-    !(scheme.payout in PAYOUTS_PER_YEAR) ||
+    // hasOwn, not `in`: 'toString' must not pass as a payout.
+    !Object.hasOwn(PAYOUTS_PER_YEAR, scheme.payout) ||
     !isValidSlabTable(scheme.rateSlabs) ||
     !scheme.rateSlabs.every((s) => s.ratePct >= 0 && s.ratePct <= 100) ||
     !isValidSlabTable(scheme.taxSlabs) ||

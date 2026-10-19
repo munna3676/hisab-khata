@@ -21,7 +21,7 @@ export interface FdrInput {
   periodMonths?: number
   /** Tax at source on the profit in percent (from data: with TIN / without TIN); 0 for none. */
   taxPct: number
-  /** Yearly excise duty by highest balance. Leave out to ignore excise duty. */
+  /** Yearly excise duty by highest balance. Leave out (or pass []) to ignore excise duty. */
   exciseSlabs?: readonly ExciseSlab[]
 }
 
@@ -62,7 +62,8 @@ export function validateFdr(input: FdrInput): FdrError | null {
     if (input.mode === 'renew' && input.months % period !== 0) return 'months'
   }
   if (!(input.taxPct >= 0 && input.taxPct <= 100)) return 'tax'
-  if (input.exciseSlabs && !isValidExciseTable(input.exciseSlabs)) return 'excise'
+  // An empty table means no excise duty, as when it is left out.
+  if (input.exciseSlabs?.length && !isValidExciseTable(input.exciseSlabs)) return 'excise'
   return null
 }
 

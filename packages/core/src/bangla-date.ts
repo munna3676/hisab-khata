@@ -1,10 +1,10 @@
 import {
   GREGORIAN_MONTHS_BN,
   WEEKDAYS_BN,
+  fromDayNumber,
   isLeapYear,
   isValidDate,
   toDayNumber,
-  fromDayNumber,
   weekdayOf,
   type CalendarDate,
 } from './lib/dates-calendar.ts'
@@ -111,7 +111,7 @@ export function validateBanglaDate(input: BanglaDateInput): BanglaDateError | nu
   if (input.from === 'gregorian' ? !isValidDate(input.date, YEAR_GAP + 2) : !isBanglaDate(input.date)) return 'date'
   const ok = (s: SpecialDay) =>
     (s.calendar === 'gregorian' || s.calendar === 'bangla') && Number.isInteger(s.month) && s.month >= 1 &&
-    s.month <= 12 && Number.isInteger(s.day) && s.day >= 1 && s.day <= 31 && s.name !== ''
+    s.month <= 12 && Number.isInteger(s.day) && s.day >= 1 && s.day <= 31 && typeof s.name === 'string' && s.name !== ''
   if (!(input.specialDays ?? []).every(ok)) return 'specialDays'
   return null
 }

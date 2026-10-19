@@ -75,4 +75,35 @@ describe('sanchayapatra', () => {
     expect(validateSanchayapatra({ scheme: { ...paribar, years: 0 }, investment: 100000 })).toBe('scheme')
     expect(validateSanchayapatra({ scheme: paribar, investment: 500000 })).toBeNull()
   })
+  it('matches the published per-lakh figure: পরিবার ১১.৫২% → মাসে ৳৯৬০, ১০% কর কেটে ৳৮৬৪', () => {
+    // Prothom Alo on পরিবার সঞ্চয়পত্র at 11.52%: ১ লাখে মাসে ৯৬০ টাকা (1,00,000 × 11.52% ÷ 12)
+    const old: SanchayapatraScheme = { ...paribar, rateSlabs: [{ upTo: null, ratePct: 11.52 }], taxSlabs: [{ upTo: null, taxPct: 10 }] }
+    const r = calculateSanchayapatra({ scheme: old, investment: 100000 })
+    expect([r.profitPerPayout, r.taxPerPayout, r.netPerPayout]).toEqual([960, 96, 864])
+    expect(r.totalNet).toBe(51840)
+  })
+  it('the Figma amount under the NBR 5% rule: ৫ লাখ → হাতে ৳৪,৭২২.২৯, checked by hand', () => {
+    // 5,00,000 × 11.93% ÷ 12 = 4,970.83; total holding is exactly 5 lakh, so 5% = 248.54
+    const r = calculateSanchayapatra({ scheme: paribar, investment: 500000 })
+    expect([r.profitPerPayout, r.taxPct, r.taxPerPayout, r.netPerPayout]).toEqual([4970.83, 5, 248.54, 4722.29])
+  })
+  it('slab limits belong to their own row: ৫,০০,০০০ pays 5%, one taka more 10%; ৭,৫০,০০০ keeps 11.93%', () => {
+    expect(calculateSanchayapatra({ scheme: paribar, investment: 500001 }).taxPct).toBe(10)
+    expect(calculateSanchayapatra({ scheme: paribar, investment: 750000 }).ratePct).toBe(11.93)
+    expect(calculateSanchayapatra({ scheme: paribar, investment: 750001 }).ratePct).toBe(11.8)
+  })
+  it('pensioner pays every 3 months for 5 years: 20 payments', () => {
+    const pensioner: SanchayapatraScheme = { ...paribar, id: 'pensioner', payout: 'quarterly' }
+    // 1,00,000 × 11.93% ÷ 4 = 2,982.50 a quarter
+    const r = calculateSanchayapatra({ scheme: pensioner, investment: 100000 })
+    expect(r.payouts).toBe(20)
+    expect(r.profitPerPayout).toBe(2982.5)
+    expect(r.totalProfit).toBe(59650)
+  })
+  it('rejects prototype names as a payout and broken slab rows', () => {
+    expect(validateSanchayapatra({ scheme: { ...paribar, payout: 'toString' as never }, investment: 100000 })).toBe('scheme')
+    expect(validateSanchayapatra({ scheme: { ...paribar, years: 1.5 }, investment: 100000 })).toBe('scheme')
+    expect(validateSanchayapatra({ scheme: { ...paribar, rateSlabs: [{ upTo: null, ratePct: NaN }] }, investment: 100000 })).toBe('scheme')
+    expect(validateSanchayapatra({ scheme: paribar, investment: NaN })).toBe('investment')
+  })
 })

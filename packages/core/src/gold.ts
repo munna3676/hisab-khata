@@ -23,7 +23,7 @@ export type GoldWeight = Partial<Record<GoldUnit, number>>
 
 export interface GoldInput {
   weight: GoldWeight
-  /** Taka for one ভরি of the chosen karat (22K/21K/18K/সনাতন, from the day's BAJUS rates); leave out for weight only. */
+  /** Taka for one ভরি of the chosen karat (22K/21K/18K/সনাতন, the day's BAJUS rate); leave out for weight only. */
   pricePerVori?: number
   pointsPerRoti?: number
 }
@@ -70,40 +70,59 @@ export function goldUnitGrams(unit: GoldUnit, pointsPerRoti = DEFAULT_POINTS_PER
   return sizes[unit]
 }
 
+/** Grams in a weight given as parts, before float noise is trimmed (for money worked out from it). */
+function sumGrams(weight: GoldWeight, pointsPerRoti: number): number {
+  return GOLD_UNITS.reduce((sum, unit) => sum + (weight[unit] ?? 0) * goldUnitGrams(unit, pointsPerRoti), 0)
+}
+
 /** Grams in a weight given as parts. */
 export function goldWeightGrams(weight: GoldWeight, pointsPerRoti = DEFAULT_POINTS_PER_ROTI): number {
-  return cleanQuantity(
-    GOLD_UNITS.reduce((sum, unit) => sum + (weight[unit] ?? 0) * goldUnitGrams(unit, pointsPerRoti), 0),
-  )
+  return cleanQuantity(sumGrams(weight, pointsPerRoti))
 }
 
 /** `value` of `from` expressed in `to`. */
-export function convertGold(value: number, from: GoldUnit, to: GoldUnit, pointsPerRoti = DEFAULT_POINTS_PER_ROTI): number {
+export function convertGold(
+  value: number,
+  from: GoldUnit,
+  to: GoldUnit,
+  pointsPerRoti = DEFAULT_POINTS_PER_ROTI,
+): number {
   return cleanQuantity((value * goldUnitGrams(from, pointsPerRoti)) / goldUnitGrams(to, pointsPerRoti))
 }
 
-/** True when every part is a known unit with a finite amount of at least 0. */
-export function isValidGoldWeight(weight: GoldWeight): boolean {
-  return Object.entries(weight).every(
-    ([unit, v]) => GOLD_UNITS.includes(unit as GoldUnit) && v !== undefined && v >= 0 && Number.isFinite(v),
+/**
+ * True when every part is a known unit with a finite amount of at least 0 (a
+ * part left undefined counts as 0), and the whole fits in পয়েন্ট without overflowing.
+ */
+export function isValidGoldWeight(weight: GoldWeight, pointsPerRoti = DEFAULT_POINTS_PER_ROTI): boolean {
+  const parts = Object.entries(weight).every(
+    ([unit, v]) => GOLD_UNITS.includes(unit as GoldUnit) && (v === undefined || (v >= 0 && Number.isFinite(v))),
   )
+  return parts && Number.isFinite(sumGrams(weight, pointsPerRoti) / goldUnitGrams('point', pointsPerRoti))
+}
+
+/** True for a whole number of পয়েন্ট in a রতি. */
+export function isValidPointsPerRoti(pointsPerRoti: number): boolean {
+  return Number.isSafeInteger(pointsPerRoti) && pointsPerRoti >= 1
 }
 
 /** Returns the field that is wrong, or null when the input can be calculated. */
 export function validateGold(input: GoldInput): GoldError | null {
-  if (!isValidGoldWeight(input.weight)) return 'weight'
-  if (input.pricePerVori !== undefined && !(input.pricePerVori >= 0 && Number.isFinite(input.pricePerVori))) {
+  const ppr = input.pointsPerRoti ?? DEFAULT_POINTS_PER_ROTI
+  if (!isValidPointsPerRoti(ppr)) return 'points'
+  if (!isValidGoldWeight(input.weight, ppr)) return 'weight'
+  const price = input.pricePerVori
+  if (price !== undefined && !(price >= 0 && Number.isFinite((sumGrams(input.weight, ppr) / VORI_GRAMS) * price))) {
     return 'price'
   }
-  const ppr = input.pointsPerRoti ?? DEFAULT_POINTS_PER_ROTI
-  if (!(Number.isInteger(ppr) && ppr >= 1)) return 'points'
   return null
 }
 
 /** One weight in every unit, its ভরি-আনা-রতি-পয়েন্ট form, and its value at the given rate. */
 export function calculateGold(input: GoldInput): GoldResult {
   const ppr = input.pointsPerRoti ?? DEFAULT_POINTS_PER_ROTI
-  const grams = goldWeightGrams(input.weight, ppr)
+  const rawGrams = sumGrams(input.weight, ppr)
+  const grams = cleanQuantity(rawGrams)
   const rows = GOLD_UNITS.map((unit) => ({ unit, value: cleanQuantity(grams / goldUnitGrams(unit, ppr)) }))
   const values = Object.fromEntries(rows.map((r) => [r.unit, r.value])) as Record<GoldUnit, number>
   const [vori, ana, roti, point] = splitQuantity(
@@ -117,7 +136,7 @@ export function calculateGold(input: GoldInput): GoldResult {
     values,
     rows,
     split: { vori, ana, roti, point },
-    value: price === undefined ? null : round(values.vori * price),
+    value: price === undefined ? null : round((rawGrams / VORI_GRAMS) * price),
     pricePerGram: price === undefined ? null : round(price / VORI_GRAMS),
   }
 }

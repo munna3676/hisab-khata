@@ -102,6 +102,44 @@ describe('delivery profit', () => {
     expect(list.map((c) => c.courier)).toEqual(['Other', 'Steadfast'])
     expect(compareDeliveryProfit({ sellingPrice: 1200, productCost: 700, zone: 'outside-dhaka', weightKg: 1 }, [steadfast, other])).toHaveLength(1)
   })
+  it('hand-checked: outside Dhaka, 2.5 kg → 130 + 2 extra kg × 20 = ৳170; COD 1% of (2,000 − 170) = ৳18.30', () => {
+    const r = calculateDeliveryProfit({ sellingPrice: 2000, productCost: 1100, packagingCost: 25, courier: steadfast, zone: 'outside-dhaka', weightKg: 2.5 })
+    // payout 2,000 − 170 − 18.30 = 1,811.70; profit 1,811.70 − 1,125 = 686.70; margin 686.70 ÷ 2,000 = 34.335% → 34.34
+    expect(r).toMatchObject({ deliveryCharge: 170, codCharge: 18.3, payout: 1811.7, profit: 686.7, marginPct: 34.34 })
+  })
+  it('hand-checked returns at full charge: 30% back, each losing ৳60 + ৳15 packaging', () => {
+    const full: CourierRate = { ...other, returnChargePct: 100 }
+    const r = calculateDeliveryProfit({ sellingPrice: 900, productCost: 500, packagingCost: 15, courier: full, zone: 'inside-dhaka', weightKg: 0.5, returnRatePct: 30 })
+    // Delivered: 900 − 60 − 500 − 15 = 325. 0.7 × 325 − 0.3 × 75 = 205. Break-even 325 ÷ 400 = 81.25%
+    expect(r).toMatchObject({ profit: 325, returnLoss: 75, expectedProfit: 205, breakEvenReturnPct: 81.25 })
+    // Every 1 kg parcel back: only the loss is left, ৳70 charge + ৳10 packaging.
+    expect(calculateDeliveryProfit({ ...figma, courier: full, packagingCost: 10, returnRatePct: 100 }).expectedProfit).toBe(-80)
+  })
+  it('charges half-kg steps above the heaviest slab without float noise', () => {
+    const zone = { slabs: [{ maxKg: 0.5, charge: 60 }, { maxKg: 1, charge: 70 }], extra: { stepKg: 0.5, charge: 10 }, codPct: 0 }
+    expect([0.5, 0.51, 1.5, 1.6, 2, 0.3 + 0.7].map((kg) => courierCharge(zone, kg))).toEqual([60, 70, 80, 90, 90, 70])
+    const tenth = { ...zone, extra: { stepKg: 0.1, charge: 5 } }
+    expect(courierCharge(tenth, 1.1)).toBe(75)
+  })
+  it('a customer delivery fee above the courier charge adds to the profit', () => {
+    const r = calculateDeliveryProfit({ ...figma, deliveryPaidBy: 'customer', customerDeliveryFee: 100 })
+    // Collected 1,300; COD 1% of 1,220 = 12.20; 1,300 − 80 − 12.20 − 700 = 507.80
+    expect(r).toMatchObject({ collected: 1300, codCharge: 12.2, profit: 507.8 })
+  })
+  it('compares with each courier\'s own COD even when the form still holds an override', () => {
+    const form: DeliveryProfitInput = { ...figma, codPct: 5 }
+    const list = compareDeliveryProfit(form, [steadfast, other])
+    expect(list.find((c) => c.courier === 'Steadfast')!.result.codCharge).toBe(11.2)
+    expect(list.find((c) => c.courier === 'Other')!.result.codCharge).toBe(0)
+  })
+  it('rejects a broken courier price list', () => {
+    expect(validateDeliveryProfit({ ...figma, courier: { ...steadfast, returnChargePct: Number.POSITIVE_INFINITY } })).toBe('courier')
+    const unsorted: CourierRate = { ...other, zones: { 'inside-dhaka': { ...other.zones['inside-dhaka']!, slabs: [{ maxKg: 1, charge: 70 }, { maxKg: 0.5, charge: 60 }] } } }
+    expect(validateDeliveryProfit({ ...figma, courier: unsorted })).toBe('courier')
+    const noStep: CourierRate = { ...steadfast, zones: { 'inside-dhaka': { ...steadfast.zones['inside-dhaka']!, extra: { stepKg: 0, charge: 20 } } } }
+    expect(validateDeliveryProfit({ ...figma, courier: noStep })).toBe('courier')
+    expect(validateDeliveryProfit({ ...figma, weightKg: Number.NaN })).toBe('weight')
+  })
   it('validates input', () => {
     expect(validateDeliveryProfit({ ...figma, sellingPrice: -1 })).toBe('sellingPrice')
     expect(validateDeliveryProfit({ ...figma, productCost: Number.NaN })).toBe('productCost')

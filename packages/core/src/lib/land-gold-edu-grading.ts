@@ -13,11 +13,11 @@ export interface GradeBand {
   point: number
 }
 
-/** True when minimums fall strictly to 0, points never rise, and grades are unique. */
+/** True when minimums fall strictly to 0, points never rise, and grades are unique (as gradeByName matches them). */
 export function isValidGradeScale(scale: readonly GradeBand[]): boolean {
   if (scale.length === 0 || scale.at(-1)!.minMarks !== 0) return false
-  const names = new Set(scale.map((b) => b.grade))
-  if (names.size !== scale.length) return false
+  const names = new Set(scale.map((b) => normalGrade(b.grade)))
+  if (names.size !== scale.length || names.has('')) return false
   return scale.every((b, i) => {
     if (!(b.point >= 0 && b.minMarks >= 0 && b.minMarks <= 100)) return false
     const prev = scale[i - 1]
@@ -32,8 +32,12 @@ export function gradeForMarks(pct: number, scale: readonly GradeBand[]): GradeBa
 
 /** The band named `grade` ('A+', 'a+' and ' A+ ' all match), or undefined. */
 export function gradeByName(grade: string, scale: readonly GradeBand[]): GradeBand | undefined {
-  const name = grade.trim().toUpperCase()
-  return scale.find((b) => b.grade.toUpperCase() === name)
+  const name = normalGrade(grade)
+  return scale.find((b) => normalGrade(b.grade) === name)
+}
+
+function normalGrade(grade: string): string {
+  return grade.trim().toUpperCase()
 }
 
 /** The letter a GPA reads as: the best band whose point it reaches (4.89 on the board scale → A). */

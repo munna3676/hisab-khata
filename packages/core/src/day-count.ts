@@ -86,6 +86,7 @@ const MAX_ADD_DAYS = 100000
 function isValidWork(work: WorkCalendar | undefined, needsWorkingDay: boolean): boolean {
   if (!work) return !needsWorkingDay
   const { weekend, holidays = [] } = work
+  if (!Array.isArray(weekend) || !Array.isArray(holidays)) return false
   if (!weekend.every((d) => Number.isInteger(d) && d >= 0 && d <= 6)) return false
   if (needsWorkingDay && new Set(weekend).size >= 7) return false
   return holidays.every((h) => parseIsoDate(h.date) !== null)

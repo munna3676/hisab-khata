@@ -3,6 +3,7 @@ import {
   VORI_GRAMS,
   goldWeightGrams,
   isValidGoldWeight,
+  isValidPointsPerRoti,
   type GoldWeight,
 } from './gold.ts'
 import { cleanQuantity } from './lib/land-gold-edu-units.ts'
@@ -13,7 +14,7 @@ export interface OldGold {
   weight: GoldWeight
   /** Taka per ভরি for the old piece's karat; defaults to the new piece's rate. */
   pricePerVori?: number
-  /** Cut in percent the shop takes from the old gold (BAJUS sets one for exchange, another for buying back; from data). */
+  /** Cut in percent the shop takes (BAJUS sets one for exchange, another for buying back; from data). */
   deductionPct: number
 }
 
@@ -63,14 +64,20 @@ function isAmount(v: number | undefined): boolean {
 /** Returns the field that is wrong, or null when the input can be calculated. */
 export function validateJewelryBill(input: JewelryBillInput): JewelryBillError | null {
   const ppr = input.pointsPerRoti ?? DEFAULT_POINTS_PER_ROTI
-  if (!(Number.isInteger(ppr) && ppr >= 1)) return 'points'
-  if (!isValidGoldWeight(input.weight) || !(goldWeightGrams(input.weight, ppr) > 0)) return 'weight'
+  if (!isValidPointsPerRoti(ppr)) return 'points'
+  if (!isValidGoldWeight(input.weight, ppr) || !(goldWeightGrams(input.weight, ppr) > 0)) return 'weight'
   if (!(input.pricePerVori > 0 && Number.isFinite(input.pricePerVori))) return 'price'
   if (!(input.makingPct >= 0 && input.makingPct <= 100) || !isAmount(input.makingPerVori)) return 'making'
   if (!isPct(input.vatPct) || !isAmount(input.vatPerVori)) return 'vat'
+  // The bill is at most 4 × ভরি × (rate + per-ভরি parts); refuse one that would overflow to Infinity.
+  const vori = goldWeightGrams(input.weight, ppr) / VORI_GRAMS
+  const perVori = input.pricePerVori + (input.makingPerVori ?? 0) + (input.vatPerVori ?? 0)
+  if (!Number.isFinite(vori * perVori * 8)) return 'weight'
   const old = input.oldGold
-  if (old && !(isValidGoldWeight(old.weight) && isAmount(old.pricePerVori) && old.deductionPct >= 0 && old.deductionPct <= 100)) {
-    return 'oldGold'
+  if (old) {
+    const ok = isValidGoldWeight(old.weight, ppr) && isAmount(old.pricePerVori) && isPct(old.deductionPct ?? -1)
+    const oldVori = goldWeightGrams(old.weight, ppr) / VORI_GRAMS
+    if (!ok || !Number.isFinite(oldVori * (old.pricePerVori ?? input.pricePerVori))) return 'oldGold'
   }
   return null
 }

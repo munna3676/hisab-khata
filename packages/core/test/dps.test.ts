@@ -77,4 +77,44 @@ describe('dps', () => {
     expect(validateDps({ ...figma, exciseSlabs: EXCISE })).toBeNull()
     expect(validateDps(figma)).toBeNull()
   })
+  it('matches the annuity-due value: ১,০০০/মাস, ৯%, ৫ বছর → ৳৭৫,৯৮৯.৮২ before tax, checked by hand', () => {
+    // (1.0075^60 − 1) / 0.0075 × 1.0075 = 75.989818 → 75,989.82 (BD DPS calculators show ৳75,990)
+    const r = calculateDps({ monthlyDeposit: 1000, annualRatePct: 9, months: 60, compounding: 'monthly', taxPct: 0 })
+    expect(r.maturity).toBe(75989.82)
+  })
+  it('Figma year-1 row: 5,000 × (1.0075^12 − 1)/0.0075 × 1.0075 = ৳৬৩,০০৬.৯৭, checked by hand', () => {
+    const y1 = calculateDps(figma).years[0]!
+    expect(y1.deposit).toBe(60000)
+    expect(y1.balance).toBe(63006.97)
+    expect(y1.interest).toBe(3006.97)
+  })
+  it('quarterly matches the closed form and Prime Bank Edu DPS chart (১,০০০/মাস, ৯%, ৫ বছর → ৳৭৫,৮৫০)', () => {
+    // Each quarter B → B(1 + 3r) + D(3 + 6r) with r = 0.75%, so after 20 quarters
+    // D(3 + 6r)((1 + 3r)^20 − 1)/(3r) = 75,855.58. Prime Bank's printed chart (before tax
+    // and excise duty) says 75,850, which banks round down; monthly mode would be 75,990.
+    const r = 0.0075
+    const closed = 1000 * (3 + 6 * r) * (((1 + 3 * r) ** 20 - 1) / (3 * r))
+    const q = calculateDps({ monthlyDeposit: 1000, annualRatePct: 9, months: 60, compounding: 'quarterly', taxPct: 0 })
+    expect(q.maturity).toBeCloseTo(closed, 2)
+    expect(q.maturity).toBe(75855.58)
+    expect(Math.abs(q.maturity - 75850)).toBeLessThan(10)
+  })
+  it('a year-end balance of exactly ৳৪,০০,০০০ is excise-free; one taka more pays ৳১৫০', () => {
+    const base: DpsInput = { ...figma, months: 1, annualRatePct: 0, taxPct: 0, exciseSlabs: EXCISE }
+    expect(calculateDps({ ...base, monthlyDeposit: 400000 }).exciseDuty).toBe(0)
+    expect(calculateDps({ ...base, monthlyDeposit: 400001 }).exciseDuty).toBe(150)
+  })
+  it('handles a one-month term (1,000 at 12% earns 10, tax 1)', () => {
+    const r = calculateDps({ monthlyDeposit: 1000, annualRatePct: 12, months: 1, compounding: 'quarterly', taxPct: 10 })
+    expect([r.totalInterest, r.tax, r.maturity]).toEqual([10, 1, 1009])
+    expect(r.years).toHaveLength(1)
+  })
+  it('rejects prototype names as a mode and NaN; an empty excise table means none', () => {
+    expect(validateDps({ ...figma, compounding: 'constructor' as never })).toBe('compounding')
+    expect(validateDps({ ...figma, compounding: 'toString' as never })).toBe('compounding')
+    expect(validateDps({ ...figma, monthlyDeposit: NaN })).toBe('deposit')
+    expect(validateDps({ ...figma, taxPct: NaN })).toBe('tax')
+    expect(validateDps({ ...figma, exciseSlabs: [] })).toBeNull()
+    expect(calculateDps({ ...figma, exciseSlabs: [] }).exciseDuty).toBe(0)
+  })
 })

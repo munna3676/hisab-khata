@@ -94,10 +94,14 @@ export function calculateSavingsFuture(input: SavingsFutureInput): SavingsFuture
 
 /**
  * Whole months from `today` to `goalDate` (both 'YYYY-MM-DD'); a month counts
- * only once its day is reached. 2026-10-19 → 2028-10-19 is 24.
+ * once its day is reached, or on the goal month's last day when that month is
+ * shorter. 2026-10-19 → 2028-10-19 is 24; 2026-01-31 → 2026-02-28 is 1.
  */
 export function monthsUntil(today: string, goalDate: string): number {
   const [y1, m1, d1] = today.split('-').map(Number) as [number, number, number]
   const [y2, m2, d2] = goalDate.split('-').map(Number) as [number, number, number]
-  return (y2 - y1) * 12 + (m2 - m1) - (d2 < d1 ? 1 : 0)
+  // Day 0 of the next month is the last day of month m2 (handles leap years).
+  const lastDay = new Date(Date.UTC(y2, m2, 0)).getUTCDate()
+  const reached = d2 >= d1 || d2 === lastDay
+  return (y2 - y1) * 12 + (m2 - m1) - (reached ? 0 : 1)
 }

@@ -17,6 +17,13 @@ describe('profit margin', () => {
   it('shows a loss as negative', () => {
     expect(calculateProfitMargin({ cost: 1200, sellingPrice: 1000 })).toEqual({ profit: -200, marginPct: -20, markupPct: -16.67 })
   })
+  it('hand-checked: কেনা ৳650, বেচা ৳845 → লাভ ৳195, margin 195 ÷ 845 = 23.08%, markup 195 ÷ 650 = 30%', () => {
+    expect(calculateProfitMargin({ cost: 650, sellingPrice: 845 })).toEqual({ profit: 195, marginPct: 23.08, markupPct: 30 })
+  })
+  it('handles paisa prices and selling at cost', () => {
+    expect(calculateProfitMargin({ cost: 800.05, sellingPrice: 1000.1 })).toMatchObject({ profit: 200.05 })
+    expect(calculateProfitMargin({ cost: 500, sellingPrice: 500 })).toEqual({ profit: 0, marginPct: 0, markupPct: 0 })
+  })
   it('has no markup when the cost is zero', () => {
     expect(calculateProfitMargin({ cost: 0, sellingPrice: 50 })).toEqual({ profit: 50, marginPct: 100, markupPct: null })
   })
@@ -42,6 +49,15 @@ describe('price from target margin', () => {
       markupPct: 25,
     })
   })
+  it('hand-checked: 40% margin on ৳1,200 = 1,200 ÷ 0.6 = ৳2,000, a 66.67% markup', () => {
+    expect(calculatePriceFromMargin({ cost: 1200, pct: 40 })).toEqual({ sellingPrice: 2000, profit: 800, marginPct: 40, markupPct: 66.67 })
+    expect(marginToMarkup(40)).toBe(66.67)
+    expect(markupToMargin(100)).toBe(50)
+  })
+  it('reads the margin off a markup even at zero cost: 30% markup is 30 ÷ 130 = 23.08% margin', () => {
+    expect(calculatePriceFromMargin({ cost: 0, pct: 30, basis: 'markup' })).toEqual({ sellingPrice: 0, profit: 0, marginPct: 23.08, markupPct: null })
+    expect(calculatePriceFromMargin({ cost: 0, pct: 30 }).marginPct).toBe(30)
+  })
   it('converts margin and markup both ways', () => {
     expect(marginToMarkup(20)).toBe(25)
     expect(markupToMargin(25)).toBe(20)
@@ -63,6 +79,25 @@ describe('break-even', () => {
     const r = calculateBreakEven({ fixedCosts: 30000, pricePerUnit: 500, variableCostPerUnit: 200, targetProfit: 15000 })
     expect(r.units).toBe(150)
     expect(calculateBreakEven({ fixedCosts: 0, pricePerUnit: 10, variableCostPerUnit: 0 }).units).toBe(0)
+  })
+  it('hand-checked: ৳12,000 fixed, ৳150 price, ৳90 cost → 12,000 ÷ 60 = 200 units; +৳3,000 target → 250', () => {
+    const r = calculateBreakEven({ fixedCosts: 12000, pricePerUnit: 150, variableCostPerUnit: 90 })
+    expect(r).toEqual({ contributionPerUnit: 60, contributionPct: 40, units: 200, unitsExact: 200, revenue: 30000 })
+    expect(calculateBreakEven({ fixedCosts: 12000, pricePerUnit: 150, variableCostPerUnit: 90, targetProfit: 3000 }).units).toBe(250)
+  })
+  it('does not round float noise up a whole unit: 0.3 ÷ (0.3 − 0.2) is 3, not 4', () => {
+    expect(calculateBreakEven({ fixedCosts: 0.3, pricePerUnit: 0.3, variableCostPerUnit: 0.2 }).units).toBe(3)
+    expect(calculateBreakEven({ fixedCosts: 1, pricePerUnit: 0.3, variableCostPerUnit: 0.1 }).units).toBe(5)
+  })
+  it('keeps the fraction of a huge count: 10¹³ ÷ 3 = 3,333,333,333,333.33 → 3,333,333,333,334 units', () => {
+    expect(calculateBreakEven({ fixedCosts: 1e13, pricePerUnit: 4, variableCostPerUnit: 1 }).units).toBe(3333333333334)
+  })
+  it('rejects NaN and infinity', () => {
+    expect(validateBreakEven({ fixedCosts: 100, pricePerUnit: 10, variableCostPerUnit: Number.NaN })).toBe('variableCostPerUnit')
+    expect(validateBreakEven({ fixedCosts: Number.POSITIVE_INFINITY, pricePerUnit: 10, variableCostPerUnit: 1 })).toBe('fixedCosts')
+    expect(validateProfitMargin({ cost: 10, sellingPrice: Number.POSITIVE_INFINITY })).toBe('sellingPrice')
+    expect(validatePriceFromMargin({ cost: 800, pct: Number.POSITIVE_INFINITY, basis: 'markup' })).toBe('pct')
+    expect(validatePriceFromMargin({ cost: 800, pct: -1 })).toBe('pct')
   })
   it('validates input', () => {
     expect(validateBreakEven({ fixedCosts: -1, pricePerUnit: 10, variableCostPerUnit: 5 })).toBe('fixedCosts')

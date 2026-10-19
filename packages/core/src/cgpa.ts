@@ -100,11 +100,17 @@ function isValidSemester(s: CgpaSemester, scale: readonly GradeBand[]): boolean 
   return s.gpa !== undefined && s.gpa >= 0 && s.gpa <= scale[0]!.point && isCredits(s.credits)
 }
 
+function creditsOf(courses: readonly CgpaCourse[] | undefined): number {
+  return (courses ?? []).reduce((sum, c) => sum + c.credits, 0)
+}
+
 /** Returns the field that is wrong, or null when the input can be calculated. */
 export function validateCgpa(input: CgpaInput): CgpaError | null {
   const scale = input.scale ?? UGC_GRADE_SCALE
   if (!isValidGradeScale(scale)) return 'scale'
   if (input.semesters.length === 0 || !input.semesters.every((s) => isValidSemester(s, scale))) return 'semesters'
+  const credits = input.semesters.reduce((sum, s) => sum + (s.credits ?? 0) + creditsOf(s.courses), 0)
+  if (!Number.isFinite(credits * scale[0]!.point)) return 'semesters'
   if (input.targetCgpa !== undefined) {
     if (!(input.targetCgpa >= 0 && input.targetCgpa <= scale[0]!.point)) return 'target'
     if (!isCredits(input.nextCredits)) return 'nextCredits'
@@ -113,7 +119,10 @@ export function validateCgpa(input: CgpaInput): CgpaError | null {
 }
 
 /** Credit-weighted GPA of one semester's courses. */
-export function semesterGpa(courses: readonly CgpaCourse[], scale: readonly GradeBand[] = UGC_GRADE_SCALE): CgpaSemesterResult {
+export function semesterGpa(
+  courses: readonly CgpaCourse[],
+  scale: readonly GradeBand[] = UGC_GRADE_SCALE,
+): CgpaSemesterResult {
   const credits = courses.reduce((sum, c) => sum + c.credits, 0)
   const points = courses.reduce((sum, c) => sum + c.credits * coursePoint(c, scale)!, 0)
   return { gpa: round(points / credits, 2), credits, points: round(points, 4) }
@@ -126,13 +135,13 @@ export function semesterGpa(courses: readonly CgpaCourse[], scale: readonly Grad
 export function calculateCgpa(input: CgpaInput): CgpaResult {
   const scale = input.scale ?? UGC_GRADE_SCALE
   const semesters = input.semesters.map((s) =>
-    s.courses ? semesterGpa(s.courses, scale) : { gpa: s.gpa!, credits: s.credits!, points: round(s.gpa! * s.credits!, 4) },
+    s.courses
+      ? semesterGpa(s.courses, scale)
+      : { gpa: s.gpa!, credits: s.credits!, points: round(s.gpa! * s.credits!, 4) },
   )
   const totalCredits = semesters.reduce((sum, s) => sum + s.credits, 0)
-  const totalPoints = round(
-    semesters.reduce((sum, s) => sum + s.points, 0),
-    4,
-  )
+  // Grade points keep 4 decimals (1.5 credits × 3.75 = 5.625); only the CGPA is shown to 2.
+  const totalPoints = round(semesters.reduce((sum, s) => sum + s.points, 0), 4)
   const cgpa = round(totalPoints / totalCredits, 2)
 
   let target: CgpaTarget | null = null

@@ -52,3 +52,47 @@ describe('gold', () => {
     expect(validateGold({ weight: { vori: 2, ana: 4 }, pricePerVori: 228031 })).toBeNull()
   })
 })
+
+describe('gold (independent checks)', () => {
+  it('hand-checked from 1 ভরি = 11.664 g: 1 আনা = 0.729 g, 1 রতি = 0.1215 g, 1 পয়েন্ট = 0.01215 g', () => {
+    expect(goldUnitGrams('ana')).toBe(0.729)
+    expect(goldUnitGrams('roti')).toBe(0.1215)
+    expect(convertGold(1, 'point', 'gram')).toBe(0.01215)
+    // 31.1034768 ÷ 11.664 = 2.66662 ভরি in a troy ounce.
+    expect(convertGold(1, 'ounce', 'vori').toFixed(5)).toBe('2.66662')
+  })
+  it('hand-checked: 5 g = ০ ভরি ৬ আনা ৫ রতি ১.৫২ পয়েন্ট; ১ আনা ২২K at ৳২,২৮,০৩১ = ৳১৪,২৫১.৯৪', () => {
+    // 6 × 0.729 = 4.374, 5 × 0.1215 = 0.6075, rest 0.0185 g ÷ 0.01215 = 1.5226 পয়েন্ট.
+    const r = calculateGold({ weight: { gram: 5 } })
+    expect(r.split).toMatchObject({ vori: 0, ana: 6, roti: 5 })
+    expect(r.split.point.toFixed(4)).toBe('1.5226')
+    // 2,28,031 ÷ 16 = 14,251.9375.
+    expect(calculateGold({ weight: { ana: 1 }, pricePerVori: 228031 }).value).toBe(14251.94)
+  })
+  it('gives back every ভরি-আনা-রতি-পয়েন্ট typed in, with no 0.999999 পয়েন্ট', () => {
+    // Before the fix, 5 ভরি 8 আনা 5 রতি 1 পয়েন্ট came back as ... 0.999999999999 পয়েন্ট.
+    expect(calculateGold({ weight: { vori: 5, ana: 8, roti: 5, point: 1 } }).split).toEqual({
+      vori: 5,
+      ana: 8,
+      roti: 5,
+      point: 1,
+    })
+    for (let vori = 0; vori <= 20; vori++) {
+      for (let ana = 0; ana < 16; ana++) {
+        for (let roti = 0; roti < 6; roti++) {
+          for (let point = 0; point < 10; point++) {
+            const split = calculateGold({ weight: { vori, ana, roti, point } }).split
+            expect(split).toEqual({ vori, ana, roti, point })
+          }
+        }
+      }
+    }
+  })
+  it('takes a weight box left undefined as 0, and refuses weights or prices that overflow', () => {
+    expect(validateGold({ weight: { vori: 2, ana: undefined } })).toBeNull()
+    expect(calculateGold({ weight: { vori: 2, ana: undefined } }).grams).toBe(23.328)
+    expect(validateGold({ weight: { vori: 1e307 } })).toBe('weight')
+    expect(validateGold({ weight: { vori: 1e300 }, pricePerVori: 1e10 })).toBe('price')
+    expect(validateGold({ weight: { vori: 1 }, pointsPerRoti: 1e300 })).toBe('points')
+  })
+})

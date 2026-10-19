@@ -1,7 +1,7 @@
 import { round } from './lib/money.ts'
 import { addDays, isValidDate, toDayNumber, weekdayOf, type CalendarDate } from './lib/dates-calendar.ts'
 
-/** One district as data/districts.json lists it. */
+/** One district as the repo-root data/districts.json lists it. */
 export interface District {
   id: string
   en: string
@@ -18,9 +18,9 @@ export interface District {
 export interface SehriIftarMethod {
   /** Sun's depth below the horizon at Subh Sadiq (dawn), in degrees. */
   fajrAngle: number
-  /** Minutes taken off dawn for the end of sehri (ihtiyat). */
+  /** Minutes taken off dawn for the end of sehri (ihtiyat); may be fractional, the result is rounded. */
   sehriPrecautionMin: number
-  /** Minutes added to sunset for iftar. */
+  /** Minutes added to sunset for iftar; may be fractional, the result is rounded. */
   iftarPrecautionMin: number
   /** Local clock ahead of UTC, in minutes: Bangladesh Standard Time is 360. */
   utcOffsetMinutes: number
@@ -29,11 +29,13 @@ export interface SehriIftarMethod {
 /**
  * Islamic Foundation Bangladesh practice: Fajr at 18° (University of Islamic
  * Sciences, Karachi, the method used for Bangladesh, https://aladhan.com/calculation-methods)
- * with a few minutes' ihtiyat on both ends (IFB, https://bangla.bdnews24.com/bangladesh/dd70922dc361).
- * The precaution minutes are set so Dhaka reproduces IFB's Ramadan 2026
- * timetable (19 Feb–20 Mar 2026) to within a minute.
+ * with a little ihtiyat on both ends (IFB, https://bangla.bdnews24.com/bangladesh/dd70922dc361).
+ * IFB does not publish its exact margins, so they are fitted: 0.8 and 1.7
+ * minutes (the middle of the ranges 0.73–0.91 and 1.52–1.85 that fit) make
+ * Dhaka reproduce all 12 published rows of IFB's Ramadan 2026 timetable
+ * (19 Feb–20 Mar 2026) to the minute; whole minutes (1 and 2) miss 5 of them.
  */
-export const IFB_METHOD: SehriIftarMethod = { fajrAngle: 18, sehriPrecautionMin: 1, iftarPrecautionMin: 2, utcOffsetMinutes: 360 }
+export const IFB_METHOD: SehriIftarMethod = { fajrAngle: 18, sehriPrecautionMin: 0.8, iftarPrecautionMin: 1.7, utcOffsetMinutes: 360 }
 
 export interface SehriIftarInput {
   date: CalendarDate
@@ -124,7 +126,11 @@ function sunAt(date: CalendarDate, lat: number, lng: number, altitude: number, s
   return minutes
 }
 
-const resolve = (method?: Partial<SehriIftarMethod>): SehriIftarMethod => ({ ...IFB_METHOD, ...method })
+/** IFB_METHOD with the given parts on top; a part set to undefined keeps the default. */
+function resolve(method?: Partial<SehriIftarMethod>): SehriIftarMethod {
+  const given = Object.entries(method ?? {}).filter(([, value]) => value !== undefined)
+  return { ...IFB_METHOD, ...Object.fromEntries(given) }
+}
 
 function methodError(method?: Partial<SehriIftarMethod>): boolean {
   const m = resolve(method)

@@ -94,7 +94,7 @@ export function validateDeliveryProfit(input: DeliveryProfitInput): DeliveryProf
   if (!(input.productCost >= 0 && Number.isFinite(input.productCost))) return 'productCost'
   const packaging = input.packagingCost ?? 0
   if (!(packaging >= 0 && Number.isFinite(packaging))) return 'packagingCost'
-  if (!(input.courier.returnChargePct >= 0)) return 'courier'
+  if (!(input.courier.returnChargePct >= 0 && Number.isFinite(input.courier.returnChargePct))) return 'courier'
   const zone = Object.hasOwn(input.courier.zones, input.zone) ? input.courier.zones[input.zone] : undefined
   if (!zone) return 'zone'
   if (!isValidZone(zone)) return 'courier'
@@ -165,8 +165,10 @@ export function compareDeliveryProfit(
   input: Omit<DeliveryProfitInput, 'courier' | 'codPct'>,
   couriers: readonly CourierRate[],
 ): CourierComparison[] {
-  return couriers
-    .filter((courier) => validateDeliveryProfit({ ...input, courier }) === null)
-    .map((courier) => ({ courier: courier.name, result: calculateDeliveryProfit({ ...input, courier }) }))
+  // Drop a COD override the caller's form state may still carry, so each courier's own rate applies.
+  const orders = couriers.map((courier): DeliveryProfitInput => ({ ...input, courier, codPct: undefined }))
+  return orders
+    .filter((order) => validateDeliveryProfit(order) === null)
+    .map((order) => ({ courier: order.courier.name, result: calculateDeliveryProfit(order) }))
     .sort((a, b) => b.result.expectedProfit - a.result.expectedProfit)
 }

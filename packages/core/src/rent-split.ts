@@ -1,5 +1,5 @@
 import { allocate } from './lib/commerce-allocate.ts'
-import { round } from './lib/money.ts'
+import { round, sumMoney } from './lib/money.ts'
 
 /**
  * equal: everyone pays the same (সমান ভাগ).
@@ -34,7 +34,7 @@ export interface RentSplitInput {
   rooms?: RentRoom[]
   /** "per-person" (বিল সমান ভাগ, the default) or "like-rent" (same ratio as the rent). */
   utilitySplit?: 'per-person' | 'like-rent'
-  /** Split to the whole taka instead of the paisa; parts still add up exactly. */
+  /** Split to the whole taka instead of the paisa; parts still add up exactly, so the amounts must be whole taka. */
   wholeTaka?: boolean
 }
 
@@ -65,8 +65,10 @@ const isHeadcount = (v: number | undefined) => v !== undefined && Number.isInteg
 
 /** Returns the field that is wrong, or null when the input can be calculated. */
 export function validateRentSplit(input: RentSplitInput): RentSplitError | null {
-  if (!isMoney(input.rent)) return 'rent'
-  if (!isMoney(input.utilities)) return 'utilities'
+  // Whole-taka parts can only add up exactly to a whole-taka bill.
+  const whole = (v: number) => !input.wholeTaka || Number.isInteger(round(v))
+  if (!isMoney(input.rent) || !whole(input.rent)) return 'rent'
+  if (!isMoney(input.utilities) || !whole(input.utilities)) return 'utilities'
   if (input.mode === 'equal') return isHeadcount(input.people) ? null : 'people'
 
   const rooms = input.rooms ?? []
@@ -76,7 +78,7 @@ export function validateRentSplit(input: RentSplitInput): RentSplitError | null 
   if (input.mode === 'size' && !rooms.every((r) => inRange(r.sizeSqft, 1e6))) return 'size'
   if (input.mode === 'weight' && !rooms.every((r) => inRange(r.weight, 100))) return 'weight'
   if (input.mode === 'room-rent') {
-    if (!rooms.every((r) => r.rent === undefined || isMoney(r.rent))) return 'roomRent'
+    if (!rooms.every((r) => r.rent === undefined || (isMoney(r.rent) && whole(r.rent)))) return 'roomRent'
     const fixed = rooms.reduce((sum, r) => sum + (r.rent ?? 0), 0)
     const open = rooms.some((r) => r.rent === undefined)
     // Fixed rents may not add up to more than the rent, nor (with no room left to take the rest) to less.
@@ -96,8 +98,8 @@ export function calculateRentSplit(input: RentSplitInput): RentSplitResult {
   if (input.mode === 'size') rents = allocate(input.rent, rooms.map((r) => r.sizeSqft!), decimals)
   else if (input.mode === 'weight') rents = allocate(input.rent, rooms.map((r) => r.weight!), decimals)
   else if (input.mode === 'room-rent') {
-    const fixed = rooms.reduce((sum, r) => sum + (r.rent ?? 0), 0)
-    const shares = allocate(Math.max(0, input.rent - fixed), rooms.map((r) => (r.rent === undefined ? 1 : 0)), decimals)
+    const fixed = sumMoney(rooms.map((r) => r.rent ?? 0))
+    const shares = allocate(Math.max(0, round(input.rent - fixed)), rooms.map((r) => (r.rent === undefined ? 1 : 0)), decimals)
     rents = rooms.map((r, i) => (r.rent === undefined ? shares[i]! : round(r.rent)))
   } else rents = allocate(input.rent, people, decimals)
 

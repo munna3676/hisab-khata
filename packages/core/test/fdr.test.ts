@@ -69,8 +69,39 @@ describe('fdr', () => {
     expect(validateFdr({ ...figma, mode: 'compound', periodMonths: 0 })).toBe('period')
     expect(validateFdr({ ...figma, mode: 'renew', months: 7 })).toBe('months')
     expect(validateFdr({ ...figma, taxPct: -1 })).toBe('tax')
-    expect(validateFdr({ ...figma, exciseSlabs: [] })).toBe('excise')
+    expect(validateFdr({ ...figma, exciseSlabs: [{ upTo: 100, duty: 0 }] })).toBe('excise')
     expect(validateFdr({ ...figma, mode: 'renew', months: 36 })).toBeNull()
     expect(validateFdr(figma)).toBeNull()
+  })
+  it('term chips by hand: ৬ মাস → ৳১,০৪,৫০০ and ৩ বছর → ৳১,২৭,০০০ (মেয়াদ শেষে, ১০% কর)', () => {
+    // 1,00,000 × 10% × 6/12 = 5,000 profit, 500 tax; × 36/12 = 30,000 profit, 3,000 tax
+    expect(calculateFdr({ ...figma, months: 6 }).maturity).toBe(104500)
+    const three = calculateFdr({ ...figma, months: 36 })
+    expect([three.totalInterest, three.tax, three.maturity]).toEqual([30000, 3000, 127000])
+  })
+  it('yearly renewal equals P·(1 + r·(1 − tax))^n: 1,00,000 × 1.09³ = ৳১,২৯,৫০২.৯০, checked by hand', () => {
+    const r = calculateFdr({ ...figma, months: 36, mode: 'renew', periodMonths: 12 })
+    expect(r.maturity).toBe(129502.9)
+    expect(r.periods.map((p) => p.tax)).toEqual([1000, 1090, 1188.1])
+  })
+  it('renew for 6 months rounds each tax to paisa (hand: +2,500 − 250, then +2,556.25 − 255.63)', () => {
+    expect(calculateFdr({ ...figma, months: 6, mode: 'renew' }).maturity).toBe(104550.62)
+  })
+  it('a compounding period longer than a year: years without a credit keep their opening balance', () => {
+    // 4.5L at 10%, credited every 24 months. Year highs: 4.5L (150), 5.4L (500), 5.4L (500), 6.48L (500)
+    const r = calculateFdr({ principal: 450000, annualRatePct: 10, months: 48, mode: 'compound', periodMonths: 24, taxPct: 10, exciseSlabs: EXCISE })
+    expect(r.periods.map((p) => p.interest)).toEqual([90000, 108000])
+    expect(r.exciseDuty).toBe(1650)
+    expect(r.maturity).toBe(450000 + 198000 - 19800 - 1650)
+  })
+  it('excise limit: exactly ৳৪,০০,০০০ is duty-free; one taka more pays ৳১৫০', () => {
+    expect(calculateFdr({ ...figma, principal: 400000, annualRatePct: 0, exciseSlabs: EXCISE }).exciseDuty).toBe(0)
+    expect(calculateFdr({ ...figma, principal: 400001, annualRatePct: 0, exciseSlabs: EXCISE }).exciseDuty).toBe(150)
+  })
+  it('an empty excise table means none; a one-month term works', () => {
+    expect(validateFdr({ ...figma, exciseSlabs: [] })).toBeNull()
+    // 1,00,000 × 10% / 12 = 833.33, tax 83.33
+    expect(calculateFdr({ ...figma, months: 1, exciseSlabs: [] }).maturity).toBe(100750)
+    expect(validateFdr({ ...figma, mode: 'renew', months: 3, periodMonths: 6 })).toBe('months')
   })
 })
