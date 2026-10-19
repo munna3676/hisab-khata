@@ -1,0 +1,19 @@
+{
+  "name": "@hisab/core",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "Pure calculation engines for হিসাব খাতা tools. No DOM, no framework, no network.",
+  "exports": {
+    "./*": "./src/*.ts"
+  },
+  "scripts": {
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "typecheck": "tsc --noEmit"
+  },
+  "devDependencies": {
+    "typescript": "^7.0.2",
+    "vitest": "^5.0.5"
+  }
+}

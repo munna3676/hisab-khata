@@ -1,0 +1,13 @@
+{
+  "name": "hisab-khata",
+  "private": true,
+  "description": "হিসাব খাতা — টাকা, ব্যাংক আর সরকারি কাজের হিসাব, এক খাতায়",
+  "packageManager": "pnpm@10.28.0",
+  "engines": { "node": ">=22" },
+  "scripts": {
+    "test": "pnpm -r --if-present test",
+    "typecheck": "pnpm -r --if-present typecheck",
+    "tokens": "pnpm --filter @hisab/tokens build",
+    "check:data": "node scripts/check-data.mjs"
+  }
+}

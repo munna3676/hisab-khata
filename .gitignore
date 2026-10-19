@@ -1,0 +1,10 @@
+node_modules/
+dist/
+.astro/
+.svelte-kit/
+coverage/
+*.log
+.DS_Store
+.env
+.env.*
+!.env.example

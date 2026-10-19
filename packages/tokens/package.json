@@ -1,0 +1,15 @@
+{
+  "name": "@hisab/tokens",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "Design tokens from the হিসাব খাতা Figma file (light + dark)",
+  "exports": {
+    "./tokens.json": "./src/tokens.json",
+    "./tokens.css": "./dist/tokens.css"
+  },
+  "scripts": {
+    "build": "node build.mjs",
+    "test": "node build.mjs --check"
+  }
+}

@@ -1,0 +1,16 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://hisabkhata.app/schema/fact.json",
+  "title": "Fact",
+  "description": "One number or rule shown to users. Every charge, rate, slab, fee or limit in data/ is a Fact, so the page can show its source and 'last verified' date.",
+  "type": "object",
+  "required": ["value", "source", "checked"],
+  "properties": {
+    "value": { "description": "The number, string, or structured value (e.g. a slab table)." },
+    "unit": { "type": "string", "description": "e.g. 'BDT', 'BDT per 1000', 'percent', 'days'" },
+    "source": { "type": "string", "format": "uri", "description": "Official page the value was read from." },
+    "checked": { "type": "string", "pattern": "^\\d{4}-\\d{2}-\\d{2}$", "description": "Date a person last confirmed the value at the source (YYYY-MM-DD)." },
+    "note": { "type": "string" }
+  },
+  "additionalProperties": false
+}
