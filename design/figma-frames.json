@@ -1,0 +1,1858 @@
+{
+ "$source": "Figma file MUjojuzU7TFg6rKcfZhByP, read 2026-10-19. Top-level screen frames per page; ids are Figma node ids.",
+ "fileKey": "MUjojuzU7TFg6rKcfZhByP",
+ "pages": {
+  "mobile": {
+   "canvas": "2:3",
+   "frames": [
+    {
+     "id": "11:2",
+     "name": "01 Home",
+     "width": 390,
+     "height": 2418
+    },
+    {
+     "id": "11:349",
+     "name": "02 Search Result",
+     "width": 390,
+     "height": 1164
+    },
+    {
+     "id": "13:404",
+     "name": "03 Calculator — Cash Out",
+     "width": 390,
+     "height": 3100
+    },
+    {
+     "id": "14:706",
+     "name": "04 MFS — bKash",
+     "width": 390,
+     "height": 1995
+    },
+    {
+     "id": "14:910",
+     "name": "11 Section Hub — Date, Land, Gold",
+     "width": 390,
+     "height": 1584
+    },
+    {
+     "id": "15:1050",
+     "name": "05 Bank List",
+     "width": 390,
+     "height": 1421
+    },
+    {
+     "id": "15:1233",
+     "name": "06 Bank Detail",
+     "width": 390,
+     "height": 1513
+    },
+    {
+     "id": "15:1385",
+     "name": "07 Bank Compare",
+     "width": 390,
+     "height": 1146
+    },
+    {
+     "id": "16:1382",
+     "name": "08 Remittance Compare",
+     "width": 390,
+     "height": 2227
+    },
+    {
+     "id": "16:1632",
+     "name": "12 Share Card — Cash Out (1080×1080, export 3x)",
+     "width": 360,
+     "height": 360
+    },
+    {
+     "id": "16:1660",
+     "name": "12 Share Card — Mess Hisab (1080×1080, export 3x)",
+     "width": 360,
+     "height": 360
+    },
+    {
+     "id": "17:1577",
+     "name": "09 Guide — NID Correction",
+     "width": 390,
+     "height": 2481
+    },
+    {
+     "id": "17:1843",
+     "name": "10 Guide Wizard — ধাপ ১",
+     "width": 390,
+     "height": 844
+    },
+    {
+     "id": "17:1897",
+     "name": "10 Guide Wizard — Result",
+     "width": 390,
+     "height": 844
+    },
+    {
+     "id": "18:1839",
+     "name": "13 Static — About",
+     "width": 390,
+     "height": 1018
+    },
+    {
+     "id": "18:1904",
+     "name": "14 States — Offline, Stale, Empty, 404, Loading",
+     "width": 390,
+     "height": 1190
+    },
+    {
+     "id": "18:1959",
+     "name": "15 Home — Dark mode",
+     "width": 390,
+     "height": 2418
+    },
+    {
+     "id": "18:2004",
+     "name": "15 Calculator — Dark mode",
+     "width": 390,
+     "height": 3100
+    },
+    {
+     "id": "24:2352",
+     "name": "A1 All Tools",
+     "width": 390,
+     "height": 3670
+    },
+    {
+     "id": "24:3152",
+     "name": "A2 Saved",
+     "width": 390,
+     "height": 1191
+    },
+    {
+     "id": "24:3351",
+     "name": "A3 Hub — Mobile Banking",
+     "width": 390,
+     "height": 1829
+    },
+    {
+     "id": "24:3582",
+     "name": "A4 Hub — Calculators",
+     "width": 390,
+     "height": 2391
+    },
+    {
+     "id": "24:4065",
+     "name": "A5 Hub — Sorkari Kaj",
+     "width": 390,
+     "height": 1970
+    },
+    {
+     "id": "25:3761",
+     "name": "A6 Static — Privacy",
+     "width": 390,
+     "height": 1036
+    },
+    {
+     "id": "25:3815",
+     "name": "A7 Static — Contact",
+     "width": 390,
+     "height": 949
+    },
+    {
+     "id": "25:3892",
+     "name": "A8 Static — Disclaimer",
+     "width": 390,
+     "height": 928
+    },
+    {
+     "id": "25:3944",
+     "name": "A9 Static — Change Log",
+     "width": 390,
+     "height": 872
+    },
+    {
+     "id": "25:4022",
+     "name": "A10 Home — English",
+     "width": 390,
+     "height": 1300
+    },
+    {
+     "id": "25:4196",
+     "name": "S1 Sheet — Share",
+     "width": 390,
+     "height": 844
+    },
+    {
+     "id": "25:4333",
+     "name": "S2 Sheet — Report Error",
+     "width": 390,
+     "height": 844
+    },
+    {
+     "id": "25:4431",
+     "name": "S3 Sheet — Rate Alert",
+     "width": 390,
+     "height": 844
+    },
+    {
+     "id": "25:4551",
+     "name": "S4 Sheet — Install App",
+     "width": 390,
+     "height": 844
+    },
+    {
+     "id": "26:5113",
+     "name": "F1 MFS — Nagad",
+     "width": 390,
+     "height": 1959
+    },
+    {
+     "id": "26:5317",
+     "name": "F2 MFS — Rocket",
+     "width": 390,
+     "height": 1803
+    },
+    {
+     "id": "26:5511",
+     "name": "F3 MFS — Upay",
+     "width": 390,
+     "height": 1769
+    },
+    {
+     "id": "26:5706",
+     "name": "F4 MFS Comparison",
+     "width": 390,
+     "height": 1341
+    },
+    {
+     "id": "26:5863",
+     "name": "F5 Send Money Calculator",
+     "width": 390,
+     "height": 1917
+    },
+    {
+     "id": "27:5771",
+     "name": "F6 EMI Calculator",
+     "width": 390,
+     "height": 2356
+    },
+    {
+     "id": "27:6030",
+     "name": "F7 DPS Calculator",
+     "width": 390,
+     "height": 2123
+    },
+    {
+     "id": "27:6253",
+     "name": "F8 FDR Calculator",
+     "width": 390,
+     "height": 2035
+    },
+    {
+     "id": "27:6477",
+     "name": "F9 Loan Eligibility",
+     "width": 390,
+     "height": 1909
+    },
+    {
+     "id": "27:6681",
+     "name": "F10 Loan Comparison",
+     "width": 390,
+     "height": 1996
+    },
+    {
+     "id": "27:6940",
+     "name": "F11 Currency Converter",
+     "width": 390,
+     "height": 1777
+    },
+    {
+     "id": "28:6772",
+     "name": "C1 VAT Calculator",
+     "width": 390,
+     "height": 1898
+    },
+    {
+     "id": "28:6970",
+     "name": "C2 Discount & Percentage",
+     "width": 390,
+     "height": 1569
+    },
+    {
+     "id": "28:7145",
+     "name": "C3 Profit Margin",
+     "width": 390,
+     "height": 1697
+    },
+    {
+     "id": "28:7332",
+     "name": "C4 Savings Goal",
+     "width": 390,
+     "height": 1717
+    },
+    {
+     "id": "28:7512",
+     "name": "C5 Salary Breakdown",
+     "width": 390,
+     "height": 1797
+    },
+    {
+     "id": "28:7708",
+     "name": "C6 Income Tax",
+     "width": 390,
+     "height": 1873
+    },
+    {
+     "id": "29:7661",
+     "name": "C7 Sanchayapatra",
+     "width": 390,
+     "height": 1829
+    },
+    {
+     "id": "29:7863",
+     "name": "C8 Mobile Data Pack",
+     "width": 390,
+     "height": 1725
+    },
+    {
+     "id": "29:8051",
+     "name": "D1 Age Calculator",
+     "width": 390,
+     "height": 1812
+    },
+    {
+     "id": "29:8239",
+     "name": "D2 Job Age Limit",
+     "width": 390,
+     "height": 1677
+    },
+    {
+     "id": "29:8406",
+     "name": "D3 Bangla Date",
+     "width": 390,
+     "height": 1705
+    },
+    {
+     "id": "29:8587",
+     "name": "D4 Hijri Date",
+     "width": 390,
+     "height": 1657
+    },
+    {
+     "id": "31:8462",
+     "name": "D5 Day Count",
+     "width": 390,
+     "height": 1574
+    },
+    {
+     "id": "31:8623",
+     "name": "L1 Land Converter",
+     "width": 390,
+     "height": 2097
+    },
+    {
+     "id": "31:8835",
+     "name": "L2 Land Price",
+     "width": 390,
+     "height": 1607
+    },
+    {
+     "id": "31:9006",
+     "name": "L3 Gold Converter",
+     "width": 390,
+     "height": 1903
+    },
+    {
+     "id": "31:9216",
+     "name": "L4 Jewelry Bill",
+     "width": 390,
+     "height": 1759
+    },
+    {
+     "id": "32:9141",
+     "name": "E1 SSC/HSC GPA",
+     "width": 390,
+     "height": 2227
+    },
+    {
+     "id": "32:9391",
+     "name": "E2 University CGPA",
+     "width": 390,
+     "height": 1729
+    },
+    {
+     "id": "32:9600",
+     "name": "E3 Mess Hisab",
+     "width": 390,
+     "height": 2157
+    },
+    {
+     "id": "32:9869",
+     "name": "E4 Rent Split",
+     "width": 390,
+     "height": 1804
+    },
+    {
+     "id": "32:10067",
+     "name": "E5 Electricity Bill",
+     "width": 390,
+     "height": 2008
+    },
+    {
+     "id": "32:10283",
+     "name": "E6 Delivery & Profit",
+     "width": 390,
+     "height": 1965
+    },
+    {
+     "id": "34:10083",
+     "name": "E7 Invoice Maker",
+     "width": 390,
+     "height": 1833
+    },
+    {
+     "id": "34:10298",
+     "name": "R1 Zakat",
+     "width": 390,
+     "height": 2229
+    },
+    {
+     "id": "34:10519",
+     "name": "R2 Fitra",
+     "width": 390,
+     "height": 1750
+    },
+    {
+     "id": "34:10709",
+     "name": "R3 Sehri & Iftar",
+     "width": 390,
+     "height": 1742
+    },
+    {
+     "id": "34:10896",
+     "name": "T1 Unicode ↔ Bijoy",
+     "width": 390,
+     "height": 1617
+    },
+    {
+     "id": "34:11052",
+     "name": "T2 Font Style",
+     "width": 390,
+     "height": 1505
+    },
+    {
+     "id": "35:10878",
+     "name": "T3 Number to Words",
+     "width": 390,
+     "height": 1414
+    },
+    {
+     "id": "35:11001",
+     "name": "G1 Name Spelling Checker",
+     "width": 390,
+     "height": 1842
+    },
+    {
+     "id": "35:11159",
+     "name": "G2 Guide — e-Passport",
+     "width": 390,
+     "height": 2259
+    },
+    {
+     "id": "35:11409",
+     "name": "G3 Guide — Birth Registration",
+     "width": 390,
+     "height": 2299
+    },
+    {
+     "id": "35:11659",
+     "name": "G4 Guide — Driving License",
+     "width": 390,
+     "height": 2160
+    },
+    {
+     "id": "35:11891",
+     "name": "G5 Guide — Namjari",
+     "width": 390,
+     "height": 2289
+    },
+    {
+     "id": "55:11850",
+     "name": "F0-2 বিকাশ — সেন্ড মানি",
+     "width": 390,
+     "height": 1867
+    },
+    {
+     "id": "55:12069",
+     "name": "F0-3 বিকাশ — ক্যাশ ইন",
+     "width": 390,
+     "height": 1841
+    },
+    {
+     "id": "55:12267",
+     "name": "F0-4 বিকাশ — বিল পে",
+     "width": 390,
+     "height": 2054
+    },
+    {
+     "id": "55:12529",
+     "name": "F0-5 বিকাশ — লিমিট",
+     "width": 390,
+     "height": 1927
+    },
+    {
+     "id": "55:12754",
+     "name": "F1-2 নগদ — সেন্ড মানি",
+     "width": 390,
+     "height": 1805
+    },
+    {
+     "id": "55:12978",
+     "name": "F1-3 নগদ — ক্যাশ ইন",
+     "width": 390,
+     "height": 1799
+    },
+    {
+     "id": "55:13178",
+     "name": "F1-4 নগদ — বিল পে",
+     "width": 390,
+     "height": 2054
+    },
+    {
+     "id": "55:13445",
+     "name": "F1-5 নগদ — লিমিট",
+     "width": 390,
+     "height": 1675
+    },
+    {
+     "id": "56:13169",
+     "name": "F2-2 রকেট — সেন্ড মানি",
+     "width": 390,
+     "height": 1827
+    },
+    {
+     "id": "56:13377",
+     "name": "F2-3 রকেট — ক্যাশ ইন",
+     "width": 390,
+     "height": 1821
+    },
+    {
+     "id": "56:13567",
+     "name": "F2-4 রকেট — বিল পে",
+     "width": 390,
+     "height": 2076
+    },
+    {
+     "id": "56:13824",
+     "name": "F2-5 রকেট — লিমিট",
+     "width": 390,
+     "height": 1697
+    },
+    {
+     "id": "56:14026",
+     "name": "F3-2 উপায় — সেন্ড মানি",
+     "width": 390,
+     "height": 1763
+    },
+    {
+     "id": "56:14242",
+     "name": "F3-3 উপায় — ক্যাশ ইন",
+     "width": 390,
+     "height": 1799
+    },
+    {
+     "id": "56:14437",
+     "name": "F3-4 উপায় — বিল পে",
+     "width": 390,
+     "height": 2054
+    },
+    {
+     "id": "56:14699",
+     "name": "F3-5 উপায় — লিমিট",
+     "width": 390,
+     "height": 1675
+    },
+    {
+     "id": "57:14466",
+     "name": "B1-2 ব্যাংক — DPS",
+     "width": 390,
+     "height": 1581
+    },
+    {
+     "id": "57:14646",
+     "name": "B1-3 ব্যাংক — লোন",
+     "width": 390,
+     "height": 1677
+    },
+    {
+     "id": "57:14831",
+     "name": "B1-4 ব্যাংক — অ্যাকাউন্ট",
+     "width": 390,
+     "height": 1577
+    },
+    {
+     "id": "57:15004",
+     "name": "B1-5 ব্যাংক — কার্ড",
+     "width": 390,
+     "height": 1439
+    },
+    {
+     "id": "57:15169",
+     "name": "B2 ব্যাংক তালিকা — ফিল্টার: ইসলামী",
+     "width": 390,
+     "height": 890
+    },
+    {
+     "id": "57:15351",
+     "name": "B3 শিট — ব্যাংক সাজাও",
+     "width": 390,
+     "height": 844
+    },
+    {
+     "id": "57:15494",
+     "name": "B4 শিট — তুলনায় ব্যাংক যোগ",
+     "width": 390,
+     "height": 844
+    },
+    {
+     "id": "58:15240",
+     "name": "C1-b ক্যাশ আউট — \"কত তোলা যাবে\" মোড",
+     "width": 390,
+     "height": 3050
+    },
+    {
+     "id": "58:15542",
+     "name": "C1-c ক্যাশ আউট — প্রিয় এজেন্ট সীমা পার",
+     "width": 390,
+     "height": 3216
+    },
+    {
+     "id": "58:15873",
+     "name": "C1-d ক্যাশ আউট — ভুল ইনপুট",
+     "width": 390,
+     "height": 2538
+    },
+    {
+     "id": "58:16199",
+     "name": "S0-a খোঁজো — শুরু (সাম্প্রতিক)",
+     "width": 390,
+     "height": 984
+    },
+    {
+     "id": "58:16478",
+     "name": "S0-b খোঁজো — টাইপ করার সময় সাজেশন",
+     "width": 390,
+     "height": 844
+    },
+    {
+     "id": "58:16731",
+     "name": "S0-c খোঁজো — কিছু পাওয়া যায়নি",
+     "width": 390,
+     "height": 844
+    },
+    {
+     "id": "59:16200",
+     "name": "P1 পিকার — দেশ",
+     "width": 390,
+     "height": 844
+    },
+    {
+     "id": "59:16364",
+     "name": "P2 পিকার — জেলা",
+     "width": 390,
+     "height": 844
+    },
+    {
+     "id": "59:16558",
+     "name": "P3 পিকার — জমির একক",
+     "width": 390,
+     "height": 844
+    },
+    {
+     "id": "59:16740",
+     "name": "P4 পিকার — গ্রেড",
+     "width": 390,
+     "height": 844
+    },
+    {
+     "id": "59:16939",
+     "name": "P5 পিকার — তারিখ",
+     "width": 390,
+     "height": 844
+    },
+    {
+     "id": "59:17198",
+     "name": "P6 পিকার — বিদ্যুৎ কোম্পানি",
+     "width": 390,
+     "height": 844
+    },
+    {
+     "id": "59:17386",
+     "name": "P7 পিকার — সঞ্চয়পত্রের ধরন",
+     "width": 390,
+     "height": 844
+    },
+    {
+     "id": "59:17540",
+     "name": "P8 পিকার — মুদ্রা",
+     "width": 390,
+     "height": 844
+    },
+    {
+     "id": "59:17729",
+     "name": "R1 শিট — রেমিট্যান্স সাজাও",
+     "width": 390,
+     "height": 844
+    },
+    {
+     "id": "59:17876",
+     "name": "R2 শিট — অন্য সাইটে যাচ্ছ",
+     "width": 390,
+     "height": 844
+    },
+    {
+     "id": "59:18047",
+     "name": "E3-b শিট — মেসে সদস্য যোগ",
+     "width": 390,
+     "height": 844
+    },
+    {
+     "id": "60:17985",
+     "name": "C4-b VAT — VAT বাদ দাও মোড",
+     "width": 390,
+     "height": 1898
+    },
+    {
+     "id": "60:18179",
+     "name": "D5-b বাংলা তারিখ — বাংলা থেকে ইংরেজি",
+     "width": 390,
+     "height": 1705
+    },
+    {
+     "id": "60:18356",
+     "name": "E2-b ভাড়া ভাগ — রুম অনুযায়ী",
+     "width": 390,
+     "height": 2100
+    },
+    {
+     "id": "60:18595",
+     "name": "A1-b সব টুল — ফিল্টার: টাকা",
+     "width": 390,
+     "height": 1153
+    },
+    {
+     "id": "60:19241",
+     "name": "A2-b সেভ — খালি অবস্থা",
+     "width": 390,
+     "height": 844
+    },
+    {
+     "id": "60:19409",
+     "name": "A7-b যোগাযোগ — বার্তা পাঠানো হয়েছে",
+     "width": 390,
+     "height": 844
+    },
+    {
+     "id": "61:18761",
+     "name": "G2 গাইড — ভুল নম্বরে টাকা গেলে",
+     "width": 390,
+     "height": 2165
+    },
+    {
+     "id": "61:19104",
+     "name": "G3 গাইড — বিকাশ থেকে ব্যাংকে টাকা",
+     "width": 390,
+     "height": 2091
+    },
+    {
+     "id": "61:19444",
+     "name": "G4 গাইড — সৌদি থেকে বিকাশে টাকা",
+     "width": 390,
+     "height": 2091
+    },
+    {
+     "id": "61:19784",
+     "name": "G5 গাইড — হুন্ডি কেন বিপজ্জনক",
+     "width": 390,
+     "height": 2119
+    },
+    {
+     "id": "61:20123",
+     "name": "G6 গাইড — অ্যাকাউন্ট হ্যাক হলে",
+     "width": 390,
+     "height": 2214
+    },
+    {
+     "id": "62:19727",
+     "name": "10b Guide Wizard — ধাপ ২",
+     "width": 390,
+     "height": 844
+    },
+    {
+     "id": "62:19792",
+     "name": "10c Guide Wizard — ধাপ ৩",
+     "width": 390,
+     "height": 844
+    },
+    {
+     "id": "62:19861",
+     "name": "T1 টোস্ট — রিপোর্ট পাঠানো হয়েছে",
+     "width": 390,
+     "height": 3100
+    },
+    {
+     "id": "62:19991",
+     "name": "T2 টোস্ট — লিংক কপি হয়েছে",
+     "width": 390,
+     "height": 3100
+    },
+    {
+     "id": "62:20121",
+     "name": "T3 টোস্ট — PDF সেভ হয়েছে",
+     "width": 390,
+     "height": 844
+    },
+    {
+     "id": "62:20149",
+     "name": "T4 টোস্ট — রেট অ্যালার্ট চালু",
+     "width": 390,
+     "height": 3100
+    },
+    {
+     "id": "62:20279",
+     "name": "T5 টোস্ট — অ্যাপ ইনস্টল হয়েছে",
+     "width": 390,
+     "height": 2418
+    },
+    {
+     "id": "62:20395",
+     "name": "T6 টোস্ট — সেভ করা হয়েছে",
+     "width": 390,
+     "height": 3100
+    },
+    {
+     "id": "62:20526",
+     "name": "Z1 অফলাইন — পুরো পেজ",
+     "width": 390,
+     "height": 844
+    },
+    {
+     "id": "62:20721",
+     "name": "Z2 ৪০৪ — পেজ পাওয়া যায়নি",
+     "width": 390,
+     "height": 844
+    },
+    {
+     "id": "64:21115",
+     "name": "F7-b DPS — ত্রৈমাসিক চক্রবৃদ্ধি",
+     "width": 390,
+     "height": 2151
+    },
+    {
+     "id": "64:21334",
+     "name": "F8-b FDR — প্রতি ৩ মাসে রিনিউ",
+     "width": 390,
+     "height": 2063
+    },
+    {
+     "id": "64:21554",
+     "name": "C6-b আয়কর — ফ্রিল্যান্সার",
+     "width": 390,
+     "height": 1845
+    },
+    {
+     "id": "64:21757",
+     "name": "E1-b GPA — HSC / আলিম",
+     "width": 390,
+     "height": 2056
+    },
+    {
+     "id": "64:22007",
+     "name": "T1-b কনভার্টার — বিজয় থেকে ইউনিকোড",
+     "width": 390,
+     "height": 1617
+    },
+    {
+     "id": "64:22147",
+     "name": "T3-b সংখ্যা থেকে কথা — English",
+     "width": 390,
+     "height": 1466
+    },
+    {
+     "id": "73:21966",
+     "name": "G7 বিভাগ — আইনি কাগজ",
+     "width": 390,
+     "height": 844
+    },
+    {
+     "id": "73:22162",
+     "name": "G8 বিভাগ — শিক্ষা",
+     "width": 390,
+     "height": 844
+    },
+    {
+     "id": "73:22357",
+     "name": "G9 বিভাগ — প্রবাসী",
+     "width": 390,
+     "height": 892
+    },
+    {
+     "id": "73:22570",
+     "name": "OV টোস্ট — কপি হয়েছে",
+     "width": 358,
+     "height": 52
+    },
+    {
+     "id": "73:22574",
+     "name": "OV টোস্ট — PDF সেভ হয়েছে",
+     "width": 358,
+     "height": 52
+    },
+    {
+     "id": "73:22578",
+     "name": "OV টোস্ট — লিংক কপি হয়েছে",
+     "width": 358,
+     "height": 72
+    },
+    {
+     "id": "76:45268",
+     "name": "E5-b CGPA — নতুন সেমিস্টার যোগ হয়েছে",
+     "width": 390,
+     "height": 1821
+    },
+    {
+     "id": "76:45491",
+     "name": "E7-b ইনভয়েস — নতুন আইটেম যোগ হয়েছে",
+     "width": 390,
+     "height": 1977
+    },
+    {
+     "id": "76:45698",
+     "name": "E2-c ভাড়া ভাগ — ৪টা রুম",
+     "width": 390,
+     "height": 2242
+    },
+    {
+     "id": "76:45938",
+     "name": "T1-c কনভার্টার — মুছে ফেলার পর",
+     "width": 390,
+     "height": 1617
+    }
+   ]
+  },
+  "desktop": {
+   "canvas": "2:4",
+   "frames": [
+    {
+     "id": "19:2",
+     "name": "D1 Home — Desktop",
+     "width": 1440,
+     "height": 1494
+    },
+    {
+     "id": "19:360",
+     "name": "D2 Calculator — Desktop",
+     "width": 1440,
+     "height": 1811
+    },
+    {
+     "id": "66:993",
+     "name": "D · 02 Search Result",
+     "width": 1440,
+     "height": 1139
+    },
+    {
+     "id": "66:1207",
+     "name": "D · 04 MFS — bKash",
+     "width": 1440,
+     "height": 1545
+    },
+    {
+     "id": "66:1416",
+     "name": "D · 11 Section Hub — Date, Land, Gold",
+     "width": 1440,
+     "height": 1255
+    },
+    {
+     "id": "66:1584",
+     "name": "D · 05 Bank List",
+     "width": 1440,
+     "height": 1541
+    },
+    {
+     "id": "66:1822",
+     "name": "D · 06 Bank Detail",
+     "width": 1440,
+     "height": 1275
+    },
+    {
+     "id": "66:2040",
+     "name": "D · 07 Bank Compare",
+     "width": 1440,
+     "height": 1010
+    },
+    {
+     "id": "66:2217",
+     "name": "D · 08 Remittance Compare",
+     "width": 1440,
+     "height": 1620
+    },
+    {
+     "id": "66:2466",
+     "name": "D · 09 Guide — NID Correction",
+     "width": 1440,
+     "height": 1856
+    },
+    {
+     "id": "66:2668",
+     "name": "D · 13 Static — About",
+     "width": 1440,
+     "height": 788
+    },
+    {
+     "id": "66:2859",
+     "name": "D · A1 All Tools",
+     "width": 1440,
+     "height": 2595
+    },
+    {
+     "id": "66:3015",
+     "name": "D · A2 Saved",
+     "width": 1440,
+     "height": 1266
+    },
+    {
+     "id": "66:3206",
+     "name": "D · A3 Hub — Mobile Banking",
+     "width": 1440,
+     "height": 1492
+    },
+    {
+     "id": "66:3383",
+     "name": "D · A4 Hub — Calculators",
+     "width": 1440,
+     "height": 1592
+    },
+    {
+     "id": "66:3553",
+     "name": "D · A5 Hub — Sorkari Kaj",
+     "width": 1440,
+     "height": 1358
+    },
+    {
+     "id": "66:26989",
+     "name": "D · A6 Static — Privacy",
+     "width": 1440,
+     "height": 781
+    },
+    {
+     "id": "66:27112",
+     "name": "D · A7 Static — Contact",
+     "width": 1440,
+     "height": 898
+    },
+    {
+     "id": "66:27244",
+     "name": "D · A8 Static — Disclaimer",
+     "width": 1440,
+     "height": 654
+    },
+    {
+     "id": "66:27387",
+     "name": "D · A9 Static — Change Log",
+     "width": 1440,
+     "height": 824
+    },
+    {
+     "id": "66:27511",
+     "name": "D · A10 Home — English",
+     "width": 1440,
+     "height": 965
+    },
+    {
+     "id": "66:27749",
+     "name": "D · F1 MFS — Nagad",
+     "width": 1440,
+     "height": 1531
+    },
+    {
+     "id": "66:28004",
+     "name": "D · F2 MFS — Rocket",
+     "width": 1440,
+     "height": 1355
+    },
+    {
+     "id": "66:28252",
+     "name": "D · F3 MFS — Upay",
+     "width": 1440,
+     "height": 1341
+    },
+    {
+     "id": "66:28534",
+     "name": "D · F4 MFS Comparison",
+     "width": 1440,
+     "height": 1089
+    },
+    {
+     "id": "66:28717",
+     "name": "D · F5 Send Money Calculator",
+     "width": 1440,
+     "height": 1612
+    },
+    {
+     "id": "66:29012",
+     "name": "D · F6 EMI Calculator",
+     "width": 1440,
+     "height": 1655
+    },
+    {
+     "id": "66:29288",
+     "name": "D · F7 DPS Calculator",
+     "width": 1440,
+     "height": 1408
+    },
+    {
+     "id": "66:29578",
+     "name": "D · F8 FDR Calculator",
+     "width": 1440,
+     "height": 1362
+    },
+    {
+     "id": "66:29859",
+     "name": "D · F9 Loan Eligibility",
+     "width": 1440,
+     "height": 1408
+    },
+    {
+     "id": "66:30163",
+     "name": "D · F10 Loan Comparison",
+     "width": 1440,
+     "height": 1442
+    },
+    {
+     "id": "66:30468",
+     "name": "D · F11 Currency Converter",
+     "width": 1440,
+     "height": 1325
+    },
+    {
+     "id": "68:4691",
+     "name": "D · C1 VAT Calculator",
+     "width": 1440,
+     "height": 1368
+    },
+    {
+     "id": "68:4983",
+     "name": "D · C2 Discount & Percentage",
+     "width": 1440,
+     "height": 1254
+    },
+    {
+     "id": "68:5225",
+     "name": "D · C3 Profit Margin",
+     "width": 1440,
+     "height": 1526
+    },
+    {
+     "id": "68:5478",
+     "name": "D · C4 Savings Goal",
+     "width": 1440,
+     "height": 1296
+    },
+    {
+     "id": "68:5723",
+     "name": "D · C5 Salary Breakdown",
+     "width": 1440,
+     "height": 1448
+    },
+    {
+     "id": "68:6010",
+     "name": "D · C6 Income Tax",
+     "width": 1440,
+     "height": 1377
+    },
+    {
+     "id": "68:6269",
+     "name": "D · C7 Sanchayapatra",
+     "width": 1440,
+     "height": 1408
+    },
+    {
+     "id": "68:6553",
+     "name": "D · C8 Mobile Data Pack",
+     "width": 1440,
+     "height": 1316
+    },
+    {
+     "id": "68:6790",
+     "name": "D · D1 Age Calculator",
+     "width": 1440,
+     "height": 1306
+    },
+    {
+     "id": "68:7039",
+     "name": "D · D2 Job Age Limit",
+     "width": 1440,
+     "height": 1256
+    },
+    {
+     "id": "68:7265",
+     "name": "D · D3 Bangla Date",
+     "width": 1440,
+     "height": 1408
+    },
+    {
+     "id": "68:7511",
+     "name": "D · D4 Hijri Date",
+     "width": 1440,
+     "height": 1368
+    },
+    {
+     "id": "68:7759",
+     "name": "D · D5 Day Count",
+     "width": 1440,
+     "height": 1234
+    },
+    {
+     "id": "68:8014",
+     "name": "D · L1 Land Converter",
+     "width": 1440,
+     "height": 1508
+    },
+    {
+     "id": "68:8251",
+     "name": "D · L2 Land Price",
+     "width": 1440,
+     "height": 1296
+    },
+    {
+     "id": "68:8527",
+     "name": "D · L3 Gold Converter",
+     "width": 1440,
+     "height": 1460
+    },
+    {
+     "id": "68:8774",
+     "name": "D · L4 Jewelry Bill",
+     "width": 1440,
+     "height": 1336
+    },
+    {
+     "id": "68:9069",
+     "name": "D · E1 SSC/HSC GPA",
+     "width": 1440,
+     "height": 1620
+    },
+    {
+     "id": "68:9337",
+     "name": "D · E2 University CGPA",
+     "width": 1440,
+     "height": 1296
+    },
+    {
+     "id": "68:9664",
+     "name": "D · E3 Mess Hisab",
+     "width": 1440,
+     "height": 1560
+    },
+    {
+     "id": "68:9953",
+     "name": "D · E4 Rent Split",
+     "width": 1440,
+     "height": 1331
+    },
+    {
+     "id": "68:10233",
+     "name": "D · E5 Electricity Bill",
+     "width": 1440,
+     "height": 1477
+    },
+    {
+     "id": "68:10484",
+     "name": "D · E6 Delivery & Profit",
+     "width": 1440,
+     "height": 1500
+    },
+    {
+     "id": "68:10777",
+     "name": "D · E7 Invoice Maker",
+     "width": 1440,
+     "height": 1324
+    },
+    {
+     "id": "68:11035",
+     "name": "D · R1 Zakat",
+     "width": 1440,
+     "height": 1622
+    },
+    {
+     "id": "68:11339",
+     "name": "D · R2 Fitra",
+     "width": 1440,
+     "height": 1430
+    },
+    {
+     "id": "68:11606",
+     "name": "D · R3 Sehri & Iftar",
+     "width": 1440,
+     "height": 1461
+    },
+    {
+     "id": "68:11824",
+     "name": "D · T1 Unicode ↔ Bijoy",
+     "width": 1440,
+     "height": 1220
+    },
+    {
+     "id": "68:12045",
+     "name": "D · T2 Font Style",
+     "width": 1440,
+     "height": 1320
+    },
+    {
+     "id": "68:12242",
+     "name": "D · T3 Number to Words",
+     "width": 1440,
+     "height": 1056
+    },
+    {
+     "id": "68:12441",
+     "name": "D · G1 Name Spelling Checker",
+     "width": 1440,
+     "height": 1549
+    },
+    {
+     "id": "68:12657",
+     "name": "D · G2 Guide — e-Passport",
+     "width": 1440,
+     "height": 1740
+    },
+    {
+     "id": "68:12961",
+     "name": "D · G3 Guide — Birth Registration",
+     "width": 1440,
+     "height": 1740
+    },
+    {
+     "id": "68:13264",
+     "name": "D · G4 Guide — Driving License",
+     "width": 1440,
+     "height": 1740
+    },
+    {
+     "id": "69:8829",
+     "name": "D · G5 Guide — Namjari",
+     "width": 1440,
+     "height": 1792
+    },
+    {
+     "id": "69:9169",
+     "name": "D · F0-2 বিকাশ — সেন্ড মানি",
+     "width": 1440,
+     "height": 1395
+    },
+    {
+     "id": "69:9441",
+     "name": "D · F0-3 বিকাশ — ক্যাশ ইন",
+     "width": 1440,
+     "height": 1369
+    },
+    {
+     "id": "69:9693",
+     "name": "D · F0-4 বিকাশ — বিল পে",
+     "width": 1440,
+     "height": 1538
+    },
+    {
+     "id": "69:9997",
+     "name": "D · F0-5 বিকাশ — লিমিট",
+     "width": 1440,
+     "height": 1499
+    },
+    {
+     "id": "69:10267",
+     "name": "D · F1-2 নগদ — সেন্ড মানি",
+     "width": 1440,
+     "height": 1311
+    },
+    {
+     "id": "69:10533",
+     "name": "D · F1-3 নগদ — ক্যাশ ইন",
+     "width": 1440,
+     "height": 1327
+    },
+    {
+     "id": "69:10782",
+     "name": "D · F1-4 নগদ — বিল পে",
+     "width": 1440,
+     "height": 1538
+    },
+    {
+     "id": "69:11079",
+     "name": "D · F1-5 নগদ — লিমিট",
+     "width": 1440,
+     "height": 1247
+    },
+    {
+     "id": "69:11336",
+     "name": "D · F2-2 রকেট — সেন্ড মানি",
+     "width": 1440,
+     "height": 1333
+    },
+    {
+     "id": "69:11602",
+     "name": "D · F2-3 রকেট — ক্যাশ ইন",
+     "width": 1440,
+     "height": 1327
+    },
+    {
+     "id": "69:11851",
+     "name": "D · F2-4 রকেট — বিল পে",
+     "width": 1440,
+     "height": 1538
+    },
+    {
+     "id": "69:12148",
+     "name": "D · F2-5 রকেট — লিমিট",
+     "width": 1440,
+     "height": 1247
+    },
+    {
+     "id": "69:12404",
+     "name": "D · F3-2 উপায় — সেন্ড মানি",
+     "width": 1440,
+     "height": 1269
+    },
+    {
+     "id": "69:12668",
+     "name": "D · F3-3 উপায় — ক্যাশ ইন",
+     "width": 1440,
+     "height": 1327
+    },
+    {
+     "id": "69:12917",
+     "name": "D · F3-4 উপায় — বিল পে",
+     "width": 1440,
+     "height": 1538
+    },
+    {
+     "id": "69:13214",
+     "name": "D · F3-5 উপায় — লিমিট",
+     "width": 1440,
+     "height": 1247
+    },
+    {
+     "id": "69:13470",
+     "name": "D · B1-2 ব্যাংক — DPS",
+     "width": 1440,
+     "height": 1343
+    },
+    {
+     "id": "69:35515",
+     "name": "D · B1-3 ব্যাংক — লোন",
+     "width": 1440,
+     "height": 1417
+    },
+    {
+     "id": "69:35730",
+     "name": "D · B1-4 ব্যাংক — অ্যাকাউন্ট",
+     "width": 1440,
+     "height": 1339
+    },
+    {
+     "id": "69:35945",
+     "name": "D · B1-5 ব্যাংক — কার্ড",
+     "width": 1440,
+     "height": 1201
+    },
+    {
+     "id": "69:36141",
+     "name": "D · B2 ব্যাংক তালিকা — ফিল্টার: ইসলামী",
+     "width": 1440,
+     "height": 948
+    },
+    {
+     "id": "69:36351",
+     "name": "D · C1-b ক্যাশ আউট — \"কত তোলা যাবে\" মোড",
+     "width": 1440,
+     "height": 1976
+    },
+    {
+     "id": "69:36721",
+     "name": "D · C1-c ক্যাশ আউট — প্রিয় এজেন্ট সীমা পার",
+     "width": 1440,
+     "height": 2066
+    },
+    {
+     "id": "69:37090",
+     "name": "D · C1-d ক্যাশ আউট — ভুল ইনপুট",
+     "width": 1440,
+     "height": 1552
+    },
+    {
+     "id": "69:37376",
+     "name": "D · S0-a খোঁজো — শুরু (সাম্প্রতিক)",
+     "width": 1440,
+     "height": 869
+    },
+    {
+     "id": "69:37601",
+     "name": "D · S0-b খোঁজো — টাইপ করার সময় সাজেশন",
+     "width": 1440,
+     "height": 722
+    },
+    {
+     "id": "69:37813",
+     "name": "D · S0-c খোঁজো — কিছু পাওয়া যায়নি",
+     "width": 1440,
+     "height": 704
+    },
+    {
+     "id": "69:37970",
+     "name": "D · C4-b VAT — VAT বাদ দাও মোড",
+     "width": 1440,
+     "height": 1368
+    },
+    {
+     "id": "69:38230",
+     "name": "D · D5-b বাংলা তারিখ — বাংলা থেকে ইংরেজি",
+     "width": 1440,
+     "height": 1408
+    },
+    {
+     "id": "69:38497",
+     "name": "D · E2-b ভাড়া ভাগ — রুম অনুযায়ী",
+     "width": 1440,
+     "height": 1526
+    },
+    {
+     "id": "69:38757",
+     "name": "D · A1-b সব টুল — ফিল্টার: টাকা",
+     "width": 1440,
+     "height": 941
+    },
+    {
+     "id": "69:39024",
+     "name": "D · A2-b সেভ — খালি অবস্থা",
+     "width": 1440,
+     "height": 808
+    },
+    {
+     "id": "69:39201",
+     "name": "D · A7-b যোগাযোগ — বার্তা পাঠানো হয়েছে",
+     "width": 1440,
+     "height": 699
+    },
+    {
+     "id": "69:39346",
+     "name": "D · F7-b DPS — ত্রৈমাসিক চক্রবৃদ্ধি",
+     "width": 1440,
+     "height": 1408
+    },
+    {
+     "id": "69:39636",
+     "name": "D · F8-b FDR — প্রতি ৩ মাসে রিনিউ",
+     "width": 1440,
+     "height": 1362
+    },
+    {
+     "id": "69:39942",
+     "name": "D · C6-b আয়কর — ফ্রিল্যান্সার",
+     "width": 1440,
+     "height": 1377
+    },
+    {
+     "id": "69:40220",
+     "name": "D · E1-b GPA — HSC / আলিম",
+     "width": 1440,
+     "height": 1449
+    },
+    {
+     "id": "69:40475",
+     "name": "D · T1-b কনভার্টার — বিজয় থেকে ইউনিকোড",
+     "width": 1440,
+     "height": 1220
+    },
+    {
+     "id": "69:40676",
+     "name": "D · T3-b সংখ্যা থেকে কথা — English",
+     "width": 1440,
+     "height": 1082
+    },
+    {
+     "id": "69:40871",
+     "name": "D · G2 গাইড — ভুল নম্বরে টাকা গেলে",
+     "width": 1440,
+     "height": 1564
+    },
+    {
+     "id": "69:41164",
+     "name": "D · G3 গাইড — বিকাশ থেকে ব্যাংকে টাকা",
+     "width": 1440,
+     "height": 1534
+    },
+    {
+     "id": "69:41455",
+     "name": "D · G4 গাইড — সৌদি থেকে বিকাশে টাকা",
+     "width": 1440,
+     "height": 1534
+    },
+    {
+     "id": "69:41746",
+     "name": "D · G5 গাইড — হুন্ডি কেন বিপজ্জনক",
+     "width": 1440,
+     "height": 1512
+    },
+    {
+     "id": "69:42037",
+     "name": "D · G6 গাইড — অ্যাকাউন্ট হ্যাক হলে",
+     "width": 1440,
+     "height": 1564
+    },
+    {
+     "id": "69:42309",
+     "name": "D · Z1 অফলাইন — পুরো পেজ",
+     "width": 1440,
+     "height": 644
+    },
+    {
+     "id": "69:42485",
+     "name": "D · Z2 ৪০৪ — পেজ পাওয়া যায়নি",
+     "width": 1440,
+     "height": 626
+    },
+    {
+     "id": "70:15083",
+     "name": "D · T1 টোস্ট — রিপোর্ট পাঠানো হয়েছে",
+     "width": 1440,
+     "height": 1976
+    },
+    {
+     "id": "70:15493",
+     "name": "D · T2 টোস্ট — লিংক কপি হয়েছে",
+     "width": 1440,
+     "height": 1976
+    },
+    {
+     "id": "70:15831",
+     "name": "D · T3 টোস্ট — PDF সেভ হয়েছে",
+     "width": 1440,
+     "height": 985
+    },
+    {
+     "id": "70:15994",
+     "name": "D · T4 টোস্ট — রেট অ্যালার্ট চালু",
+     "width": 1440,
+     "height": 1976
+    },
+    {
+     "id": "70:16353",
+     "name": "D · T5 টোস্ট — অ্যাপ ইনস্টল হয়েছে",
+     "width": 1440,
+     "height": 1781
+    },
+    {
+     "id": "70:16708",
+     "name": "D · T6 টোস্ট — সেভ করা হয়েছে",
+     "width": 1440,
+     "height": 1976
+    },
+    {
+     "id": "70:17077",
+     "name": "D · S1 Sheet — Share",
+     "width": 1440,
+     "height": 900
+    },
+    {
+     "id": "70:17499",
+     "name": "D · S2 Sheet — Report Error",
+     "width": 1440,
+     "height": 900
+    },
+    {
+     "id": "70:17894",
+     "name": "D · S3 Sheet — Rate Alert",
+     "width": 1440,
+     "height": 900
+    },
+    {
+     "id": "70:18308",
+     "name": "D · S4 Sheet — Install App",
+     "width": 1440,
+     "height": 900
+    },
+    {
+     "id": "70:18668",
+     "name": "D · B3 শিট — ব্যাংক সাজাও",
+     "width": 1440,
+     "height": 900
+    },
+    {
+     "id": "70:18982",
+     "name": "D · B4 শিট — তুলনায় ব্যাংক যোগ",
+     "width": 1440,
+     "height": 900
+    },
+    {
+     "id": "70:19198",
+     "name": "D · P1 পিকার — দেশ",
+     "width": 1440,
+     "height": 900
+    },
+    {
+     "id": "70:19542",
+     "name": "D · P2 পিকার — জেলা",
+     "width": 1440,
+     "height": 900
+    },
+    {
+     "id": "70:19840",
+     "name": "D · P3 পিকার — জমির একক",
+     "width": 1440,
+     "height": 900
+    },
+    {
+     "id": "70:20164",
+     "name": "D · P4 পিকার — গ্রেড",
+     "width": 1440,
+     "height": 900
+    },
+    {
+     "id": "70:20480",
+     "name": "D · P5 পিকার — তারিখ",
+     "width": 1440,
+     "height": 900
+    },
+    {
+     "id": "70:20866",
+     "name": "D · P6 পিকার — বিদ্যুৎ কোম্পানি",
+     "width": 1440,
+     "height": 900
+    },
+    {
+     "id": "70:21156",
+     "name": "D · P7 পিকার — সঞ্চয়পত্রের ধরন",
+     "width": 1440,
+     "height": 900
+    },
+    {
+     "id": "70:21452",
+     "name": "D · P8 পিকার — মুদ্রা",
+     "width": 1440,
+     "height": 900
+    },
+    {
+     "id": "70:21733",
+     "name": "D · R1 শিট — রেমিট্যান্স সাজাও",
+     "width": 1440,
+     "height": 900
+    },
+    {
+     "id": "70:22033",
+     "name": "D · R2 শিট — অন্য সাইটে যাচ্ছ",
+     "width": 1440,
+     "height": 900
+    },
+    {
+     "id": "70:22384",
+     "name": "D · E3-b শিট — মেসে সদস্য যোগ",
+     "width": 1440,
+     "height": 900
+    },
+    {
+     "id": "70:22671",
+     "name": "D · 10 Guide Wizard — ধাপ ১",
+     "width": 1440,
+     "height": 1001
+    },
+    {
+     "id": "70:22756",
+     "name": "D · 10b Guide Wizard — ধাপ ২",
+     "width": 1440,
+     "height": 865
+    },
+    {
+     "id": "70:22842",
+     "name": "D · 10c Guide Wizard — ধাপ ৩",
+     "width": 1440,
+     "height": 933
+    },
+    {
+     "id": "70:22930",
+     "name": "D · 10 Guide Wizard — Result",
+     "width": 1440,
+     "height": 1097
+    },
+    {
+     "id": "70:45059",
+     "name": "D · 15 Home — Dark mode",
+     "width": 1440,
+     "height": 1494
+    },
+    {
+     "id": "70:45106",
+     "name": "D · 15 Calculator — Dark mode",
+     "width": 1440,
+     "height": 1811
+    },
+    {
+     "id": "73:42050",
+     "name": "D · G7 বিভাগ — আইনি কাগজ",
+     "width": 1440,
+     "height": 746
+    },
+    {
+     "id": "73:42243",
+     "name": "D · G8 বিভাগ — শিক্ষা",
+     "width": 1440,
+     "height": 746
+    },
+    {
+     "id": "73:42436",
+     "name": "D · G9 বিভাগ — প্রবাসী",
+     "width": 1440,
+     "height": 770
+    },
+    {
+     "id": "73:42626",
+     "name": "OV টোস্ট — কপি হয়েছে",
+     "width": 420,
+     "height": 52
+    },
+    {
+     "id": "73:42630",
+     "name": "OV টোস্ট — PDF সেভ হয়েছে",
+     "width": 420,
+     "height": 52
+    },
+    {
+     "id": "73:42634",
+     "name": "OV টোস্ট — লিংক কপি হয়েছে",
+     "width": 420,
+     "height": 52
+    },
+    {
+     "id": "77:19655",
+     "name": "D · E5-b CGPA — নতুন সেমিস্টার যোগ হয়েছে",
+     "width": 1440,
+     "height": 1296
+    },
+    {
+     "id": "77:19914",
+     "name": "D · E7-b ইনভয়েস — নতুন আইটেম যোগ হয়েছে",
+     "width": 1440,
+     "height": 1418
+    },
+    {
+     "id": "77:20123",
+     "name": "D · E2-c ভাড়া ভাগ — ৪টা রুম",
+     "width": 1440,
+     "height": 1622
+    },
+    {
+     "id": "77:20323",
+     "name": "D · T1-c কনভার্টার — মুছে ফেলার পর",
+     "width": 1440,
+     "height": 1220
+    }
+   ]
+  }
+ }
+}
