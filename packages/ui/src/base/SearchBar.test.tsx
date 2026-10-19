@@ -1,0 +1,40 @@
+import { cleanup, fireEvent, render, screen } from '@testing-library/preact'
+import { afterEach, describe, expect, it, vi } from 'vitest'
+import { SearchBar } from './SearchBar'
+
+afterEach(cleanup)
+
+describe('SearchBar', () => {
+  it('large: a search landmark with a labelled input and the খোঁজো button', () => {
+    render(<SearchBar />)
+    const form = screen.getByRole('search')
+    expect(form.getAttribute('action')).toBe('/search')
+    expect(form.className).toContain('h-14')
+    const input = screen.getByRole('searchbox', { name: 'খোঁজো' }) as HTMLInputElement
+    expect(input.placeholder).toBe('খোঁজো...')
+    expect(input.name).toBe('q')
+    expect(input.className).toContain('h-11')
+    expect(screen.getByRole('button', { name: 'খোঁজো' }).getAttribute('type')).toBe('submit')
+  })
+
+  it('compact: a 40px pill without a button', () => {
+    render(<SearchBar size="compact" />)
+    expect(screen.getByRole('search').className).toContain('h-10')
+    expect(screen.queryByRole('button')).toBeNull()
+  })
+
+  it('onSearch replaces navigation with the trimmed query', () => {
+    const onSearch = vi.fn()
+    render(<SearchBar onSearch={onSearch} />)
+    fireEvent.input(screen.getByRole('searchbox'), { target: { value: '  বিকাশ ৫০০০ ' } })
+    fireEvent.submit(screen.getByRole('search'))
+    expect(onSearch).toHaveBeenCalledWith('বিকাশ ৫০০০')
+  })
+
+  it('reports typing', () => {
+    const onInput = vi.fn()
+    render(<SearchBar size="compact" onInput={onInput} />)
+    fireEvent.input(screen.getByRole('searchbox'), { target: { value: 'emi' } })
+    expect(onInput).toHaveBeenCalledWith('emi')
+  })
+})

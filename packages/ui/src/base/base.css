@@ -1,1 +1,73 @@
-/* Styles for the base group. */
+/* @hisab/ui base group styles. Owned by the base builder; imported by src/styles/index.css.
+   Only for what Tailwind classes cannot express (keyframes, ::part, :has() chains, scroll-snap tweaks).
+   Put rules inside @layer components so Tailwind utilities can still override them.
+   Use token variables only (var(--brand-accent), var(--duration-sheet), var(--ease-out)); no raw hex. */
+
+@layer base {
+  :root {
+    /* Badge entrance ('Best'/'cheapest' badges fade and scale in). Identity under reduced motion. */
+    --badge-from-scale: 0.6;
+  }
+  html[data-motion="reduce"] {
+    --badge-from-scale: 1;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    html:not([data-motion="full"]) {
+      --badge-from-scale: 1;
+    }
+  }
+}
+
+@layer components {
+  /* Number/M and Number/L text in this group: use `hk-num text-number-m|l` (not type-number-*).
+     Local workaround for two shared-token issues (reported, see the base builder's report):
+     --font-number has no Bengali fallback, so Bangla digits and ৳ fell to a system font,
+     and the generated tracking is -1px where Figma's Number styles use -1%.
+     text-number-* reads --tw-tracking first, so the tracking below wins over the theme's. */
+  .hk-num {
+    --tw-tracking: -0.01em;
+    font-family: var(--font-number), var(--font-body);
+    font-variant-numeric: tabular-nums;
+  }
+
+  /* Loading spinner (Button, IconButton). A rotation, so it stops under reduced motion;
+     the arc stays visible and aria-busy carries the state. */
+  .hk-spin {
+    animation: hk-spin 800ms linear infinite;
+  }
+  html[data-motion="reduce"] .hk-spin {
+    animation: none;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    html:not([data-motion="full"]) .hk-spin {
+      animation: none;
+    }
+  }
+
+  /* Badge entrance: opacity + scale, toast timing. */
+  .hk-badge-in {
+    animation: hk-badge-in var(--duration-toast) var(--ease-out) both;
+  }
+
+  /* Native search inputs draw their own clear button and inner padding; the Search Bar has its own look. */
+  .hk-search-input::-webkit-search-decoration,
+  .hk-search-input::-webkit-search-cancel-button,
+  .hk-search-input::-webkit-search-results-button,
+  .hk-search-input::-webkit-search-results-decoration {
+    -webkit-appearance: none;
+    appearance: none;
+  }
+}
+
+@keyframes hk-spin {
+  to {
+    rotate: 360deg;
+  }
+}
+
+@keyframes hk-badge-in {
+  from {
+    opacity: 0;
+    scale: var(--badge-from-scale);
+  }
+}

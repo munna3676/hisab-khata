@@ -1,0 +1,401 @@
+---
+// Gallery section "Navigation" — owned by the nav component builder.
+// Rendered by src/pages/dev/gallery.astro inside <section id="nav"> with an <h2>.
+// Every component of @hisab/ui/nav with its variants and states. Most render
+// as zero-JS HTML; the top bars, desktop header, bottom nav demo and result card
+// demo are islands. Interaction states (hover, pressed, focus) are frozen with
+// data-nav-preview, which nav.css maps onto the same motion variables.
+import { Bank, Calculator, Calendar, Guide, ICON_SET, Land, Send, Wallet } from '@hisab/ui/icons'
+import {
+  AnswerCard,
+  BottomNav,
+  Breadcrumb,
+  DesktopHeader,
+  Footer,
+  HeaderIconButton,
+  HeaderSearch,
+  ListRow,
+  Logo,
+  LogoMark,
+  ResultCard,
+  SectionCard,
+  ThemeToggle,
+  ToolCard,
+  TopBar,
+} from '@hisab/ui/nav'
+import { h } from 'preact'
+import Grid from '../components/gallery/Grid.astro'
+import Group from '../components/gallery/Group.astro'
+import Specimen from '../components/gallery/Specimen.astro'
+import BottomNavDemo from './nav/BottomNavDemo'
+import ResultCardDemo from './nav/ResultCardDemo'
+
+export const title = 'Navigation'
+export const order = 20
+export const description =
+  'Logo, TopBar, DesktopHeader, BottomNav, Footer, Breadcrumb, and the navigation cards: ToolCard, SectionCard, ResultCard, AnswerCard, ListRow.'
+
+// Icons as Preact vnodes for the zero-JS specimens (an island could not take them as props).
+const tile = (Glyph: typeof Wallet, size = 22) => h(Glyph, { size })
+const SearchIcon = ICON_SET.search
+
+const sections = [
+  { title: 'মোবাইল ব্যাংকিং', subtitle: 'বিকাশ, নগদ, রকেট, উপায়', icon: Wallet },
+  { title: 'ব্যাংক', subtitle: 'লোন, DPS, FDR, তুলনা', icon: Bank },
+  { title: 'রেমিট্যান্স', subtitle: 'বিদেশ থেকে কোনটায় বেশি', icon: Send },
+  { title: 'ক্যালকুলেটর', subtitle: 'VAT, ট্যাক্স, GPA, মেস', icon: Calculator },
+  { title: 'তারিখ, জমি, সোনা', subtitle: 'বয়স, কাঠা-বিঘা, ভরি', icon: Land },
+  { title: 'সরকারি কাজ', subtitle: 'NID, পাসপোর্ট, জন্ম নিবন্ধন', icon: Guide },
+]
+
+const tools = [
+  {
+    tag: 'মোবাইল ব্যাংকিং',
+    title: 'ক্যাশ আউট চার্জ ক্যালকুলেটর',
+    description: '৭টা উপায় পাশাপাশি, সবচেয়ে সস্তা কোনটা',
+    example: '৫,০০০ তুলতে নগদে ৳৬৪.৯৫',
+    icon: Calculator,
+  },
+  {
+    tag: 'তারিখ ও বয়স',
+    title: 'সরকারি চাকরির বয়স হিসাব',
+    description: 'সার্কুলারের তারিখে তোমার বয়স কত, আবেদন করা যাবে কিনা',
+    example: 'বয়সসীমা ৩০ / ৩২',
+    icon: Calendar,
+  },
+  {
+    tag: 'জমি',
+    title: 'জমি মাপের কনভার্টার',
+    description: 'শতাংশ, কাঠা, বিঘা, একর, বর্গফুট একসাথে',
+    example: '১ শতাংশ = ৪৩৫.৬ বর্গফুট',
+    icon: Land,
+  },
+  {
+    tag: 'লোন',
+    title: 'লোন EMI ক্যালকুলেটর',
+    description: 'মাসিক কিস্তি, মোট সুদ আর পরিশোধ তালিকা',
+    example: '৫ লাখ, ১২%, ৩ বছর → ৳১৬,৬০৭',
+    icon: Calculator,
+  },
+]
+
+const trail = [
+  { label: 'হোম', href: '/' },
+  { label: 'মোবাইল ব্যাংকিং', href: '#nav-breadcrumb' },
+  { label: 'ক্যাশ আউট চার্জ' },
+]
+
+const phone = 'mx-auto w-full max-w-frame-mobile overflow-hidden rounded-card border border-line'
+---
+
+<Group title="Logo" id="nav-logo" description="Figma 7:44. The red cloth-bound khata mark and the name in Anek Bangla SemiBold 21/30. As a link it is a 44px pressable.">
+  <Grid cols={3}>
+    <Specimen label="Default (text)"><Logo /></Specimen>
+    <Specimen label="Link to home"><Logo href="/" /></Specimen>
+    <Specimen label="Link / pressed (frozen at .97, so exempt from the 44px check)"><div data-tap-exempt><Logo href="/" data-nav-preview="pressed" /></div></Specimen>
+    <Specimen label="Link / keyboard focus"><Logo href="/" data-nav-preview="focus" /></Specimen>
+    <Specimen label="Mark only"><LogoMark /></Specimen>
+    <Specimen label="English name"><Logo name="Hisab Khata" /></Specimen>
+  </Grid>
+</Group>
+
+<Group
+  title="Top Bar / Mobile"
+  id="nav-top-bar"
+  description="Figma 7:51. 60px plus the notch inset; search, language and theme are 44px icon buttons. The theme button works (moon in light, sun in dark). Shown below lg."
+>
+  <Grid cols={2}>
+    <Specimen label="Bangla, with language switch (island)" frame={false}>
+      <div class={phone}><TopBar client:visible languageHref="/en/" /></div>
+    </Specimen>
+    <Specimen label="English labels" frame={false}>
+      <div class={phone}>
+        <TopBar
+          client:visible
+          name="Hisab Khata"
+          languageHref="/"
+          languageCode="bn"
+          labels={{ search: 'Search', language: 'বাংলা', theme: 'Dark mode' }}
+        />
+      </div>
+    </Specimen>
+    <Specimen label="No language switch, no theme toggle (app shell)" frame={false}>
+      <div class={phone}><TopBar hideThemeToggle /></div>
+    </Specimen>
+  </Grid>
+  <Grid cols={4}>
+    <Specimen label="Icon button / default"><HeaderIconButton label="খুঁজুন (default)" href="#nav-top-bar"><SearchIcon /></HeaderIconButton></Specimen>
+    <Specimen label="Icon button / hover"><HeaderIconButton label="খুঁজুন (hover)" href="#nav-top-bar" data-nav-preview="hover"><SearchIcon /></HeaderIconButton></Specimen>
+    <Specimen label="Icon button / pressed (frozen at .97)"><div data-tap-exempt><HeaderIconButton label="খুঁজুন (pressed)" href="#nav-top-bar" data-nav-preview="pressed"><SearchIcon /></HeaderIconButton></div></Specimen>
+    <Specimen label="Icon button / focus"><HeaderIconButton label="খুঁজুন (focus)" href="#nav-top-bar" data-nav-preview="focus"><SearchIcon /></HeaderIconButton></Specimen>
+    <Specimen label="Theme toggle (island)"><ThemeToggle client:visible label="ডার্ক মোড (নমুনা)" /></Specimen>
+  </Grid>
+</Group>
+
+<Group
+  title="Header / Desktop"
+  id="nav-desktop-header"
+  description="Figma 7:195. 72px, on the 1080px column: logo, section links (underline grows on hover, current page in accent), compact search, language, theme. Shown from lg; when narrow the links scroll and search becomes an icon."
+>
+  <Specimen label="Current section: ক্যালকুলেটর (island)" wide frame={false}>
+    <div class="overflow-hidden rounded-card border border-line">
+      <DesktopHeader
+        client:visible
+        languageHref="/en/"
+        labels={{ nav: 'প্রধান বিভাগ (নমুনা ১)' }}
+        links={[
+          { href: '#nav-desktop-header', label: 'মোবাইল ব্যাংকিং' },
+          { href: '#nav-desktop-header', label: 'ব্যাংক' },
+          { href: '#nav-desktop-header', label: 'রেমিট্যান্স' },
+          { href: '#nav-desktop-header', label: 'ক্যালকুলেটর', current: true },
+          { href: '#nav-desktop-header', label: 'সরকারি কাজ' },
+        ]}
+      />
+    </div>
+  </Specimen>
+  <Specimen label="No current section, English" wide frame={false}>
+    <div class="overflow-hidden rounded-card border border-line">
+      <DesktopHeader
+        name="Hisab Khata"
+        hideThemeToggle
+        languageHref="/"
+        languageCode="bn"
+        labels={{ nav: 'Main sections', search: 'Search tools and guides', searchPlaceholder: 'Search… e.g. EMI', language: 'বাংলা' }}
+        links={[
+          { href: '#nav-desktop-header', label: 'Mobile banking' },
+          { href: '#nav-desktop-header', label: 'Banks' },
+          { href: '#nav-desktop-header', label: 'Remittance' },
+          { href: '#nav-desktop-header', label: 'Calculators' },
+          { href: '#nav-desktop-header', label: 'Govt tasks' },
+        ]}
+      />
+    </div>
+  </Specimen>
+  <Grid cols={2}>
+    <Specimen label="Compact search / empty"><HeaderSearch action="#nav-desktop-header" label="খুঁজুন (নমুনা ১)" /></Specimen>
+    <Specimen label="Compact search / focus"><HeaderSearch action="#nav-desktop-header" label="খুঁজুন (নমুনা ২)" data-nav-preview="focus" /></Specimen>
+  </Grid>
+</Group>
+
+<Group
+  title="Bottom Nav"
+  id="nav-bottom-nav"
+  description="Figma 7:193. Four tabs; the active one is accent with aria-current. The accent bar on the top edge slides to the tapped tab (transform, 220ms). 56px plus max(8px, safe-area-inset-bottom). Fixed to the viewport below lg in the real shell."
+>
+  <Grid cols={2}>
+    <Specimen label="Interactive: tap a tab (island)" frame={false}>
+      <div class={phone}><BottomNavDemo client:visible /></div>
+    </Specimen>
+    <Specimen label="Active: হোম" frame={false}>
+      <div class={phone}><BottomNav placement="static" active="home" label="নিচের মেনু: হোম" /></div>
+    </Specimen>
+    <Specimen label="Active: খোঁজো" frame={false}>
+      <div class={phone}><BottomNav placement="static" active="search" label="নিচের মেনু: খোঁজো" /></div>
+    </Specimen>
+    <Specimen label="Active: সব টুল" frame={false}>
+      <div class={phone}><BottomNav placement="static" active="tools" label="নিচের মেনু: সব টুল" /></div>
+    </Specimen>
+    <Specimen label="Active: সেভ" frame={false}>
+      <div class={phone}><BottomNav placement="static" active="saved" label="নিচের মেনু: সেভ" /></div>
+    </Specimen>
+    <Specimen label="No active tab (inside a tool page)" frame={false}>
+      <div class={phone}><BottomNav placement="static" label="নিচের মেনু: টুল পেজ" /></div>
+    </Specimen>
+  </Grid>
+</Group>
+
+<Group
+  title="Breadcrumb"
+  id="nav-breadcrumb"
+  description="From the calculator screen 13:404. Body/Small in soft; earlier steps are links with a 44px hit area, the last is the current page."
+>
+  <Grid cols={2}>
+    <Specimen label="Three levels, above the page title">
+      <div class="grid gap-2">
+        <Breadcrumb items={trail} label="অবস্থান (নমুনা ১)" />
+        <p class="type-h1 text-ink">বিকাশ, নগদ, রকেট ক্যাশ আউট চার্জ</p>
+      </div>
+    </Specimen>
+    <Specimen label="Two levels">
+      <Breadcrumb items={[{ label: 'হোম', href: '/' }, { label: 'সব টুল' }]} label="অবস্থান (নমুনা ২)" />
+    </Specimen>
+    <Specimen label="Long trail wraps">
+      <Breadcrumb
+        label="অবস্থান (নমুনা ৩)"
+        items={[
+          { label: 'হোম', href: '/' },
+          { label: 'সরকারি কাজ', href: '#nav-breadcrumb' },
+          { label: 'জাতীয় পরিচয়পত্র', href: '#nav-breadcrumb' },
+          { label: 'NID সংশোধন: নাম, জন্ম তারিখ আর ঠিকানা' },
+        ]}
+      />
+    </Specimen>
+    <Specimen label="Link / hover">
+      <Breadcrumb items={[{ label: 'হোম', href: '/' }, { label: 'সব টুল' }]} label="অবস্থান (নমুনা ৪)" data-nav-preview="hover" />
+    </Specimen>
+  </Grid>
+</Group>
+
+<Group
+  title="Tool Card"
+  id="nav-tool-card"
+  description="Figma 7:262. Category, H3 title, description, example in the number face, chevron and the khata's red margin rule. Lifts 2px with a shadow on hover (pointer devices), presses to .97, icon nudges."
+>
+  <Grid cols={2}>
+    {
+      tools.map((tool) => (
+        <Specimen label={`${tool.tag}`} frame={false}>
+          <ToolCard
+            href="#nav-tool-card"
+            tag={tool.tag}
+            title={tool.title}
+            description={tool.description}
+            example={tool.example}
+            icon={tile(tool.icon)}
+            titleAs="h4"
+          />
+        </Specimen>
+      ))
+    }
+    <Specimen label="Without the example line" frame={false}>
+      <ToolCard href="#nav-tool-card" tag="সরকারি কাজ" title="NID সংশোধন গাইড" description="কাগজের তালিকা, ধাপ, অফিসিয়াল লিংক" icon={tile(Guide)} titleAs="h4" />
+    </Specimen>
+    <Specimen label="Title only" frame={false}>
+      <ToolCard href="#nav-tool-card" title="রেমিট্যান্স তুলনা" icon={tile(Send)} titleAs="h4" />
+    </Specimen>
+    <Specimen label="Hover (lift + shadow + icon nudge)">
+      <ToolCard href="#nav-tool-card" tag="মোবাইল ব্যাংকিং" title="ক্যাশ আউট চার্জ ক্যালকুলেটর" description="বিকাশ, নগদ, রকেটের ৭টা উপায় পাশাপাশি" example="১,০০০ তুলতে রাখতে হবে ৳১,০১৩.৯৫" titleAs="h4" data-nav-preview="hover" />
+    </Specimen>
+    <Specimen label="Pressed (.97 + tint)">
+      <ToolCard href="#nav-tool-card" tag="মোবাইল ব্যাংকিং" title="ক্যাশ আউট চার্জ ক্যালকুলেটর" description="বিকাশ, নগদ, রকেটের ৭টা উপায় পাশাপাশি" example="১,০০০ তুলতে রাখতে হবে ৳১,০১৩.৯৫" titleAs="h4" data-nav-preview="pressed" />
+    </Specimen>
+    <Specimen label="Keyboard focus" frame={false}>
+      <ToolCard href="#nav-tool-card" tag="মোবাইল ব্যাংকিং" title="ক্যাশ আউট চার্জ ক্যালকুলেটর" description="বিকাশ, নগদ, রকেটের ৭টা উপায় পাশাপাশি" titleAs="h4" data-nav-preview="focus" />
+    </Specimen>
+  </Grid>
+</Group>
+
+<Group
+  title="Section Card"
+  id="nav-section-card"
+  description="Figma 7:280. Two per row on phones, three on tablets, six on the desktop home. Lifts on hover, presses to .97."
+>
+  <Specimen label="Home: সব বিভাগ" wide frame={false}>
+    <div class="grid grid-cols-2 gap-3 md:grid-cols-3 xl:grid-cols-6">
+      {sections.map((s) => <SectionCard href="#nav-section-card" title={s.title} subtitle={s.subtitle} icon={tile(s.icon)} titleAs="h4" />)}
+    </div>
+  </Specimen>
+  <Grid cols={3}>
+    <Specimen label="Hover"><SectionCard href="#nav-section-card" title="মোবাইল ব্যাংকিং" subtitle="বিকাশ, নগদ, রকেট, উপায়" titleAs="h4" data-nav-preview="hover" /></Specimen>
+    <Specimen label="Pressed"><SectionCard href="#nav-section-card" title="মোবাইল ব্যাংকিং" subtitle="বিকাশ, নগদ, রকেট, উপায়" titleAs="h4" data-nav-preview="pressed" /></Specimen>
+    <Specimen label="Keyboard focus"><SectionCard href="#nav-section-card" title="মোবাইল ব্যাংকিং" subtitle="বিকাশ, নগদ, রকেট, উপায়" titleAs="h4" data-nav-preview="focus" /></Specimen>
+  </Grid>
+</Group>
+
+<Group
+  title="Result Card"
+  id="nav-result-card"
+  description="Figma 7:290. A ruled ledger page with a red margin line. The big number counts up with motion's animate() (450ms, 300 in lite, none with reduced motion), formatted by @hisab/core; the card rises in with fade + translateY(8px)."
+>
+  <Grid cols={2}>
+    <Specimen label="Interactive: pick an amount, or replay (island)" frame={false}>
+      <ResultCardDemo client:visible />
+    </Specimen>
+    <Specimen label="Figma default" frame={false}>
+      <ResultCard label="সবচেয়ে কম চার্জ: নগদ অ্যাপ" value={64.95} sub="হাতে পাবে ৳৫,০০০ · ওয়ালেটে রাখতে হবে ৳৫,০৬৪.৯৫" />
+    </Specimen>
+    <Specimen label="Whole number, longer sub" frame={false}>
+      <ResultCard label="মাসিক কিস্তি (EMI)" value={16607} sub="৫ লাখ টাকা, ১২% সুদ, ৩৬ মাস · মোট সুদ ৳৯৭,৮৫৭" />
+    </Specimen>
+    <Specimen label="With a suffix, no sub" frame={false}>
+      <ResultCard label="বিকাশ প্রিয় এজেন্ট" value={13.95} suffix="/হাজার" />
+    </Specimen>
+    <Specimen label="English digits" frame={false}>
+      <ResultCard lang="en" label="Lowest charge: Nagad app" value={64.95} digits="en" sub="You get ৳5,000 · keep ৳5,064.95 in the wallet" />
+    </Specimen>
+    <Specimen label="Plain number (format=number)" frame={false}>
+      <ResultCard label="১ শতাংশে বর্গফুট" value={435.6} format="number" decimals={1} suffix=" বর্গফুট" />
+    </Specimen>
+  </Grid>
+</Group>
+
+<Group
+  title="Answer Card"
+  id="nav-answer-card"
+  description="Figma 7:302. The direct answer on top of search results: question, answer in the number face, detail on the same baseline, link to the full comparison."
+>
+  <Grid cols={2}>
+    <Specimen label="Figma default" frame={false}>
+      <AnswerCard
+        question="বিকাশে ৫,০০০ টাকা ক্যাশ আউট"
+        answer="৳৬৯.৭৫"
+        detail="প্রিয় এজেন্ট · অন্য এজেন্টে ৳৯২.৫০"
+        href="#nav-answer-card"
+        questionAs="h4"
+      />
+    </Specimen>
+    <Specimen label="Long question, no detail" frame={false}>
+      <AnswerCard
+        question="৫ লাখ টাকা ১২% সুদে ৩ বছরের লোনের মাসিক কিস্তি"
+        answer="৳১৬,৬০৭"
+        href="#nav-answer-card"
+        linkLabel="পুরো হিসাব দেখো →"
+        questionAs="h4"
+      />
+    </Specimen>
+    <Specimen label="Without a link" frame={false}>
+      <AnswerCard question="১ শতাংশ কত বর্গফুট" answer="৪৩৫.৬" detail="বর্গফুট" questionAs="h4" />
+    </Specimen>
+    <Specimen label="Link / hover" frame={false}>
+      <AnswerCard
+        question="নগদে ৫,০০০ টাকা ক্যাশ আউট"
+        answer="৳৬৪.৯৫"
+        detail="অ্যাপে · USSD-তে ৳৭৪.৭৫"
+        href="#nav-answer-card"
+                questionAs="h4"
+        data-nav-preview="hover"
+      />
+    </Specimen>
+  </Grid>
+</Group>
+
+<Group
+  title="List Row"
+  id="nav-list-row"
+  description="Figma 7:310. Link rows for guides, tools and search results: 36px icon tile, Body/Medium title, 13/22 subtitle, chevron, bottom rule. Tints on hover, presses to .97."
+>
+  <Grid cols={2}>
+    <Specimen label="List (last row without rule)">
+      <ul class="rounded-card border border-line bg-sheet px-4">
+        <li><ListRow href="#nav-list-row" title="NID সংশোধন কিভাবে করবো" subtitle="গাইড · ফি, কাগজপত্র, ধাপ" /></li>
+        <li><ListRow href="#nav-list-row" title="ই-পাসপোর্ট নবায়ন" subtitle="গাইড · ফি, সময়, অনলাইন আবেদন" /></li>
+        <li><ListRow href="#nav-list-row" title="ক্যাশ আউট চার্জ ক্যালকুলেটর" subtitle="টুল · বিকাশ, নগদ, রকেট" icon={tile(Calculator, 20)} last /></li>
+      </ul>
+    </Specimen>
+    <Specimen label="Without icon tile">
+      <ul>
+        <li><ListRow href="#nav-list-row" title="জন্ম নিবন্ধন সংশোধন" subtitle="গাইড · ফি, কাগজপত্র" icon={null} /></li>
+        <li><ListRow href="#nav-list-row" title="ট্রেড লাইসেন্স নবায়ন" subtitle="গাইড · সিটি কর্পোরেশন" icon={null} /></li>
+      </ul>
+    </Specimen>
+    <Specimen label="Hover (tint)">
+      <ListRow href="#nav-list-row" title="NID সংশোধন কিভাবে করবো" subtitle="গাইড · ফি, কাগজপত্র, ধাপ" data-nav-preview="hover" />
+    </Specimen>
+    <Specimen label="Pressed (.97 + tint)">
+      <ListRow href="#nav-list-row" title="NID সংশোধন কিভাবে করবো" subtitle="গাইড · ফি, কাগজপত্র, ধাপ" data-nav-preview="pressed" />
+    </Specimen>
+  </Grid>
+</Group>
+
+<Group
+  title="Footer"
+  id="nav-footer"
+  description="Figma 7:260, Mobile and Desktop variants. layout=auto switches by the footer's own width (container query at 56rem): stacked in a phone frame, side by side on the desktop column."
+>
+  <Specimen label="Auto: Desktop on a wide column, Mobile below 56rem" wide frame={false}>
+    <div class="overflow-hidden rounded-card border border-line"><Footer homeHref="/" linksLabel="সাইটের তথ্য (নমুনা ১)" /></div>
+  </Specimen>
+  <Specimen label="Mobile (phone frame)" frame={false}>
+    <div class={phone}><Footer layout="mobile" linksLabel="সাইটের তথ্য (নমুনা ২)" /></div>
+  </Specimen>
+</Group>

@@ -1,0 +1,276 @@
+---
+// Gallery section "Base" — owned by the base component builder.
+// Rendered by src/pages/dev/gallery.astro inside <section id="base"> with an <h2>.
+// Every component of @hisab/ui/base (Figma: Design System › Components — Base 5:2,
+// Segmented Control 46:324, Icons 3:2) with its variants and states. Most render as
+// zero-JS HTML; the live demos are islands in ./base/. Hover, pressed and focus are
+// frozen here with utility classes that set the same values as motion.css.
+import {
+  AdSlot,
+  Badge,
+  Button,
+  Callout,
+  Chip,
+  CompareRow,
+  IconButton,
+  KVList,
+  KVRow,
+  QuickValues,
+  SearchBar,
+  SegmentedControl,
+  TextField,
+  VerifiedLine,
+} from '@hisab/ui/base'
+import { Bookmark, ChevronRight, Download, Filter, ICON_NAMES, IconByName, Menu, Share, Star, Verified, type IconProps } from '@hisab/ui/icons'
+import { h, type FunctionComponent } from 'preact'
+import Grid from '../components/gallery/Grid.astro'
+import Group from '../components/gallery/Group.astro'
+import Specimen from '../components/gallery/Specimen.astro'
+import AmountDemo from './base/AmountDemo'
+import BadgeDemo from './base/BadgeDemo'
+import LoadingDemo from './base/LoadingDemo'
+import SearchDemo from './base/SearchDemo'
+import SegmentedDemo from './base/SegmentedDemo'
+
+export const title = 'Base'
+export const order = 10
+export const description =
+  'Icons, Button, IconButton, Chip, Badge, Text Field and NumberField, Segmented Control, Search Bar, KV Row, Compare Row, Verified Line, Callout and Ad Slot.'
+
+const share = 'শেয়ার করো'
+// Icons passed as props must be Preact elements (an Astro <Share /> is not one).
+const icon = (Glyph: FunctionComponent<IconProps>, props: IconProps = {}) => h(Glyph, props)
+// Frozen pressed specimens are scaled to .97, so they opt out of the 44px check (data-tap-exempt).
+const forced = {
+  hover: 'after:opacity-6',
+  pressed: 'scale-97 after:opacity-12',
+  focus: 'outline-2 outline-offset-2 outline-accent',
+}
+const segOptions = [
+  { value: 'charge', label: 'তুললে চার্জ কত' },
+  { value: 'reverse', label: 'কত তোলা যাবে' },
+]
+---
+
+<Group title="Icons" id="base-icons" description="Figma 3:2 · 24px frame, 1.75 stroke, round caps. Colour comes from the text colour (currentColor), so icons follow light and dark. Import by name (Wallet, Bank…) or by Figma name with <IconByName name='wallet'>.">
+  <Specimen label={`All ${ICON_NAMES.length} icons · 24px`} wide>
+    <ul class="grid grid-cols-[repeat(auto-fill,minmax(5.25rem,1fr))] gap-3 sm:gap-4">
+      {
+        ICON_NAMES.map((name) => (
+          <li class="flex min-w-0 flex-col items-center gap-1.5 rounded-input border border-line bg-sheet px-1 pt-3 pb-2.5 text-ink">
+            <IconByName name={name} />
+            <span class="font-body text-[0.6875rem]/[0.9375rem] whitespace-nowrap text-soft">{name}</span>
+          </li>
+        ))
+      }
+    </ul>
+  </Specimen>
+  <Grid cols={2}>
+    <Specimen label="Sizes 16 / 18 / 20 / 24 (stroke scales with the size)">
+      <div class="flex items-end gap-4 text-ink">
+        <IconByName name="wallet" size={16} />
+        <IconByName name="wallet" size={18} />
+        <IconByName name="wallet" size={20} />
+        <IconByName name="wallet" size={24} />
+      </div>
+    </Specimen>
+    <Specimen label="Colour from text: ink, soft, accent, blue, good, warn">
+      <div class="flex flex-wrap gap-4">
+        <Star class="text-ink" />
+        <Star class="text-soft" />
+        <Star class="text-accent" />
+        <Star class="text-blue" />
+        <Verified class="text-good" />
+        <IconByName name="alert" class="text-warn" />
+      </div>
+    </Specimen>
+  </Grid>
+</Group>
+
+<Group title="Button" id="base-button" description="Figma 5:31 · Primary = main action, Secondary = quiet action, Ghost = text link action. 44px tall; press scales to .97 with a tint, hover tints on pointer devices only.">
+  <Grid cols={3}>
+    <Specimen label="Primary"><Button icon={icon(Share)}>{share}</Button></Specimen>
+    <Specimen label="Secondary"><Button variant="secondary" icon={icon(Share)}>{share}</Button></Specimen>
+    <Specimen label="Ghost"><Button variant="ghost" icon={icon(Share)}>{share}</Button></Specimen>
+    <Specimen label="Primary / no icon"><Button>হিসাব দেখো</Button></Specimen>
+    <Specimen label="Secondary / trailing icon"><Button variant="secondary" iconEnd={icon(ChevronRight)}>পরের ধাপ</Button></Specimen>
+    <Specimen label="Ghost / as link (href)"><Button variant="ghost" href="#base-button" iconEnd={icon(ChevronRight)}>সব ব্যাংক</Button></Specimen>
+    <Specimen label="Hover (frozen; pointer devices only)"><Button icon={icon(Share)} class={forced.hover}>{share}</Button></Specimen>
+    <Specimen label="Pressed (frozen): scale .97 + tint"><div data-tap-exempt><Button icon={icon(Share)} class={forced.pressed}>{share}</Button></div></Specimen>
+    <Specimen label="Focus (frozen): 2px accent ring"><Button variant="secondary" icon={icon(Share)} class={forced.focus}>{share}</Button></Specimen>
+    <Specimen label="Disabled"><Button icon={icon(Share)} disabled>{share}</Button></Specimen>
+    <Specimen label="Secondary / disabled"><Button variant="secondary" icon={icon(Share)} disabled>{share}</Button></Specimen>
+    <Specimen label="Ghost / disabled"><Button variant="ghost" icon={icon(Share)} disabled>{share}</Button></Specimen>
+    <Specimen label="Loading (spinner, aria-busy, still focusable)"><Button icon={icon(Download)} loading>তৈরি হচ্ছে…</Button></Specimen>
+    <Specimen label="Secondary / loading"><Button variant="secondary" loading>সেভ হচ্ছে…</Button></Specimen>
+    <Specimen label="Size lg (52px, main call to action)"><Button size="lg" icon={icon(Download)}>PDF নামাও</Button></Specimen>
+    <Specimen label="Block (full width)" wide><Button size="lg" block>হিসাব দেখো</Button></Specimen>
+    <Specimen label="Live: press to load for 1.5 s; the bookmark toggles (island)" wide>
+      <LoadingDemo client:visible />
+    </Specimen>
+  </Grid>
+</Group>
+
+<Group title="IconButton" id="base-icon-button" description="44x44 icon-only button with the Button colours. The label prop is the accessible name.">
+  <Grid cols={4}>
+    <Specimen label="Ghost (default)"><IconButton label="মেনু"><Menu /></IconButton></Specimen>
+    <Specimen label="Secondary"><IconButton label="ফিল্টার" variant="secondary"><Filter /></IconButton></Specimen>
+    <Specimen label="Primary"><IconButton label="শেয়ার" variant="primary"><Share /></IconButton></Specimen>
+    <Specimen label="Round"><IconButton label="শেয়ার" variant="secondary" shape="round"><Share /></IconButton></Specimen>
+    <Specimen label="Toggle on (aria-pressed)"><IconButton label="সেভ করা" pressed><Bookmark /></IconButton></Specimen>
+    <Specimen label="Secondary / toggle on"><IconButton label="সেভ করা" variant="secondary" pressed><Bookmark /></IconButton></Specimen>
+    <Specimen label="Loading"><IconButton label="নামানো হচ্ছে" variant="secondary" loading><Download /></IconButton></Specimen>
+    <Specimen label="Disabled"><IconButton label="শেয়ার" variant="secondary" disabled><Share /></IconButton></Specimen>
+  </Grid>
+</Group>
+
+<Group title="Chip" id="base-chip" description="Figma 5:37 · quick value or filter chip. The pill is 36px as in Figma inside a 44px touch target; selected chips set aria-pressed.">
+  <Grid cols={3}>
+    <Specimen label="Default"><Chip selected={false}>৫,০০০</Chip></Specimen>
+    <Specimen label="Selected"><Chip selected>৫,০০০</Chip></Specimen>
+    <Specimen label="Pressed (frozen)"><div data-tap-exempt><Chip selected={false} class={forced.pressed}>৫,০০০</Chip></div></Specimen>
+    <Specimen label="Word filters (Body/Label)">
+      <div class="flex flex-wrap gap-x-2">
+        <Chip numeric={false} selected>সব</Chip>
+        <Chip numeric={false} selected={false}>সরকারি</Chip>
+        <Chip numeric={false} selected={false} icon={icon(Filter, { size: 18 })}>ফিল্টার</Chip>
+      </div>
+    </Specimen>
+    <Specimen label="Disabled"><Chip selected={false} disabled>১০,০০০</Chip></Specimen>
+    <Specimen label="Focus (frozen)"><Chip selected={false} class={forced.focus}>২৫,০০০</Chip></Specimen>
+    <Specimen label="Quick values (৫,০০০ chosen); wraps on narrow screens" wide>
+      <QuickValues label="দ্রুত পরিমাণ" values={[1000, 5000, 10000, 25000, 50000]} value={5000} />
+    </Specimen>
+  </Grid>
+</Group>
+
+<Group title="Badge" id="base-badge" description="Figma 5:47 · 26px pill, 13/18 semibold. Status only, not interactive.">
+  <Grid cols={4}>
+    <Specimen label="Good"><Badge tone="good">সাশ্রয়ী</Badge></Specimen>
+    <Specimen label="Warn"><Badge tone="warn">লিমিট পার</Badge></Specimen>
+    <Specimen label="Accent"><Badge tone="accent">নতুন</Badge></Specimen>
+    <Specimen label="Neutral"><Badge tone="neutral">শীঘ্রই</Badge></Specimen>
+    <Specimen label="With icon"><Badge tone="good" icon={icon(Verified, { size: 14 })}>যাচাই করা</Badge></Specimen>
+    <Specimen label="Entrance: fade + scale (island)" wide><BadgeDemo client:visible /></Specimen>
+  </Grid>
+</Group>
+
+<Group title="Text Field and NumberField" id="base-text-field" description="Figma 5:73 · number input with a ৳, % or মাস unit. Results update live, no Calculate button. NumberField takes Bangla or English digits (parseAmount) and opens the number keyboard.">
+  <Grid cols={3}>
+    <Specimen label="Default">
+      <TextField label="কত টাকা ক্যাশ আউট করবে?" prefix="৳" value="৫০০০" numeric inputMode="decimal" helper="বিকাশ প্রিয় এজেন্টের মাসিক লিমিট ৫০,০০০ টাকা" />
+    </Specimen>
+    <Specimen label="Focus (frozen): 2px blue">
+      <TextField label="কত টাকা ক্যাশ আউট করবে?" prefix="৳" value="৫০০০" numeric inputMode="decimal" helper="বিকাশ প্রিয় এজেন্টের মাসিক লিমিট ৫০,০০০ টাকা" boxClass="after:opacity-100!" />
+    </Specimen>
+    <Specimen label="Error: 2px accent, message in accent">
+      <TextField label="কত টাকা ক্যাশ আউট করবে?" prefix="৳" value="২০" numeric inputMode="decimal" error="কমপক্ষে ৫০ টাকা লিখতে হবে" />
+    </Specimen>
+    <Specimen label="Suffix % (rate)">
+      <TextField label="বার্ষিক সুদের হার" suffix="%" value="৯.৫" numeric inputMode="decimal" />
+    </Specimen>
+    <Specimen label="Suffix মাস (term), no helper">
+      <TextField label="মেয়াদ" suffix="মাস" value="৬০" numeric inputMode="numeric" />
+    </Specimen>
+    <Specimen label="Words (Body/Medium), placeholder">
+      <TextField label="তোমার নাম" placeholder="যেমন: রহিম" />
+    </Specimen>
+    <Specimen label="Disabled">
+      <TextField label="কত টাকা?" prefix="৳" value="১,০০০" numeric disabled helper="এই হিসাবে পরিমাণ ঠিক করা" />
+    </Specimen>
+    <Specimen label="Live: NumberField + quick values + ledger (island). Try ৫০০০, 5,000, ৳ 20 or ১২ক" wide>
+      <AmountDemo client:visible />
+    </Specimen>
+  </Grid>
+</Group>
+
+<Group title="Segmented Control" id="base-segmented" description="Figma 46:324 · two-option mode switch, a native radio group. The accent block slides with translate over 220ms; the text colours cross-fade.">
+  <Grid cols={2}>
+    <Specimen label="Selected = 1 (island)"><SegmentedDemo client:visible initial="charge" /></Specimen>
+    <Specimen label="Selected = 2 (island)"><SegmentedDemo client:visible initial="reverse" /></Specimen>
+    <Specimen label="Three options (island)"><SegmentedDemo client:visible three /></Specimen>
+    <Specimen label="Disabled"><SegmentedControl label="হিসাবের ধরন (বন্ধ)" options={segOptions} defaultValue="charge" disabled /></Specimen>
+  </Grid>
+</Group>
+
+<Group title="Search Bar" id="base-search" description="Figma 5:97 · Large (home, 56px, with the খোঁজো button) and Compact (header, 40px pill). A <form role=search> that works without JS; focus fades in a 2px blue ring.">
+  <Grid cols={2}>
+    <Specimen label="Large"><SearchBar action="/dev/gallery" class="max-w-[342px]" /></Specimen>
+    <Specimen label="Compact"><SearchBar size="compact" action="/dev/gallery" class="max-w-[280px]" /></Specimen>
+    <Specimen label="Large / live (island)"><SearchDemo client:visible /></Specimen>
+    <Specimen label="Compact / live (island)"><SearchDemo client:visible size="compact" /></Specimen>
+  </Grid>
+</Group>
+
+<Group title="KV Row (ledger line)" id="base-kv-row" description="Figma 5:105 · label left, amount right in IBM Plex Mono. Rows are <dt>/<dd> pairs inside KVList (<dl>).">
+  <Grid cols={2}>
+    <Specimen label="Default">
+      <KVList class="max-w-[300px]"><KVRow label="মোট সুদ" value="৳৯৭,৮৫৮" /></KVList>
+    </Specimen>
+    <Specimen label="Total">
+      <KVList class="max-w-[300px]"><KVRow label="মোট পরিশোধ" value="৳৫,৯৭,৮৫৮" total /></KVList>
+    </Specimen>
+    <Specimen label="A loan breakdown (sheet background)" wide>
+      <KVList class="max-w-form rounded-card bg-sheet px-4 py-2">
+        <KVRow label="ঋণের পরিমাণ" value="৳৫,০০,০০০" />
+        <KVRow label="মাসিক কিস্তি (EMI)" value="৳৯,৯৬৪" />
+        <KVRow label="মোট সুদ" value="৳৯৭,৮৫৮" />
+        <KVRow label="মোট পরিশোধ" value="৳৫,৯৭,৮৫৮" total />
+      </KVList>
+    </Specimen>
+  </Grid>
+</Group>
+
+<Group title="Compare Row" id="base-compare-row" description="Figma 5:138 · one row per MFS method in the cash-out comparison. Best = cheapest, Warning = over limit or below ATM minimum. The dot takes the provider's brand colour.">
+  <Grid cols={2}>
+    <Specimen label="Default">
+      <CompareRow provider="বিকাশ" method="যেকোনো এজেন্ট · ১৮.৫০/হাজার" charge="৳৯২.৫০" total="মোট ৳৫,০৯২.৫০" brand="bkash" />
+    </Specimen>
+    <Specimen label="Best">
+      <CompareRow provider="নগদ" method="যেকোনো এজেন্ট · ১২.৯৯/হাজার" charge="৳৬৪.৯৫" total="মোট ৳৫,০৬৪.৯৫" brand="nagad" state="best" />
+    </Specimen>
+    <Specimen label="Warning">
+      <CompareRow provider="রকেট" method="যেকোনো এজেন্ট · ১৮.৫০/হাজার" charge="৳৯২.৫০" total="মোট ৳৫,০৯২.৫০" brand="rocket" state="warning" />
+    </Specimen>
+    <Specimen label="As a link: lifts on hover, presses (whole row)">
+      <CompareRow provider="বিকাশ" method="প্রিয় এজেন্ট · ১৪.৯০/হাজার" charge="৳৭৪.৫০" total="মোট ৳৫,০৭৪.৫০" brand="bkash" href="#base-compare-row" />
+    </Specimen>
+    <Specimen label="A comparison list" wide>
+      <ul class="grid max-w-form gap-2" role="list">
+        <li><CompareRow provider="নগদ" method="যেকোনো এজেন্ট · ১২.৯৯/হাজার" charge="৳৬৪.৯৫" total="মোট ৳৫,০৬৪.৯৫" brand="nagad" state="best" /></li>
+        <li><CompareRow provider="বিকাশ" method="যেকোনো এজেন্ট · ১৮.৫০/হাজার" charge="৳৯২.৫০" total="মোট ৳৫,০৯২.৫০" brand="bkash" /></li>
+        <li><CompareRow provider="রকেট" method="এটিএম · ৯.০০/হাজার" charge="৳৪৫.০০" total="মোট ৳৫,০৪৫.০০" brand="rocket" state="warning" badge="এটিএম ন্যূনতম ৳৫০০" /></li>
+      </ul>
+    </Specimen>
+  </Grid>
+</Group>
+
+<Group title="Verified Line" id="base-verified-line" description="Figma 5:140 · the date a person last checked the value and its official source (a Fact's checked and source).">
+  <Grid cols={2}>
+    <Specimen label="Bangla"><VerifiedLine checked="2026-10-19" source="https://www.bkash.com/" /></Specimen>
+    <Specimen label="English"><VerifiedLine checked="2026-10-19" source="https://www.bkash.com/" lang="en" /></Specimen>
+  </Grid>
+</Group>
+
+<Group title="Callout" id="base-callout" description="Figma 5:162 · a note beside a result.">
+  <Grid cols={2}>
+    <Specimen label="Info">
+      <Callout tone="info">রেট পরিবর্তন হতে পারে, বড় লেনদেনের আগে অফিসিয়াল সূত্রে মিলিয়ে নিন।</Callout>
+    </Specimen>
+    <Specimen label="Warn">
+      <Callout tone="warn">চার্জ টাকার উপর থেকে না, আলাদা করে ওয়ালেট থেকে কাটে।</Callout>
+    </Specimen>
+    <Specimen label="Info / with title">
+      <Callout tone="info" title="হিসাবটা কীভাবে হলো">প্রতি হাজারে ১৮.৫০ টাকা, তাই ৫,০০০ টাকায় ৯২.৫০ টাকা।</Callout>
+    </Specimen>
+  </Grid>
+</Group>
+
+<Group title="Ad Slot (AdSense)" id="base-ad-slot" description="Figma 5:170 · fixed, reserved sizes so a late ad never shifts the page. Injected after idle or first interaction, never above a result.">
+  <Grid cols={2}>
+    <Specimen label="Mobile Banner (full width x 100)"><AdSlot size="mobile-banner" showSize /></Specimen>
+    <Specimen label="MPU (300x250)"><AdSlot size="mpu" showSize /></Specimen>
+    <Specimen label="Leaderboard (728x90, md and up; shrinks only if misplaced)" wide><AdSlot size="leaderboard" showSize /></Specimen>
+    <Specimen label="Responsive: Mobile Banner below 768px, Leaderboard from 768px" wide><AdSlot size="responsive" showSize /></Specimen>
+  </Grid>
+</Group>
