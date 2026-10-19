@@ -1,0 +1,12 @@
+---
+// Lays specimens out in a responsive grid: 1 column on phones, `cols` from md up.
+interface Props {
+  cols?: 1 | 2 | 3 | 4
+}
+const { cols = 3 } = Astro.props
+const colClass = { 1: '', 2: 'md:grid-cols-2', 3: 'sm:grid-cols-2 lg:grid-cols-3', 4: 'sm:grid-cols-2 lg:grid-cols-4' }[cols]
+---
+
+<div class:list={['grid gap-4', colClass]}>
+  <slot />
+</div>

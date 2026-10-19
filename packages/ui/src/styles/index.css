@@ -1,0 +1,29 @@
+/*
+ * @hisab/ui stylesheet entry: `@import "@hisab/ui/styles.css";` after
+ * `@import "tailwindcss"` and the @hisab/tokens tokens.css + theme.css imports.
+ * Do not edit from a component group; each group owns its own CSS file.
+ */
+@import "./motion.css";
+@import "../base/base.css";
+@import "../nav/nav.css";
+@import "../content/content.css";
+@import "../overlay/overlay.css";
+
+/* Let Tailwind see the class names used inside packages/ui. */
+@source "../";
+
+@layer base {
+  html {
+    background-color: var(--bg-paper);
+    color: var(--text-ink);
+    font-family: var(--font-body);
+    font-size: 100%;
+  }
+  body {
+    font: var(--type-body);
+  }
+  /* Bangla digits and ৳ have no IBM Plex Mono glyphs; they fall back to Noto Sans Bengali, kept tabular. */
+  :where(.font-number, [class*="type-number"]) {
+    font-variant-numeric: tabular-nums;
+  }
+}

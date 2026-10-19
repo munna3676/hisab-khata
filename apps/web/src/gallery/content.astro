@@ -1,0 +1,16 @@
+---
+// Gallery section "Content" — owned by the content component builder.
+// Rendered by src/pages/dev/gallery.astro inside <section id="content"> with an <h2>.
+// Show every variant and state, using Group (one per component) and Specimen
+// (one per variant). Interactive demos: put islands in src/gallery/content/*.tsx
+// and use them here with client:visible (or client:load).
+import Group from '../components/gallery/Group.astro'
+
+export const title = 'Content'
+export const order = 30
+export const description = 'Card, ToolCard, ResultCard, BreakdownTable, Verified badge, Banner, EmptyState, Skeleton, FAQ, Checklist, ShareBar, AdSlot.'
+---
+
+<Group title="Content" id="content-placeholder" description="No components yet.">
+  <p class="type-body-small text-soft">Components from @hisab/ui/content appear here.</p>
+</Group>

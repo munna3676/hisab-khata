@@ -1,0 +1,16 @@
+---
+// Gallery section "Overlays" — owned by the overlay component builder.
+// Rendered by src/pages/dev/gallery.astro inside <section id="overlay"> with an <h2>.
+// Show every variant and state, using Group (one per component) and Specimen
+// (one per variant). Interactive demos: put islands in src/gallery/overlay/*.tsx
+// and use them here with client:visible (or client:load).
+import Group from '../components/gallery/Group.astro'
+
+export const title = 'Overlays'
+export const order = 40
+export const description = 'BottomSheet/Dialog, Picker, DatePicker, Toast.'
+---
+
+<Group title="Overlays" id="overlay-placeholder" description="No components yet.">
+  <p class="type-body-small text-soft">Components from @hisab/ui/overlay appear here.</p>
+</Group>

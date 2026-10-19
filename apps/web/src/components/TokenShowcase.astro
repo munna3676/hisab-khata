@@ -1,0 +1,216 @@
+---
+// Phase 1 token showcase: every token from packages/tokens/src/tokens.json,
+// rendered with the Tailwind theme generated from it.
+import tokens from '@hisab/tokens/tokens.json'
+import { ChevronRight } from '@hisab/ui/icons'
+import { langOf, localePath, strings } from '../i18n'
+import DevControls from './DevControls.astro'
+import MotionDemo from './MotionDemo'
+
+const lang = langOf(Astro.currentLocale)
+const t = strings[lang]
+const other = lang === 'bn' ? 'en' : 'bn'
+
+const visible = (o: Record<string, unknown>) => Object.entries(o).filter(([k]) => !k.startsWith('$'))
+const colorKeys = Object.keys(tokens.color.light) as (keyof typeof tokens.color.light)[]
+const cssVar = (key: string) => `--${key.replace(/\//g, '-')}`
+const twName = (key: string) => key.split('/').pop()
+
+// Literal class names so Tailwind generates them.
+const typeClass: Record<string, string> = {
+  'display-desktop-h1': 'type-display-desktop-h1',
+  h1: 'type-h1',
+  h2: 'type-h2',
+  h3: 'type-h3',
+  body: 'type-body',
+  'body-medium': 'type-body-medium',
+  'body-small': 'type-body-small',
+  label: 'type-label',
+  'number-l': 'type-number-l',
+  'number-m': 'type-number-m',
+}
+const radiusClass: Record<string, string> = { input: 'rounded-input', card: 'rounded-card', full: 'rounded-full' }
+const spaceClass: Record<string, string> = { '1': 'w-1', '2': 'w-2', '3': 'w-3', '4': 'w-4', '6': 'w-6', '8': 'w-8' }
+const durations = visible(tokens.motion.duration) as [string, number][]
+const lite = tokens.motion.lite as Record<string, number>
+const reduce = tokens.motion.reduce as Record<string, number>
+const fmt = (n: number) => (lang === 'bn' ? String(n).replace(/\d/g, (d) => '০১২৩৪৫৬৭৮৯'[Number(d)]!) : String(n))
+---
+
+<header class="border-b border-line bg-sheet">
+  <div class="mx-auto flex max-w-content flex-wrap items-center justify-between gap-4 px-4 py-3">
+    <div>
+      <p class="type-h2 text-accent">{t.siteName}</p>
+      <p class="type-body-small text-soft">{t.tagline}</p>
+    </div>
+    <div class="flex flex-wrap items-center gap-3">
+      <DevControls />
+      <a
+        href={localePath(other, Astro.url.pathname)}
+        hreflang={other}
+        lang={other}
+        class="pressable grid min-h-touch place-items-center rounded-input px-3 type-label text-blue">{t.switchLang}</a
+      >
+    </div>
+  </div>
+</header>
+
+<main class="mx-auto max-w-content px-4 pb-16">
+  <section class="py-8">
+    <h1 class="type-h1 lg:type-display-desktop-h1">{t.showcaseTitle}</h1>
+    <p class="mt-2 max-w-form text-soft">{t.showcaseIntro}</p>
+    <p class="mt-4">
+      <a href="/dev/gallery" class="link-underline type-label text-accent">{t.gallery}</a>
+    </p>
+  </section>
+
+  <section aria-labelledby="colors" class="py-6">
+    <h2 id="colors" class="type-h2">{t.colors}</h2>
+    <div class="mt-4 grid gap-4 md:grid-cols-2">
+      {
+        (['light', 'dark'] as const).map((mode) => (
+          <div data-theme={mode} class="rounded-card border border-line bg-paper p-4 text-ink">
+            <h3 class="type-h3">{mode === 'light' ? t.light : t.dark}</h3>
+            <ul class="mt-3 grid gap-3 sm:grid-cols-2">
+              {colorKeys.map((key) => (
+                <li class="flex items-center gap-3">
+                  <span class="size-10 shrink-0 rounded-input border border-line" style={`background: var(${cssVar(key)})`} />
+                  <span class="min-w-0">
+                    <span class="block type-label">{twName(key)}</span>
+                    <span class="block truncate type-number-m text-soft">{tokens.color[mode][key]}</span>
+                  </span>
+                </li>
+              ))}
+            </ul>
+          </div>
+        ))
+      }
+    </div>
+  </section>
+
+  <section aria-labelledby="type" class="py-6">
+    <h2 id="type" class="type-h2">{t.type}</h2>
+    <ul class="mt-4 divide-y divide-line rounded-card border border-line bg-sheet">
+      {
+        Object.entries(tokens.font.style).map(([name, s]) => (
+          <li class="grid gap-1 p-4 md:grid-cols-[12rem_1fr] md:items-baseline md:gap-4">
+            <span class="type-number-m text-soft">
+              type-{name}
+              <span class="block type-body-small">
+                {s.size}/{s.lineHeight} · {s.weight}
+              </span>
+            </span>
+            <span class={typeClass[name]}>{name.startsWith('number') ? t.numberSample : t.sample}</span>
+          </li>
+        ))
+      }
+    </ul>
+  </section>
+
+  <div class="grid gap-6 md:grid-cols-2">
+    <section aria-labelledby="radius" class="py-6">
+      <h2 id="radius" class="type-h2">{t.radius}</h2>
+      <ul class="mt-4 flex flex-wrap gap-4">
+        {
+          visible(tokens.radius).map(([name, px]) => (
+            <li class="grid justify-items-center gap-2">
+              <span class={`size-16 border-2 border-accent bg-accent-tint ${radiusClass[name]}`} />
+              <span class="type-number-m text-soft">
+                {name} {px === 9999 ? '' : `${px}`}
+              </span>
+            </li>
+          ))
+        }
+      </ul>
+    </section>
+
+    <section aria-labelledby="spacing" class="py-6">
+      <h2 id="spacing" class="type-h2">{t.spacing}</h2>
+      <ul class="mt-4 grid gap-2">
+        {
+          visible(tokens.space).map(([name, px]) => (
+            <li class="flex items-center gap-3">
+              <span class="w-16 type-number-m text-soft">
+                {name} · {px}
+              </span>
+              <span class={`h-4 bg-blue ${spaceClass[name]}`} />
+            </li>
+          ))
+        }
+      </ul>
+    </section>
+  </div>
+
+  <section aria-labelledby="motion" class="py-6">
+    <h2 id="motion" class="type-h2">{t.motion}</h2>
+    <div class="mt-4 grid gap-6 lg:grid-cols-2">
+      <div class="grid content-start gap-4">
+        <div class="flex flex-wrap items-center gap-4">
+          <button type="button" class="pressable min-h-touch rounded-input bg-accent px-6 type-label text-on-accent">
+            {t.pressMe}
+          </button>
+          <a href="#motion" class="link-underline type-label text-accent">{t.link}</a>
+        </div>
+        <a href="#motion" class="lift pressable flex items-center gap-3 rounded-card border border-line bg-sheet p-4">
+          <span class="nudge grid size-10 place-items-center rounded-input bg-accent-tint text-accent">
+            <ChevronRight />
+          </span>
+          <span>
+            <span class="block type-h3">{t.hoverCard}</span>
+            <span class="block type-body-small text-soft">{t.hoverCardBody}</span>
+          </span>
+        </a>
+        <MotionDemo client:visible lang={lang} value={123456} label={t.countUp} replay={t.replay} />
+      </div>
+      <div class="overflow-x-auto rounded-card border border-line bg-sheet">
+        <table class="w-full type-body-small">
+          <thead class="bg-subtle text-left">
+            <tr>
+              <th class="p-3 type-label">token</th>
+              <th class="p-3 type-label">{t.full}</th>
+              <th class="p-3 type-label">{t.lite}</th>
+              <th class="p-3 type-label">{t.reduce}</th>
+            </tr>
+          </thead>
+          <tbody class="divide-y divide-line">
+            {
+              durations.map(([name, ms]) => (
+                <tr>
+                  <td class="p-3 type-number-m">duration-{name}</td>
+                  <td class="p-3 type-number-m">{fmt(ms)}</td>
+                  <td class="p-3 type-number-m">{fmt(lite[name] ?? 0)}</td>
+                  <td class="p-3 type-number-m">{fmt(reduce[name] ?? 0)}</td>
+                </tr>
+              ))
+            }
+            {
+              visible(tokens.motion.easing).map(([name, value]) => (
+                <tr>
+                  <td class="p-3 type-number-m">ease-{name}</td>
+                  <td class="p-3 type-number-m" colspan="3">
+                    {String(value)}
+                  </td>
+                </tr>
+              ))
+            }
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <section aria-labelledby="breakpoints" class="py-6">
+    <h2 id="breakpoints" class="type-h2">{t.breakpoints}</h2>
+    <p class="mt-2 type-body-small text-soft">
+      {visible(tokens.breakpoint).map(([n, px]) => `${n} ${px}`).join(' · ')}
+    </p>
+    <p class="mt-2 type-label">
+      {t.currentWidth}:
+      <span class="text-accent sm:hidden">&lt; sm</span>
+      <span class="hidden text-accent sm:inline md:hidden">sm</span>
+      <span class="hidden text-accent md:inline lg:hidden">md</span>
+      <span class="hidden text-accent lg:inline xl:hidden">lg</span>
+      <span class="hidden text-accent xl:inline">xl</span>
+    </p>
+  </section>
+</main>

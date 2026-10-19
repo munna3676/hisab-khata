@@ -1,0 +1,18 @@
+---
+// One variant or state of a component, with a caption ("Primary / pressed").
+// `wide` lets the canvas span the full row (lists, tables, nav bars);
+// `frame` draws the canvas on the paper background so sheet-coloured parts show.
+interface Props {
+  label: string
+  wide?: boolean
+  frame?: boolean
+}
+const { label, wide = false, frame = true } = Astro.props
+---
+
+<figure class:list={['m-0 grid min-w-0 content-start gap-2', wide && 'col-span-full']} data-specimen>
+  <div class:list={['min-w-0', frame && 'rounded-card border border-dashed border-rule bg-paper p-4']}>
+    <slot />
+  </div>
+  <figcaption class="type-body-small text-soft">{label}</figcaption>
+</figure>

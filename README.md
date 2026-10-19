@@ -7,14 +7,26 @@ Android apps.
 
 | Path | What it holds |
 |---|---|
+| `apps/web` | Astro 7 static site, Preact islands, Tailwind 4 (Bangla at `/`, English at `/en/`, component gallery at `/dev/gallery`) |
 | `packages/core` | Calculation engines for every tool (pure TypeScript, tested) |
-| `packages/tokens` | Design tokens from the Figma file (light + dark) |
+| `packages/tokens` | Design tokens from the Figma file (light + dark + motion) → `dist/tokens.css` and the Tailwind `dist/theme.css` |
+| `packages/ui` | Preact components, icons and the motion utilities, shared by the website and the app (see its README) |
+| `tests/visual` | Playwright: gallery screenshots at 390/1440 px in light and dark, axe, touch targets, token checks |
 | `data/` | Every rate, charge and slab as a Fact with its source and checked date |
 | `docs/decisions/0001-stack.md` | Chosen stack and the phased build plan |
 | `docs/engine-review.md` | Open questions and data to confirm for each engine |
 
 ```sh
 pnpm install
-pnpm test          # all packages
-pnpm check:data    # every Fact has a source; warns when one is over 60 days old
+pnpm dev                    # web dev server (PORT=4401 pnpm dev for another port)
+pnpm build                  # tokens + static site into apps/web/dist
+pnpm test                   # unit tests in every package (core, ui, tokens --check)
+pnpm typecheck              # tsc / astro check everywhere
+pnpm test:visual            # Playwright; starts a dev server on $PORT (default 4400)
+SECTION=base PORT=4401 pnpm shots   # screenshots of /dev/gallery#base only
+pnpm check:data             # every Fact has a source; warns when one is over 60 days old
 ```
+
+Screenshots land in `test-results/gallery/<section|all>/<theme>-<width>.png`.
+In this container Playwright uses the preinstalled Chromium at
+`/opt/pw-browsers/chromium` automatically; never run `playwright install` here.

@@ -1,0 +1,57 @@
+---
+// Every page's shell: language, meta, hreflang, fonts, global CSS and the
+// pre-paint script that sets <html data-theme data-motion> before first paint.
+import '@fontsource/noto-sans-bengali/400.css'
+import '@fontsource/noto-sans-bengali/500.css'
+import '@fontsource/noto-sans-bengali/600.css'
+import '@fontsource/anek-bangla/600.css'
+import '@fontsource/anek-bangla/700.css'
+import '@fontsource/ibm-plex-mono/500.css'
+import '@fontsource/ibm-plex-mono/600.css'
+import '../styles/global.css'
+
+import tokens from '@hisab/tokens/tokens.json'
+import { PRE_PAINT_SCRIPT } from '@hisab/ui/lib'
+import { LANGS, langOf, localePath, strings } from '../i18n'
+
+interface Props {
+  title?: string
+  description?: string
+  /** Keep the page out of search (dev pages, previews). */
+  noindex?: boolean
+}
+
+const lang = langOf(Astro.currentLocale)
+const t = strings[lang]
+const { title, description = t.tagline, noindex = false } = Astro.props
+const fullTitle = title ? `${title} · ${t.siteName}` : t.siteName
+const abs = (path: string) => (Astro.site ? new URL(path, Astro.site).href : path)
+const canonical = abs(localePath(lang, Astro.url.pathname))
+---
+
+<!doctype html>
+<html lang={lang} dir="ltr">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <script is:inline set:html={PRE_PAINT_SCRIPT} />
+    <title>{fullTitle}</title>
+    <meta name="description" content={description} />
+    {noindex && <meta name="robots" content="noindex, nofollow" />}
+    <link rel="canonical" href={canonical} />
+    {LANGS.map((l) => <link rel="alternate" hreflang={l} href={abs(localePath(l, Astro.url.pathname))} />)}
+    <link rel="alternate" hreflang="x-default" href={abs(localePath('bn', Astro.url.pathname))} />
+    <meta name="color-scheme" content="light dark" />
+    <meta name="theme-color" content={tokens.color.light['bg/paper']} media="(prefers-color-scheme: light)" />
+    <meta name="theme-color" content={tokens.color.dark['bg/paper']} media="(prefers-color-scheme: dark)" />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <slot name="head" />
+  </head>
+  <body class="min-h-dvh bg-paper text-ink antialiased">
+    <slot />
+    <script>
+      // Lets :active fire on iOS Safari so every .pressable shows its press state.
+      document.addEventListener('touchstart', () => {}, { passive: true })
+    </script>
+  </body>
+</html>

@@ -1,0 +1,19 @@
+---
+// One component inside a gallery section, e.g. <Group title="Button" id="button">.
+// The id becomes an anchor (/dev/gallery#button) and must be unique on the page,
+// so prefix it with your section if it could clash (e.g. "nav-tabs").
+interface Props {
+  title: string
+  id: string
+  description?: string
+}
+const { title, id, description } = Astro.props
+---
+
+<div class="scroll-mt-28 border-t border-line py-6 first:border-t-0" id={id} data-gallery-group>
+  <h3 class="type-h3">{title}</h3>
+  {description && <p class="mt-1 max-w-form type-body-small text-soft">{description}</p>}
+  <div class="mt-4 grid gap-4">
+    <slot />
+  </div>
+</div>

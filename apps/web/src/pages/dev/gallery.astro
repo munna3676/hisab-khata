@@ -1,0 +1,58 @@
+---
+// /dev/gallery — every component group's section, discovered automatically.
+// A section is any src/gallery/*.astro file (files in sub-folders are not
+// sections; use them for demo islands). Each may export `title` and `order`;
+// sections render sorted by order, then file name, each wrapped in
+// <section id="<file name>"> with an <h2> anchor, so /dev/gallery#base works.
+import type { AstroComponentFactory } from 'astro/runtime/server/index.js'
+import DevControls from '../../components/DevControls.astro'
+import Base from '../../layouts/Base.astro'
+
+interface SectionModule {
+  default: AstroComponentFactory
+  title?: string
+  order?: number
+  description?: string
+}
+
+const modules = import.meta.glob<SectionModule>('../../gallery/*.astro', { eager: true })
+const sections = Object.entries(modules)
+  .map(([path, mod]) => {
+    const id = path.split('/').pop()!.replace(/\.astro$/, '')
+    return { id, title: mod.title ?? id, order: mod.order ?? 1000, description: mod.description, Section: mod.default }
+  })
+  .sort((a, b) => a.order - b.order || a.id.localeCompare(b.id))
+---
+
+<Base title="Gallery" noindex>
+  <header class="z-40 border-b border-line bg-sheet pt-[env(safe-area-inset-top)] lg:sticky lg:top-0" data-gallery-header>
+    <div class="mx-auto flex max-w-content flex-wrap items-center justify-between gap-x-4 gap-y-1 px-4 py-2">
+      <a href="/" class="pressable grid min-h-touch place-items-center rounded-input type-h3 text-accent">হিসাব খাতা</a>
+      <nav aria-label="Gallery sections" class="-mx-2 flex max-w-full overflow-x-auto">
+        {
+          sections.map((s) => (
+            <a href={`#${s.id}`} class="pressable grid min-h-touch shrink-0 place-items-center rounded-input px-2 type-label text-soft">
+              {s.title}
+            </a>
+          ))
+        }
+      </nav>
+      <DevControls />
+    </div>
+  </header>
+
+  <main class="mx-auto max-w-content px-4 pb-24" data-gallery>
+    <h1 class="sr-only">Component gallery</h1>
+    {
+      sections.map(({ id, title, description, Section }) => (
+        <section id={id} aria-labelledby={`${id}-title`} class="scroll-mt-4 border-b lg:scroll-mt-24 border-line py-8 last:border-b-0" data-gallery-section={id}>
+          <h2 id={`${id}-title`} class="type-h1">{title}</h2>
+          {description && <p class="mt-1 max-w-form text-soft">{description}</p>}
+          <div class="mt-4">
+            <Section />
+          </div>
+        </section>
+      ))
+    }
+  </main>
+</Base>

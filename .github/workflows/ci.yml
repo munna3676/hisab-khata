@@ -1,0 +1,81 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
+jobs:
+  check:
+    name: Typecheck, tests, data, build, Playwright
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    env:
+      CI: true
+      ASTRO_TELEMETRY_DISABLED: 1
+    steps:
+      - uses: actions/checkout@v5
+
+      - uses: pnpm/action-setup@v4
+
+      - uses: actions/setup-node@v5
+        with:
+          node-version-file: .nvmrc
+          cache: pnpm
+
+      - name: Install
+        run: pnpm install --frozen-lockfile
+
+      - name: Tokens (--check, then build dist/)
+        run: |
+          pnpm --filter @hisab/tokens check
+          pnpm tokens
+
+      - name: Typecheck
+        run: pnpm typecheck
+
+      - name: Core tests
+        run: pnpm --filter @hisab/core test
+
+      - name: UI and tokens tests
+        run: pnpm --filter @hisab/ui --filter @hisab/tokens test
+
+      - name: Check data
+        run: pnpm check:data
+
+      - name: Build web
+        run: pnpm --filter @hisab/web build
+
+      - name: Upload web build
+        uses: actions/upload-artifact@v4
+        with:
+          name: web-dist
+          path: apps/web/dist
+          retention-days: 7
+
+      - name: Install Playwright Chromium
+        run: pnpm exec playwright install --with-deps chromium
+
+      - name: Playwright (gallery screenshots, axe, tokens) against the production build
+        run: pnpm test:visual
+        env:
+          PW_SERVER: preview
+          PORT: 4400
+
+      - name: Upload screenshots and report
+        if: ${{ !cancelled() }}
+        uses: actions/upload-artifact@v4
+        with:
+          name: playwright
+          path: |
+            test-results/
+            playwright-report/
+          retention-days: 14

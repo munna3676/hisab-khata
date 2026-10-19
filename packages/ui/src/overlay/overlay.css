@@ -1,0 +1,4 @@
+/* @hisab/ui overlay group styles. Owned by the overlay builder; imported by src/styles/index.css.
+   Only for what Tailwind classes cannot express (keyframes, ::part, :has() chains, scroll-snap tweaks).
+   Put rules inside @layer components so Tailwind utilities can still override them.
+   Use token variables only (var(--brand-accent), var(--duration-sheet), var(--ease-out)); no raw hex. */

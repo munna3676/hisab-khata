@@ -1,0 +1,319 @@
+/*
+ * @hisab/ui motion system (docs/decisions/0001-stack.md, "Animation").
+ * Import after `tailwindcss` and @hisab/tokens tokens.css + theme.css: those give
+ * --duration-* and --ease-*, already shortened for html[data-motion=lite|reduce].
+ *
+ * Rules
+ * - Only transform-family properties (transform, translate, scale, rotate) and
+ *   opacity are transitioned or animated. Shadows fade via a pseudo-element's
+ *   opacity, never box-shadow. (Exception from the stack doc: stroke-dashoffset
+ *   for the checklist tick, see animate-draw.)
+ * - Hover effects only under (hover: hover) and (pointer: fine). Tailwind's
+ *   hover: variant is redefined below, so `hover:` classes follow this too.
+ * - Reduced motion (html[data-motion=reduce], or prefers-reduced-motion unless
+ *   the user picked "full") turns every transform amount below into identity and
+ *   keeps short opacity fades only.
+ * - Pseudo-element budget: ::before = elevation shadow (.lift);
+ *   ::after = press/hover tint (.pressable) or underline (.link-underline).
+ *
+ * Classes (in @layer components, so Tailwind utilities can still override them)
+ *   .pressable       every tappable thing: :active scale(.97) + pressed tint,
+ *                    hover tint on pointer devices, tap-delay removal.
+ *                    Tint colour: --press-tint (default currentColor).
+ *   .lift            cards: hover translateY(-2px) + elevation fade-in.
+ *   .link-underline  standalone links: underline grows with scaleX on hover/focus.
+ *   .nudge           icons: scale(1.04) on hover of itself or of a .lift/.pressable/.group ancestor.
+ * Animations (Tailwind utilities from @theme below)
+ *   animate-fade-in/-out, animate-rise-in (result card), animate-toast-in/-out,
+ *   animate-sheet-in/-out, animate-dialog-in/-out, animate-scrim-in/-out,
+ *   animate-page-in, animate-pop (save heart), animate-shimmer (skeleton),
+ *   animate-draw (SVG tick; give the path pathLength="1" stroke-dasharray="1").
+ * Durations/easing as utilities: duration-press|hover|release|toast|tab|page|sheet, ease-out, ease-in.
+ */
+
+/* Hover only where a real pointer hovers (no sticky hover on touch). */
+@custom-variant hover {
+  @media (hover: hover) and (pointer: fine) {
+    &:hover {
+      @slot;
+    }
+  }
+}
+
+@layer base {
+  :root {
+    --press-scale: 0.97;
+    --press-tint: currentColor;
+    --press-tint-opacity: 0.12;
+    --hover-tint-opacity: 0.06;
+    --lift-y: -2px;
+    --lift-shadow: 0 8px 24px -6px var(--overlay-shadow), 0 2px 6px var(--overlay-shadow);
+    --nudge-scale: 1.04;
+    --enter-y: 8px;
+    --toast-y: 16px;
+    --sheet-y: 100%;
+    --dialog-scale: 0.96;
+    --page-x: 16px;
+    --pop-scale: 1.25;
+    /* Slides do not fade in full motion; with reduced motion they become fades. */
+    --slide-from-opacity: 1;
+  }
+
+  html[data-motion="reduce"] {
+    --press-scale: 1;
+    --lift-y: 0px;
+    --nudge-scale: 1;
+    --enter-y: 0px;
+    --toast-y: 0px;
+    --sheet-y: 0px;
+    --dialog-scale: 1;
+    --page-x: 0px;
+    --pop-scale: 1;
+    --slide-from-opacity: 0;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    html:not([data-motion="full"]) {
+      --press-scale: 1;
+      --lift-y: 0px;
+      --nudge-scale: 1;
+      --enter-y: 0px;
+      --toast-y: 0px;
+      --sheet-y: 0px;
+      --dialog-scale: 1;
+      --page-x: 0px;
+      --pop-scale: 1;
+      --slide-from-opacity: 0;
+    }
+  }
+
+  html {
+    -webkit-tap-highlight-color: transparent;
+    -webkit-text-size-adjust: 100%;
+    text-size-adjust: 100%;
+  }
+
+  :where(a, button, input, select, textarea, label, summary, [role="button"], [role="tab"], [role="switch"], [role="option"], [role="menuitem"]) {
+    touch-action: manipulation;
+  }
+
+  /* 2px brand ring for keyboard focus only. */
+  :focus-visible {
+    outline: 2px solid var(--brand-accent);
+    outline-offset: 2px;
+  }
+}
+
+@layer components {
+  /* ---- press (every pressable) ---- */
+  .pressable {
+    position: relative;
+    isolation: isolate;
+    cursor: pointer;
+    user-select: none;
+    -webkit-user-select: none;
+    touch-action: manipulation;
+    transition: scale var(--duration-release) var(--ease-out);
+  }
+  .pressable::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    background: var(--press-tint);
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity var(--duration-release) var(--ease-out);
+  }
+  @media (hover: hover) and (pointer: fine) {
+    .pressable:hover:not(:disabled, [aria-disabled="true"])::after {
+      opacity: var(--hover-tint-opacity);
+    }
+  }
+  .pressable:active:not(:disabled, [aria-disabled="true"]) {
+    scale: var(--press-scale);
+    transition-duration: var(--duration-press);
+  }
+  .pressable:active:not(:disabled, [aria-disabled="true"])::after {
+    opacity: var(--press-tint-opacity);
+    transition-duration: var(--duration-press);
+  }
+  .pressable:is(:disabled, [aria-disabled="true"]) {
+    cursor: not-allowed;
+  }
+
+  /* ---- card lift (hover devices) ---- */
+  .lift {
+    position: relative;
+    isolation: isolate;
+    transition:
+      translate var(--duration-hover) var(--ease-out),
+      scale var(--duration-release) var(--ease-out);
+  }
+  .lift::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    border-radius: inherit;
+    box-shadow: var(--lift-shadow);
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity var(--duration-hover) var(--ease-out);
+  }
+  @media (hover: hover) and (pointer: fine) {
+    .lift:hover {
+      translate: 0 var(--lift-y);
+    }
+    .lift:hover::before {
+      opacity: 1;
+    }
+  }
+
+  /* ---- link underline (scaleX) ---- */
+  .link-underline {
+    position: relative;
+    text-decoration: none;
+  }
+  .link-underline::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: -0.1em;
+    height: max(1px, 0.0625em);
+    background: currentColor;
+    scale: 0 1;
+    transform-origin: left center;
+    pointer-events: none;
+    transition: scale var(--duration-hover) var(--ease-out);
+  }
+  .link-underline:focus-visible::after {
+    scale: 1 1;
+  }
+  @media (hover: hover) and (pointer: fine) {
+    .link-underline:hover::after {
+      scale: 1 1;
+    }
+  }
+
+  /* ---- icon nudge ---- */
+  .nudge {
+    transition: scale var(--duration-hover) var(--ease-out);
+  }
+  @media (hover: hover) and (pointer: fine) {
+    .nudge:hover,
+    :is(.lift, .pressable, .group):hover .nudge {
+      scale: var(--nudge-scale);
+    }
+  }
+}
+
+/* Utilities read the variables at the element, so local overrides work. */
+@theme inline {
+  --animate-fade-in: hk-fade-in var(--duration-toast) var(--ease-out) both;
+  --animate-fade-out: hk-fade-out var(--duration-toast) var(--ease-in) both;
+  --animate-rise-in: hk-rise-in var(--duration-toast) var(--ease-out) both;
+  --animate-toast-in: hk-toast-in var(--duration-toast) var(--ease-out) both;
+  --animate-toast-out: hk-toast-out var(--duration-toast) var(--ease-in) both;
+  --animate-sheet-in: hk-sheet-in var(--duration-sheet) var(--ease-out) both;
+  --animate-sheet-out: hk-sheet-out var(--duration-sheet) var(--ease-in) both;
+  --animate-dialog-in: hk-dialog-in var(--duration-sheet) var(--ease-out) both;
+  --animate-dialog-out: hk-dialog-out var(--duration-toast) var(--ease-in) both;
+  --animate-scrim-in: hk-fade-in var(--duration-sheet) var(--ease-out) both;
+  --animate-scrim-out: hk-fade-out var(--duration-sheet) var(--ease-in) both;
+  --animate-page-in: hk-page-in var(--duration-page) var(--ease-out) both;
+  --animate-pop: hk-pop var(--duration-sheet) var(--ease-out);
+  --animate-shimmer: hk-shimmer 1.4s linear infinite;
+  --animate-draw: hk-draw var(--duration-page) var(--ease-out) both;
+
+  @keyframes hk-fade-in {
+    from {
+      opacity: 0;
+    }
+  }
+  @keyframes hk-fade-out {
+    to {
+      opacity: 0;
+    }
+  }
+  @keyframes hk-rise-in {
+    from {
+      opacity: 0;
+      translate: 0 var(--enter-y);
+    }
+  }
+  @keyframes hk-toast-in {
+    from {
+      opacity: 0;
+      translate: 0 var(--toast-y);
+    }
+  }
+  @keyframes hk-toast-out {
+    to {
+      opacity: 0;
+      translate: 0 var(--toast-y);
+    }
+  }
+  @keyframes hk-sheet-in {
+    from {
+      opacity: var(--slide-from-opacity);
+      translate: 0 var(--sheet-y);
+    }
+  }
+  @keyframes hk-sheet-out {
+    to {
+      opacity: var(--slide-from-opacity);
+      translate: 0 var(--sheet-y);
+    }
+  }
+  @keyframes hk-dialog-in {
+    from {
+      opacity: 0;
+      scale: var(--dialog-scale);
+    }
+  }
+  @keyframes hk-dialog-out {
+    to {
+      opacity: 0;
+      scale: var(--dialog-scale);
+    }
+  }
+  @keyframes hk-page-in {
+    from {
+      opacity: 0;
+      translate: var(--page-x) 0;
+    }
+  }
+  @keyframes hk-pop {
+    40% {
+      scale: var(--pop-scale);
+    }
+  }
+  @keyframes hk-shimmer {
+    from {
+      translate: -100% 0;
+    }
+    to {
+      translate: 100% 0;
+    }
+  }
+  @keyframes hk-draw {
+    from {
+      stroke-dashoffset: 1;
+    }
+    to {
+      stroke-dashoffset: 0;
+    }
+  }
+}
+
+/* Lite and reduced motion: no shimmer. Unlayered so it beats the animate-* utility. */
+html:is([data-motion="lite"], [data-motion="reduce"]) .animate-shimmer {
+  animation: none;
+}
+@media (prefers-reduced-motion: reduce) {
+  html:not([data-motion="full"]) .animate-shimmer {
+    animation: none;
+  }
+}

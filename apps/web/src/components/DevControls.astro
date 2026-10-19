@@ -1,0 +1,80 @@
+---
+// Theme and motion-mode switches (gallery and token showcase). State lives in
+// localStorage + <html data-theme data-motion>, shared with the pre-paint script.
+import { langOf, strings } from '../i18n'
+
+const t = strings[langOf(Astro.currentLocale)]
+const groups = [
+  {
+    setting: 'theme',
+    label: t.theme,
+    options: [
+      ['system', t.system],
+      ['light', t.light],
+      ['dark', t.dark],
+    ],
+  },
+  {
+    setting: 'motion',
+    label: t.motionMode,
+    options: [
+      ['auto', t.auto],
+      ['full', t.full],
+      ['lite', t.lite],
+      ['reduce', t.reduce],
+    ],
+  },
+] as const
+---
+
+<div class="flex flex-wrap items-center gap-x-4 gap-y-2" data-dev-controls>
+  {
+    groups.map((g) => (
+      <div class="flex items-center gap-2" role="radiogroup" aria-labelledby={`dev-${g.setting}-label`}>
+        <span id={`dev-${g.setting}-label`} class="type-label text-soft">
+          {g.label}
+        </span>
+        <div class="flex rounded-full border border-line bg-sheet p-0.5">
+          {g.options.map(([value, label]) => (
+            <label class="pressable grid min-h-touch min-w-touch place-items-center rounded-full px-3 type-label text-soft has-checked:bg-accent has-checked:text-on-accent has-focus-visible:outline-2 has-focus-visible:outline-offset-2 has-focus-visible:outline-accent">
+              <input
+                type="radio"
+                name={`hk-dev-${g.setting}`}
+                value={value}
+                data-setting={g.setting}
+                class="sr-only"
+              />
+              {label}
+            </label>
+          ))}
+        </div>
+      </div>
+    ))
+  }
+</div>
+
+<script>
+  import {
+    getMotionSetting,
+    getThemeSetting,
+    setMotionSetting,
+    setThemeSetting,
+    type MotionSetting,
+    type ThemeSetting,
+  } from '@hisab/ui/lib'
+
+  const inputs = () => document.querySelectorAll<HTMLInputElement>('input[data-setting]')
+  const sync = () => {
+    const theme = getThemeSetting()
+    const motion = getMotionSetting()
+    for (const input of inputs()) input.checked = input.value === (input.dataset.setting === 'theme' ? theme : motion)
+  }
+  document.addEventListener('change', (event) => {
+    const input = event.target
+    if (!(input instanceof HTMLInputElement) || !input.dataset.setting) return
+    if (input.dataset.setting === 'theme') setThemeSetting(input.value as ThemeSetting)
+    else setMotionSetting(input.value as MotionSetting)
+    sync()
+  })
+  sync()
+</script>
