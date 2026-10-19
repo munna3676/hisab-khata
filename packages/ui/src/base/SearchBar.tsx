@@ -11,6 +11,8 @@ export interface SearchBarProps {
   placeholder?: string
   /** Accessible name of the input (the placeholder is not a label). */
   label?: string
+  /** Name of the search landmark, needed only when a page has more than one search form. */
+  landmarkLabel?: string
   /** Text of the Large bar's submit button. */
   buttonLabel?: string
   /** Where the form goes without JS (GET ?q=…). */
@@ -35,6 +37,7 @@ export function SearchBar({
   size = 'large',
   placeholder = 'খোঁজো...',
   label = 'খোঁজো',
+  landmarkLabel,
   buttonLabel = 'খোঁজো',
   action = '/search',
   name = 'q',
@@ -59,6 +62,7 @@ export function SearchBar({
   return (
     <form
       role="search"
+      aria-label={landmarkLabel}
       action={action}
       method="get"
       onSubmit={submit}

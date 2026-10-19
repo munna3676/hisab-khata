@@ -97,7 +97,7 @@ export function SegmentedControl<V extends string = string>({
             {/* Both colours stacked in one cell; opacity cross-fades as the accent block arrives. */}
             <span
               class={cx(
-                '[grid-area:1/1] text-soft transition-opacity duration-tab ease-out',
+                'pointer-events-none [grid-area:1/1] text-soft transition-opacity duration-tab ease-out',
                 selected ? 'opacity-0' : 'opacity-100',
               )}
             >
@@ -106,7 +106,7 @@ export function SegmentedControl<V extends string = string>({
             <span
               aria-hidden="true"
               class={cx(
-                '[grid-area:1/1] text-on-accent transition-opacity duration-tab ease-out',
+                'pointer-events-none [grid-area:1/1] text-on-accent transition-opacity duration-tab ease-out',
                 selected ? 'opacity-100' : 'opacity-0',
               )}
             >

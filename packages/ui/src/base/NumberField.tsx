@@ -103,7 +103,12 @@ export function NumberField({
   }, [value, controlled]) // only outside value changes matter, not every keystroke
 
   const parsed = parseAmount(text)
-  const msg = { ...(lang === 'en' ? EN_MESSAGES : BN_MESSAGES), ...messages }
+  const defaults = lang === 'en' ? EN_MESSAGES : BN_MESSAGES
+  const msg = {
+    invalid: messages?.invalid ?? defaults.invalid,
+    min: messages?.min ?? defaults.min,
+    max: messages?.max ?? defaults.max,
+  }
   const fmt = (n: number) => formatNumber(n, { digits }) + (unit ? ` ${unit}` : '')
   let builtIn: string | null = null
   if (text.trim() !== '' && parsed === null) builtIn = msg.invalid

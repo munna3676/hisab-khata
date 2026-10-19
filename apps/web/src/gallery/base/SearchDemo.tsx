@@ -6,7 +6,7 @@ export default function SearchDemo({ size = 'large' }: { size?: 'large' | 'compa
   const [query, setQuery] = useState<string | null>(null)
   return (
     <div class="grid gap-2">
-      <SearchBar size={size} onSearch={setQuery} class={size === 'compact' ? 'max-w-[280px]' : 'max-w-[342px]'} />
+      <SearchBar size={size} landmarkLabel={size === 'compact' ? 'খোঁজো (ছোট, লাইভ)' : 'খোঁজো (বড়, লাইভ)'} onSearch={setQuery} class={size === 'compact' ? 'max-w-[280px]' : 'max-w-[342px]'} />
       <p class="type-body-small text-soft" aria-live="polite">
         {query === null ? 'Enter চাপো বা খোঁজো বাটন' : `খোঁজা হলো: “${query}”`}
       </p>
