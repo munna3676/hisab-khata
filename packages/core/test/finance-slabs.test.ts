@@ -1,0 +1,33 @@
+import { describe, expect, it } from 'vitest'
+import { exciseDuty, findSlab, isValidExciseTable, isValidSlabTable } from '../src/lib/finance-slabs.ts'
+
+// Sample table in the shape of data/finance/excise-duty.json, test-only.
+const EXCISE = [
+  { upTo: 400000, duty: 0 },
+  { upTo: 500000, duty: 150 },
+  { upTo: 1000000, duty: 500 },
+  { upTo: null, duty: 3000 },
+]
+
+describe('finance-slabs', () => {
+  it('a limit belongs to its own row; above the last limit takes the open row', () => {
+    expect(exciseDuty(400000, EXCISE)).toBe(0)
+    expect(exciseDuty(400000.01, EXCISE)).toBe(150)
+    expect(exciseDuty(1000000, EXCISE)).toBe(500)
+    expect(exciseDuty(1e12, EXCISE)).toBe(3000)
+    expect(exciseDuty(0, EXCISE)).toBe(0)
+    expect(findSlab(450000, EXCISE)).toBe(EXCISE[1])
+  })
+  it('no table means no duty', () => {
+    expect(exciseDuty(1e9, [])).toBe(0)
+  })
+  it('checks table shape', () => {
+    expect(isValidSlabTable(EXCISE)).toBe(true)
+    expect(isValidSlabTable([{ upTo: null }])).toBe(true)
+    expect(isValidSlabTable([])).toBe(false)
+    expect(isValidSlabTable([{ upTo: 100 }])).toBe(false)
+    expect(isValidSlabTable([{ upTo: 100 }, { upTo: 100 }, { upTo: null }])).toBe(false)
+    expect(isValidSlabTable([{ upTo: null }, { upTo: null }])).toBe(false)
+    expect(isValidExciseTable([{ upTo: null, duty: -1 }])).toBe(false)
+  })
+})
