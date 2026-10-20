@@ -1,4 +1,5 @@
 import { checkDataFile } from './checks.ts'
+import { specFor } from './contract.ts'
 import { isSafePath, openSignedManifest, sha256Hex, type DataManifest, type SignedManifest } from './manifest.ts'
 import type { DataFileTypes } from './types.ts'
 
@@ -81,11 +82,12 @@ interface StoredSet {
 type Slot = 'a' | 'b'
 
 class Rejected extends Error {
-  constructor(
-    readonly reason: RejectReason,
-    readonly detail?: string,
-  ) {
+  readonly reason: RejectReason
+  readonly detail: string | undefined
+  constructor(reason: RejectReason, detail?: string) {
     super(detail ?? reason)
+    this.reason = reason
+    this.detail = detail
   }
 }
 
@@ -204,7 +206,7 @@ export class DataStore {
 
       const slot: Slot = this.activeSlot === 'a' ? 'b' : 'a'
       try {
-        await this.options.storage.set(this.slotKey(slot), JSON.stringify({ signed, texts } satisfies StoredSet))
+        await this.options.storage.set(this.slotKey(slot), JSON.stringify({ signed: signed as SignedManifest, texts } satisfies StoredSet))
         await this.options.storage.set(this.pointerKey(), slot)
       } catch (e) {
         throw new Rejected('storage', e instanceof Error ? e.message : String(e))
@@ -237,6 +239,7 @@ export class DataStore {
     }
     const files: Record<string, unknown> = {}
     for (const [path, entry] of Object.entries(manifest.files)) {
+      if (!specFor(path)?.bundled) throw new Rejected('bad-manifest', `${path} is not a data file the app reads`)
       const bundledEntry = this.options.bundled.manifest.files[path]
       if (bundledEntry?.sha256 === entry.sha256 && Object.hasOwn(this.options.bundled.files, path)) {
         files[path] = this.options.bundled.files[path]

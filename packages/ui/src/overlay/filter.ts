@@ -70,13 +70,20 @@ export function skeleton(text: string): string {
 interface Haystack {
   plain: string[]
   roman: string[]
+  /** Skeletons of the Bangla words only: Latin keywords and codes ("USD") are matched as written. */
   skel: string[]
 }
+
+const BANGLA = /[\u0980-\u09FF]/
 
 function haystack(option: FilterableOption): Haystack {
   const fields = [option.label, option.description ?? '', ...(option.keywords ?? [])].filter(Boolean)
   const plain = fields.map(normalizeText)
-  return { plain, roman: fields.map(romanize), skel: fields.map(skeleton) }
+  return { plain, roman: fields.map(romanize), skel: fields
+      .map((f) => f.split(/\s+/).filter((w) => BANGLA.test(w)).join(' '))
+      .filter(Boolean)
+      .map(skeleton),
+  }
 }
 
 /** 0 = starts the label, 1 = starts any word, 2 = anywhere, 3 = sounds alike; -1 = no match. */
@@ -98,9 +105,11 @@ export function matchRank(option: FilterableOption, query: string): number {
 /** Options that match `query`, best matches first, the caller's order kept within a rank. */
 export function filterOptions<T extends FilterableOption>(options: readonly T[], query: string): T[] {
   if (!normalizeText(query)) return [...options]
-  return options
-    .map((option, index) => ({ option, index, rank: matchRank(option, query) }))
-    .filter((m) => m.rank >= 0)
+  const matched = options.map((option, index) => ({ option, index, rank: matchRank(option, query) })).filter((m) => m.rank >= 0)
+  // Sound-alike matches only when nothing matches as written ("usd" must not bring up সৌদি).
+  const literal = matched.some((m) => m.rank < 3)
+  return matched
+    .filter((m) => !literal || m.rank < 3)
     .sort((a, b) => a.rank - b.rank || a.index - b.index)
     .map((m) => m.option)
 }

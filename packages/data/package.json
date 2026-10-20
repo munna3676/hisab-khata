@@ -3,14 +3,16 @@
   "version": "0.1.0",
   "private": true,
   "type": "module",
-  "description": "Typed access to data/: the page registry, Fact files checked by JSON Schema (ajv), and signed data packs for the app.",
+  "description": "Typed access to data/: the page registry, the data contract (JSON Schema + bounds, compiled to standalone validators), and the signed data store the app updates from.",
   "exports": {
     "./*": "./src/*.ts"
   },
   "scripts": {
     "test": "vitest run",
     "test:watch": "vitest",
-    "typecheck": "tsc --noEmit"
+    "typecheck": "tsc --noEmit",
+    "validators": "node ../../scripts/build-validators.mjs",
+    "check": "node ../../scripts/check-data.mjs --allow-unverified"
   },
   "dependencies": {
     "@hisab/core": "workspace:*",

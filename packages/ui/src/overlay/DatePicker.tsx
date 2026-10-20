@@ -281,11 +281,12 @@ export function DatePicker({
       </div>
 
       {showActions && (
-        <div class="grid min-w-0 grid-cols-2 gap-3">
-          <Button variant="secondary" block onClick={onCancel}>
+        // Figma: two near-equal buttons; the confirm one may take more room for the date.
+        <div class="flex min-w-0 gap-3">
+          <Button variant="secondary" class="min-w-0 flex-1" onClick={onCancel}>
             {labels.cancel}
           </Button>
-          <Button block disabled={!draft} onClick={() => draft && onConfirm?.(toDate(draft))}>
+          <Button class="min-w-0 flex-[1_0_auto]" disabled={!draft} onClick={() => draft && onConfirm?.(toDate(draft))}>
             {draft ? labels.confirm(formatYMD(draft, lang, digits)) : labels.pick}
           </Button>
         </div>

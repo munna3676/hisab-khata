@@ -1,16 +1,213 @@
 ---
 // Gallery section "Overlays" — owned by the overlay component builder.
 // Rendered by src/pages/dev/gallery.astro inside <section id="overlay"> with an <h2>.
-// Show every variant and state, using Group (one per component) and Specimen
-// (one per variant). Interactive demos: put islands in src/gallery/overlay/*.tsx
-// and use them here with client:visible (or client:load).
+// Static specimens are the Figma frames drawn with the real components (zero JS):
+// sheets on a scrim at phone width, the same sheets as the lg+ dialog, pickers, the date
+// picker, toasts and the States frame. The live demos (islands in ./overlay/) open the
+// real modal BottomSheet / Dialog, pickers and toasts.
+// Texts and amounts are Figma's layout samples, not data.
+import {
+  Banner,
+  DatePicker,
+  InstallAppPrompt,
+  NotFound,
+  Picker,
+  RateAlertForm,
+  ReportErrorForm,
+  SheetSurface,
+  SkeletonCard,
+  Toast,
+} from '@hisab/ui/overlay'
+import Grid from '../components/gallery/Grid.astro'
 import Group from '../components/gallery/Group.astro'
+import Specimen from '../components/gallery/Specimen.astro'
+import DatePickerDemo from './overlay/DatePickerDemo'
+import { COUNTRIES, DISTRICTS, GALLERY_TODAY, REPORT_ITEMS } from './overlay/data'
+import PickerDemo from './overlay/PickerDemo'
+import SheetDemo from './overlay/SheetDemo'
+import { EmptySearchSpecimen, ShareBodySpecimen } from './overlay/Static'
+import ToastDemo from './overlay/ToastDemo'
+import ToastHost from './overlay/ToastHost'
 
 export const title = 'Overlays'
 export const order = 40
-export const description = 'BottomSheet/Dialog, Picker, DatePicker, Toast.'
+export const description =
+  'BottomSheet → Dialog with the Share, Report Error, Rate Alert and Install App bodies, the searchable Picker, DatePicker, Toast, and the States frame (offline and stale banners, empty search, 404, loading skeleton).'
+
+const noop = () => {}
+// Static sheets sit at the bottom of a scrim, as in the Figma frames; dialogs are centred on it.
+const sheetStage = 'flex min-h-full flex-col justify-end overflow-hidden rounded-card bg-scrim pt-10'
+const dialogStage = 'grid place-items-center rounded-card bg-scrim p-4 sm:p-6'
+const MARCH_15 = new Date(2000, 2, 15)
+const close = 'বন্ধ করো'
 ---
 
-<Group title="Overlays" id="overlay-placeholder" description="No components yet.">
-  <p class="type-body-small text-soft">Components from @hisab/ui/overlay appear here.</p>
+<ToastHost client:load />
+
+<Group
+  title="Bottom Sheet → Dialog"
+  id="overlay-sheet"
+  description="Below lg a sheet slides up (translateY 100% → 0, 280 ms) over a fading scrim; drag the handle down to dismiss (pointer events, velocity threshold, rubber-band upwards). From lg it is a centred dialog (max-w-dialog) that fades and scales from .96. Modal: focus moves in and is trapped, Esc closes, focus returns to the opener, the page does not scroll."
+>
+  <Specimen label="Live: open each sheet (dialog at lg+)" wide>
+    <SheetDemo client:visible />
+  </Specimen>
+  <Grid cols={2}>
+    <Specimen label="S1 Sheet — Share" frame={false}>
+      <div class={sheetStage}>
+        <SheetSurface variant="sheet" title="শেয়ার করো" description="ফলাফলটা ছবি বা লিংক হিসেবে পাঠাও।" headingLevel={4} onCloseClick={noop} closeLabel={close}>
+          <ShareBodySpecimen />
+        </SheetSurface>
+      </div>
+    </Specimen>
+    <Specimen label="S2 Sheet — Report Error" frame={false}>
+      <div class={sheetStage}>
+        <SheetSurface
+          variant="sheet"
+          title="ভুল পেলেন?"
+          description="তোমার রিপোর্ট দেখে আমরা যাচাই করে ঠিক করব। নাম বা ফোন নম্বর লাগবে না।"
+          headingLevel={4}
+          onCloseClick={noop}
+          closeLabel={close}
+        >
+          <ReportErrorForm items={REPORT_ITEMS} />
+        </SheetSurface>
+      </div>
+    </Specimen>
+    <Specimen label="S3 Sheet — Rate Alert" frame={false}>
+      <div class={sheetStage}>
+        <SheetSurface variant="sheet" title="চার্জ বদলালে জানাও" description="লগইন লাগবে না। যেকোনো সময় বন্ধ করা যায়।" headingLevel={4} onCloseClick={noop} closeLabel={close}>
+          <RateAlertForm defaultEmail="rakib.hasan@example.com" />
+        </SheetSurface>
+      </div>
+    </Specimen>
+    <Specimen label="S4 Sheet — Install App (no title row; named by its heading)" frame={false}>
+      <div class={sheetStage}>
+        <SheetSurface variant="sheet">
+          <InstallAppPrompt headingLevel={4} />
+        </SheetSurface>
+      </div>
+    </Specimen>
+    <Specimen label="D · S2 Report Error — dialog at lg+ (28px sides, 16px corners)" frame={false}>
+      <div class={dialogStage}>
+        <SheetSurface
+          variant="dialog"
+          class="max-w-dialog"
+          title="ভুল পেলেন?"
+          description="তোমার রিপোর্ট দেখে আমরা যাচাই করে ঠিক করব। নাম বা ফোন নম্বর লাগবে না।"
+          headingLevel={4}
+          onCloseClick={noop}
+          closeLabel={close}
+        >
+          <ReportErrorForm items={REPORT_ITEMS} />
+        </SheetSurface>
+      </div>
+    </Specimen>
+    <Specimen label="D · S4 Install App — dialog at lg+" frame={false}>
+      <div class={dialogStage}>
+        <SheetSurface variant="dialog" class="max-w-dialog">
+          <InstallAppPrompt headingLevel={4} />
+        </SheetSurface>
+      </div>
+    </Specimen>
+  </Grid>
+</Group>
+
+<Group
+  title="Picker"
+  id="overlay-picker"
+  description="Search Bar, optional caption, 74px option cards; the selected one is accent-tint with a tick. Filters Bangla, Banglish and English (usePickerFilter: 'dhaka', 'daka', 'chittagong', 'saudi' all work). The search box is a combobox: ↑/↓ move, Enter picks; picking closes the sheet."
+>
+  <Specimen label="Live: country and district pickers" wide>
+    <PickerDemo client:visible />
+  </Specimen>
+  <Grid cols={2}>
+    <Specimen label="P1 পিকার — দেশ" frame={false}>
+      <div class={sheetStage}>
+        <SheetSurface variant="sheet" title="কোন দেশ থেকে পাঠাবে?" headingLevel={4} onCloseClick={noop} closeLabel={close}>
+          <Picker label="দেশ" searchPlaceholder="দেশের নাম লেখো" options={COUNTRIES.slice(0, 6)} value="SA" />
+        </SheetSurface>
+      </div>
+    </Specimen>
+    <Specimen label="P2 পিকার — জেলা (with caption)" frame={false}>
+      <div class={sheetStage}>
+        <SheetSurface variant="sheet" title="জেলা বেছে নাও" headingLevel={4} onCloseClick={noop} closeLabel={close}>
+          <Picker label="জেলা" searchPlaceholder="জেলার নাম লেখো" caption="৬৪ জেলা · বিভাগীয় শহর আগে" options={DISTRICTS.slice(0, 6)} value="dhaka" />
+        </SheetSurface>
+      </div>
+    </Specimen>
+  </Grid>
+</Group>
+
+<Group
+  title="DatePicker"
+  id="overlay-date"
+  description="Month bar with ‹ ›, মাস / বছর quick selects for jumping, a Saturday-first grid with 44px-tall day cells and the 40px accent pill on the chosen day. Bangla or English digits. Keyboard: arrows by day/week, Home/End, PageUp/PageDown by month (Shift: year), Enter picks."
+>
+  <Specimen label="Live: date picker sheet (dialog at lg+)" wide>
+    <DatePickerDemo client:visible />
+  </Specimen>
+  <Grid cols={2}>
+    <Specimen label="P5 পিকার — তারিখ (Bangla digits)" frame={false}>
+      <div class={sheetStage}>
+        <SheetSurface variant="sheet" title="জন্ম তারিখ" headingLevel={4} onCloseClick={noop} closeLabel={close}>
+          <DatePicker defaultValue={MARCH_15} today={GALLERY_TODAY} />
+        </SheetSurface>
+      </div>
+    </Specimen>
+    <Specimen label="English digits and names" frame={false}>
+      <div class={sheetStage}>
+        <SheetSurface variant="sheet" title="Date of birth" headingLevel={4} onCloseClick={noop} closeLabel="Close" lang="en">
+          <DatePicker lang="en" defaultValue={MARCH_15} today={GALLERY_TODAY} />
+        </SheetSurface>
+      </div>
+    </Specimen>
+  </Grid>
+</Group>
+
+<Group
+  title="Toast"
+  id="overlay-toast"
+  description="Slides up 16px and fades in above the bottom nav (below lg) or 24px from the bottom (lg+); announced through a polite live region; leaves after 4 s, paused while hovered or focused. Opacity only under reduced motion."
+>
+  <Specimen label="Live: fire a toast" wide>
+    <ToastDemo client:visible />
+  </Specimen>
+  <Grid cols={2}>
+    <Specimen label="T1 টোস্ট — রিপোর্ট পাঠানো হয়েছে">
+      <Toast>ধন্যবাদ! রিপোর্ট পেয়েছি, ২৪ ঘণ্টার মধ্যে যাচাই করব।</Toast>
+    </Specimen>
+    <Specimen label="T2 টোস্ট — লিংক কপি হয়েছে">
+      <Toast>লিংক কপি হয়েছে। হোয়াটসঅ্যাপ বা মেসেঞ্জারে পেস্ট করো।</Toast>
+    </Specimen>
+    <Specimen label="Info tone with an action button">
+      <Toast tone="info" action={{ label: 'ফেরত আনো', onClick: noop }}>হিসাবটা সেভ থেকে সরানো হয়েছে।</Toast>
+    </Specimen>
+    <Specimen label="Warn tone">
+      <Toast tone="warn">ইন্টারনেট নেই, পরে আবার চেষ্টা করো।</Toast>
+    </Specimen>
+  </Grid>
+</Group>
+
+<Group title="States" id="overlay-states" description="Figma 14 States (18:1904): offline banner, stale-data banner, empty search, 404 and the loading skeleton (shimmer is a translated gradient; still under lite and reduced motion).">
+  <Grid cols={2}>
+    <Specimen label="Banner — offline">
+      <Banner tone="offline">ইন্টারনেট নেই। ক্যালকুলেটর চলবে, রেট শেষবার সেভ করা অবস্থায় দেখাচ্ছে।</Banner>
+    </Specimen>
+    <Specimen label="Banner — stale (data purono)">
+      <Banner tone="stale">এই রেট ৬০ দিনের বেশি পুরোনো (শেষ যাচাই ১৯ আগস্ট)। লেনদেনের আগে অফিসিয়াল সাইটে মিলিয়ে নাও।</Banner>
+    </Specimen>
+    <Specimen label="EmptyState — খোঁজে কিছু পাওয়া যায়নি">
+      <EmptySearchSpecimen />
+    </Specimen>
+    <Specimen label="NotFound — ৪০৪ পেজ">
+      <NotFound headingLevel={4} />
+    </Specimen>
+    <Specimen label="NotFound — English">
+      <NotFound lang="en" headingLevel={4} />
+    </Specimen>
+    <Specimen label="Skeleton — loading card">
+      <SkeletonCard />
+    </Specimen>
+  </Grid>
 </Group>

@@ -184,7 +184,7 @@ describe('drag to dismiss', () => {
     expect(up).toBeGreaterThan(-200 * 0.5)
   })
 
-  function dragSheet(points: [y: number, t: number][]) {
+  function dragSheet(points: [[y: number, t: number], ...[y: number, t: number][]]) {
     const spy = vi.fn()
     render(
       <BottomSheet open variant="sheet" title="তারিখ" onClose={spy}>

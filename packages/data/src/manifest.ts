@@ -67,11 +67,16 @@ export async function keyIdOf(publicKey: Uint8Array): Promise<string> {
   return (await sha256Hex(publicKey)).slice(0, 16)
 }
 
+/** The Ed25519 public key of a 32-byte secret key. */
+export function publicKeyOf(secretKey: Uint8Array): Promise<Uint8Array> {
+  return getPublicKeyAsync(secretKey)
+}
+
 /** Signs a manifest (scripts and tests only; the secret key never ships in the app). */
 export async function signManifest(manifest: DataManifest, secretKey: Uint8Array): Promise<SignedManifest> {
   const text = JSON.stringify(manifest, null, 2)
   const signature = await signAsync(encoder.encode(text), secretKey)
-  return { keyId: await keyIdOf(await getPublicKeyAsync(secretKey)), manifest: text, signature: toBase64(signature) }
+  return { keyId: await keyIdOf(await publicKeyOf(secretKey)), manifest: text, signature: toBase64(signature) }
 }
 
 /**
