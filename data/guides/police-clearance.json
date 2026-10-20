@@ -1,0 +1,31 @@
+{
+  "id": "police-clearance",
+  "title": "পুলিশ ক্লিয়ারেন্স সার্টিফিকেট",
+  "summary": "অনলাইনে পুলিশ ক্লিয়ারেন্সের আবেদন, ফি জমা আর সনদ তোলার ধাপ।",
+  "documents": {
+    "value": [],
+    "source": "https://pcc.police.gov.bd/",
+    "checked": "2000-01-01",
+    "note": "unverified — seeded from Figma/test fixture"
+  },
+  "steps": {
+    "value": [],
+    "source": "https://pcc.police.gov.bd/",
+    "checked": "2000-01-01",
+    "note": "unverified — seeded from Figma/test fixture"
+  },
+  "fees": {
+    "value": [],
+    "unit": "BDT",
+    "source": "https://pcc.police.gov.bd/",
+    "checked": "2000-01-01",
+    "note": "unverified — seeded from Figma/test fixture"
+  },
+  "faq": [],
+  "sources": [
+    {
+      "label": "পুলিশ ক্লিয়ারেন্স",
+      "url": "https://pcc.police.gov.bd/"
+    }
+  ]
+}

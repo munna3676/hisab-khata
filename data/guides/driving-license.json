@@ -1,0 +1,31 @@
+{
+  "id": "driving-license",
+  "title": "ড্রাইভিং লাইসেন্স",
+  "summary": "লার্নার থেকে স্মার্ট কার্ড পর্যন্ত, পরীক্ষা সহ সব ধাপ।",
+  "documents": {
+    "value": [],
+    "source": "https://bsp.brta.gov.bd/",
+    "checked": "2000-01-01",
+    "note": "unverified — seeded from Figma/test fixture"
+  },
+  "steps": {
+    "value": [],
+    "source": "https://bsp.brta.gov.bd/",
+    "checked": "2000-01-01",
+    "note": "unverified — seeded from Figma/test fixture"
+  },
+  "fees": {
+    "value": [],
+    "unit": "BDT",
+    "source": "https://bsp.brta.gov.bd/",
+    "checked": "2000-01-01",
+    "note": "unverified — seeded from Figma/test fixture"
+  },
+  "faq": [],
+  "sources": [
+    {
+      "label": "বিআরটিএ সার্ভিস পোর্টাল",
+      "url": "https://bsp.brta.gov.bd/"
+    }
+  ]
+}

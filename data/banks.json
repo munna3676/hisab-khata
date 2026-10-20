@@ -1,0 +1,38 @@
+{
+  "banks": [
+    {
+      "id": "brac",
+      "name": {
+        "bn": "ব্র্যাক ব্যাংক",
+        "en": "BRAC Bank"
+      },
+      "shortName": "ব্র্যাক",
+      "kind": "private",
+      "islamic": false,
+      "helpline": {
+        "value": "16221",
+        "source": "https://www.bracbank.com/",
+        "checked": "2000-01-01",
+        "note": "unverified — seeded from Figma/test fixture"
+      },
+      "website": "https://www.bracbank.com/"
+    },
+    {
+      "id": "dbbl",
+      "name": {
+        "bn": "ডাচ-বাংলা ব্যাংক",
+        "en": "Dutch-Bangla Bank"
+      },
+      "shortName": "ডাচ-বাংলা",
+      "kind": "private",
+      "islamic": false,
+      "helpline": {
+        "value": "16216",
+        "source": "https://www.dutchbanglabank.com/",
+        "checked": "2000-01-01",
+        "note": "unverified — seeded from Figma/test fixture"
+      },
+      "website": "https://www.dutchbanglabank.com/"
+    }
+  ]
+}

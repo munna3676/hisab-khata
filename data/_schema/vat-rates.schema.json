@@ -22,7 +22,8 @@
             ],
             "properties": {
               "pct": {
-                "$ref": "common.json#/$defs/percent"
+                "type": "number",
+                "minimum": 0
               },
               "label": {
                 "type": "string",

@@ -1,0 +1,95 @@
+{
+  "value": [
+    {
+      "id": "paribar",
+      "nameBn": "পরিবার সঞ্চয়পত্র",
+      "detailBn": "৫ বছর · মাসিক মুনাফা · নারী, প্রতিবন্ধী ও ৬৫+",
+      "years": 5,
+      "payout": "monthly",
+      "rateSlabs": [
+        {
+          "upTo": 750000,
+          "ratePct": 11.93
+        },
+        {
+          "upTo": null,
+          "ratePct": 11.8
+        }
+      ],
+      "taxSlabs": [
+        {
+          "upTo": 500000,
+          "taxPct": 5
+        },
+        {
+          "upTo": null,
+          "taxPct": 10
+        }
+      ],
+      "minInvestment": 10000,
+      "maxInvestment": 4500000
+    },
+    {
+      "id": "bangladesh-5y",
+      "nameBn": "৫ বছর মেয়াদি বাংলাদেশ সঞ্চয়পত্র",
+      "detailBn": "৫ বছর · মেয়াদ শেষে মুনাফা",
+      "years": 5,
+      "payout": "maturity",
+      "rateSlabs": [
+        {
+          "upTo": 750000,
+          "ratePct": 11.93
+        },
+        {
+          "upTo": null,
+          "ratePct": 11.8
+        }
+      ],
+      "taxSlabs": [
+        {
+          "upTo": 500000,
+          "taxPct": 5
+        },
+        {
+          "upTo": null,
+          "taxPct": 10
+        }
+      ],
+      "minInvestment": 10000,
+      "maxInvestment": 4500000
+    },
+    {
+      "id": "three-month",
+      "nameBn": "৩ মাস অন্তর মুনাফাভিত্তিক",
+      "detailBn": "৩ বছর · তিন মাস পরপর মুনাফা",
+      "years": 3,
+      "payout": "quarterly",
+      "rateSlabs": [
+        {
+          "upTo": 750000,
+          "ratePct": 11.93
+        },
+        {
+          "upTo": null,
+          "ratePct": 11.8
+        }
+      ],
+      "taxSlabs": [
+        {
+          "upTo": 500000,
+          "taxPct": 5
+        },
+        {
+          "upTo": null,
+          "taxPct": 10
+        }
+      ],
+      "minInvestment": 10000,
+      "maxInvestment": 4500000
+    }
+  ],
+  "unit": "percent per year; BDT",
+  "source": "https://nationalsavings.gov.bd/",
+  "checked": "2000-01-01",
+  "note": "unverified — seeded from Figma/test fixture"
+}

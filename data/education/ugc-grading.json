@@ -1,0 +1,58 @@
+{
+  "value": [
+    {
+      "grade": "A+",
+      "minMarks": 80,
+      "point": 4
+    },
+    {
+      "grade": "A",
+      "minMarks": 75,
+      "point": 3.75
+    },
+    {
+      "grade": "A-",
+      "minMarks": 70,
+      "point": 3.5
+    },
+    {
+      "grade": "B+",
+      "minMarks": 65,
+      "point": 3.25
+    },
+    {
+      "grade": "B",
+      "minMarks": 60,
+      "point": 3
+    },
+    {
+      "grade": "B-",
+      "minMarks": 55,
+      "point": 2.75
+    },
+    {
+      "grade": "C+",
+      "minMarks": 50,
+      "point": 2.5
+    },
+    {
+      "grade": "C",
+      "minMarks": 45,
+      "point": 2.25
+    },
+    {
+      "grade": "D",
+      "minMarks": 40,
+      "point": 2
+    },
+    {
+      "grade": "F",
+      "minMarks": 0,
+      "point": 0
+    }
+  ],
+  "unit": "percent of full marks; grade point",
+  "source": "https://www.ugc.gov.bd/",
+  "checked": "2000-01-01",
+  "note": "unverified — seeded from Figma/test fixture"
+}

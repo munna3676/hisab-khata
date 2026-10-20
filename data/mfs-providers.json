@@ -1,0 +1,216 @@
+{
+  "providers": [
+    {
+      "id": "bkash",
+      "name": {
+        "bn": "বিকাশ",
+        "en": "bKash"
+      },
+      "helpline": {
+        "value": "16247",
+        "source": "https://www.bkash.com/en/help/fees-and-charges",
+        "checked": "2000-01-01",
+        "note": "unverified — seeded from Figma/test fixture"
+      },
+      "ussd": {
+        "value": "*247#",
+        "source": "https://www.bkash.com/en/help/fees-and-charges",
+        "checked": "2000-01-01",
+        "note": "unverified — seeded from Figma/test fixture"
+      },
+      "billers": {
+        "value": [
+          {
+            "id": "electricity",
+            "label": "বিদ্যুৎ",
+            "detail": "DESCO, DPDC, পল্লী বিদ্যুৎ, NESCO · প্রিপেইড ও পোস্টপেইড"
+          },
+          {
+            "id": "gas",
+            "label": "গ্যাস",
+            "detail": "তিতাস, কর্ণফুলী, বাখরাবাদ"
+          },
+          {
+            "id": "water",
+            "label": "পানি",
+            "detail": "ঢাকা ও চট্টগ্রাম ওয়াসা"
+          },
+          {
+            "id": "internet-tv",
+            "label": "ইন্টারনেট ও টিভি",
+            "detail": "ব্রডব্যান্ড ও ডিশ বিল"
+          },
+          {
+            "id": "education",
+            "label": "শিক্ষা ফি",
+            "detail": "স্কুল, কলেজ, বিশ্ববিদ্যালয়ের বেতন"
+          }
+        ],
+        "source": "https://www.bkash.com/en/help/fees-and-charges",
+        "checked": "2000-01-01",
+        "note": "unverified — seeded from Figma/test fixture"
+      }
+    },
+    {
+      "id": "nagad",
+      "name": {
+        "bn": "নগদ",
+        "en": "Nagad"
+      },
+      "helpline": {
+        "value": "16167",
+        "source": "https://nagad.com.bd/tariff/",
+        "checked": "2000-01-01",
+        "note": "unverified — seeded from Figma/test fixture"
+      },
+      "ussd": {
+        "value": "*167#",
+        "source": "https://nagad.com.bd/tariff/",
+        "checked": "2000-01-01",
+        "note": "unverified — seeded from Figma/test fixture"
+      },
+      "billers": {
+        "value": [
+          {
+            "id": "electricity",
+            "label": "বিদ্যুৎ",
+            "detail": "DESCO, DPDC, পল্লী বিদ্যুৎ, NESCO · প্রিপেইড ও পোস্টপেইড"
+          },
+          {
+            "id": "gas",
+            "label": "গ্যাস",
+            "detail": "তিতাস, কর্ণফুলী, বাখরাবাদ"
+          },
+          {
+            "id": "water",
+            "label": "পানি",
+            "detail": "ঢাকা ও চট্টগ্রাম ওয়াসা"
+          },
+          {
+            "id": "internet-tv",
+            "label": "ইন্টারনেট ও টিভি",
+            "detail": "ব্রডব্যান্ড ও ডিশ বিল"
+          },
+          {
+            "id": "education",
+            "label": "শিক্ষা ফি",
+            "detail": "স্কুল, কলেজ, বিশ্ববিদ্যালয়ের বেতন"
+          }
+        ],
+        "source": "https://nagad.com.bd/tariff/",
+        "checked": "2000-01-01",
+        "note": "unverified — seeded from Figma/test fixture"
+      }
+    },
+    {
+      "id": "rocket",
+      "name": {
+        "bn": "রকেট",
+        "en": "Rocket"
+      },
+      "operator": {
+        "bn": "ডাচ-বাংলা ব্যাংক",
+        "en": "Dutch-Bangla Bank"
+      },
+      "helpline": {
+        "value": "16216",
+        "source": "https://www.dutchbanglabank.com/rocket/rocket.html",
+        "checked": "2000-01-01",
+        "note": "unverified — seeded from Figma/test fixture"
+      },
+      "ussd": {
+        "value": "*322#",
+        "source": "https://www.dutchbanglabank.com/rocket/rocket.html",
+        "checked": "2000-01-01",
+        "note": "unverified — seeded from Figma/test fixture"
+      },
+      "billers": {
+        "value": [
+          {
+            "id": "electricity",
+            "label": "বিদ্যুৎ",
+            "detail": "DESCO, DPDC, পল্লী বিদ্যুৎ, NESCO · প্রিপেইড ও পোস্টপেইড"
+          },
+          {
+            "id": "gas",
+            "label": "গ্যাস",
+            "detail": "তিতাস, কর্ণফুলী, বাখরাবাদ"
+          },
+          {
+            "id": "water",
+            "label": "পানি",
+            "detail": "ঢাকা ও চট্টগ্রাম ওয়াসা"
+          },
+          {
+            "id": "internet-tv",
+            "label": "ইন্টারনেট ও টিভি",
+            "detail": "ব্রডব্যান্ড ও ডিশ বিল"
+          },
+          {
+            "id": "education",
+            "label": "শিক্ষা ফি",
+            "detail": "স্কুল, কলেজ, বিশ্ববিদ্যালয়ের বেতন"
+          }
+        ],
+        "source": "https://www.dutchbanglabank.com/rocket/rocket.html",
+        "checked": "2000-01-01",
+        "note": "unverified — seeded from Figma/test fixture"
+      }
+    },
+    {
+      "id": "upay",
+      "name": {
+        "bn": "উপায়",
+        "en": "Upay"
+      },
+      "operator": {
+        "bn": "ইউসিবি",
+        "en": "United Commercial Bank"
+      },
+      "helpline": {
+        "value": "16268",
+        "source": "https://www.upaybd.com/",
+        "checked": "2000-01-01",
+        "note": "unverified — seeded from Figma/test fixture"
+      },
+      "ussd": {
+        "value": "*268#",
+        "source": "https://www.upaybd.com/",
+        "checked": "2000-01-01",
+        "note": "unverified — seeded from Figma/test fixture"
+      },
+      "billers": {
+        "value": [
+          {
+            "id": "electricity",
+            "label": "বিদ্যুৎ",
+            "detail": "DESCO, DPDC, পল্লী বিদ্যুৎ, NESCO · প্রিপেইড ও পোস্টপেইড"
+          },
+          {
+            "id": "gas",
+            "label": "গ্যাস",
+            "detail": "তিতাস, কর্ণফুলী, বাখরাবাদ"
+          },
+          {
+            "id": "water",
+            "label": "পানি",
+            "detail": "ঢাকা ও চট্টগ্রাম ওয়াসা"
+          },
+          {
+            "id": "internet-tv",
+            "label": "ইন্টারনেট ও টিভি",
+            "detail": "ব্রডব্যান্ড ও ডিশ বিল"
+          },
+          {
+            "id": "education",
+            "label": "শিক্ষা ফি",
+            "detail": "স্কুল, কলেজ, বিশ্ববিদ্যালয়ের বেতন"
+          }
+        ],
+        "source": "https://www.upaybd.com/",
+        "checked": "2000-01-01",
+        "note": "unverified — seeded from Figma/test fixture"
+      }
+    }
+  ]
+}

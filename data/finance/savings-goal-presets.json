@@ -1,0 +1,23 @@
+{
+  "value": [
+    {
+      "id": "wedding",
+      "labelBn": "বিয়ে"
+    },
+    {
+      "id": "bike",
+      "labelBn": "বাইক"
+    },
+    {
+      "id": "study-abroad",
+      "labelBn": "বিদেশে পড়া"
+    },
+    {
+      "id": "emergency-fund",
+      "labelBn": "জরুরি তহবিল"
+    }
+  ],
+  "source": "https://www.bb.org.bd/",
+  "checked": "2000-01-01",
+  "note": "unverified — seeded from Figma/test fixture"
+}

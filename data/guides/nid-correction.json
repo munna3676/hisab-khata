@@ -1,0 +1,174 @@
+{
+  "id": "nid-correction",
+  "title": "NID সংশোধন কিভাবে করবো",
+  "summary": "নাম, বাবা-মায়ের নাম, জন্ম তারিখ বা ঠিকানা ভুল থাকলে অনলাইনে আবেদন করার পুরো ধাপ।",
+  "documents": {
+    "value": [
+      {
+        "id": "ssc-certificate",
+        "label": "এসএসসি বা সমমানের সনদ"
+      },
+      {
+        "id": "birth-certificate",
+        "label": "জন্ম নিবন্ধন সনদ"
+      },
+      {
+        "id": "parents-nid",
+        "label": "বাবা-মায়ের NID কপি"
+      },
+      {
+        "id": "citizenship-certificate",
+        "label": "নাগরিকত্ব সনদ (প্রয়োজনে)",
+        "optional": true
+      },
+      {
+        "id": "other-proof",
+        "label": "ভুলের প্রমাণ দেয় এমন অন্য কাগজ"
+      }
+    ],
+    "source": "https://services.nidw.gov.bd/",
+    "checked": "2000-01-01",
+    "note": "unverified — seeded from Figma/test fixture"
+  },
+  "steps": {
+    "value": [
+      {
+        "title": "পোর্টালে লগইন করো",
+        "detail": "services.nidw.gov.bd তে NID নম্বর ও মোবাইলের OTP দিয়ে।"
+      },
+      {
+        "title": "'সংশোধন' বেছে তথ্য দাও",
+        "detail": "কোন ঘর ভুল আর সঠিক তথ্য কী, দুটোই লিখতে হবে।"
+      },
+      {
+        "title": "কাগজ আপলোড করো",
+        "detail": "উপরের তালিকার কাগজের পরিষ্কার স্ক্যান।"
+      },
+      {
+        "title": "অনলাইনে ফি জমা দাও",
+        "detail": "ফি সংশোধনের ধরন অনুযায়ী আলাদা।"
+      },
+      {
+        "title": "স্ট্যাটাস দেখো",
+        "detail": "দরকার হলে উপজেলা নির্বাচন অফিস যাচাইয়ের জন্য ডাকবে।"
+      }
+    ],
+    "source": "https://services.nidw.gov.bd/",
+    "checked": "2000-01-01",
+    "note": "unverified — seeded from Figma/test fixture"
+  },
+  "fees": {
+    "value": [],
+    "unit": "BDT",
+    "source": "https://services.nidw.gov.bd/",
+    "checked": "2000-01-01",
+    "note": "unverified — seeded from Figma/test fixture"
+  },
+  "faq": [],
+  "sources": [
+    {
+      "label": "NID সেবা পোর্টাল",
+      "url": "https://services.nidw.gov.bd/"
+    }
+  ],
+  "tips": [
+    {
+      "kind": "warn",
+      "text": "সাধারণ ভুল: NID, সনদ আর পাসপোর্টে নামের বানান আলাদা থাকা। আবেদনের আগে সব কাগজে বানান মিলিয়ে নাও।"
+    },
+    {
+      "kind": "info",
+      "text": "এটা একটা স্বাধীন গাইড, সরকারি সাইট নয়। আবেদন শুধু অফিসিয়াল পোর্টালে করো।"
+    }
+  ],
+  "wizard": {
+    "questions": [
+      {
+        "id": "field",
+        "title": "NID তে কোন তথ্য ভুল আছে?",
+        "help": "যেটা সবচেয়ে জরুরি সেটা বেছে নাও, পরে আরেকটা যোগ করা যাবে।",
+        "options": [
+          {
+            "id": "own-name",
+            "label": "নিজের নাম"
+          },
+          {
+            "id": "parents-name",
+            "label": "বাবা-মায়ের নাম"
+          },
+          {
+            "id": "birth-date",
+            "label": "জন্ম তারিখ"
+          },
+          {
+            "id": "address",
+            "label": "ঠিকানা"
+          },
+          {
+            "id": "other",
+            "label": "অন্য কিছু"
+          }
+        ]
+      },
+      {
+        "id": "parents",
+        "title": "বাবা-মা কি জীবিত?",
+        "help": "মারা গেলে মৃত্যু সনদ লাগে, তাই এটা জানা দরকার।",
+        "options": [
+          {
+            "id": "both-alive",
+            "label": "দুজনই জীবিত"
+          },
+          {
+            "id": "one-deceased",
+            "label": "একজন মারা গেছেন"
+          },
+          {
+            "id": "both-deceased",
+            "label": "দুজনই মারা গেছেন"
+          }
+        ]
+      },
+      {
+        "id": "certificate",
+        "title": "তোমার কাছে কোন সনদ আছে?",
+        "help": "সবচেয়ে উঁচু শিক্ষা সনদটা বেছে নাও।",
+        "options": [
+          {
+            "id": "ssc",
+            "label": "এসএসসি বা সমমান"
+          },
+          {
+            "id": "birth-only",
+            "label": "শুধু জন্ম নিবন্ধন"
+          },
+          {
+            "id": "passport",
+            "label": "পাসপোর্ট"
+          },
+          {
+            "id": "none",
+            "label": "কোনোটাই নেই"
+          }
+        ]
+      }
+    ],
+    "results": [
+      {
+        "when": {
+          "field": "parents-name",
+          "parents": "both-alive",
+          "certificate": "ssc"
+        },
+        "title": "বাবা-মায়ের নাম সংশোধনে তোমার লাগবে ৪টা কাগজ",
+        "documents": [
+          "ssc-certificate",
+          "parents-nid",
+          "birth-certificate",
+          "other-proof"
+        ],
+        "tip": "সব কাগজে বাবা-মায়ের নামের বানান এক কিনা মিলিয়ে নাও। 'নাম-বানান মিল চেকার' দিয়ে এক মিনিটে দেখা যায়।"
+      }
+    ]
+  }
+}

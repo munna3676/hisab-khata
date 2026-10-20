@@ -1,0 +1,76 @@
+{
+  "operators": [
+    {
+      "id": "gp",
+      "bn": "জিপি",
+      "en": "Grameenphone"
+    },
+    {
+      "id": "robi",
+      "bn": "রবি",
+      "en": "Robi"
+    },
+    {
+      "id": "banglalink",
+      "bn": "বাংলালিংক",
+      "en": "Banglalink"
+    },
+    {
+      "id": "teletalk",
+      "bn": "টেলিটক",
+      "en": "Teletalk"
+    }
+  ],
+  "packs": [
+    {
+      "value": [
+        {
+          "id": "gp-1gb-30d",
+          "operator": "gp",
+          "price": 143,
+          "dataGb": 1,
+          "validityDays": 30
+        },
+        {
+          "id": "gp-10gb-30d",
+          "operator": "gp",
+          "price": 308,
+          "dataGb": 10,
+          "validityDays": 30
+        },
+        {
+          "id": "gp-30gb-30d",
+          "operator": "gp",
+          "price": 399,
+          "dataGb": 30,
+          "validityDays": 30
+        },
+        {
+          "id": "gp-50gb-30d",
+          "operator": "gp",
+          "price": 549,
+          "dataGb": 50,
+          "validityDays": 30
+        },
+        {
+          "id": "gp-5gb-7d",
+          "operator": "gp",
+          "price": 148,
+          "dataGb": 5,
+          "validityDays": 7
+        },
+        {
+          "id": "gp-2gb-3d",
+          "operator": "gp",
+          "price": 59,
+          "dataGb": 2,
+          "validityDays": 3
+        }
+      ],
+      "unit": "BDT incl. VAT and SD",
+      "source": "https://www.grameenphone.com/personal/internet/packages",
+      "checked": "2000-01-01",
+      "note": "unverified — seeded from Figma/test fixture"
+    }
+  ]
+}

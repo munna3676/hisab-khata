@@ -1,0 +1,31 @@
+{
+  "id": "bkash-to-bank",
+  "title": "বিকাশ থেকে ব্যাংকে টাকা পাঠাবো কিভাবে",
+  "summary": "বিকাশ অ্যাপ দিয়ে নিজের বা অন্যের ব্যাংক অ্যাকাউন্টে টাকা পাঠানোর ধাপ, চার্জ আর সীমা।",
+  "documents": {
+    "value": [],
+    "source": "https://www.bkash.com/",
+    "checked": "2000-01-01",
+    "note": "unverified — seeded from Figma/test fixture"
+  },
+  "steps": {
+    "value": [],
+    "source": "https://www.bkash.com/",
+    "checked": "2000-01-01",
+    "note": "unverified — seeded from Figma/test fixture"
+  },
+  "fees": {
+    "value": [],
+    "unit": "BDT",
+    "source": "https://www.bkash.com/",
+    "checked": "2000-01-01",
+    "note": "unverified — seeded from Figma/test fixture"
+  },
+  "faq": [],
+  "sources": [
+    {
+      "label": "বিকাশ",
+      "url": "https://www.bkash.com/"
+    }
+  ]
+}

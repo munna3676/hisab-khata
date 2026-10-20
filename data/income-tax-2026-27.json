@@ -1,0 +1,53 @@
+{
+  "value": {
+    "incomeYear": "2026-27",
+    "thresholds": {
+      "general": 400000,
+      "womenOrSenior": 425000,
+      "disabled": 500000,
+      "freedomFighter": 525000
+    },
+    "disabledDependentExtra": 50000,
+    "slabs": [
+      {
+        "width": 300000,
+        "ratePct": 10
+      },
+      {
+        "width": 400000,
+        "ratePct": 15
+      },
+      {
+        "width": 500000,
+        "ratePct": 20
+      },
+      {
+        "width": 2000000,
+        "ratePct": 25
+      },
+      {
+        "width": null,
+        "ratePct": 30
+      }
+    ],
+    "rebate": {
+      "incomePct": 3,
+      "investmentPct": 15,
+      "cap": 1000000
+    },
+    "minimumTax": {
+      "dhakaCtgCity": 5000,
+      "otherCity": 4000,
+      "rest": 3000
+    },
+    "freelance": {
+      "exemptPct": 100,
+      "exemptCap": null,
+      "bankingChannelOnly": true
+    }
+  },
+  "unit": "BDT",
+  "source": "https://nbr.gov.bd/",
+  "checked": "2000-01-01",
+  "note": "unverified — seeded from Figma/test fixture"
+}

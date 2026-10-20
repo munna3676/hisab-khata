@@ -1,0 +1,31 @@
+{
+  "id": "power-of-attorney",
+  "title": "পাওয়ার অব অ্যাটর্নি",
+  "summary": "দেশে বা প্রবাস থেকে কাউকে আমমোক্তার নিয়োগ করার ধাপ আর কাগজ।",
+  "documents": {
+    "value": [],
+    "source": "https://lawjusticediv.gov.bd/",
+    "checked": "2000-01-01",
+    "note": "unverified — seeded from Figma/test fixture"
+  },
+  "steps": {
+    "value": [],
+    "source": "https://lawjusticediv.gov.bd/",
+    "checked": "2000-01-01",
+    "note": "unverified — seeded from Figma/test fixture"
+  },
+  "fees": {
+    "value": [],
+    "unit": "BDT",
+    "source": "https://lawjusticediv.gov.bd/",
+    "checked": "2000-01-01",
+    "note": "unverified — seeded from Figma/test fixture"
+  },
+  "faq": [],
+  "sources": [
+    {
+      "label": "আইন ও বিচার বিভাগ",
+      "url": "https://lawjusticediv.gov.bd/"
+    }
+  ]
+}

@@ -1,0 +1,31 @@
+{
+  "id": "wrong-number",
+  "title": "ভুল নম্বরে টাকা গেলে কী করবো",
+  "summary": "বিকাশ, নগদ, রকেট বা উপায়ে ভুল নম্বরে টাকা চলে গেলে যত দ্রুত সম্ভব যা করতে হবে।",
+  "documents": {
+    "value": [],
+    "source": "https://www.bb.org.bd/",
+    "checked": "2000-01-01",
+    "note": "unverified — seeded from Figma/test fixture"
+  },
+  "steps": {
+    "value": [],
+    "source": "https://www.bb.org.bd/",
+    "checked": "2000-01-01",
+    "note": "unverified — seeded from Figma/test fixture"
+  },
+  "fees": {
+    "value": [],
+    "unit": "BDT",
+    "source": "https://www.bb.org.bd/",
+    "checked": "2000-01-01",
+    "note": "unverified — seeded from Figma/test fixture"
+  },
+  "faq": [],
+  "sources": [
+    {
+      "label": "বাংলাদেশ ব্যাংক",
+      "url": "https://www.bb.org.bd/"
+    }
+  ]
+}

@@ -25,6 +25,12 @@
           "required": [
             "general"
           ],
+          "properties": {
+            "general": {
+              "type": "number",
+              "minimum": 0
+            }
+          },
           "additionalProperties": {
             "type": "number",
             "minimum": 0

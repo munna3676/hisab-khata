@@ -124,6 +124,7 @@
               "vatOn": {
                 "type": "array",
                 "items": {
+                  "type": "string",
                   "enum": [
                     "energy",
                     "demand",
@@ -145,6 +146,7 @@
                   "on": {
                     "type": "array",
                     "items": {
+                      "type": "string",
                       "enum": [
                         "energy",
                         "demand",
@@ -242,6 +244,7 @@
                 "vatOn": {
                   "type": "array",
                   "items": {
+                    "type": "string",
                     "enum": [
                       "energy",
                       "demand",
@@ -263,6 +266,7 @@
                     "on": {
                       "type": "array",
                       "items": {
+                        "type": "string",
                         "enum": [
                           "energy",
                           "demand",

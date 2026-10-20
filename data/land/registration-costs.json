@@ -1,0 +1,31 @@
+{
+  "value": [
+    {
+      "id": "stamp",
+      "pct": 1.5
+    },
+    {
+      "id": "registration",
+      "pct": 1
+    },
+    {
+      "id": "local-govt",
+      "pct": 3
+    },
+    {
+      "id": "source-tax",
+      "pct": 8,
+      "perUnit": 2000000,
+      "perUnitOf": "katha",
+      "combine": "max"
+    },
+    {
+      "id": "mutation",
+      "fixed": 1170
+    }
+  ],
+  "unit": "percent of deed value; BDT",
+  "source": "https://minland.gov.bd/",
+  "checked": "2000-01-01",
+  "note": "unverified — seeded from Figma/test fixture"
+}

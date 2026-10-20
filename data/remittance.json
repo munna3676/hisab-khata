@@ -1,0 +1,47 @@
+{
+  "countries": [
+    {
+      "id": "sa",
+      "name": "সৌদি আরব",
+      "currency": "SAR",
+      "currencyName": "সৌদি রিয়াল"
+    },
+    {
+      "id": "ae",
+      "name": "সংযুক্ত আরব আমিরাত",
+      "currency": "AED",
+      "currencyName": "দিরহাম"
+    },
+    {
+      "id": "my",
+      "name": "মালয়েশিয়া",
+      "currency": "MYR",
+      "currencyName": "রিংগিত"
+    },
+    {
+      "id": "us",
+      "name": "যুক্তরাষ্ট্র",
+      "currency": "USD",
+      "currencyName": "ডলার"
+    },
+    {
+      "id": "gb",
+      "name": "যুক্তরাজ্য",
+      "currency": "GBP",
+      "currencyName": "পাউন্ড"
+    },
+    {
+      "id": "it",
+      "name": "ইতালি",
+      "currency": "EUR",
+      "currencyName": "ইউরো"
+    }
+  ],
+  "channels": [
+    {
+      "id": "exchange-house-bank",
+      "label": "এক্সচেঞ্জ হাউস → ব্যাংক"
+    }
+  ],
+  "services": []
+}

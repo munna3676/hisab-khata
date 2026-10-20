@@ -1,0 +1,16 @@
+{
+  "value": {
+    "date": "2026-10-13",
+    "gold": {
+      "22K": 228031,
+      "21K": 217767
+    },
+    "silver": {
+      "22K": 4199
+    }
+  },
+  "unit": "BDT per vori (11.664 g)",
+  "source": "https://www.bajus.org/gold-price",
+  "checked": "2000-01-01",
+  "note": "unverified — seeded from Figma/test fixture"
+}

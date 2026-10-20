@@ -1,0 +1,53 @@
+{
+  "bankId": "dbbl",
+  "fdr": {
+    "value": [
+      {
+        "months": 12,
+        "ratePct": 9.75
+      }
+    ],
+    "unit": "percent per year",
+    "source": "https://www.dutchbanglabank.com/",
+    "checked": "2000-01-01",
+    "note": "unverified — seeded from Figma/test fixture"
+  },
+  "dps": {
+    "value": [
+      {
+        "months": 36,
+        "ratePct": 8.25
+      },
+      {
+        "months": 60,
+        "ratePct": 9.25
+      },
+      {
+        "months": 120,
+        "ratePct": 9.75
+      }
+    ],
+    "unit": "percent per year",
+    "source": "https://www.dutchbanglabank.com/",
+    "checked": "2000-01-01",
+    "note": "unverified — seeded from Figma/test fixture"
+  },
+  "loans": {
+    "value": [
+      {
+        "id": "personal",
+        "label": "পার্সোনাল লোন",
+        "ratePct": 11.25
+      },
+      {
+        "id": "home",
+        "label": "হোম লোন",
+        "ratePct": 9.25
+      }
+    ],
+    "unit": "percent per year",
+    "source": "https://www.dutchbanglabank.com/",
+    "checked": "2000-01-01",
+    "note": "unverified — seeded from Figma/test fixture"
+  }
+}

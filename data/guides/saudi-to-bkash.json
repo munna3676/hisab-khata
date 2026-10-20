@@ -1,0 +1,31 @@
+{
+  "id": "saudi-to-bkash",
+  "title": "সৌদি থেকে বিকাশে টাকা পাঠাবো কিভাবে",
+  "summary": "বৈধ পথে প্রবাস থেকে সরাসরি পরিবারের বিকাশে টাকা পাঠানোর ধাপ আর প্রণোদনা।",
+  "documents": {
+    "value": [],
+    "source": "https://www.bkash.com/",
+    "checked": "2000-01-01",
+    "note": "unverified — seeded from Figma/test fixture"
+  },
+  "steps": {
+    "value": [],
+    "source": "https://www.bkash.com/",
+    "checked": "2000-01-01",
+    "note": "unverified — seeded from Figma/test fixture"
+  },
+  "fees": {
+    "value": [],
+    "unit": "BDT",
+    "source": "https://www.bkash.com/",
+    "checked": "2000-01-01",
+    "note": "unverified — seeded from Figma/test fixture"
+  },
+  "faq": [],
+  "sources": [
+    {
+      "label": "বিকাশ রেমিট্যান্স",
+      "url": "https://www.bkash.com/"
+    }
+  ]
+}

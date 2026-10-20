@@ -1,0 +1,275 @@
+{
+  "channels": [
+    {
+      "value": {
+        "id": "bkash-agent",
+        "provider": "bkash",
+        "service": "cashOut",
+        "channel": "agent",
+        "bands": [
+          {
+            "from": 0,
+            "per1000": 18.5
+          }
+        ],
+        "limits": {
+          "maxPerDay": 30000,
+          "maxPerMonth": 200000
+        }
+      },
+      "unit": "BDT per 1000, VAT included",
+      "source": "https://www.bkash.com/en/help/fees-and-charges",
+      "checked": "2000-01-01",
+      "note": "unverified — seeded from Figma/test fixture"
+    },
+    {
+      "value": {
+        "id": "bkash-priyo-agent",
+        "provider": "bkash",
+        "service": "cashOut",
+        "channel": "priyoAgent",
+        "bands": [
+          {
+            "from": 0,
+            "per1000": 13.95
+          }
+        ],
+        "limits": {
+          "maxPerDay": 30000,
+          "maxPerMonth": 200000
+        },
+        "quota": {
+          "monthlyAmount": 50000,
+          "over": [
+            {
+              "from": 0,
+              "per1000": 18.5
+            }
+          ]
+        }
+      },
+      "unit": "BDT per 1000, VAT included",
+      "source": "https://www.bkash.com/en/help/fees-and-charges",
+      "checked": "2000-01-01",
+      "note": "unverified — seeded from Figma/test fixture"
+    },
+    {
+      "value": {
+        "id": "bkash-atm",
+        "provider": "bkash",
+        "service": "cashOut",
+        "channel": "atm",
+        "bands": [
+          {
+            "from": 0,
+            "per1000": 14.9
+          }
+        ],
+        "limits": {
+          "maxPerDay": 30000,
+          "maxPerMonth": 200000
+        }
+      },
+      "unit": "BDT per 1000, VAT included",
+      "source": "https://www.bkash.com/en/help/fees-and-charges",
+      "checked": "2000-01-01",
+      "note": "unverified — seeded from Figma/test fixture"
+    },
+    {
+      "value": {
+        "id": "nagad-app",
+        "provider": "nagad",
+        "service": "cashOut",
+        "channel": "app",
+        "bands": [
+          {
+            "from": 0,
+            "per1000": 12.99
+          }
+        ],
+        "limits": {
+          "maxPerDay": 30000,
+          "maxPerMonth": 200000
+        }
+      },
+      "unit": "BDT per 1000, VAT included",
+      "source": "https://nagad.com.bd/tariff/",
+      "checked": "2000-01-01",
+      "note": "unverified — seeded from Figma/test fixture"
+    },
+    {
+      "value": {
+        "id": "nagad-ussd",
+        "provider": "nagad",
+        "service": "cashOut",
+        "channel": "ussd",
+        "bands": [
+          {
+            "from": 0,
+            "per1000": 15
+          }
+        ],
+        "limits": {
+          "maxPerDay": 30000,
+          "maxPerMonth": 200000
+        }
+      },
+      "unit": "BDT per 1000, VAT included",
+      "source": "https://nagad.com.bd/tariff/",
+      "checked": "2000-01-01",
+      "note": "unverified — seeded from Figma/test fixture"
+    },
+    {
+      "value": {
+        "id": "nagad-atm",
+        "provider": "nagad",
+        "service": "cashOut",
+        "channel": "atm",
+        "bands": [
+          {
+            "from": 0,
+            "per1000": 7
+          }
+        ]
+      },
+      "unit": "BDT per 1000, VAT included",
+      "source": "https://nagad.com.bd/tariff/",
+      "checked": "2000-01-01",
+      "note": "unverified — seeded from Figma/test fixture"
+    },
+    {
+      "value": {
+        "id": "rocket-agent",
+        "provider": "rocket",
+        "service": "cashOut",
+        "channel": "agent",
+        "bands": [
+          {
+            "from": 0,
+            "per1000": 16.7
+          }
+        ],
+        "limits": {
+          "maxPerDay": 30000,
+          "maxPerMonth": 200000
+        }
+      },
+      "unit": "BDT per 1000, VAT included",
+      "source": "https://www.dutchbanglabank.com/rocket/rocket.html",
+      "checked": "2000-01-01",
+      "note": "unverified — seeded from Figma/test fixture"
+    },
+    {
+      "value": {
+        "id": "rocket-atm",
+        "provider": "rocket",
+        "service": "cashOut",
+        "channel": "atm",
+        "bands": [
+          {
+            "from": 0,
+            "per1000": 9
+          }
+        ],
+        "limits": {
+          "maxPerDay": 30000,
+          "maxPerMonth": 200000
+        }
+      },
+      "unit": "BDT per 1000, VAT included",
+      "source": "https://www.dutchbanglabank.com/rocket/rocket.html",
+      "checked": "2000-01-01",
+      "note": "unverified — seeded from Figma/test fixture"
+    },
+    {
+      "value": {
+        "id": "upay-agent",
+        "provider": "upay",
+        "service": "cashOut",
+        "channel": "agent",
+        "bands": [
+          {
+            "from": 0,
+            "per1000": 14
+          }
+        ]
+      },
+      "unit": "BDT per 1000, VAT included",
+      "source": "https://www.upaybd.com/",
+      "checked": "2000-01-01",
+      "note": "unverified — seeded from Figma/test fixture"
+    },
+    {
+      "value": {
+        "id": "upay-atm",
+        "provider": "upay",
+        "service": "cashOut",
+        "channel": "atm",
+        "bands": [
+          {
+            "from": 0,
+            "per1000": 8
+          }
+        ]
+      },
+      "unit": "BDT per 1000, VAT included",
+      "source": "https://www.upaybd.com/",
+      "checked": "2000-01-01",
+      "note": "unverified — seeded from Figma/test fixture"
+    },
+    {
+      "value": {
+        "id": "bkash-send-priyo",
+        "provider": "bkash",
+        "service": "sendMoney",
+        "channel": "priyoNumber",
+        "bands": [
+          {
+            "from": 0
+          }
+        ],
+        "quota": {
+          "monthlyAmount": 25000,
+          "over": [
+            {
+              "from": 0
+            },
+            {
+              "from": 100,
+              "flat": 5
+            }
+          ]
+        }
+      },
+      "unit": "BDT per transaction",
+      "source": "https://www.bkash.com/en/help/fees-and-charges",
+      "checked": "2000-01-01",
+      "note": "unverified — seeded from Figma/test fixture"
+    },
+    {
+      "value": {
+        "id": "bkash-send-app",
+        "provider": "bkash",
+        "service": "sendMoney",
+        "channel": "app",
+        "bands": [
+          {
+            "from": 0
+          },
+          {
+            "from": 100,
+            "flat": 5
+          }
+        ]
+      },
+      "unit": "BDT per transaction",
+      "source": "https://www.bkash.com/en/help/fees-and-charges",
+      "checked": "2000-01-01",
+      "note": "unverified — seeded from Figma/test fixture"
+    }
+  ],
+  "referenceByService": {
+    "cashOut": "bkash-agent",
+    "sendMoney": "bkash-send-app"
+  }
+}

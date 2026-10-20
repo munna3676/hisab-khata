@@ -1,0 +1,31 @@
+{
+  "id": "certificate-verification",
+  "title": "সনদ সত্যায়ন ও অনলাইনে যাচাই",
+  "summary": "শিক্ষা সনদ সত্যায়ন করানো আর অনলাইনে যাচাই করার ধাপ।",
+  "documents": {
+    "value": [],
+    "source": "https://www.educationboard.gov.bd/",
+    "checked": "2000-01-01",
+    "note": "unverified — seeded from Figma/test fixture"
+  },
+  "steps": {
+    "value": [],
+    "source": "https://www.educationboard.gov.bd/",
+    "checked": "2000-01-01",
+    "note": "unverified — seeded from Figma/test fixture"
+  },
+  "fees": {
+    "value": [],
+    "unit": "BDT",
+    "source": "https://www.educationboard.gov.bd/",
+    "checked": "2000-01-01",
+    "note": "unverified — seeded from Figma/test fixture"
+  },
+  "faq": [],
+  "sources": [
+    {
+      "label": "শিক্ষা বোর্ড",
+      "url": "https://www.educationboard.gov.bd/"
+    }
+  ]
+}

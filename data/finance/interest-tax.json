@@ -1,0 +1,9 @@
+{
+  "value": {
+    "withTinPct": 10
+  },
+  "unit": "percent",
+  "source": "https://nbr.gov.bd/",
+  "checked": "2000-01-01",
+  "note": "unverified — seeded from Figma/test fixture"
+}

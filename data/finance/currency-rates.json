@@ -1,0 +1,40 @@
+{
+  "value": {
+    "bank": "Dutch-Bangla Bank",
+    "rateType": "TT clean",
+    "asOf": "2026-10-18",
+    "rates": [
+      {
+        "code": "SAR",
+        "nameBn": "সৌদি রিয়াল",
+        "buy": 32.641,
+        "sell": 33.1
+      },
+      {
+        "code": "AED",
+        "nameBn": "আমিরাতি দিরহাম",
+        "buy": 33.353
+      },
+      {
+        "code": "USD",
+        "nameBn": "মার্কিন ডলার",
+        "buy": 122.5,
+        "sell": 123.5
+      },
+      {
+        "code": "GBP",
+        "nameBn": "ব্রিটিশ পাউন্ড",
+        "buy": 163.268
+      },
+      {
+        "code": "EUR",
+        "nameBn": "ইউরো",
+        "buy": 137.68
+      }
+    ]
+  },
+  "unit": "BDT per unit",
+  "source": "https://www.dutchbanglabank.com/",
+  "checked": "2000-01-01",
+  "note": "unverified — seeded from Figma/test fixture"
+}

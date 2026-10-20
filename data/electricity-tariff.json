@@ -1,0 +1,91 @@
+{
+  "value": {
+    "companies": [
+      {
+        "id": "desco",
+        "bn": "ডেসকো",
+        "en": "DESCO",
+        "area": "ঢাকা উত্তর ও আশপাশ"
+      },
+      {
+        "id": "dpdc",
+        "bn": "ডিপিডিসি",
+        "en": "DPDC",
+        "area": "ঢাকা দক্ষিণ ও নারায়ণগঞ্জ"
+      },
+      {
+        "id": "breb",
+        "bn": "পল্লী বিদ্যুৎ",
+        "en": "BREB",
+        "area": "সারাদেশের গ্রাম ও উপজেলা"
+      },
+      {
+        "id": "nesco",
+        "bn": "নেসকো",
+        "en": "NESCO",
+        "area": "রাজশাহী ও রংপুর বিভাগের শহর"
+      },
+      {
+        "id": "wzpdcl",
+        "bn": "ওজোপাডিকো",
+        "en": "WZPDCL",
+        "area": "খুলনা ও বরিশাল বিভাগের শহর"
+      },
+      {
+        "id": "bpdb",
+        "bn": "বিউবো",
+        "en": "BPDB",
+        "area": "চট্টগ্রাম, সিলেট, ময়মনসিংহসহ অন্য শহর"
+      }
+    ],
+    "tariffs": {
+      "LT-A": {
+        "category": "LT-A",
+        "slabs": [
+          {
+            "upTo": 75,
+            "rate": 5.26
+          },
+          {
+            "upTo": 200,
+            "rate": 8.5
+          },
+          {
+            "upTo": 300,
+            "rate": 9.1
+          },
+          {
+            "upTo": 400,
+            "rate": 9.62
+          },
+          {
+            "upTo": 600,
+            "rate": 15.01
+          },
+          {
+            "upTo": null,
+            "rate": 17.35
+          }
+        ],
+        "lifeline": {
+          "maxUnits": 50,
+          "rate": 4.63
+        },
+        "demandChargePerKw": 42,
+        "meterRent": {
+          "singlePhase": 40,
+          "threePhase": 200
+        },
+        "vatPct": 5,
+        "vatOn": [
+          "energy",
+          "demand"
+        ]
+      }
+    }
+  },
+  "unit": "BDT per kWh; demand BDT per kW per month",
+  "source": "https://berc.org.bd/",
+  "checked": "2000-01-01",
+  "note": "unverified — seeded from Figma/test fixture"
+}

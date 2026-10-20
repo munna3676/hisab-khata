@@ -1,0 +1,12 @@
+{
+  "value": {
+    "fajrAngle": 18,
+    "sehriPrecautionMin": 0.8,
+    "iftarPrecautionMin": 1.7,
+    "utcOffsetMinutes": 360
+  },
+  "unit": "degrees; minutes",
+  "source": "https://www.islamicfoundation.gov.bd/",
+  "checked": "2000-01-01",
+  "note": "unverified — seeded from Figma/test fixture"
+}

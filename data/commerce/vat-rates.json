@@ -1,0 +1,30 @@
+{
+  "rates": {
+    "value": [
+      {
+        "pct": 15,
+        "label": "স্ট্যান্ডার্ড"
+      },
+      {
+        "pct": 10
+      },
+      {
+        "pct": 7.5
+      },
+      {
+        "pct": 5
+      }
+    ],
+    "unit": "percent",
+    "source": "https://nbr.gov.bd/regulations/acts/vat-acts/eng",
+    "checked": "2000-01-01",
+    "note": "unverified — seeded from Figma/test fixture"
+  },
+  "defaultPct": {
+    "value": 15,
+    "unit": "percent",
+    "source": "https://nbr.gov.bd/regulations/acts/vat-acts/eng",
+    "checked": "2000-01-01",
+    "note": "unverified — seeded from Figma/test fixture"
+  }
+}

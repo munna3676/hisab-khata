@@ -1,0 +1,12 @@
+{
+  "value": {
+    "minMakingPct": 6,
+    "vatPct": 5,
+    "vatPerVori": null,
+    "exchangeDeductionPct": 10
+  },
+  "unit": "percent",
+  "source": "https://www.bajus.org/gold-price",
+  "checked": "2000-01-01",
+  "note": "unverified — seeded from Figma/test fixture"
+}

@@ -1,0 +1,41 @@
+{
+  "steadfast": {
+    "value": {
+      "name": "Steadfast",
+      "codBase": "collected-minus-delivery",
+      "returnChargePct": 0,
+      "zones": {
+        "inside-dhaka": {
+          "slabs": [
+            {
+              "maxKg": 1,
+              "charge": 80
+            }
+          ],
+          "extra": {
+            "stepKg": 1,
+            "charge": 20
+          },
+          "codPct": 1
+        },
+        "outside-dhaka": {
+          "slabs": [
+            {
+              "maxKg": 1,
+              "charge": 130
+            }
+          ],
+          "extra": {
+            "stepKg": 1,
+            "charge": 20
+          },
+          "codPct": 1
+        }
+      }
+    },
+    "unit": "BDT",
+    "source": "https://steadfast.com.bd/",
+    "checked": "2000-01-01",
+    "note": "unverified — seeded from Figma/test fixture"
+  }
+}

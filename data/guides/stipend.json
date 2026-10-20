@@ -1,0 +1,31 @@
+{
+  "id": "stipend",
+  "title": "উপবৃত্তির আবেদন",
+  "summary": "উপবৃত্তির জন্য কারা, কিভাবে আর কখন আবেদন করতে পারে।",
+  "documents": {
+    "value": [],
+    "source": "https://moedu.gov.bd/",
+    "checked": "2000-01-01",
+    "note": "unverified — seeded from Figma/test fixture"
+  },
+  "steps": {
+    "value": [],
+    "source": "https://moedu.gov.bd/",
+    "checked": "2000-01-01",
+    "note": "unverified — seeded from Figma/test fixture"
+  },
+  "fees": {
+    "value": [],
+    "unit": "BDT",
+    "source": "https://moedu.gov.bd/",
+    "checked": "2000-01-01",
+    "note": "unverified — seeded from Figma/test fixture"
+  },
+  "faq": [],
+  "sources": [
+    {
+      "label": "শিক্ষা মন্ত্রণালয়",
+      "url": "https://moedu.gov.bd/"
+    }
+  ]
+}

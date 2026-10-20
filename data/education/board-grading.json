@@ -1,0 +1,46 @@
+{
+  "value": {
+    "scale": [
+      {
+        "grade": "A+",
+        "minMarks": 80,
+        "point": 5
+      },
+      {
+        "grade": "A",
+        "minMarks": 70,
+        "point": 4
+      },
+      {
+        "grade": "A-",
+        "minMarks": 60,
+        "point": 3.5
+      },
+      {
+        "grade": "B",
+        "minMarks": 50,
+        "point": 3
+      },
+      {
+        "grade": "C",
+        "minMarks": 40,
+        "point": 2
+      },
+      {
+        "grade": "D",
+        "minMarks": 33,
+        "point": 1
+      },
+      {
+        "grade": "F",
+        "minMarks": 0,
+        "point": 0
+      }
+    ],
+    "fourthSubjectBase": 2
+  },
+  "unit": "percent of full marks; grade point",
+  "source": "https://www.educationboard.gov.bd/",
+  "checked": "2000-01-01",
+  "note": "unverified — seeded from Figma/test fixture"
+}

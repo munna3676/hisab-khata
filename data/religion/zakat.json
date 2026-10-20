@@ -1,0 +1,11 @@
+{
+  "value": {
+    "nisabGoldVori": 7.5,
+    "nisabSilverVori": 52.5,
+    "ratePct": 2.5
+  },
+  "unit": "vori; percent",
+  "source": "https://www.islamicfoundation.gov.bd/",
+  "checked": "2000-01-01",
+  "note": "unverified — seeded from Figma/test fixture"
+}

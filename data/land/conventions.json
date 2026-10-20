@@ -1,0 +1,29 @@
+{
+  "value": [
+    {
+      "id": "standard",
+      "label": "ঢাকা · ৭২০ বর্গফুট",
+      "kathaSqft": 720,
+      "kathaPerBigha": 20,
+      "kaniSqft": 17280
+    },
+    {
+      "id": "chattogram",
+      "label": "চট্টগ্রাম (কানি ৪০ শতক)",
+      "kathaSqft": 720,
+      "kathaPerBigha": 20,
+      "kaniSqft": 17424
+    },
+    {
+      "id": "cumilla",
+      "label": "কুমিল্লা-নোয়াখালী (কানি ৩০ শতক)",
+      "kathaSqft": 720,
+      "kathaPerBigha": 20,
+      "kaniSqft": 13068
+    }
+  ],
+  "unit": "sq ft",
+  "source": "https://minland.gov.bd/",
+  "checked": "2000-01-01",
+  "note": "unverified — seeded from Figma/test fixture"
+}

@@ -1,0 +1,31 @@
+{
+  "id": "bmet-registration",
+  "title": "বিএমইটি রেজিস্ট্রেশন ও স্মার্ট কার্ড",
+  "summary": "বিদেশে কাজে যাওয়ার আগে বিএমইটি রেজিস্ট্রেশন আর স্মার্ট কার্ড করার ধাপ।",
+  "documents": {
+    "value": [],
+    "source": "https://www.bmet.gov.bd/",
+    "checked": "2000-01-01",
+    "note": "unverified — seeded from Figma/test fixture"
+  },
+  "steps": {
+    "value": [],
+    "source": "https://www.bmet.gov.bd/",
+    "checked": "2000-01-01",
+    "note": "unverified — seeded from Figma/test fixture"
+  },
+  "fees": {
+    "value": [],
+    "unit": "BDT",
+    "source": "https://www.bmet.gov.bd/",
+    "checked": "2000-01-01",
+    "note": "unverified — seeded from Figma/test fixture"
+  },
+  "faq": [],
+  "sources": [
+    {
+      "label": "বিএমইটি",
+      "url": "https://www.bmet.gov.bd/"
+    }
+  ]
+}

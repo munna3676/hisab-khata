@@ -1,0 +1,31 @@
+{
+  "id": "priyo-agent",
+  "title": "প্রিয় এজেন্ট কিভাবে সেট করবো",
+  "summary": "বিকাশে প্রিয় এজেন্ট সেট করার ধাপ, যাতে ক্যাশ আউটে চার্জ কম লাগে।",
+  "documents": {
+    "value": [],
+    "source": "https://www.bkash.com/",
+    "checked": "2000-01-01",
+    "note": "unverified — seeded from Figma/test fixture"
+  },
+  "steps": {
+    "value": [],
+    "source": "https://www.bkash.com/",
+    "checked": "2000-01-01",
+    "note": "unverified — seeded from Figma/test fixture"
+  },
+  "fees": {
+    "value": [],
+    "unit": "BDT",
+    "source": "https://www.bkash.com/",
+    "checked": "2000-01-01",
+    "note": "unverified — seeded from Figma/test fixture"
+  },
+  "faq": [],
+  "sources": [
+    {
+      "label": "বিকাশ",
+      "url": "https://www.bkash.com/"
+    }
+  ]
+}

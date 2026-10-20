@@ -1,0 +1,25 @@
+{
+  "value": [
+    {
+      "calendar": "gregorian",
+      "month": 12,
+      "day": 16,
+      "name": "বিজয় দিবস"
+    },
+    {
+      "calendar": "gregorian",
+      "month": 2,
+      "day": 21,
+      "name": "শহীদ দিবস"
+    },
+    {
+      "calendar": "bangla",
+      "month": 1,
+      "day": 1,
+      "name": "পহেলা বৈশাখ"
+    }
+  ],
+  "source": "https://cabinet.gov.bd/",
+  "checked": "2000-01-01",
+  "note": "unverified — seeded from Figma/test fixture"
+}

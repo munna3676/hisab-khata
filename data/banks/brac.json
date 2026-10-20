@@ -1,0 +1,53 @@
+{
+  "bankId": "brac",
+  "fdr": {
+    "value": [
+      {
+        "months": 12,
+        "ratePct": 9
+      }
+    ],
+    "unit": "percent per year",
+    "source": "https://www.bracbank.com/en/retail/deposit",
+    "checked": "2000-01-01",
+    "note": "unverified — seeded from Figma/test fixture"
+  },
+  "dps": {
+    "value": [
+      {
+        "months": 36,
+        "ratePct": 9
+      },
+      {
+        "months": 60,
+        "ratePct": 9
+      },
+      {
+        "months": 120,
+        "ratePct": 9
+      }
+    ],
+    "unit": "percent per year",
+    "source": "https://www.bracbank.com/en/retail/deposit",
+    "checked": "2000-01-01",
+    "note": "unverified — seeded from Figma/test fixture"
+  },
+  "loans": {
+    "value": [
+      {
+        "id": "personal",
+        "label": "পার্সোনাল লোন",
+        "ratePct": 11.5
+      },
+      {
+        "id": "home",
+        "label": "হোম লোন",
+        "ratePct": 9.5
+      }
+    ],
+    "unit": "percent per year",
+    "source": "https://www.bracbank.com/en/retail/loan",
+    "checked": "2000-01-01",
+    "note": "unverified — seeded from Figma/test fixture"
+  }
+}

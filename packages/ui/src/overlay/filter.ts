@@ -22,17 +22,17 @@ const ROMAN: Record<string, string> = {
   ক: 'k', খ: 'kh', গ: 'g', ঘ: 'gh', ঙ: 'ng', চ: 'ch', ছ: 'chh', জ: 'j', ঝ: 'jh', ঞ: 'n',
   ট: 't', ঠ: 'th', ড: 'd', ঢ: 'dh', ণ: 'n', ত: 't', থ: 'th', দ: 'd', ধ: 'dh', ন: 'n',
   প: 'p', ফ: 'ph', ব: 'b', ভ: 'bh', ম: 'm', য: 'j', র: 'r', ল: 'l', শ: 'sh', ষ: 'sh', স: 's', হ: 'h',
-  ড়: 'r', ঢ়: 'rh', য়: 'y', ৎ: 't', 'ং': 'ng', 'ঃ': 'h', 'ঁ': '', '্': '',
+  '\u09DC': 'r', '\u09DD': 'rh', '\u09DF': 'y', ৎ: 't', 'ং': 'ng', 'ঃ': 'h', 'ঁ': '', '্': '',
 }
 
-/** Unicode-normalises, lowercases, unifies digits and the nukta forms, drops joiners and punctuation. */
+/** Unicode-normalises (NFC splits ড় ঢ় য়; they are joined back to one letter), lowercases, unifies digits, drops joiners and punctuation. */
 export function normalizeText(text: string): string {
   return text
     .normalize('NFC')
-    .replace(/ড়/g, 'ড়')
-    .replace(/ঢ়/g, 'ঢ়')
-    .replace(/য়/g, 'য়')
-    .replace(/[​-‍﻿]/g, '')
+    .replace(/\u09A1\u09BC/g, '\u09DC')
+    .replace(/\u09A2\u09BC/g, '\u09DD')
+    .replace(/\u09AF\u09BC/g, '\u09DF')
+    .replace(/[\u200B-\u200D\uFEFF]/g, '')
     .replace(/[০-৯]/g, (d) => String(BN_DIGITS.indexOf(d)))
     .toLowerCase()
     .replace(/[^\p{L}\p{M}\p{N}]+/gu, ' ')

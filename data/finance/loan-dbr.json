@@ -1,0 +1,10 @@
+{
+  "value": [
+    40,
+    50
+  ],
+  "unit": "percent of take-home income",
+  "source": "https://www.bb.org.bd/en/index.php/mediaroom/circular",
+  "checked": "2000-01-01",
+  "note": "unverified — seeded from Figma/test fixture"
+}

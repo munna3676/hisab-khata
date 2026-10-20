@@ -1,0 +1,31 @@
+{
+  "id": "birth-registration",
+  "title": "জন্ম নিবন্ধন: নতুন ও সংশোধন",
+  "summary": "অনলাইনে আবেদন, প্রমাণ কাগজ আর অফিসে জমা দেওয়ার ধাপ।",
+  "documents": {
+    "value": [],
+    "source": "https://bdris.gov.bd/",
+    "checked": "2000-01-01",
+    "note": "unverified — seeded from Figma/test fixture"
+  },
+  "steps": {
+    "value": [],
+    "source": "https://bdris.gov.bd/",
+    "checked": "2000-01-01",
+    "note": "unverified — seeded from Figma/test fixture"
+  },
+  "fees": {
+    "value": [],
+    "unit": "BDT",
+    "source": "https://bdris.gov.bd/",
+    "checked": "2000-01-01",
+    "note": "unverified — seeded from Figma/test fixture"
+  },
+  "faq": [],
+  "sources": [
+    {
+      "label": "জন্ম ও মৃত্যু নিবন্ধন",
+      "url": "https://bdris.gov.bd/"
+    }
+  ]
+}

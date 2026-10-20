@@ -1,0 +1,31 @@
+{
+  "id": "namjari",
+  "title": "জমির নামজারি (মিউটেশন)",
+  "summary": "জমি কেনা বা উত্তরাধিকারের পর নিজের নামে খতিয়ান করার ধাপ।",
+  "documents": {
+    "value": [],
+    "source": "https://mutation.land.gov.bd/",
+    "checked": "2000-01-01",
+    "note": "unverified — seeded from Figma/test fixture"
+  },
+  "steps": {
+    "value": [],
+    "source": "https://mutation.land.gov.bd/",
+    "checked": "2000-01-01",
+    "note": "unverified — seeded from Figma/test fixture"
+  },
+  "fees": {
+    "value": [],
+    "unit": "BDT",
+    "source": "https://mutation.land.gov.bd/",
+    "checked": "2000-01-01",
+    "note": "unverified — seeded from Figma/test fixture"
+  },
+  "faq": [],
+  "sources": [
+    {
+      "label": "ভূমি সেবা (ই-নামজারি)",
+      "url": "https://mutation.land.gov.bd/"
+    }
+  ]
+}

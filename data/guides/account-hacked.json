@@ -1,0 +1,31 @@
+{
+  "id": "account-hacked",
+  "title": "অ্যাকাউন্ট হ্যাক হলে কী করবো",
+  "summary": "বিকাশ, নগদ বা রকেট অ্যাকাউন্ট থেকে অজান্তে টাকা গেলে বা পিন ফাঁস হলে প্রথম ৩০ মিনিটে যা করতে হবে।",
+  "documents": {
+    "value": [],
+    "source": "https://www.bb.org.bd/",
+    "checked": "2000-01-01",
+    "note": "unverified — seeded from Figma/test fixture"
+  },
+  "steps": {
+    "value": [],
+    "source": "https://www.bb.org.bd/",
+    "checked": "2000-01-01",
+    "note": "unverified — seeded from Figma/test fixture"
+  },
+  "fees": {
+    "value": [],
+    "unit": "BDT",
+    "source": "https://www.bb.org.bd/",
+    "checked": "2000-01-01",
+    "note": "unverified — seeded from Figma/test fixture"
+  },
+  "faq": [],
+  "sources": [
+    {
+      "label": "বাংলাদেশ ব্যাংক",
+      "url": "https://www.bb.org.bd/"
+    }
+  ]
+}

@@ -1,0 +1,36 @@
+{
+  "value": {
+    "year": 2026,
+    "items": [
+      {
+        "id": "atta",
+        "perPerson": 110,
+        "kgPerPerson": 1.65
+      },
+      {
+        "id": "barley",
+        "perPerson": 530,
+        "kgPerPerson": 3.3
+      },
+      {
+        "id": "dates",
+        "perPerson": 2310,
+        "kgPerPerson": 3.3
+      },
+      {
+        "id": "raisins",
+        "perPerson": 1980,
+        "kgPerPerson": 3.3
+      },
+      {
+        "id": "cheese",
+        "perPerson": 2805,
+        "kgPerPerson": 3.3
+      }
+    ]
+  },
+  "unit": "BDT per person",
+  "source": "https://www.islamicfoundation.gov.bd/",
+  "checked": "2000-01-01",
+  "note": "unverified — seeded from Figma/test fixture"
+}

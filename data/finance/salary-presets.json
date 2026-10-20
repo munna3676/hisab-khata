@@ -1,0 +1,36 @@
+{
+  "structures": {
+    "value": [
+      {
+        "id": "common",
+        "labelBn": "প্রচলিত কাঠামো",
+        "basicPctOfGross": 60,
+        "houseRentPctOfBasic": 50,
+        "medicalPctOfBasic": 10,
+        "conveyance": null
+      }
+    ],
+    "unit": "percent",
+    "source": "https://nbr.gov.bd/",
+    "checked": "2000-01-01",
+    "note": "unverified — seeded from Figma/test fixture"
+  },
+  "deductions": {
+    "value": [
+      {
+        "label": "প্রভিডেন্ট ফান্ড",
+        "kind": "pctOfBasic",
+        "value": 10
+      },
+      {
+        "label": "কল্যাণ তহবিল",
+        "kind": "pctOfGross",
+        "value": 1
+      }
+    ],
+    "unit": "percent",
+    "source": "https://nbr.gov.bd/",
+    "checked": "2000-01-01",
+    "note": "unverified — seeded from Figma/test fixture"
+  }
+}

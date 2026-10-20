@@ -1,0 +1,31 @@
+{
+  "id": "affidavit",
+  "title": "হলফনামা (এফিডেভিট) কিভাবে করবো",
+  "summary": "হলফনামা কোথায় আর কিভাবে করাতে হয়, কোন স্ট্যাম্প আর কী কাগজ লাগে।",
+  "documents": {
+    "value": [],
+    "source": "https://lawjusticediv.gov.bd/",
+    "checked": "2000-01-01",
+    "note": "unverified — seeded from Figma/test fixture"
+  },
+  "steps": {
+    "value": [],
+    "source": "https://lawjusticediv.gov.bd/",
+    "checked": "2000-01-01",
+    "note": "unverified — seeded from Figma/test fixture"
+  },
+  "fees": {
+    "value": [],
+    "unit": "BDT",
+    "source": "https://lawjusticediv.gov.bd/",
+    "checked": "2000-01-01",
+    "note": "unverified — seeded from Figma/test fixture"
+  },
+  "faq": [],
+  "sources": [
+    {
+      "label": "আইন ও বিচার বিভাগ",
+      "url": "https://lawjusticediv.gov.bd/"
+    }
+  ]
+}

@@ -1,0 +1,16 @@
+{
+  "value": {
+    "maxYears": 32,
+    "presets": [
+      30,
+      32,
+      35
+    ],
+    "limitDayIncluded": false,
+    "extensions": []
+  },
+  "unit": "years",
+  "source": "https://mopa.gov.bd/",
+  "checked": "2000-01-01",
+  "note": "unverified — seeded from Figma/test fixture"
+}

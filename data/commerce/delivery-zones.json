@@ -1,0 +1,17 @@
+{
+  "zones": {
+    "value": [
+      {
+        "id": "inside-dhaka",
+        "label": "ঢাকার ভেতরে"
+      },
+      {
+        "id": "outside-dhaka",
+        "label": "ঢাকার বাইরে"
+      }
+    ],
+    "source": "https://steadfast.com.bd/",
+    "checked": "2000-01-01",
+    "note": "unverified — seeded from Figma/test fixture"
+  }
+}

@@ -1,0 +1,23 @@
+{
+  "value": {
+    "ssc": {
+      "science": [
+        "বাংলা",
+        "ইংরেজি",
+        "গণিত",
+        "তথ্য ও যোগাযোগ প্রযুক্তি",
+        "ধর্ম",
+        "বাংলাদেশ ও বিশ্বপরিচয়",
+        "পদার্থবিজ্ঞান",
+        "রসায়ন",
+        "জীববিজ্ঞান"
+      ],
+      "fourth": [
+        "উচ্চতর গণিত"
+      ]
+    }
+  },
+  "source": "https://www.educationboard.gov.bd/",
+  "checked": "2000-01-01",
+  "note": "unverified — seeded from Figma/test fixture"
+}
