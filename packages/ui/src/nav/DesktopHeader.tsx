@@ -46,6 +46,9 @@ export const DEFAULT_SECTION_LINKS: NavLink[] = [
   { href: '/guides/', label: 'সরকারি কাজ' },
 ]
 
+/** Figma's desktop icon buttons are 40px: the 44px hit area overlaps the gaps by 2px a side, so the layout spacing stays Figma's. */
+const ICON_FIT = '-mx-0.5'
+
 const BN_LABELS: DesktopHeaderLabels = {
   nav: 'প্রধান বিভাগ',
   search: 'টুল বা গাইড খুঁজুন',
@@ -55,7 +58,7 @@ const BN_LABELS: DesktopHeaderLabels = {
 }
 
 /**
- * Desktop header (Figma "Header / Desktop" 7:195): 72px, sheet background, bottom
+ * Desktop header (Figma "Header / Desktop" 7:195): 72px with its rule, sheet background, bottom
  * rule; logo, section links, compact search, language and theme on the 1080px
  * content column. Used from lg. Container queries keep it whole in narrower
  * places: under 48rem the search pill becomes an icon button, under 36rem
@@ -82,7 +85,8 @@ export function DesktopHeader({
       data-desktop-header
       {...rest}
     >
-      <div class="mx-auto flex h-18 max-w-content items-center gap-2 @2xl:gap-4 @4xl:gap-6">
+      {/* 71px row + the 1px rule = Figma's 72px. */}
+      <div class="mx-auto flex h-17.75 max-w-content items-center gap-2 @2xl:gap-4 @4xl:gap-6">
         <Logo name={name} href={homeHref} />
         <nav aria-label={t.nav} class="-mx-1 hidden min-w-0 flex-1 items-center gap-5 overflow-x-auto px-1 py-1 [scrollbar-width:none] @xl:flex">
           {links.map((link, i) => (
@@ -97,15 +101,15 @@ export function DesktopHeader({
           ))}
         </nav>
         <HeaderSearch action={searchAction} label={t.search} placeholder={t.searchPlaceholder} class="hidden w-50 shrink-0 @3xl:flex" />
-        <HeaderIconButton href={searchAction} label={t.search} class="ml-auto @xl:ml-0 @3xl:hidden">
+        <HeaderIconButton href={searchAction} label={t.search} class={cx(ICON_FIT, 'ml-auto @xl:ml-0 @3xl:hidden')}>
           <ICON_SET.search />
         </HeaderIconButton>
         {languageHref && (
-          <HeaderIconButton href={languageHref} label={t.language} hreflang={languageCode} lang={languageCode}>
+          <HeaderIconButton href={languageHref} label={t.language} hreflang={languageCode} lang={languageCode} class={ICON_FIT}>
             <Globe />
           </HeaderIconButton>
         )}
-        {!hideThemeToggle && <ThemeToggle label={t.theme} />}
+        {!hideThemeToggle && <ThemeToggle label={t.theme} class={ICON_FIT} />}
       </div>
     </header>
   )

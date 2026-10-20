@@ -33,7 +33,7 @@ export interface TopBarProps extends Omit<HTMLAttributes<HTMLElement>, 'class' |
 const BN_LABELS: TopBarLabels = { search: 'খুঁজুন', language: 'English', theme: 'ডার্ক মোড' }
 
 /**
- * Mobile top bar (Figma "Top Bar / Mobile" 7:51): 60px, sheet background, bottom
+ * Mobile top bar (Figma "Top Bar / Mobile" 7:51): 60px with its rule, sheet background, bottom
  * rule, logo on the left and 44px search / language / theme buttons on the right.
  * Pads for the notch with env(safe-area-inset-*). Used below lg; DesktopHeader takes over from lg.
  */
@@ -60,7 +60,8 @@ export function TopBar({
       data-top-bar
       {...rest}
     >
-      <div class="flex h-15 items-center gap-1">
+      {/* 59px row + the 1px rule = Figma's 60px. */}
+      <div class="flex h-14.75 items-center gap-1">
         <Logo name={name} href={homeHref} />
         <span class="min-w-0 flex-1" />
         <HeaderIconButton href={searchHref} label={t.search}>

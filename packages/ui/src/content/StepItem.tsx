@@ -18,7 +18,7 @@ export interface StepItemProps extends Omit<HTMLAttributes<HTMLLIElement>, 'clas
 
 /**
  * Step Item (Figma 9:249): a 32px accent circle with the step number, a title and a
- * short description. Steps follow each other with 16px below each one.
+ * short description, with 16px below it. In a StepList the steps are 8px apart.
  */
 export function StepItem({
   number,
@@ -58,11 +58,11 @@ export interface StepListProps extends Omit<HTMLAttributes<HTMLOListElement>, 'c
   children?: ComponentChildren
 }
 
-/** Ordered list of Step Items, as on a guide's "ধাপে ধাপে" section. */
+/** Ordered list of Step Items, as on a guide's "ধাপে ধাপে" section (Guide 17:1577: 8px between steps, on top of each step's 16px). */
 export function StepList({ steps, start = 1, titleAs, class: className, children, ...rest }: StepListProps) {
   return (
     // role="list" keeps list semantics in Safari, which drops them when list-style is none.
-    <ol {...rest} role="list" start={start} class={cx('m-0 grid list-none p-0', className)}>
+    <ol {...rest} role="list" start={start} class={cx('m-0 grid list-none gap-2 p-0', className)}>
       {steps
         ? steps.map((step, i) => (
             <StepItem key={i} number={start + i} title={step.title} description={step.description} titleAs={titleAs} />

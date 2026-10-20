@@ -30,7 +30,7 @@ export function Breadcrumb({ items, label = 'আপনি এখানে আছ
         {items.map((item, i) => (
           <li key={`${i}-${item.label}`} class="min-w-0">
             {i > 0 && (
-              <span aria-hidden="true" class="mx-1.5">
+              <span aria-hidden="true" class="mx-1">
                 {separator}
               </span>
             )}

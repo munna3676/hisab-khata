@@ -2,6 +2,7 @@ import { cleanup, render, screen } from '@testing-library/preact'
 import { afterEach, describe, expect, it } from 'vitest'
 import { AnswerCard } from './AnswerCard'
 import { Footer } from './Footer'
+import { IconTile, tileIconSize } from './IconTile'
 import { ListRow } from './ListRow'
 import { Logo } from './Logo'
 import { SectionCard } from './SectionCard'
@@ -31,7 +32,26 @@ describe('ToolCard', () => {
   it('leaves out the example line and changes the heading level on request', () => {
     const { container } = render(<ToolCard href="#" title="EMI" titleAs="h4" />)
     expect(screen.getByRole('heading', { level: 4, name: 'EMI' })).toBeTruthy()
-    expect(container.querySelector('.font-number')).toBeNull()
+    expect(container.querySelector('[data-tool-card-example]')).toBeNull()
+  })
+
+  it('sets the example in the number face with the Bangla body fallback (13/22 Medium, blue)', () => {
+    const { container } = render(<ToolCard href="#" title="EMI" example="৫ লাখ, ১২%, ৩ বছর → ৳১৬,৬০৭" />)
+    const example = container.querySelector('[data-tool-card-example]')!
+    // hk-nav-num = var(--font-number), var(--font-body): plain font-number left Bangla to a system font.
+    expect(example.className).toContain('hk-nav-num')
+    expect(example.className).not.toContain('font-number')
+    expect(example.className).toContain('text-[0.8125rem] leading-5.5 font-medium text-blue')
+  })
+
+  it('draws the khata margin rule where Figma has it (11/13/7px from the outer edge)', () => {
+    const { container } = render(<ToolCard href="#" title="EMI" />)
+    const rule = container.querySelector('a > span[aria-hidden="true"]')!
+    // Absolute insets start inside the 1px border: 10/12/6.
+    expect(rule.className).toContain('left-2.5')
+    expect(rule.className).toContain('top-3')
+    expect(rule.className).toContain('bottom-1.5')
+    expect(rule.className).toContain('bg-margin')
   })
 
   it('icons and the margin rule are hidden from assistive tech', () => {
@@ -45,7 +65,32 @@ describe('SectionCard', () => {
     render(<SectionCard href="/mfs/" title="মোবাইল ব্যাংকিং" subtitle="বিকাশ, নগদ, রকেট, উপায়" />)
     const link = screen.getByRole('link', { name: /মোবাইল ব্যাংকিং/ })
     expect(link.className).toContain('lift')
+    expect(link.className).toContain('pressable')
+    expect(link.className).toContain('rounded-[12px]')
     expect(screen.getByRole('heading', { name: 'মোবাইল ব্যাংকিং' })).toBeTruthy()
+  })
+
+  it('drops the subtitle when there is none and takes another icon', () => {
+    const { container } = render(<SectionCard href="/banks/" title="ব্যাংক" icon={<svg data-test-icon />} titleAs="h4" />)
+    expect(screen.getByRole('heading', { level: 4, name: 'ব্যাংক' })).toBeTruthy()
+    expect(container.querySelector('[data-test-icon]')).toBeTruthy()
+    expect(screen.getByRole('link').textContent).toBe('ব্যাংক')
+  })
+})
+
+describe('IconTile', () => {
+  it('is a decorative accent-tint square: 40px with a 22px icon, or 36px with 20px', () => {
+    const { container, rerender } = render(<IconTile><svg /></IconTile>)
+    let tile = container.firstElementChild!
+    expect(tile.getAttribute('aria-hidden')).toBe('true')
+    expect(tile.className).toContain('size-10')
+    expect(tile.className).toContain('bg-accent-tint')
+    expect(tile.className).toContain('nudge')
+    expect(tileIconSize()).toBe(22)
+    rerender(<IconTile size="sm"><svg /></IconTile>)
+    tile = container.firstElementChild!
+    expect(tile.className).toContain('size-9')
+    expect(tileIconSize('sm')).toBe(20)
   })
 })
 
@@ -64,6 +109,16 @@ describe('ListRow', () => {
     const { container } = render(<ListRow href="#" title="x" icon={null} />)
     expect(container.querySelectorAll('svg')).toHaveLength(1) // the chevron only
   })
+
+  it('truncates the subtitle with room for Bangla glyph overhang, and names the link by its text', () => {
+    const { container } = render(<ListRow href="#" title="ই-পাসপোর্ট নবায়ন" subtitle="গাইড · ফি, সময়, অনলাইন আবেদন" />)
+    const subtitle = screen.getByText('গাইড · ফি, সময়, অনলাইন আবেদন')
+    expect(subtitle.className).toContain('truncate')
+    expect(subtitle.className).toContain('-mx-1')
+    expect(subtitle.className).toContain('px-1')
+    expect(screen.getByRole('link').textContent).toBe('ই-পাসপোর্ট নবায়নগাইড · ফি, সময়, অনলাইন আবেদন')
+    expect(container.querySelector('a')!.className).toContain('hk-list-row')
+  })
 })
 
 describe('AnswerCard', () => {
@@ -80,6 +135,20 @@ describe('AnswerCard', () => {
     expect(screen.getByText('৳৬৯.৭৫')).toBeTruthy()
     const link = screen.getByRole('link', { name: 'পুরো তুলনা দেখো →' })
     expect(link.className).toContain('min-h-touch')
+    // The 44px hit area keeps the design's 20px line.
+    expect(link.className).toContain('-my-3')
+    expect(screen.getByText('৳৬৯.৭৫').className).toContain('hk-nav-num')
+    expect(screen.getByText('প্রিয় এজেন্ট · অন্য এজেন্টে ৳৯২.৫০').className).toContain('type-body-small')
+  })
+
+  it('is a 12px-radius accent card; without href there is no link', () => {
+    const { container } = render(<AnswerCard question="১ শতাংশ কত বর্গফুট" answer="৪৩৫.৬" questionAs="h2" eyebrow="উত্তর" />)
+    const card = container.querySelector('[data-answer-card]')!
+    expect(card.className).toContain('rounded-[12px]')
+    expect(card.className).toContain('border-accent bg-accent-tint')
+    expect(screen.queryByRole('link')).toBeNull()
+    expect(screen.getByRole('heading', { level: 2, name: '১ শতাংশ কত বর্গফুট' })).toBeTruthy()
+    expect(card.textContent).toContain('উত্তর')
   })
 })
 
@@ -97,6 +166,15 @@ describe('Logo and Footer', () => {
     const nav = screen.getByRole('navigation', { name: 'সাইটের তথ্য' })
     expect(nav.querySelectorAll('a')).toHaveLength(5)
     expect(screen.getByRole('contentinfo').textContent).toContain('© ২০২৬ হিসাব খাতা')
+    // Without homeHref the logo is plain text.
+    expect(screen.queryByRole('link', { name: 'হিসাব খাতা' })).toBeNull()
+  })
+
+  it('the footer logo link keeps the 32px logo row; the current page link is marked', () => {
+    render(<Footer homeHref="/" links={[{ href: '/about/', label: 'আমাদের কথা', current: true }, { href: '/privacy/', label: 'প্রাইভেসি' }]} />)
+    expect(screen.getByRole('link', { name: 'হিসাব খাতা' }).className).toContain('-my-1.5')
+    expect(screen.getByRole('link', { name: 'আমাদের কথা' }).getAttribute('aria-current')).toBe('page')
+    expect(screen.getByRole('link', { name: 'প্রাইভেসি' }).getAttribute('aria-current')).toBeNull()
   })
 
   it('the footer layout is a container query by default and can be forced', () => {

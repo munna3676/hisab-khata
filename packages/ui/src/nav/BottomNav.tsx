@@ -19,7 +19,7 @@ export interface BottomNavProps extends Omit<HTMLAttributes<HTMLElement>, 'class
   active?: BottomNavId
   /**
    * Called on tap, before the link navigates. In the app shell call
-   * event.preventDefault() and route in place; the indicator then slides.
+   * event.preventDefault(), route in place and pass the new `active`.
    */
   onSelect?: (id: BottomNavId, event: MouseEvent) => void
   /** Accessible name of the <nav>. */
@@ -43,9 +43,12 @@ export const DEFAULT_BOTTOM_NAV_ITEMS: BottomNavItem[] = [
 
 /**
  * Bottom navigation (Figma "Bottom Nav" 7:193): four equal tabs, 24px icon over a
- * 12/16 SemiBold label; the active tab is accent, the others soft. A short accent
- * bar on the top edge slides to the active tab (transform only, tab duration).
- * Height is the 56px bottom-nav token plus max(8px, safe-area-inset-bottom).
+ * 12/16 SemiBold label; the active tab is accent, the others soft (colour only,
+ * as in the Figma variants: no indicator bar). 72px like Figma: the 1px top rule,
+ * a 63px tab row and max(8px, safe-area-inset-bottom) below it. (The 56px
+ * size/bottom-nav token comes from the stack doc, not Figma, so it is not used.)
+ * Tabs press to .97 with a tint; the focus ring sits inside the tab, because the
+ * bar spans the full screen width and an outside ring would be cut off at the edges.
  */
 export function BottomNav({
   items = DEFAULT_BOTTOM_NAV_ITEMS,
@@ -57,8 +60,6 @@ export function BottomNav({
   class: className,
   ...rest
 }: BottomNavProps) {
-  const index = items.findIndex((item) => item.id === active)
-  const count = Math.max(items.length, 1)
   return (
     <nav
       aria-label={label}
@@ -71,39 +72,27 @@ export function BottomNav({
       data-bottom-nav
       {...rest}
     >
-      <div class="relative">
-        <span
-          aria-hidden="true"
-          class={cx(
-            'pointer-events-none absolute -top-px left-0 flex justify-center transition-[translate,opacity] duration-tab ease-out',
-            index < 0 && 'opacity-0',
-          )}
-          style={{ width: `${100 / count}%`, translate: `${Math.max(index, 0) * 100}% 0` }}
-          data-bottom-nav-indicator
-        >
-          <span class="block h-0.5 w-8 rounded-full bg-accent" />
-        </span>
-        <ul class="flex h-bottom-nav">
-          {items.map((item) => {
-            const isActive = item.id === active
-            const Glyph = item.icon
-            return (
-              <li key={item.id} class="flex min-w-0 flex-1">
-                <a
-                  href={item.href}
-                  aria-current={isActive ? 'page' : undefined}
-                  onClick={onSelect ? (event) => onSelect(item.id, event) : undefined}
-                  class="pressable flex min-w-0 flex-1 flex-col items-center justify-center gap-1 rounded-card text-soft aria-[current=page]:text-accent"
-                  data-bottom-nav-item={item.id}
-                >
-                  <Glyph class="nudge" />
-                  <span class="max-w-full truncate font-body text-[0.75rem] leading-4 font-semibold">{item.label}</span>
-                </a>
-              </li>
-            )
-          })}
-        </ul>
-      </div>
+      <ul class="flex h-15.75">
+        {items.map((item) => {
+          const isActive = item.id === active
+          const Glyph = item.icon
+          return (
+            <li key={item.id} class="flex min-w-0 flex-1">
+              <a
+                href={item.href}
+                aria-current={isActive ? 'page' : undefined}
+                onClick={onSelect ? (event) => onSelect(item.id, event) : undefined}
+                class="pressable flex min-w-0 flex-1 flex-col items-center justify-center gap-1 rounded-card text-soft focus-visible:-outline-offset-2 aria-[current=page]:text-accent"
+                data-bottom-nav-item={item.id}
+              >
+                <Glyph class="nudge" />
+                {/* -mx-1 px-1: truncate clips at the padding box, so Bangla glyphs that overhang their advance (ে, ো) keep their ink. */}
+                <span class="-mx-1 max-w-full truncate px-1 font-body text-[0.75rem] leading-4 font-semibold">{item.label}</span>
+              </a>
+            </li>
+          )
+        })}
+      </ul>
     </nav>
   )
 }

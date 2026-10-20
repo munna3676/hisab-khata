@@ -4,6 +4,23 @@
    Use token variables only (var(--brand-accent), var(--duration-sheet), var(--ease-out)); no raw hex. */
 
 @layer components {
+  /* Number face (Figma: IBM Plex Mono) for the tool card example, the result
+     number and the answer. IBM Plex Mono has no Bengali glyphs and --font-number
+     has no Bengali fallback, so Bangla digits, ৳ and words fell to a random system
+     font (tiny and mis-spaced); the body face after it matches Figma's fallback.
+     Same local workaround as the base (hk-num) and content (hkc-num) groups. */
+  .hk-nav-num {
+    font-family: var(--font-number), var(--font-body);
+    font-variant-numeric: tabular-nums;
+    letter-spacing: -0.01em;
+  }
+
+  /* List rows sit edge to edge with their bottom rule, so the row itself stays
+     square; only its hover/press tint gets the input radius. */
+  .hk-list-row.pressable::after {
+    border-radius: var(--radius-input);
+  }
+
   /* A link whose hit area is larger than its text keeps .link-underline on an
      inner span; hovering anywhere on the link (pointer devices) or the current
      page draws the underline. */
@@ -48,5 +65,19 @@
   [data-nav-preview="focus"] {
     outline: 2px solid var(--brand-accent);
     outline-offset: 2px;
+  }
+  /* On the bottom nav the preview goes to the current tab, with the inset ring the tabs use. */
+  [data-bottom-nav][data-nav-preview] {
+    outline: none;
+  }
+  [data-bottom-nav][data-nav-preview="focus"] [aria-current="page"] {
+    outline: 2px solid var(--brand-accent);
+    outline-offset: -2px;
+  }
+  [data-bottom-nav][data-nav-preview="pressed"] [aria-current="page"] {
+    scale: var(--press-scale);
+  }
+  [data-bottom-nav][data-nav-preview="pressed"] [aria-current="page"]::after {
+    opacity: var(--press-tint-opacity);
   }
 }

@@ -32,6 +32,15 @@ describe('Breadcrumb', () => {
     expect(container.textContent).toBe('হোম›মোবাইল ব্যাংকিং›ক্যাশ আউট চার্জ')
   })
 
+  it('earlier steps get a 44px-tall hit area without moving the line, and the hover colour', () => {
+    render(<Breadcrumb items={items} />)
+    for (const link of screen.getAllByRole('link')) {
+      expect(link.className).toContain('before:-inset-y-2.75') // 22px line + 2 x 11px
+      expect(link.className).toContain('link-underline')
+      expect(link.className).toContain('hover:text-ink')
+    }
+  })
+
   it('an item without href stays text', () => {
     render(<Breadcrumb items={[{ label: 'হোম', href: '/' }, { label: 'গাইড' }, { label: 'NID' }]} />)
     expect(screen.getAllByRole('link')).toHaveLength(1)

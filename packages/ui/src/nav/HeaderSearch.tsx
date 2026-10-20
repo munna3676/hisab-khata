@@ -16,8 +16,9 @@ export interface HeaderSearchProps extends Omit<FormHTMLAttributes<HTMLFormEleme
 
 /**
  * Compact search pill in the desktop header (Figma Search Bar / Compact 5:90):
- * subtle fill, fully rounded, search icon + Body/Small placeholder. 44px tall
- * (Figma 40) so the field is a full touch target; the focus ring sits on the pill.
+ * subtle fill, fully rounded, search icon + Body/Small placeholder. The pill is
+ * Figma's 40px; the transparent input inside is 44px tall (2px past the pill on
+ * each side) so the field is a full touch target. The focus ring sits on the pill.
  */
 export function HeaderSearch({
   action = '/search/',
@@ -34,7 +35,7 @@ export function HeaderSearch({
       action={action}
       method="get"
       class={cx(
-        'flex h-11 min-w-0 items-center gap-2.5 rounded-full bg-subtle pr-3 pl-4 text-soft has-focus-visible:outline-2 has-focus-visible:outline-offset-2 has-focus-visible:outline-accent',
+        'flex h-10 min-w-0 items-center gap-2.5 rounded-full bg-subtle pr-3 pl-4 text-soft has-focus-visible:outline-2 has-focus-visible:outline-offset-2 has-focus-visible:outline-accent',
         className,
       )}
       {...rest}
@@ -48,7 +49,7 @@ export function HeaderSearch({
         aria-label={label}
         autocomplete="off"
         enterKeyHint="search"
-        class="h-full min-w-0 flex-1 truncate bg-transparent type-body-small text-ink placeholder:text-soft focus-visible:outline-none [&::-webkit-search-cancel-button]:hidden"
+        class="h-11 min-w-0 flex-1 truncate bg-transparent type-body-small text-ink placeholder:text-soft focus-visible:outline-none [&::-webkit-search-cancel-button]:hidden"
       />
     </form>
   )

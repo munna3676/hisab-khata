@@ -37,4 +37,35 @@ describe('SearchBar', () => {
     fireEvent.input(screen.getByRole('searchbox'), { target: { value: 'emi' } })
     expect(onInput).toHaveBeenCalledWith('emi')
   })
+
+  it('the blue ring follows focus in the input only; the button rings its own 72x40 block', () => {
+    render(<SearchBar />)
+    const form = screen.getByRole('search')
+    expect(form.className).toContain('has-[input:focus]:after:opacity-100')
+    expect(form.className).not.toContain('focus-within:')
+    expect(form.className).toContain('after:transition-opacity')
+    const button = screen.getByRole('button', { name: 'খোঁজো' })
+    expect(button.className).toContain('focus-visible:outline-hidden')
+    expect(button.className).toContain('focus-visible:before:outline-2')
+    expect(button.className).toContain('before:inset-y-0.5')
+    expect(button.className).toContain('h-11')
+  })
+
+  it('names the landmark only when asked, and takes custom texts', () => {
+    render(<SearchBar landmarkLabel="টুল খোঁজো" label="টুলের নাম" placeholder="যেমন: EMI" buttonLabel="যাও" action="/tools" name="t" />)
+    const form = screen.getByRole('search', { name: 'টুল খোঁজো' })
+    expect(form.getAttribute('action')).toBe('/tools')
+    const input = screen.getByRole('searchbox', { name: 'টুলের নাম' }) as HTMLInputElement
+    expect(input.placeholder).toBe('যেমন: EMI')
+    expect(input.name).toBe('t')
+    expect(input.getAttribute('enterkeyhint')).toBe('search')
+    expect(screen.getByRole('button', { name: 'যাও' })).toBeTruthy()
+  })
+
+  it('without onSearch the form submits normally (works without JS)', () => {
+    render(<SearchBar />)
+    const event = new Event('submit', { bubbles: true, cancelable: true })
+    screen.getByRole('search').dispatchEvent(event)
+    expect(event.defaultPrevented).toBe(false)
+  })
 })

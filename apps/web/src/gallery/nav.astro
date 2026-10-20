@@ -102,7 +102,7 @@ const phone = 'mx-auto w-full max-w-frame-mobile overflow-hidden rounded-card bo
 <Group
   title="Top Bar / Mobile"
   id="nav-top-bar"
-  description="Figma 7:51. 60px plus the notch inset; search, language and theme are 44px icon buttons. The theme button works (moon in light, sun in dark). Shown below lg."
+  description="Figma 7:51. 60px with its bottom rule, plus the notch inset; search, language and theme are 44px icon buttons. The theme button works (moon in light, sun in dark). Shown below lg."
 >
   <Grid cols={2}>
     <Specimen label="Bangla, with language switch (island)" frame={false}>
@@ -135,7 +135,7 @@ const phone = 'mx-auto w-full max-w-frame-mobile overflow-hidden rounded-card bo
 <Group
   title="Header / Desktop"
   id="nav-desktop-header"
-  description="Figma 7:195. 72px, on the 1080px column: logo, section links (underline grows on hover, current page in accent), compact search, language, theme. Shown from lg; when narrow the links scroll and search becomes an icon."
+  description="Figma 7:195. 72px with its bottom rule, on the 1080px column: logo, section links (underline grows on hover, current page in accent), the 40px compact search pill, language, theme (40px in the layout like Figma, 44px hit areas). Shown from lg; when narrow the links scroll and search becomes an icon."
 >
   <Specimen label="Current section: ক্যালকুলেটর (island)" wide frame={false}>
     <div class="overflow-hidden rounded-card border border-line">
@@ -180,7 +180,7 @@ const phone = 'mx-auto w-full max-w-frame-mobile overflow-hidden rounded-card bo
 <Group
   title="Bottom Nav"
   id="nav-bottom-nav"
-  description="Figma 7:193. Four tabs; the active one is accent with aria-current. The accent bar on the top edge slides to the tapped tab (transform, 220ms). 56px plus max(8px, safe-area-inset-bottom). Fixed to the viewport below lg in the real shell."
+  description="Figma 7:193. Four tabs; the active one is accent with aria-current (colour only, as in the Figma variants). 72px: the top rule, a 63px tab row and max(8px, safe-area-inset-bottom). Tabs press to .97; the keyboard ring sits inside the tab. Fixed to the viewport below lg in the real shell."
 >
   <Grid cols={2}>
     <Specimen label="Interactive: tap a tab (island)" frame={false}>
@@ -200,6 +200,12 @@ const phone = 'mx-auto w-full max-w-frame-mobile overflow-hidden rounded-card bo
     </Specimen>
     <Specimen label="No active tab (inside a tool page)" frame={false}>
       <div class={phone}><BottomNav placement="static" label="নিচের মেনু: টুল পেজ" /></div>
+    </Specimen>
+    <Specimen label="Tab / pressed (.97 + tint)" frame={false}>
+      <div class={phone} data-tap-exempt><BottomNav placement="static" active="tools" label="নিচের মেনু: চাপা" data-nav-preview="pressed" /></div>
+    </Specimen>
+    <Specimen label="Tab / keyboard focus (ring inside the tab)" frame={false}>
+      <div class={phone}><BottomNav placement="static" active="search" label="নিচের মেনু: ফোকাস" data-nav-preview="focus" /></div>
     </Specimen>
   </Grid>
 </Group>
@@ -278,7 +284,7 @@ const phone = 'mx-auto w-full max-w-frame-mobile overflow-hidden rounded-card bo
 <Group
   title="Section Card"
   id="nav-section-card"
-  description="Figma 7:280. Two per row on phones, three on tablets, six on the desktop home. Lifts on hover, presses to .97."
+  description="Figma 7:280. 12px radius. Two per row on phones, three on tablets, six on the desktop home. Lifts on hover, presses to .97."
 >
   <Specimen label="Home: সব বিভাগ" wide frame={false}>
     <div class="grid grid-cols-2 gap-3 md:grid-cols-3 xl:grid-cols-6">
@@ -295,7 +301,7 @@ const phone = 'mx-auto w-full max-w-frame-mobile overflow-hidden rounded-card bo
 <Group
   title="Result Card"
   id="nav-result-card"
-  description="Figma 7:290. A ruled ledger page with a red margin line. The big number counts up with motion's animate() (450ms, 300 in lite, none with reduced motion), formatted by @hisab/core; the card rises in with fade + translateY(8px)."
+  description="Figma 7:290. A ruled ledger page (12px radius, rules over the bottom of the label and number lines) with a red margin line. The big number counts up with motion's animate() (450ms, 300 in lite, none with reduced motion), formatted by @hisab/core; the card rises in with fade + translateY(8px)."
 >
   <Grid cols={2}>
     <Specimen label="Interactive: pick an amount, or replay (island)" frame={false}>
@@ -352,7 +358,7 @@ const phone = 'mx-auto w-full max-w-frame-mobile overflow-hidden rounded-card bo
         answer="৳৬৪.৯৫"
         detail="অ্যাপে · USSD-তে ৳৭৪.৭৫"
         href="#nav-answer-card"
-                questionAs="h4"
+        questionAs="h4"
         data-nav-preview="hover"
       />
     </Specimen>
@@ -362,7 +368,7 @@ const phone = 'mx-auto w-full max-w-frame-mobile overflow-hidden rounded-card bo
 <Group
   title="List Row"
   id="nav-list-row"
-  description="Figma 7:310. Link rows for guides, tools and search results: 36px icon tile, Body/Medium title, 13/22 subtitle, chevron, bottom rule. Tints on hover, presses to .97."
+  description="Figma 7:310. Link rows for guides, tools and search results: 36px icon tile, Body/Medium title, 13/22 subtitle, chevron, bottom rule; 72px. Tints on hover (rounded tint), presses to .97."
 >
   <Grid cols={2}>
     <Specimen label="List (last row without rule)">
@@ -383,6 +389,17 @@ const phone = 'mx-auto w-full max-w-frame-mobile overflow-hidden rounded-card bo
     </Specimen>
     <Specimen label="Pressed (.97 + tint)">
       <ListRow href="#nav-list-row" title="NID সংশোধন কিভাবে করবো" subtitle="গাইড · ফি, কাগজপত্র, ধাপ" data-nav-preview="pressed" />
+    </Specimen>
+    <Specimen label="Keyboard focus">
+      <ListRow href="#nav-list-row" title="NID সংশোধন কিভাবে করবো" subtitle="গাইড · ফি, কাগজপত্র, ধাপ" data-nav-preview="focus" />
+    </Specimen>
+    <Specimen label="Long title wraps, long subtitle truncates">
+      <ListRow
+        href="#nav-list-row"
+        title="জাতীয় পরিচয়পত্রে নাম, জন্ম তারিখ আর ঠিকানা সংশোধনের পুরো নিয়ম"
+        subtitle="গাইড · ফি, কাগজপত্র, ধাপ, অফিসিয়াল লিংক, সময়, সাধারণ ভুল"
+        last
+      />
     </Specimen>
   </Grid>
 </Group>

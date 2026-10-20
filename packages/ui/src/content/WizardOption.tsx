@@ -19,9 +19,10 @@ export interface WizardOptionProps
 
 /**
  * Wizard Option (Figma 9:361, State Default | Selected): a native radio drawn as a
- * card. Selected, the card turns accent-tint with a 2px accent border (border plus an
- * inset ring, so the content does not shift) and the 20px mark fills. Styles follow
- * :checked through :has(), so it also works as zero-JS HTML.
+ * card. Selected, the card turns accent-tint with a 2px accent border and the 20px mark
+ * fills. The 2px border is the 1px border plus a 1px inset ring, so the card stays 58px:
+ * Figma's Selected is 60px, which would nudge every option below it by 2px on each
+ * choice. Styles follow :checked through :has(), so it also works as zero-JS HTML.
  */
 export function WizardOption({ label, value, name, checked, onChange, disabled, class: className, ...input }: WizardOptionProps) {
   return (
@@ -74,7 +75,7 @@ export interface WizardOptionGroupProps {
   class?: string
 }
 
-/** A wizard step's choices (Figma Guide Wizard 17:1843): a fieldset of Wizard Options, 12px apart. */
+/** A wizard step's choices (Figma Guide Wizard 17:1843): a fieldset of Wizard Options, 10px apart. */
 export function WizardOptionGroup({
   legend,
   legendHidden = false,
@@ -92,7 +93,7 @@ export function WizardOptionGroup({
   return (
     <fieldset class={cx('m-0 min-w-0 border-0 p-0', className)} data-wizard-group>
       <legend class={cx(legendHidden ? 'sr-only' : 'mb-3 type-h3 text-ink')}>{legend}</legend>
-      <div class="grid gap-3">
+      <div class="grid gap-2.5">
         {options.map((option) => (
           <WizardOption
             key={option.value}

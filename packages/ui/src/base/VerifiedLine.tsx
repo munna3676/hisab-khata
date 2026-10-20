@@ -10,6 +10,11 @@ export interface VerifiedLineProps {
   source: string
   /** Link text; defaults to the source's host without "www." (bkash.com). */
   sourceLabel?: string
+  /**
+   * Writes "সূত্র: " before the link (default true): "· সূত্র: bkash.com". Set false when the
+   * link text says it all, as on the Figma Calculator screen: "· অফিসিয়াল সূত্র".
+   */
+  sourcePrefix?: boolean
   lang?: 'bn' | 'en'
   /** Open the source in a new tab (default true; the link says so to screen readers). */
   newTab?: boolean
@@ -37,14 +42,30 @@ function hostOf(url: string): string {
   }
 }
 
-/** Verified Line (Figma 5:140): green shield, "যাচাই: <date> · সূত্র: <source link>" at 13/22 in soft. */
-export function VerifiedLine({ checked, source, sourceLabel, lang = 'bn', newTab = true, class: className }: VerifiedLineProps) {
+/**
+ * Verified Line (Figma 5:140): green shield, "যাচাই: <date> · সূত্র: <source link>" at 13/22 in soft.
+ * As in Figma, the shield is an 18px slot centred on the first 22px line whose glyph keeps the
+ * 24px icon scale and overhangs the slot to the right and bottom; the text starts 24px in.
+ * The source link is underlined (Figma shows plain text): a link in running text in the same
+ * colour needs a non-colour cue (WCAG 1.4.1, axe link-in-text-block).
+ */
+export function VerifiedLine({
+  checked,
+  source,
+  sourceLabel,
+  sourcePrefix = true,
+  lang = 'bn',
+  newTab = true,
+  class: className,
+}: VerifiedLineProps) {
   const t = TEXT[lang]
   return (
     <p class={cx('flex items-start gap-1.5 font-body text-[0.8125rem]/[1.375rem] text-soft', className)}>
-      <Verified size={18} class="mt-0.5 text-good" />
+      <span class="mt-0.5 flex size-4.5 shrink-0 items-start text-good" data-verified-icon>
+        <Verified size={24} />
+      </span>
       <span class="min-w-0">
-        {t.checked}: <time dateTime={checked}>{formatCheckedDate(checked, lang)}</time> · {t.source}:{' '}
+        {t.checked}: <time dateTime={checked}>{formatCheckedDate(checked, lang)}</time> · {sourcePrefix && `${t.source}: `}
         <a
           href={source}
           class="break-words text-soft underline decoration-1 underline-offset-2"

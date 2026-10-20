@@ -1,0 +1,26 @@
+{
+  "name": "@hisab/platform",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "Platform adapter: share, haptic, print, notify, store, openExternal and network, with a web implementation and a Capacitor one.",
+  "exports": {
+    "./*": "./src/*.ts"
+  },
+  "scripts": {
+    "test": "vitest run --passWithNoTests",
+    "test:watch": "vitest",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@hisab/core": "workspace:*",
+    "@hisab/data": "workspace:*",
+    "@noble/ed25519": "3.2.0"
+  },
+  "devDependencies": {
+    "@types/node": "22.20.5",
+    "happy-dom": "21.0.3",
+    "typescript": "7.0.2",
+    "vitest": "5.0.5"
+  }
+}

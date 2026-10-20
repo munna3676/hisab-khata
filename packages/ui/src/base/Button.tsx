@@ -3,7 +3,10 @@ import { cx } from '../lib/cx'
 import { Spinner } from './Spinner'
 
 export type ButtonVariant = 'primary' | 'secondary' | 'ghost'
-/** md = 44px (Figma Button), lg = 52px (main call to action, same height as a Text Field). */
+/**
+ * md = 44px, the only Figma Button height (every instance, full-width ones too).
+ * lg = 52px is a code-only extension (same height as a Text Field box); prefer md.
+ */
 export type ButtonSize = 'md' | 'lg'
 
 interface ButtonOwnProps {

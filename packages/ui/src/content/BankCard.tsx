@@ -95,6 +95,7 @@ export function BankCard({
       )}
 
       {(compareLabel || linked) && (
+        // Figma's foot row is 22px (the 14/22 compare label); the 44px targets overhang it by 11px.
         <div class="flex min-w-0 items-center gap-2">
           {compareLabel ? (
             <CompareToggle
@@ -112,7 +113,7 @@ export function BankCard({
             <a
               href={href}
               class={cx(
-                'hkc-link -my-3 inline-flex min-h-touch shrink-0 items-center rounded-input type-label text-blue',
+                'hkc-link -my-2.75 inline-flex min-h-touch shrink-0 items-center rounded-input type-label text-blue',
                 // Stretched link: the whole card is the hit area (the card is `relative` through .lift).
                 "before:absolute before:inset-0 before:rounded-[inherit] before:content-['']",
               )}
@@ -141,7 +142,7 @@ interface CompareToggleProps {
 
 function CompareToggle({ label, checked, defaultChecked, onChange, name, value }: CompareToggleProps) {
   return (
-    <label class="hkc-compare pressable relative z-10 -my-3 flex min-h-touch min-w-0 flex-1 items-center gap-2 rounded-input pr-2 [--hover-tint-opacity:0]">
+    <label class="hkc-compare pressable relative z-10 -my-2.75 flex min-h-touch min-w-0 flex-1 items-center gap-2 rounded-input pr-2 [--hover-tint-opacity:0]">
       <input
         type="checkbox"
         class="peer sr-only"

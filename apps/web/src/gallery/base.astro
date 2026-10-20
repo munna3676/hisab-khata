@@ -45,6 +45,10 @@ const forced = {
   hover: 'after:opacity-6',
   pressed: 'scale-97 after:opacity-12',
   focus: 'outline-2 outline-offset-2 outline-accent',
+  // Chip: the ring goes around the visible 36px pill (::before), as Chip does on :focus-visible.
+  chipFocus: 'before:outline-2 before:outline-offset-2 before:outline-accent',
+  // Text Field and Search Bar: the 2px blue state border (::after) at full opacity.
+  fieldFocus: 'after:opacity-100!',
 }
 const segOptions = [
   { value: 'charge', label: 'তুললে চার্জ কত' },
@@ -103,8 +107,8 @@ const segOptions = [
     <Specimen label="Ghost / disabled"><Button variant="ghost" icon={icon(Share)} disabled>{share}</Button></Specimen>
     <Specimen label="Loading (spinner, aria-busy, still focusable)"><Button icon={icon(Download)} loading>তৈরি হচ্ছে…</Button></Specimen>
     <Specimen label="Secondary / loading"><Button variant="secondary" loading>সেভ হচ্ছে…</Button></Specimen>
-    <Specimen label="Size lg (52px, main call to action)"><Button size="lg" icon={icon(Download)}>PDF নামাও</Button></Specimen>
-    <Specimen label="Block (full width)" wide><Button size="lg" block>হিসাব দেখো</Button></Specimen>
+    <Specimen label="Size lg (52px): code-only, not a Figma size; Figma buttons are all 44px"><Button size="lg" icon={icon(Download)}>PDF নামাও</Button></Specimen>
+    <Specimen label="Block (full width, 44px as in Figma)" wide><Button block>হিসাব দেখো</Button></Specimen>
     <Specimen label="Live: press to load for 1.5 s; the bookmark toggles (island)" wide>
       <LoadingDemo client:visible />
     </Specimen>
@@ -121,6 +125,10 @@ const segOptions = [
     <Specimen label="Secondary / toggle on"><IconButton label="সেভ করা" variant="secondary" pressed><Bookmark /></IconButton></Specimen>
     <Specimen label="Loading"><IconButton label="নামানো হচ্ছে" variant="secondary" loading><Download /></IconButton></Specimen>
     <Specimen label="Disabled"><IconButton label="শেয়ার" variant="secondary" disabled><Share /></IconButton></Specimen>
+    <Specimen label="Hover (frozen)"><IconButton label="মেনু (হোভার)" class={forced.hover}><Menu /></IconButton></Specimen>
+    <Specimen label="Pressed (frozen)"><div data-tap-exempt><IconButton label="ফিল্টার (চাপা)" variant="secondary" class={forced.pressed}><Filter /></IconButton></div></Specimen>
+    <Specimen label="Focus (frozen)"><IconButton label="শেয়ার (ফোকাস)" variant="secondary" class={forced.focus}><Share /></IconButton></Specimen>
+    <Specimen label="As a link (href)"><IconButton label="ডাউনলোড পাতা" href="#base-icon-button"><Download /></IconButton></Specimen>
   </Grid>
 </Group>
 
@@ -137,7 +145,7 @@ const segOptions = [
       </div>
     </Specimen>
     <Specimen label="Disabled"><Chip selected={false} disabled>১০,০০০</Chip></Specimen>
-    <Specimen label="Focus (frozen)"><Chip selected={false} class={forced.focus}>২৫,০০০</Chip></Specimen>
+    <Specimen label="Focus (frozen): 2px accent ring around the pill"><Chip selected={false} class={forced.chipFocus}>২৫,০০০</Chip></Specimen>
     <Specimen label="Quick values (৫,০০০ chosen); wraps on narrow screens" wide>
       <QuickValues label="দ্রুত পরিমাণ" values={[1000, 5000, 10000, 25000, 50000]} value={5000} />
     </Specimen>
@@ -161,7 +169,7 @@ const segOptions = [
       <TextField label="কত টাকা ক্যাশ আউট করবে?" prefix="৳" value="৫০০০" numeric inputMode="decimal" helper="বিকাশ প্রিয় এজেন্টের মাসিক লিমিট ৫০,০০০ টাকা" />
     </Specimen>
     <Specimen label="Focus (frozen): 2px blue">
-      <TextField label="কত টাকা ক্যাশ আউট করবে?" prefix="৳" value="৫০০০" numeric inputMode="decimal" helper="বিকাশ প্রিয় এজেন্টের মাসিক লিমিট ৫০,০০০ টাকা" boxClass="after:opacity-100!" />
+      <TextField label="কত টাকা ক্যাশ আউট করবে?" prefix="৳" value="৫০০০" numeric inputMode="decimal" helper="বিকাশ প্রিয় এজেন্টের মাসিক লিমিট ৫০,০০০ টাকা" boxClass={forced.fieldFocus} />
     </Specimen>
     <Specimen label="Error: 2px accent, message in accent">
       <TextField label="কত টাকা ক্যাশ আউট করবে?" prefix="৳" value="২০" numeric inputMode="decimal" error="কমপক্ষে ৫০ টাকা লিখতে হবে" />
@@ -190,6 +198,9 @@ const segOptions = [
     <Specimen label="Selected = 2 (island)"><SegmentedDemo client:visible initial="reverse" /></Specimen>
     <Specimen label="Three options (island)"><SegmentedDemo client:visible three /></Specimen>
     <Specimen label="Disabled"><SegmentedControl label="হিসাবের ধরন (বন্ধ)" options={segOptions} defaultValue="charge" disabled /></Specimen>
+    <Specimen label="Focus (frozen): keyboard ring around the control; arrow keys move the choice">
+      <SegmentedControl label="হিসাবের ধরন (ফোকাস)" options={segOptions} defaultValue="reverse" class={forced.focus} />
+    </Specimen>
   </Grid>
 </Group>
 
@@ -197,6 +208,8 @@ const segOptions = [
   <Grid cols={2}>
     <Specimen label="Large"><SearchBar action="/dev/gallery" landmarkLabel="খোঁজো (বড়)" class="max-w-[342px]" /></Specimen>
     <Specimen label="Compact"><SearchBar size="compact" action="/dev/gallery" landmarkLabel="খোঁজো (ছোট)" class="max-w-[280px]" /></Specimen>
+    <Specimen label="Large / focus (frozen): 2px blue ring"><SearchBar action="/dev/gallery" landmarkLabel="খোঁজো (বড়, ফোকাস)" class={`max-w-[342px] ${forced.fieldFocus}`} /></Specimen>
+    <Specimen label="Compact / focus (frozen)"><SearchBar size="compact" action="/dev/gallery" landmarkLabel="খোঁজো (ছোট, ফোকাস)" class={`max-w-[280px] ${forced.fieldFocus}`} /></Specimen>
     <Specimen label="Large / live (island)"><SearchDemo client:visible /></Specimen>
     <Specimen label="Compact / live (island)"><SearchDemo client:visible size="compact" /></Specimen>
   </Grid>
@@ -236,7 +249,7 @@ const segOptions = [
       <CompareRow provider="বিকাশ" method="প্রিয় এজেন্ট · ১৪.৯০/হাজার" charge="৳৭৪.৫০" total="মোট ৳৫,০৭৪.৫০" brand="bkash" href="#base-compare-row" />
     </Specimen>
     <Specimen label="A comparison list" wide>
-      <ul class="grid max-w-form gap-2" role="list">
+      <ul class="grid max-w-form grid-cols-1 gap-2" role="list">
         <li><CompareRow provider="নগদ" method="যেকোনো এজেন্ট · ১২.৯৯/হাজার" charge="৳৬৪.৯৫" total="মোট ৳৫,০৬৪.৯৫" brand="nagad" state="best" /></li>
         <li><CompareRow provider="বিকাশ" method="যেকোনো এজেন্ট · ১৮.৫০/হাজার" charge="৳৯২.৫০" total="মোট ৳৫,০৯২.৫০" brand="bkash" /></li>
         <li><CompareRow provider="রকেট" method="এটিএম · ৯.০০/হাজার" charge="৳৪৫.০০" total="মোট ৳৫,০৪৫.০০" brand="rocket" state="warning" badge="এটিএম ন্যূনতম ৳৫০০" /></li>
@@ -249,6 +262,7 @@ const segOptions = [
   <Grid cols={2}>
     <Specimen label="Bangla"><VerifiedLine checked="2026-10-19" source="https://www.bkash.com/" /></Specimen>
     <Specimen label="English"><VerifiedLine checked="2026-10-19" source="https://www.bkash.com/" lang="en" /></Specimen>
+    <Specimen label="Link text alone (sourcePrefix=false), as on the Calculator screen"><VerifiedLine checked="2026-10-19" source="https://www.bkash.com/" sourceLabel="অফিসিয়াল সূত্র" sourcePrefix={false} /></Specimen>
   </Grid>
 </Group>
 

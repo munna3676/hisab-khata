@@ -26,6 +26,65 @@ describe('TextField', () => {
     expect(input.parentElement!.className).toContain('after:border-accent')
   })
 
+  it('unit boxes are hidden from the name: the label names the field, the unit only describes it', () => {
+    const { container } = render(<TextField label="কত টাকা?" prefix="৳" />)
+    const input = screen.getByLabelText('কত টাকা?') as HTMLInputElement
+    const unit = document.getElementById(input.getAttribute('aria-describedby')!)!
+    expect(unit.textContent).toBe('৳')
+    expect(unit.getAttribute('aria-hidden')).toBe('true')
+    // The name is the label text alone, not the unit or the typed value.
+    expect(document.getElementById(input.getAttribute('aria-labelledby')!)!.textContent).toBe('কত টাকা?')
+    // Exactly one <label>, which holds the unit, so a tap on the unit focuses the input without JS.
+    const labels = container.querySelectorAll('label')
+    expect(labels).toHaveLength(1)
+    expect(labels[0]!.getAttribute('for')).toBe(input.id)
+    expect(labels[0]!.contains(unit)).toBe(true)
+    expect(labels[0]!.contains(input)).toBe(true)
+  })
+
+  it('keeps the units inside the 1.5px border, drawn as an inset ring (Figma inside stroke)', () => {
+    render(<TextField label="হার" suffix="%" />)
+    const box = screen.getByLabelText('হার').parentElement!
+    expect(box.className).toContain('p-[1.5px]')
+    expect(box.className).toContain('before:inset-ring-[1.5px]')
+    expect(box.className).toContain('before:inset-ring-line')
+    expect(box.className).not.toContain('before:border-[1.5px]')
+  })
+
+  it('the message line is a live region that is there before any message, so a new error is announced', () => {
+    function Demo() {
+      const [error, setError] = useState<string | undefined>(undefined)
+      return (
+        <>
+          <TextField label="পরিমাণ" error={error} />
+          <button type="button" onClick={() => setError('কমপক্ষে ৫০ টাকা লিখতে হবে')}>
+            ভুল
+          </button>
+        </>
+      )
+    }
+    render(<Demo />)
+    const input = screen.getByLabelText('পরিমাণ')
+    const region = input.closest('[data-invalid], div.grid')!.querySelector('[aria-live="polite"]')!
+    expect(region.textContent).toBe('')
+    expect(region.className).toContain('sr-only')
+    expect(input.hasAttribute('aria-describedby')).toBe(false)
+    fireEvent.click(screen.getByRole('button', { name: 'ভুল' }))
+    const after = input.closest('div.grid')!.querySelector('[aria-live="polite"]')!
+    expect(after).toBe(region)
+    expect(region.textContent).toBe('কমপক্ষে ৫০ টাকা লিখতে হবে')
+    expect(region.className).not.toContain('sr-only')
+    expect(input.getAttribute('aria-describedby')).toBe(region.id)
+    expect(input.getAttribute('aria-invalid')).toBe('true')
+  })
+
+  it('disabled dims the box and disables the input', () => {
+    render(<TextField label="বন্ধ" disabled />)
+    const input = screen.getByLabelText('বন্ধ') as HTMLInputElement
+    expect(input.disabled).toBe(true)
+    expect(input.parentElement!.className).toContain('opacity-50')
+  })
+
   it('every field gets its own id', () => {
     render(
       <>

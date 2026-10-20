@@ -90,6 +90,74 @@ describe('IconButton', () => {
   })
 })
 
+describe('IconButton states', () => {
+  it('disabled: a button is disabled, a link loses its href and says aria-disabled', () => {
+    render(
+      <>
+        <IconButton label="শেয়ার" disabled>
+          <Share />
+        </IconButton>
+        <IconButton label="পাতা" href="/x" disabled>
+          <Share />
+        </IconButton>
+      </>,
+    )
+    expect((screen.getByRole('button', { name: 'শেয়ার' }) as HTMLButtonElement).disabled).toBe(true)
+    const link = screen.getByRole('link', { name: 'পাতা' })
+    expect(link.hasAttribute('href')).toBe(false)
+    expect(link.getAttribute('aria-disabled')).toBe('true')
+  })
+
+  it('loading swaps the icon for a spinner and swallows presses', () => {
+    const onClick = vi.fn()
+    render(
+      <IconButton label="নামানো হচ্ছে" loading onClick={onClick}>
+        <Share />
+      </IconButton>,
+    )
+    const button = screen.getByRole('button', { name: 'নামানো হচ্ছে' })
+    expect(button.getAttribute('aria-busy')).toBe('true')
+    expect(button.querySelector('svg')!.getAttribute('class')).toContain('hk-spin')
+    fireEvent.click(button)
+    expect(onClick).not.toHaveBeenCalled()
+  })
+
+  it('round shape and secondary toggle colours', () => {
+    render(
+      <IconButton label="সেভ" variant="secondary" shape="round" pressed={false}>
+        <Share />
+      </IconButton>,
+    )
+    const button = screen.getByRole('button', { name: 'সেভ' })
+    expect(button.className).toContain('rounded-full')
+    expect(button.getAttribute('aria-pressed')).toBe('false')
+    expect(button.className).toContain('bg-sheet')
+  })
+})
+
+describe('Button as a link', () => {
+  it('a loading link swallows the click and is aria-busy', () => {
+    const onClick = vi.fn()
+    render(
+      <Button href="/pdf" loading onClick={onClick}>
+        তৈরি হচ্ছে
+      </Button>,
+    )
+    const link = screen.getByRole('link', { name: 'তৈরি হচ্ছে' })
+    expect(link.getAttribute('aria-busy')).toBe('true')
+    expect(link.getAttribute('href')).toBe('/pdf')
+    fireEvent.click(link)
+    expect(onClick).not.toHaveBeenCalled()
+  })
+
+  it('block buttons fill the row and truncate a long label instead of overflowing', () => {
+    render(<Button block>হিসাব দেখো</Button>)
+    const button = screen.getByRole('button', { name: 'হিসাব দেখো' })
+    expect(button.className).toContain('w-full')
+    expect(button.querySelector('span')!.className).toContain('truncate')
+  })
+})
+
 describe('Spinner', () => {
   it('is decorative unless labelled', () => {
     const { container } = render(<Spinner />)

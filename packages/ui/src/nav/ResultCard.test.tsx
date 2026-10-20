@@ -50,6 +50,29 @@ describe('ResultCard', () => {
     await waitFor(() => expect(valueText(container)).toBe('৳১৮.৫০/হাজার'))
   })
 
+  it('is a 12px-radius ledger page: rules drawn over the line boxes (no extra height), margin line on top', () => {
+    const { container } = render(<ResultCard label="চার্জ" value={64.95} sub="হাতে পাবে ৳৫,০০০" countUp={false} />)
+    const card = container.firstElementChild as HTMLElement
+    expect(card.className).toContain('rounded-[12px]')
+    const [label, value] = [...card.querySelectorAll('p')]
+    for (const line of [label!, value!]) {
+      // A pseudo-element rule 1px above the bottom of the line, never a border that adds 1px.
+      expect(line.className).toContain('after:bottom-px')
+      expect(line.className).toContain('after:bg-rule')
+      expect(line.className).not.toContain('border-b')
+      expect(line.className).toContain('pl-8.5')
+    }
+    // Figma: 28px label line, 56px number line in the number face with the Bangla fallback.
+    expect(label!.className).toContain('leading-7')
+    expect(value!.className).toContain('leading-14')
+    expect(value!.className).toContain('hk-nav-num')
+    // The margin line comes last so it paints over the rules, 19px from the outer edge.
+    const margin = card.lastElementChild!
+    expect(margin.hasAttribute('data-result-margin')).toBe(true)
+    expect(margin.getAttribute('aria-hidden')).toBe('true')
+    expect(margin.className).toContain('left-4.5')
+  })
+
   it('without countUp shows the value at once; enters with rise-in unless disabled', () => {
     const { container } = render(<ResultCard label="মোট" value={5064.95} countUp={false} enter={false} />)
     expect(valueText(container)).toBe('৳৫,০৬৪.৯৫')

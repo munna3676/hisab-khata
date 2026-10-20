@@ -47,14 +47,17 @@ export function ToolCard({
       data-tool-card
       {...rest}
     >
-      <span aria-hidden="true" class="absolute top-3.25 bottom-1.75 left-2.75 w-0.5 bg-margin opacity-55" />
+      {/* Figma: 11px from the left edge, 13 from the top, 7 from the bottom; absolute insets start inside the 1px border. */}
+      <span aria-hidden="true" class="absolute top-3 bottom-1.5 left-2.5 w-0.5 bg-margin opacity-55" />
       <IconTile>{icon ?? <Calculator size={22} />}</IconTile>
       <span class="flex min-w-0 flex-1 flex-col items-start gap-0.75">
         {tag && <span class="font-body text-[0.75rem] leading-4 font-semibold text-accent">{tag}</span>}
         <Title class="type-h3 text-ink">{title}</Title>
         {description && <span class="type-body-small text-soft">{description}</span>}
         {example && (
-          <span class="font-number text-[0.8125rem] leading-5.5 font-medium tracking-[-0.01em] text-blue">{example}</span>
+          <span class="hk-nav-num text-[0.8125rem] leading-5.5 font-medium text-blue" data-tool-card-example>
+            {example}
+          </span>
         )}
       </span>
       <ChevronRight size={20} class="text-soft" />

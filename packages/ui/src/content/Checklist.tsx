@@ -124,7 +124,8 @@ export function Checklist({
           </li>
         ))}
       </ul>
-      {hint && <p class="mt-2 type-body-small text-soft">{hint}</p>}
+      {/* Figma Guide 17:1577: the hint sits right under the last row's rule. */}
+      {hint && <p class="type-body-small text-soft">{hint}</p>}
     </div>
   )
 }

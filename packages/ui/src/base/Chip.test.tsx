@@ -30,6 +30,44 @@ describe('Chip', () => {
     expect(chip.className).toContain('type-label')
     expect(chip.getAttribute('aria-pressed')).toBe('false')
   })
+
+  it('draws the keyboard focus ring around the 36px pill, not the 44px hit area', () => {
+    render(<Chip>৫,০০০</Chip>)
+    const cls = screen.getByRole('button', { name: '৫,০০০' }).className
+    expect(cls).toContain('focus-visible:outline-hidden')
+    expect(cls).toContain('focus-visible:before:outline-2')
+    expect(cls).toContain('focus-visible:before:outline-offset-2')
+    expect(cls).toContain('focus-visible:before:outline-accent')
+    // Press tint follows the pill too.
+    expect(cls).toContain('after:inset-y-1')
+  })
+
+  it('disabled chips are dimmed and do not fire', () => {
+    const onClick = vi.fn()
+    render(<Chip disabled onClick={onClick}>১০,০০০</Chip>)
+    const chip = screen.getByRole('button', { name: '১০,০০০' }) as HTMLButtonElement
+    expect(chip.disabled).toBe(true)
+    expect(chip.className).toContain('opacity-50')
+    fireEvent.click(chip)
+    expect(onClick).not.toHaveBeenCalled()
+  })
+
+  it('a filter chip toggles aria-pressed when its owner flips selected', () => {
+    function Filter() {
+      const [on, setOn] = useState(false)
+      return (
+        <Chip numeric={false} selected={on} onClick={() => setOn((v) => !v)}>
+          সরকারি
+        </Chip>
+      )
+    }
+    render(<Filter />)
+    const chip = screen.getByRole('button', { name: 'সরকারি' })
+    expect(chip.getAttribute('aria-pressed')).toBe('false')
+    fireEvent.click(chip)
+    expect(chip.getAttribute('aria-pressed')).toBe('true')
+    expect(chip.className).toContain('before:border-accent')
+  })
 })
 
 describe('QuickValues', () => {

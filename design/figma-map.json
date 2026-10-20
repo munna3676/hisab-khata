@@ -1,0 +1,1092 @@
+{
+  "$source": "Every frame in design/figma-frames.json, mapped to the page it shows (registryId in data/registry/tools.json), the overlay drawn over that page (sheet, picker, toast, share card) or a state board, plus the variant it draws.",
+  "fileKey": "MUjojuzU7TFg6rKcfZhByP",
+  "frames": {
+    "11:2": {"page": "mobile", "name": "01 Home", "registryId": "home", "variant": "default", "width": 390},
+    "11:349": {"page": "mobile", "name": "02 Search Result", "registryId": "search", "variant": "results", "width": 390},
+    "13:404": {"page": "mobile", "name": "03 Calculator — Cash Out", "registryId": "cash-out", "variant": "default", "width": 390},
+    "14:706": {"page": "mobile", "name": "04 MFS — bKash", "registryId": "mfs-bkash-cash-out", "variant": "default", "width": 390},
+    "14:910": {
+      "page": "mobile",
+      "name": "11 Section Hub — Date, Land, Gold",
+      "registryId": "date-land-gold",
+      "variant": "default",
+      "width": 390
+    },
+    "15:1050": {"page": "mobile", "name": "05 Bank List", "registryId": "bank-list", "variant": "default", "width": 390},
+    "15:1233": {"page": "mobile", "name": "06 Bank Detail", "registryId": "bank-detail-fdr", "variant": "default", "width": 390},
+    "15:1385": {"page": "mobile", "name": "07 Bank Compare", "registryId": "bank-compare", "variant": "default", "width": 390},
+    "16:1382": {"page": "mobile", "name": "08 Remittance Compare", "registryId": "remittance-compare", "variant": "default", "width": 390},
+    "16:1632": {
+      "page": "mobile",
+      "name": "12 Share Card — Cash Out (1080×1080, export 3x)",
+      "registryId": "cash-out",
+      "overlay": "share-card",
+      "variant": "cash-out-saving",
+      "width": 360
+    },
+    "16:1660": {
+      "page": "mobile",
+      "name": "12 Share Card — Mess Hisab (1080×1080, export 3x)",
+      "registryId": "mess",
+      "overlay": "share-card",
+      "variant": "mess",
+      "width": 360
+    },
+    "17:1577": {
+      "page": "mobile",
+      "name": "09 Guide — NID Correction",
+      "registryId": "guide-nid-correction",
+      "variant": "default",
+      "width": 390
+    },
+    "17:1843": {"page": "mobile", "name": "10 Guide Wizard — ধাপ ১", "registryId": "guide-wizard", "variant": "step-1", "width": 390},
+    "17:1897": {"page": "mobile", "name": "10 Guide Wizard — Result", "registryId": "guide-wizard", "variant": "result", "width": 390},
+    "18:1839": {"page": "mobile", "name": "13 Static — About", "registryId": "about", "variant": "default", "width": 390},
+    "18:1904": {
+      "page": "mobile",
+      "name": "14 States — Offline, Stale, Empty, 404, Loading",
+      "state": "states-board",
+      "variant": "offline-banner, stale-data, search-empty, not-found, loading-skeleton",
+      "width": 390
+    },
+    "18:1959": {"page": "mobile", "name": "15 Home — Dark mode", "registryId": "home", "variant": "dark", "width": 390},
+    "18:2004": {"page": "mobile", "name": "15 Calculator — Dark mode", "registryId": "cash-out", "variant": "dark", "width": 390},
+    "24:2352": {"page": "mobile", "name": "A1 All Tools", "registryId": "all-tools", "variant": "default", "width": 390},
+    "24:3152": {"page": "mobile", "name": "A2 Saved", "registryId": "saved", "variant": "default", "width": 390},
+    "24:3351": {"page": "mobile", "name": "A3 Hub — Mobile Banking", "registryId": "mobile-banking", "variant": "default", "width": 390},
+    "24:3582": {"page": "mobile", "name": "A4 Hub — Calculators", "registryId": "calculators", "variant": "default", "width": 390},
+    "24:4065": {"page": "mobile", "name": "A5 Hub — Sorkari Kaj", "registryId": "sorkari-kaj", "variant": "default", "width": 390},
+    "25:3761": {"page": "mobile", "name": "A6 Static — Privacy", "registryId": "privacy", "variant": "default", "width": 390},
+    "25:3815": {"page": "mobile", "name": "A7 Static — Contact", "registryId": "contact", "variant": "default", "width": 390},
+    "25:3892": {"page": "mobile", "name": "A8 Static — Disclaimer", "registryId": "disclaimer", "variant": "default", "width": 390},
+    "25:3944": {"page": "mobile", "name": "A9 Static — Change Log", "registryId": "changelog", "variant": "default", "width": 390},
+    "25:4022": {"page": "mobile", "name": "A10 Home — English", "registryId": "home", "variant": "en", "width": 390},
+    "25:4196": {
+      "page": "mobile",
+      "name": "S1 Sheet — Share",
+      "registryId": "cash-out",
+      "overlay": "sheet/share",
+      "variant": "open",
+      "width": 390
+    },
+    "25:4333": {
+      "page": "mobile",
+      "name": "S2 Sheet — Report Error",
+      "registryId": "cash-out",
+      "overlay": "sheet/report-error",
+      "variant": "open",
+      "width": 390
+    },
+    "25:4431": {
+      "page": "mobile",
+      "name": "S3 Sheet — Rate Alert",
+      "registryId": "cash-out",
+      "overlay": "sheet/rate-alert",
+      "variant": "open",
+      "width": 390
+    },
+    "25:4551": {
+      "page": "mobile",
+      "name": "S4 Sheet — Install App",
+      "registryId": "cash-out",
+      "overlay": "sheet/install-app",
+      "variant": "open",
+      "width": 390
+    },
+    "26:5113": {"page": "mobile", "name": "F1 MFS — Nagad", "registryId": "mfs-nagad-cash-out", "variant": "default", "width": 390},
+    "26:5317": {"page": "mobile", "name": "F2 MFS — Rocket", "registryId": "mfs-rocket-cash-out", "variant": "default", "width": 390},
+    "26:5511": {"page": "mobile", "name": "F3 MFS — Upay", "registryId": "mfs-upay-cash-out", "variant": "default", "width": 390},
+    "26:5706": {"page": "mobile", "name": "F4 MFS Comparison", "registryId": "mfs-compare", "variant": "default", "width": 390},
+    "26:5863": {"page": "mobile", "name": "F5 Send Money Calculator", "registryId": "send-money", "variant": "default", "width": 390},
+    "27:5771": {"page": "mobile", "name": "F6 EMI Calculator", "registryId": "emi", "variant": "default", "width": 390},
+    "27:6030": {"page": "mobile", "name": "F7 DPS Calculator", "registryId": "dps", "variant": "default", "width": 390},
+    "27:6253": {"page": "mobile", "name": "F8 FDR Calculator", "registryId": "fdr", "variant": "default", "width": 390},
+    "27:6477": {"page": "mobile", "name": "F9 Loan Eligibility", "registryId": "loan-eligibility", "variant": "default", "width": 390},
+    "27:6681": {"page": "mobile", "name": "F10 Loan Comparison", "registryId": "loan-compare", "variant": "default", "width": 390},
+    "27:6940": {"page": "mobile", "name": "F11 Currency Converter", "registryId": "currency-converter", "variant": "default", "width": 390},
+    "28:6772": {"page": "mobile", "name": "C1 VAT Calculator", "registryId": "vat", "variant": "default", "width": 390},
+    "28:6970": {
+      "page": "mobile",
+      "name": "C2 Discount & Percentage",
+      "registryId": "discount-percentage",
+      "variant": "default",
+      "width": 390
+    },
+    "28:7145": {"page": "mobile", "name": "C3 Profit Margin", "registryId": "profit-margin", "variant": "default", "width": 390},
+    "28:7332": {"page": "mobile", "name": "C4 Savings Goal", "registryId": "savings-goal", "variant": "default", "width": 390},
+    "28:7512": {"page": "mobile", "name": "C5 Salary Breakdown", "registryId": "salary", "variant": "default", "width": 390},
+    "28:7708": {"page": "mobile", "name": "C6 Income Tax", "registryId": "income-tax", "variant": "default", "width": 390},
+    "29:7661": {"page": "mobile", "name": "C7 Sanchayapatra", "registryId": "sanchayapatra", "variant": "default", "width": 390},
+    "29:7863": {"page": "mobile", "name": "C8 Mobile Data Pack", "registryId": "data-pack", "variant": "default", "width": 390},
+    "29:8051": {"page": "mobile", "name": "D1 Age Calculator", "registryId": "age", "variant": "default", "width": 390},
+    "29:8239": {"page": "mobile", "name": "D2 Job Age Limit", "registryId": "job-age-limit", "variant": "default", "width": 390},
+    "29:8406": {"page": "mobile", "name": "D3 Bangla Date", "registryId": "bangla-date", "variant": "default", "width": 390},
+    "29:8587": {"page": "mobile", "name": "D4 Hijri Date", "registryId": "hijri-date", "variant": "default", "width": 390},
+    "31:8462": {"page": "mobile", "name": "D5 Day Count", "registryId": "day-count", "variant": "default", "width": 390},
+    "31:8623": {"page": "mobile", "name": "L1 Land Converter", "registryId": "land-converter", "variant": "default", "width": 390},
+    "31:8835": {"page": "mobile", "name": "L2 Land Price", "registryId": "land-price", "variant": "default", "width": 390},
+    "31:9006": {"page": "mobile", "name": "L3 Gold Converter", "registryId": "gold-converter", "variant": "default", "width": 390},
+    "31:9216": {"page": "mobile", "name": "L4 Jewelry Bill", "registryId": "jewelry-bill", "variant": "default", "width": 390},
+    "32:9141": {"page": "mobile", "name": "E1 SSC/HSC GPA", "registryId": "gpa", "variant": "default", "width": 390},
+    "32:9391": {"page": "mobile", "name": "E2 University CGPA", "registryId": "cgpa", "variant": "default", "width": 390},
+    "32:9600": {"page": "mobile", "name": "E3 Mess Hisab", "registryId": "mess", "variant": "default", "width": 390},
+    "32:9869": {"page": "mobile", "name": "E4 Rent Split", "registryId": "rent-split", "variant": "default", "width": 390},
+    "32:10067": {"page": "mobile", "name": "E5 Electricity Bill", "registryId": "electricity-bill", "variant": "default", "width": 390},
+    "32:10283": {"page": "mobile", "name": "E6 Delivery & Profit", "registryId": "delivery-profit", "variant": "default", "width": 390},
+    "34:10083": {"page": "mobile", "name": "E7 Invoice Maker", "registryId": "invoice", "variant": "default", "width": 390},
+    "34:10298": {"page": "mobile", "name": "R1 Zakat", "registryId": "zakat", "variant": "default", "width": 390},
+    "34:10519": {"page": "mobile", "name": "R2 Fitra", "registryId": "fitra", "variant": "default", "width": 390},
+    "34:10709": {"page": "mobile", "name": "R3 Sehri & Iftar", "registryId": "sehri-iftar", "variant": "default", "width": 390},
+    "34:10896": {"page": "mobile", "name": "T1 Unicode ↔ Bijoy", "registryId": "unicode-bijoy", "variant": "default", "width": 390},
+    "34:11052": {"page": "mobile", "name": "T2 Font Style", "registryId": "font-style", "variant": "default", "width": 390},
+    "35:10878": {"page": "mobile", "name": "T3 Number to Words", "registryId": "number-to-words", "variant": "default", "width": 390},
+    "35:11001": {"page": "mobile", "name": "G1 Name Spelling Checker", "registryId": "name-spelling", "variant": "default", "width": 390},
+    "35:11159": {"page": "mobile", "name": "G2 Guide — e-Passport", "registryId": "guide-e-passport", "variant": "default", "width": 390},
+    "35:11409": {
+      "page": "mobile",
+      "name": "G3 Guide — Birth Registration",
+      "registryId": "guide-birth-registration",
+      "variant": "default",
+      "width": 390
+    },
+    "35:11659": {
+      "page": "mobile",
+      "name": "G4 Guide — Driving License",
+      "registryId": "guide-driving-license",
+      "variant": "default",
+      "width": 390
+    },
+    "35:11891": {"page": "mobile", "name": "G5 Guide — Namjari", "registryId": "guide-namjari", "variant": "default", "width": 390},
+    "55:11850": {
+      "page": "mobile",
+      "name": "F0-2 বিকাশ — সেন্ড মানি",
+      "registryId": "mfs-bkash-send-money",
+      "variant": "default",
+      "width": 390
+    },
+    "55:12069": {"page": "mobile", "name": "F0-3 বিকাশ — ক্যাশ ইন", "registryId": "mfs-bkash-cash-in", "variant": "default", "width": 390},
+    "55:12267": {"page": "mobile", "name": "F0-4 বিকাশ — বিল পে", "registryId": "mfs-bkash-bill-pay", "variant": "default", "width": 390},
+    "55:12529": {"page": "mobile", "name": "F0-5 বিকাশ — লিমিট", "registryId": "mfs-bkash-limits", "variant": "default", "width": 390},
+    "55:12754": {"page": "mobile", "name": "F1-2 নগদ — সেন্ড মানি", "registryId": "mfs-nagad-send-money", "variant": "default", "width": 390},
+    "55:12978": {"page": "mobile", "name": "F1-3 নগদ — ক্যাশ ইন", "registryId": "mfs-nagad-cash-in", "variant": "default", "width": 390},
+    "55:13178": {"page": "mobile", "name": "F1-4 নগদ — বিল পে", "registryId": "mfs-nagad-bill-pay", "variant": "default", "width": 390},
+    "55:13445": {"page": "mobile", "name": "F1-5 নগদ — লিমিট", "registryId": "mfs-nagad-limits", "variant": "default", "width": 390},
+    "56:13169": {
+      "page": "mobile",
+      "name": "F2-2 রকেট — সেন্ড মানি",
+      "registryId": "mfs-rocket-send-money",
+      "variant": "default",
+      "width": 390
+    },
+    "56:13377": {"page": "mobile", "name": "F2-3 রকেট — ক্যাশ ইন", "registryId": "mfs-rocket-cash-in", "variant": "default", "width": 390},
+    "56:13567": {"page": "mobile", "name": "F2-4 রকেট — বিল পে", "registryId": "mfs-rocket-bill-pay", "variant": "default", "width": 390},
+    "56:13824": {"page": "mobile", "name": "F2-5 রকেট — লিমিট", "registryId": "mfs-rocket-limits", "variant": "default", "width": 390},
+    "56:14026": {"page": "mobile", "name": "F3-2 উপায় — সেন্ড মানি", "registryId": "mfs-upay-send-money", "variant": "default", "width": 390},
+    "56:14242": {"page": "mobile", "name": "F3-3 উপায় — ক্যাশ ইন", "registryId": "mfs-upay-cash-in", "variant": "default", "width": 390},
+    "56:14437": {"page": "mobile", "name": "F3-4 উপায় — বিল পে", "registryId": "mfs-upay-bill-pay", "variant": "default", "width": 390},
+    "56:14699": {"page": "mobile", "name": "F3-5 উপায় — লিমিট", "registryId": "mfs-upay-limits", "variant": "default", "width": 390},
+    "57:14466": {"page": "mobile", "name": "B1-2 ব্যাংক — DPS", "registryId": "bank-detail-dps", "variant": "default", "width": 390},
+    "57:14646": {"page": "mobile", "name": "B1-3 ব্যাংক — লোন", "registryId": "bank-detail-loan", "variant": "default", "width": 390},
+    "57:14831": {
+      "page": "mobile",
+      "name": "B1-4 ব্যাংক — অ্যাকাউন্ট",
+      "registryId": "bank-detail-account",
+      "variant": "default",
+      "width": 390
+    },
+    "57:15004": {"page": "mobile", "name": "B1-5 ব্যাংক — কার্ড", "registryId": "bank-detail-card", "variant": "default", "width": 390},
+    "57:15169": {
+      "page": "mobile",
+      "name": "B2 ব্যাংক তালিকা — ফিল্টার: ইসলামী",
+      "registryId": "bank-list",
+      "variant": "filter-islamic",
+      "width": 390
+    },
+    "57:15351": {
+      "page": "mobile",
+      "name": "B3 শিট — ব্যাংক সাজাও",
+      "registryId": "bank-list",
+      "overlay": "sheet/bank-sort",
+      "variant": "open",
+      "width": 390
+    },
+    "57:15494": {
+      "page": "mobile",
+      "name": "B4 শিট — তুলনায় ব্যাংক যোগ",
+      "registryId": "bank-compare",
+      "overlay": "sheet/bank-compare-add",
+      "variant": "open",
+      "width": 390
+    },
+    "58:15240": {
+      "page": "mobile",
+      "name": "C1-b ক্যাশ আউট — \"কত তোলা যাবে\" মোড",
+      "registryId": "cash-out",
+      "variant": "mode-max-withdrawal",
+      "width": 390
+    },
+    "58:15542": {
+      "page": "mobile",
+      "name": "C1-c ক্যাশ আউট — প্রিয় এজেন্ট সীমা পার",
+      "registryId": "cash-out",
+      "variant": "priyo-limit-exceeded",
+      "width": 390
+    },
+    "58:15873": {
+      "page": "mobile",
+      "name": "C1-d ক্যাশ আউট — ভুল ইনপুট",
+      "registryId": "cash-out",
+      "variant": "error-invalid-amount",
+      "width": 390
+    },
+    "58:16199": {"page": "mobile", "name": "S0-a খোঁজো — শুরু (সাম্প্রতিক)", "registryId": "search", "variant": "start-recent", "width": 390},
+    "58:16478": {
+      "page": "mobile",
+      "name": "S0-b খোঁজো — টাইপ করার সময় সাজেশন",
+      "registryId": "search",
+      "variant": "typing-suggestions",
+      "width": 390
+    },
+    "58:16731": {"page": "mobile", "name": "S0-c খোঁজো — কিছু পাওয়া যায়নি", "registryId": "search", "variant": "no-results", "width": 390},
+    "59:16200": {
+      "page": "mobile",
+      "name": "P1 পিকার — দেশ",
+      "registryId": "remittance-compare",
+      "overlay": "picker/country",
+      "variant": "open",
+      "width": 390
+    },
+    "59:16364": {
+      "page": "mobile",
+      "name": "P2 পিকার — জেলা",
+      "registryId": "sehri-iftar",
+      "overlay": "picker/district",
+      "variant": "open",
+      "width": 390
+    },
+    "59:16558": {
+      "page": "mobile",
+      "name": "P3 পিকার — জমির একক",
+      "registryId": "land-converter",
+      "overlay": "picker/land-unit",
+      "variant": "open",
+      "width": 390
+    },
+    "59:16740": {
+      "page": "mobile",
+      "name": "P4 পিকার — গ্রেড",
+      "registryId": "gpa",
+      "overlay": "picker/grade",
+      "variant": "open",
+      "width": 390
+    },
+    "59:16939": {"page": "mobile", "name": "P5 পিকার — তারিখ", "registryId": "age", "overlay": "picker/date", "variant": "open", "width": 390},
+    "59:17198": {
+      "page": "mobile",
+      "name": "P6 পিকার — বিদ্যুৎ কোম্পানি",
+      "registryId": "electricity-bill",
+      "overlay": "picker/electricity-company",
+      "variant": "open",
+      "width": 390
+    },
+    "59:17386": {
+      "page": "mobile",
+      "name": "P7 পিকার — সঞ্চয়পত্রের ধরন",
+      "registryId": "sanchayapatra",
+      "overlay": "picker/sanchayapatra-scheme",
+      "variant": "open",
+      "width": 390
+    },
+    "59:17540": {
+      "page": "mobile",
+      "name": "P8 পিকার — মুদ্রা",
+      "registryId": "currency-converter",
+      "overlay": "picker/currency",
+      "variant": "open",
+      "width": 390
+    },
+    "59:17729": {
+      "page": "mobile",
+      "name": "R1 শিট — রেমিট্যান্স সাজাও",
+      "registryId": "remittance-compare",
+      "overlay": "sheet/remittance-sort",
+      "variant": "open",
+      "width": 390
+    },
+    "59:17876": {
+      "page": "mobile",
+      "name": "R2 শিট — অন্য সাইটে যাচ্ছ",
+      "registryId": "remittance-compare",
+      "overlay": "sheet/external-link",
+      "variant": "open",
+      "width": 390
+    },
+    "59:18047": {
+      "page": "mobile",
+      "name": "E3-b শিট — মেসে সদস্য যোগ",
+      "registryId": "mess",
+      "overlay": "sheet/mess-add-member",
+      "variant": "open",
+      "width": 390
+    },
+    "60:17985": {"page": "mobile", "name": "C4-b VAT — VAT বাদ দাও মোড", "registryId": "vat", "variant": "mode-remove-vat", "width": 390},
+    "60:18179": {
+      "page": "mobile",
+      "name": "D5-b বাংলা তারিখ — বাংলা থেকে ইংরেজি",
+      "registryId": "bangla-date",
+      "variant": "mode-bangla-to-english",
+      "width": 390
+    },
+    "60:18356": {
+      "page": "mobile",
+      "name": "E2-b ভাড়া ভাগ — রুম অনুযায়ী",
+      "registryId": "rent-split",
+      "variant": "mode-by-room",
+      "width": 390
+    },
+    "60:18595": {"page": "mobile", "name": "A1-b সব টুল — ফিল্টার: টাকা", "registryId": "all-tools", "variant": "filter-money", "width": 390},
+    "60:19241": {"page": "mobile", "name": "A2-b সেভ — খালি অবস্থা", "registryId": "saved", "variant": "empty", "width": 390},
+    "60:19409": {"page": "mobile", "name": "A7-b যোগাযোগ — বার্তা পাঠানো হয়েছে", "registryId": "contact", "variant": "sent", "width": 390},
+    "61:18761": {
+      "page": "mobile",
+      "name": "G2 গাইড — ভুল নম্বরে টাকা গেলে",
+      "registryId": "guide-wrong-number",
+      "variant": "default",
+      "width": 390
+    },
+    "61:19104": {
+      "page": "mobile",
+      "name": "G3 গাইড — বিকাশ থেকে ব্যাংকে টাকা",
+      "registryId": "guide-bkash-to-bank",
+      "variant": "default",
+      "width": 390
+    },
+    "61:19444": {
+      "page": "mobile",
+      "name": "G4 গাইড — সৌদি থেকে বিকাশে টাকা",
+      "registryId": "guide-saudi-to-bkash",
+      "variant": "default",
+      "width": 390
+    },
+    "61:19784": {"page": "mobile", "name": "G5 গাইড — হুন্ডি কেন বিপজ্জনক", "registryId": "guide-hundi", "variant": "default", "width": 390},
+    "61:20123": {
+      "page": "mobile",
+      "name": "G6 গাইড — অ্যাকাউন্ট হ্যাক হলে",
+      "registryId": "guide-account-hacked",
+      "variant": "default",
+      "width": 390
+    },
+    "62:19727": {"page": "mobile", "name": "10b Guide Wizard — ধাপ ২", "registryId": "guide-wizard", "variant": "step-2", "width": 390},
+    "62:19792": {"page": "mobile", "name": "10c Guide Wizard — ধাপ ৩", "registryId": "guide-wizard", "variant": "step-3", "width": 390},
+    "62:19861": {
+      "page": "mobile",
+      "name": "T1 টোস্ট — রিপোর্ট পাঠানো হয়েছে",
+      "registryId": "cash-out",
+      "overlay": "toast/report-sent",
+      "variant": "shown",
+      "width": 390
+    },
+    "62:19991": {
+      "page": "mobile",
+      "name": "T2 টোস্ট — লিংক কপি হয়েছে",
+      "registryId": "cash-out",
+      "overlay": "toast/link-copied",
+      "variant": "shown",
+      "width": 390
+    },
+    "62:20121": {
+      "page": "mobile",
+      "name": "T3 টোস্ট — PDF সেভ হয়েছে",
+      "registryId": "guide-wizard",
+      "overlay": "toast/pdf-saved",
+      "variant": "shown",
+      "width": 390
+    },
+    "62:20149": {
+      "page": "mobile",
+      "name": "T4 টোস্ট — রেট অ্যালার্ট চালু",
+      "registryId": "cash-out",
+      "overlay": "toast/rate-alert-on",
+      "variant": "shown",
+      "width": 390
+    },
+    "62:20279": {
+      "page": "mobile",
+      "name": "T5 টোস্ট — অ্যাপ ইনস্টল হয়েছে",
+      "registryId": "home",
+      "overlay": "toast/app-installed",
+      "variant": "shown",
+      "width": 390
+    },
+    "62:20395": {
+      "page": "mobile",
+      "name": "T6 টোস্ট — সেভ করা হয়েছে",
+      "registryId": "cash-out",
+      "overlay": "toast/saved",
+      "variant": "shown",
+      "width": 390
+    },
+    "62:20526": {"page": "mobile", "name": "Z1 অফলাইন — পুরো পেজ", "registryId": "offline", "variant": "default", "width": 390},
+    "62:20721": {"page": "mobile", "name": "Z2 ৪০৪ — পেজ পাওয়া যায়নি", "registryId": "not-found", "variant": "default", "width": 390},
+    "64:21115": {
+      "page": "mobile",
+      "name": "F7-b DPS — ত্রৈমাসিক চক্রবৃদ্ধি",
+      "registryId": "dps",
+      "variant": "quarterly-compounding",
+      "width": 390
+    },
+    "64:21334": {
+      "page": "mobile",
+      "name": "F8-b FDR — প্রতি ৩ মাসে রিনিউ",
+      "registryId": "fdr",
+      "variant": "renew-every-3-months",
+      "width": 390
+    },
+    "64:21554": {"page": "mobile", "name": "C6-b আয়কর — ফ্রিল্যান্সার", "registryId": "income-tax", "variant": "freelancer", "width": 390},
+    "64:21757": {"page": "mobile", "name": "E1-b GPA — HSC / আলিম", "registryId": "gpa", "variant": "hsc-alim", "width": 390},
+    "64:22007": {
+      "page": "mobile",
+      "name": "T1-b কনভার্টার — বিজয় থেকে ইউনিকোড",
+      "registryId": "unicode-bijoy",
+      "variant": "mode-bijoy-to-unicode",
+      "width": 390
+    },
+    "64:22147": {
+      "page": "mobile",
+      "name": "T3-b সংখ্যা থেকে কথা — English",
+      "registryId": "number-to-words",
+      "variant": "english",
+      "width": 390
+    },
+    "73:21966": {"page": "mobile", "name": "G7 বিভাগ — আইনি কাগজ", "registryId": "guides-legal", "variant": "default", "width": 390},
+    "73:22162": {"page": "mobile", "name": "G8 বিভাগ — শিক্ষা", "registryId": "guides-education", "variant": "default", "width": 390},
+    "73:22357": {"page": "mobile", "name": "G9 বিভাগ — প্রবাসী", "registryId": "guides-expatriate", "variant": "default", "width": 390},
+    "73:22570": {"page": "mobile", "name": "OV টোস্ট — কপি হয়েছে", "overlay": "toast/copied", "variant": "component", "width": 358},
+    "73:22574": {"page": "mobile", "name": "OV টোস্ট — PDF সেভ হয়েছে", "overlay": "toast/pdf-saved", "variant": "component", "width": 358},
+    "73:22578": {"page": "mobile", "name": "OV টোস্ট — লিংক কপি হয়েছে", "overlay": "toast/link-copied", "variant": "component", "width": 358},
+    "76:45268": {
+      "page": "mobile",
+      "name": "E5-b CGPA — নতুন সেমিস্টার যোগ হয়েছে",
+      "registryId": "cgpa",
+      "variant": "semester-added",
+      "width": 390
+    },
+    "76:45491": {
+      "page": "mobile",
+      "name": "E7-b ইনভয়েস — নতুন আইটেম যোগ হয়েছে",
+      "registryId": "invoice",
+      "variant": "item-added",
+      "width": 390
+    },
+    "76:45698": {
+      "page": "mobile",
+      "name": "E2-c ভাড়া ভাগ — ৪টা রুম",
+      "registryId": "rent-split",
+      "variant": "mode-by-room-4-rooms",
+      "width": 390
+    },
+    "76:45938": {
+      "page": "mobile",
+      "name": "T1-c কনভার্টার — মুছে ফেলার পর",
+      "registryId": "unicode-bijoy",
+      "variant": "cleared",
+      "width": 390
+    },
+    "19:2": {"page": "desktop", "name": "D1 Home — Desktop", "registryId": "home", "variant": "default", "width": 1440},
+    "19:360": {"page": "desktop", "name": "D2 Calculator — Desktop", "registryId": "cash-out", "variant": "default", "width": 1440},
+    "66:993": {"page": "desktop", "name": "D · 02 Search Result", "registryId": "search", "variant": "results", "width": 1440},
+    "66:1207": {"page": "desktop", "name": "D · 04 MFS — bKash", "registryId": "mfs-bkash-cash-out", "variant": "default", "width": 1440},
+    "66:1416": {
+      "page": "desktop",
+      "name": "D · 11 Section Hub — Date, Land, Gold",
+      "registryId": "date-land-gold",
+      "variant": "default",
+      "width": 1440
+    },
+    "66:1584": {"page": "desktop", "name": "D · 05 Bank List", "registryId": "bank-list", "variant": "default", "width": 1440},
+    "66:1822": {"page": "desktop", "name": "D · 06 Bank Detail", "registryId": "bank-detail-fdr", "variant": "default", "width": 1440},
+    "66:2040": {"page": "desktop", "name": "D · 07 Bank Compare", "registryId": "bank-compare", "variant": "default", "width": 1440},
+    "66:2217": {
+      "page": "desktop",
+      "name": "D · 08 Remittance Compare",
+      "registryId": "remittance-compare",
+      "variant": "default",
+      "width": 1440
+    },
+    "66:2466": {
+      "page": "desktop",
+      "name": "D · 09 Guide — NID Correction",
+      "registryId": "guide-nid-correction",
+      "variant": "default",
+      "width": 1440
+    },
+    "66:2668": {"page": "desktop", "name": "D · 13 Static — About", "registryId": "about", "variant": "default", "width": 1440},
+    "66:2859": {"page": "desktop", "name": "D · A1 All Tools", "registryId": "all-tools", "variant": "default", "width": 1440},
+    "66:3015": {"page": "desktop", "name": "D · A2 Saved", "registryId": "saved", "variant": "default", "width": 1440},
+    "66:3206": {
+      "page": "desktop",
+      "name": "D · A3 Hub — Mobile Banking",
+      "registryId": "mobile-banking",
+      "variant": "default",
+      "width": 1440
+    },
+    "66:3383": {"page": "desktop", "name": "D · A4 Hub — Calculators", "registryId": "calculators", "variant": "default", "width": 1440},
+    "66:3553": {"page": "desktop", "name": "D · A5 Hub — Sorkari Kaj", "registryId": "sorkari-kaj", "variant": "default", "width": 1440},
+    "66:26989": {"page": "desktop", "name": "D · A6 Static — Privacy", "registryId": "privacy", "variant": "default", "width": 1440},
+    "66:27112": {"page": "desktop", "name": "D · A7 Static — Contact", "registryId": "contact", "variant": "default", "width": 1440},
+    "66:27244": {"page": "desktop", "name": "D · A8 Static — Disclaimer", "registryId": "disclaimer", "variant": "default", "width": 1440},
+    "66:27387": {"page": "desktop", "name": "D · A9 Static — Change Log", "registryId": "changelog", "variant": "default", "width": 1440},
+    "66:27511": {"page": "desktop", "name": "D · A10 Home — English", "registryId": "home", "variant": "en", "width": 1440},
+    "66:27749": {"page": "desktop", "name": "D · F1 MFS — Nagad", "registryId": "mfs-nagad-cash-out", "variant": "default", "width": 1440},
+    "66:28004": {"page": "desktop", "name": "D · F2 MFS — Rocket", "registryId": "mfs-rocket-cash-out", "variant": "default", "width": 1440},
+    "66:28252": {"page": "desktop", "name": "D · F3 MFS — Upay", "registryId": "mfs-upay-cash-out", "variant": "default", "width": 1440},
+    "66:28534": {"page": "desktop", "name": "D · F4 MFS Comparison", "registryId": "mfs-compare", "variant": "default", "width": 1440},
+    "66:28717": {"page": "desktop", "name": "D · F5 Send Money Calculator", "registryId": "send-money", "variant": "default", "width": 1440},
+    "66:29012": {"page": "desktop", "name": "D · F6 EMI Calculator", "registryId": "emi", "variant": "default", "width": 1440},
+    "66:29288": {"page": "desktop", "name": "D · F7 DPS Calculator", "registryId": "dps", "variant": "default", "width": 1440},
+    "66:29578": {"page": "desktop", "name": "D · F8 FDR Calculator", "registryId": "fdr", "variant": "default", "width": 1440},
+    "66:29859": {"page": "desktop", "name": "D · F9 Loan Eligibility", "registryId": "loan-eligibility", "variant": "default", "width": 1440},
+    "66:30163": {"page": "desktop", "name": "D · F10 Loan Comparison", "registryId": "loan-compare", "variant": "default", "width": 1440},
+    "66:30468": {
+      "page": "desktop",
+      "name": "D · F11 Currency Converter",
+      "registryId": "currency-converter",
+      "variant": "default",
+      "width": 1440
+    },
+    "68:4691": {"page": "desktop", "name": "D · C1 VAT Calculator", "registryId": "vat", "variant": "default", "width": 1440},
+    "68:4983": {
+      "page": "desktop",
+      "name": "D · C2 Discount & Percentage",
+      "registryId": "discount-percentage",
+      "variant": "default",
+      "width": 1440
+    },
+    "68:5225": {"page": "desktop", "name": "D · C3 Profit Margin", "registryId": "profit-margin", "variant": "default", "width": 1440},
+    "68:5478": {"page": "desktop", "name": "D · C4 Savings Goal", "registryId": "savings-goal", "variant": "default", "width": 1440},
+    "68:5723": {"page": "desktop", "name": "D · C5 Salary Breakdown", "registryId": "salary", "variant": "default", "width": 1440},
+    "68:6010": {"page": "desktop", "name": "D · C6 Income Tax", "registryId": "income-tax", "variant": "default", "width": 1440},
+    "68:6269": {"page": "desktop", "name": "D · C7 Sanchayapatra", "registryId": "sanchayapatra", "variant": "default", "width": 1440},
+    "68:6553": {"page": "desktop", "name": "D · C8 Mobile Data Pack", "registryId": "data-pack", "variant": "default", "width": 1440},
+    "68:6790": {"page": "desktop", "name": "D · D1 Age Calculator", "registryId": "age", "variant": "default", "width": 1440},
+    "68:7039": {"page": "desktop", "name": "D · D2 Job Age Limit", "registryId": "job-age-limit", "variant": "default", "width": 1440},
+    "68:7265": {"page": "desktop", "name": "D · D3 Bangla Date", "registryId": "bangla-date", "variant": "default", "width": 1440},
+    "68:7511": {"page": "desktop", "name": "D · D4 Hijri Date", "registryId": "hijri-date", "variant": "default", "width": 1440},
+    "68:7759": {"page": "desktop", "name": "D · D5 Day Count", "registryId": "day-count", "variant": "default", "width": 1440},
+    "68:8014": {"page": "desktop", "name": "D · L1 Land Converter", "registryId": "land-converter", "variant": "default", "width": 1440},
+    "68:8251": {"page": "desktop", "name": "D · L2 Land Price", "registryId": "land-price", "variant": "default", "width": 1440},
+    "68:8527": {"page": "desktop", "name": "D · L3 Gold Converter", "registryId": "gold-converter", "variant": "default", "width": 1440},
+    "68:8774": {"page": "desktop", "name": "D · L4 Jewelry Bill", "registryId": "jewelry-bill", "variant": "default", "width": 1440},
+    "68:9069": {"page": "desktop", "name": "D · E1 SSC/HSC GPA", "registryId": "gpa", "variant": "default", "width": 1440},
+    "68:9337": {"page": "desktop", "name": "D · E2 University CGPA", "registryId": "cgpa", "variant": "default", "width": 1440},
+    "68:9664": {"page": "desktop", "name": "D · E3 Mess Hisab", "registryId": "mess", "variant": "default", "width": 1440},
+    "68:9953": {"page": "desktop", "name": "D · E4 Rent Split", "registryId": "rent-split", "variant": "default", "width": 1440},
+    "68:10233": {"page": "desktop", "name": "D · E5 Electricity Bill", "registryId": "electricity-bill", "variant": "default", "width": 1440},
+    "68:10484": {"page": "desktop", "name": "D · E6 Delivery & Profit", "registryId": "delivery-profit", "variant": "default", "width": 1440},
+    "68:10777": {"page": "desktop", "name": "D · E7 Invoice Maker", "registryId": "invoice", "variant": "default", "width": 1440},
+    "68:11035": {"page": "desktop", "name": "D · R1 Zakat", "registryId": "zakat", "variant": "default", "width": 1440},
+    "68:11339": {"page": "desktop", "name": "D · R2 Fitra", "registryId": "fitra", "variant": "default", "width": 1440},
+    "68:11606": {"page": "desktop", "name": "D · R3 Sehri & Iftar", "registryId": "sehri-iftar", "variant": "default", "width": 1440},
+    "68:11824": {"page": "desktop", "name": "D · T1 Unicode ↔ Bijoy", "registryId": "unicode-bijoy", "variant": "default", "width": 1440},
+    "68:12045": {"page": "desktop", "name": "D · T2 Font Style", "registryId": "font-style", "variant": "default", "width": 1440},
+    "68:12242": {"page": "desktop", "name": "D · T3 Number to Words", "registryId": "number-to-words", "variant": "default", "width": 1440},
+    "68:12441": {
+      "page": "desktop",
+      "name": "D · G1 Name Spelling Checker",
+      "registryId": "name-spelling",
+      "variant": "default",
+      "width": 1440
+    },
+    "68:12657": {
+      "page": "desktop",
+      "name": "D · G2 Guide — e-Passport",
+      "registryId": "guide-e-passport",
+      "variant": "default",
+      "width": 1440
+    },
+    "68:12961": {
+      "page": "desktop",
+      "name": "D · G3 Guide — Birth Registration",
+      "registryId": "guide-birth-registration",
+      "variant": "default",
+      "width": 1440
+    },
+    "68:13264": {
+      "page": "desktop",
+      "name": "D · G4 Guide — Driving License",
+      "registryId": "guide-driving-license",
+      "variant": "default",
+      "width": 1440
+    },
+    "69:8829": {"page": "desktop", "name": "D · G5 Guide — Namjari", "registryId": "guide-namjari", "variant": "default", "width": 1440},
+    "69:9169": {
+      "page": "desktop",
+      "name": "D · F0-2 বিকাশ — সেন্ড মানি",
+      "registryId": "mfs-bkash-send-money",
+      "variant": "default",
+      "width": 1440
+    },
+    "69:9441": {
+      "page": "desktop",
+      "name": "D · F0-3 বিকাশ — ক্যাশ ইন",
+      "registryId": "mfs-bkash-cash-in",
+      "variant": "default",
+      "width": 1440
+    },
+    "69:9693": {
+      "page": "desktop",
+      "name": "D · F0-4 বিকাশ — বিল পে",
+      "registryId": "mfs-bkash-bill-pay",
+      "variant": "default",
+      "width": 1440
+    },
+    "69:9997": {"page": "desktop", "name": "D · F0-5 বিকাশ — লিমিট", "registryId": "mfs-bkash-limits", "variant": "default", "width": 1440},
+    "69:10267": {
+      "page": "desktop",
+      "name": "D · F1-2 নগদ — সেন্ড মানি",
+      "registryId": "mfs-nagad-send-money",
+      "variant": "default",
+      "width": 1440
+    },
+    "69:10533": {"page": "desktop", "name": "D · F1-3 নগদ — ক্যাশ ইন", "registryId": "mfs-nagad-cash-in", "variant": "default", "width": 1440},
+    "69:10782": {"page": "desktop", "name": "D · F1-4 নগদ — বিল পে", "registryId": "mfs-nagad-bill-pay", "variant": "default", "width": 1440},
+    "69:11079": {"page": "desktop", "name": "D · F1-5 নগদ — লিমিট", "registryId": "mfs-nagad-limits", "variant": "default", "width": 1440},
+    "69:11336": {
+      "page": "desktop",
+      "name": "D · F2-2 রকেট — সেন্ড মানি",
+      "registryId": "mfs-rocket-send-money",
+      "variant": "default",
+      "width": 1440
+    },
+    "69:11602": {
+      "page": "desktop",
+      "name": "D · F2-3 রকেট — ক্যাশ ইন",
+      "registryId": "mfs-rocket-cash-in",
+      "variant": "default",
+      "width": 1440
+    },
+    "69:11851": {
+      "page": "desktop",
+      "name": "D · F2-4 রকেট — বিল পে",
+      "registryId": "mfs-rocket-bill-pay",
+      "variant": "default",
+      "width": 1440
+    },
+    "69:12148": {"page": "desktop", "name": "D · F2-5 রকেট — লিমিট", "registryId": "mfs-rocket-limits", "variant": "default", "width": 1440},
+    "69:12404": {
+      "page": "desktop",
+      "name": "D · F3-2 উপায় — সেন্ড মানি",
+      "registryId": "mfs-upay-send-money",
+      "variant": "default",
+      "width": 1440
+    },
+    "69:12668": {
+      "page": "desktop",
+      "name": "D · F3-3 উপায় — ক্যাশ ইন",
+      "registryId": "mfs-upay-cash-in",
+      "variant": "default",
+      "width": 1440
+    },
+    "69:12917": {"page": "desktop", "name": "D · F3-4 উপায় — বিল পে", "registryId": "mfs-upay-bill-pay", "variant": "default", "width": 1440},
+    "69:13214": {"page": "desktop", "name": "D · F3-5 উপায় — লিমিট", "registryId": "mfs-upay-limits", "variant": "default", "width": 1440},
+    "69:13470": {"page": "desktop", "name": "D · B1-2 ব্যাংক — DPS", "registryId": "bank-detail-dps", "variant": "default", "width": 1440},
+    "69:35515": {"page": "desktop", "name": "D · B1-3 ব্যাংক — লোন", "registryId": "bank-detail-loan", "variant": "default", "width": 1440},
+    "69:35730": {
+      "page": "desktop",
+      "name": "D · B1-4 ব্যাংক — অ্যাকাউন্ট",
+      "registryId": "bank-detail-account",
+      "variant": "default",
+      "width": 1440
+    },
+    "69:35945": {"page": "desktop", "name": "D · B1-5 ব্যাংক — কার্ড", "registryId": "bank-detail-card", "variant": "default", "width": 1440},
+    "69:36141": {
+      "page": "desktop",
+      "name": "D · B2 ব্যাংক তালিকা — ফিল্টার: ইসলামী",
+      "registryId": "bank-list",
+      "variant": "filter-islamic",
+      "width": 1440
+    },
+    "69:36351": {
+      "page": "desktop",
+      "name": "D · C1-b ক্যাশ আউট — \"কত তোলা যাবে\" মোড",
+      "registryId": "cash-out",
+      "variant": "mode-max-withdrawal",
+      "width": 1440
+    },
+    "69:36721": {
+      "page": "desktop",
+      "name": "D · C1-c ক্যাশ আউট — প্রিয় এজেন্ট সীমা পার",
+      "registryId": "cash-out",
+      "variant": "priyo-limit-exceeded",
+      "width": 1440
+    },
+    "69:37090": {
+      "page": "desktop",
+      "name": "D · C1-d ক্যাশ আউট — ভুল ইনপুট",
+      "registryId": "cash-out",
+      "variant": "error-invalid-amount",
+      "width": 1440
+    },
+    "69:37376": {
+      "page": "desktop",
+      "name": "D · S0-a খোঁজো — শুরু (সাম্প্রতিক)",
+      "registryId": "search",
+      "variant": "start-recent",
+      "width": 1440
+    },
+    "69:37601": {
+      "page": "desktop",
+      "name": "D · S0-b খোঁজো — টাইপ করার সময় সাজেশন",
+      "registryId": "search",
+      "variant": "typing-suggestions",
+      "width": 1440
+    },
+    "69:37813": {
+      "page": "desktop",
+      "name": "D · S0-c খোঁজো — কিছু পাওয়া যায়নি",
+      "registryId": "search",
+      "variant": "no-results",
+      "width": 1440
+    },
+    "69:37970": {
+      "page": "desktop",
+      "name": "D · C4-b VAT — VAT বাদ দাও মোড",
+      "registryId": "vat",
+      "variant": "mode-remove-vat",
+      "width": 1440
+    },
+    "69:38230": {
+      "page": "desktop",
+      "name": "D · D5-b বাংলা তারিখ — বাংলা থেকে ইংরেজি",
+      "registryId": "bangla-date",
+      "variant": "mode-bangla-to-english",
+      "width": 1440
+    },
+    "69:38497": {
+      "page": "desktop",
+      "name": "D · E2-b ভাড়া ভাগ — রুম অনুযায়ী",
+      "registryId": "rent-split",
+      "variant": "mode-by-room",
+      "width": 1440
+    },
+    "69:38757": {
+      "page": "desktop",
+      "name": "D · A1-b সব টুল — ফিল্টার: টাকা",
+      "registryId": "all-tools",
+      "variant": "filter-money",
+      "width": 1440
+    },
+    "69:39024": {"page": "desktop", "name": "D · A2-b সেভ — খালি অবস্থা", "registryId": "saved", "variant": "empty", "width": 1440},
+    "69:39201": {
+      "page": "desktop",
+      "name": "D · A7-b যোগাযোগ — বার্তা পাঠানো হয়েছে",
+      "registryId": "contact",
+      "variant": "sent",
+      "width": 1440
+    },
+    "69:39346": {
+      "page": "desktop",
+      "name": "D · F7-b DPS — ত্রৈমাসিক চক্রবৃদ্ধি",
+      "registryId": "dps",
+      "variant": "quarterly-compounding",
+      "width": 1440
+    },
+    "69:39636": {
+      "page": "desktop",
+      "name": "D · F8-b FDR — প্রতি ৩ মাসে রিনিউ",
+      "registryId": "fdr",
+      "variant": "renew-every-3-months",
+      "width": 1440
+    },
+    "69:39942": {
+      "page": "desktop",
+      "name": "D · C6-b আয়কর — ফ্রিল্যান্সার",
+      "registryId": "income-tax",
+      "variant": "freelancer",
+      "width": 1440
+    },
+    "69:40220": {"page": "desktop", "name": "D · E1-b GPA — HSC / আলিম", "registryId": "gpa", "variant": "hsc-alim", "width": 1440},
+    "69:40475": {
+      "page": "desktop",
+      "name": "D · T1-b কনভার্টার — বিজয় থেকে ইউনিকোড",
+      "registryId": "unicode-bijoy",
+      "variant": "mode-bijoy-to-unicode",
+      "width": 1440
+    },
+    "69:40676": {
+      "page": "desktop",
+      "name": "D · T3-b সংখ্যা থেকে কথা — English",
+      "registryId": "number-to-words",
+      "variant": "english",
+      "width": 1440
+    },
+    "69:40871": {
+      "page": "desktop",
+      "name": "D · G2 গাইড — ভুল নম্বরে টাকা গেলে",
+      "registryId": "guide-wrong-number",
+      "variant": "default",
+      "width": 1440
+    },
+    "69:41164": {
+      "page": "desktop",
+      "name": "D · G3 গাইড — বিকাশ থেকে ব্যাংকে টাকা",
+      "registryId": "guide-bkash-to-bank",
+      "variant": "default",
+      "width": 1440
+    },
+    "69:41455": {
+      "page": "desktop",
+      "name": "D · G4 গাইড — সৌদি থেকে বিকাশে টাকা",
+      "registryId": "guide-saudi-to-bkash",
+      "variant": "default",
+      "width": 1440
+    },
+    "69:41746": {
+      "page": "desktop",
+      "name": "D · G5 গাইড — হুন্ডি কেন বিপজ্জনক",
+      "registryId": "guide-hundi",
+      "variant": "default",
+      "width": 1440
+    },
+    "69:42037": {
+      "page": "desktop",
+      "name": "D · G6 গাইড — অ্যাকাউন্ট হ্যাক হলে",
+      "registryId": "guide-account-hacked",
+      "variant": "default",
+      "width": 1440
+    },
+    "69:42309": {"page": "desktop", "name": "D · Z1 অফলাইন — পুরো পেজ", "registryId": "offline", "variant": "default", "width": 1440},
+    "69:42485": {"page": "desktop", "name": "D · Z2 ৪০৪ — পেজ পাওয়া যায়নি", "registryId": "not-found", "variant": "default", "width": 1440},
+    "70:15083": {
+      "page": "desktop",
+      "name": "D · T1 টোস্ট — রিপোর্ট পাঠানো হয়েছে",
+      "registryId": "cash-out",
+      "overlay": "toast/report-sent",
+      "variant": "shown",
+      "width": 1440
+    },
+    "70:15493": {
+      "page": "desktop",
+      "name": "D · T2 টোস্ট — লিংক কপি হয়েছে",
+      "registryId": "cash-out",
+      "overlay": "toast/link-copied",
+      "variant": "shown",
+      "width": 1440
+    },
+    "70:15831": {
+      "page": "desktop",
+      "name": "D · T3 টোস্ট — PDF সেভ হয়েছে",
+      "registryId": "guide-wizard",
+      "overlay": "toast/pdf-saved",
+      "variant": "shown",
+      "width": 1440
+    },
+    "70:15994": {
+      "page": "desktop",
+      "name": "D · T4 টোস্ট — রেট অ্যালার্ট চালু",
+      "registryId": "cash-out",
+      "overlay": "toast/rate-alert-on",
+      "variant": "shown",
+      "width": 1440
+    },
+    "70:16353": {
+      "page": "desktop",
+      "name": "D · T5 টোস্ট — অ্যাপ ইনস্টল হয়েছে",
+      "registryId": "home",
+      "overlay": "toast/app-installed",
+      "variant": "shown",
+      "width": 1440
+    },
+    "70:16708": {
+      "page": "desktop",
+      "name": "D · T6 টোস্ট — সেভ করা হয়েছে",
+      "registryId": "cash-out",
+      "overlay": "toast/saved",
+      "variant": "shown",
+      "width": 1440
+    },
+    "70:17077": {
+      "page": "desktop",
+      "name": "D · S1 Sheet — Share",
+      "registryId": "cash-out",
+      "overlay": "sheet/share",
+      "variant": "open",
+      "width": 1440
+    },
+    "70:17499": {
+      "page": "desktop",
+      "name": "D · S2 Sheet — Report Error",
+      "registryId": "cash-out",
+      "overlay": "sheet/report-error",
+      "variant": "open",
+      "width": 1440
+    },
+    "70:17894": {
+      "page": "desktop",
+      "name": "D · S3 Sheet — Rate Alert",
+      "registryId": "cash-out",
+      "overlay": "sheet/rate-alert",
+      "variant": "open",
+      "width": 1440
+    },
+    "70:18308": {
+      "page": "desktop",
+      "name": "D · S4 Sheet — Install App",
+      "registryId": "cash-out",
+      "overlay": "sheet/install-app",
+      "variant": "open",
+      "width": 1440
+    },
+    "70:18668": {
+      "page": "desktop",
+      "name": "D · B3 শিট — ব্যাংক সাজাও",
+      "registryId": "bank-list",
+      "overlay": "sheet/bank-sort",
+      "variant": "open",
+      "width": 1440
+    },
+    "70:18982": {
+      "page": "desktop",
+      "name": "D · B4 শিট — তুলনায় ব্যাংক যোগ",
+      "registryId": "bank-compare",
+      "overlay": "sheet/bank-compare-add",
+      "variant": "open",
+      "width": 1440
+    },
+    "70:19198": {
+      "page": "desktop",
+      "name": "D · P1 পিকার — দেশ",
+      "registryId": "remittance-compare",
+      "overlay": "picker/country",
+      "variant": "open",
+      "width": 1440
+    },
+    "70:19542": {
+      "page": "desktop",
+      "name": "D · P2 পিকার — জেলা",
+      "registryId": "sehri-iftar",
+      "overlay": "picker/district",
+      "variant": "open",
+      "width": 1440
+    },
+    "70:19840": {
+      "page": "desktop",
+      "name": "D · P3 পিকার — জমির একক",
+      "registryId": "land-converter",
+      "overlay": "picker/land-unit",
+      "variant": "open",
+      "width": 1440
+    },
+    "70:20164": {
+      "page": "desktop",
+      "name": "D · P4 পিকার — গ্রেড",
+      "registryId": "gpa",
+      "overlay": "picker/grade",
+      "variant": "open",
+      "width": 1440
+    },
+    "70:20480": {
+      "page": "desktop",
+      "name": "D · P5 পিকার — তারিখ",
+      "registryId": "age",
+      "overlay": "picker/date",
+      "variant": "open",
+      "width": 1440
+    },
+    "70:20866": {
+      "page": "desktop",
+      "name": "D · P6 পিকার — বিদ্যুৎ কোম্পানি",
+      "registryId": "electricity-bill",
+      "overlay": "picker/electricity-company",
+      "variant": "open",
+      "width": 1440
+    },
+    "70:21156": {
+      "page": "desktop",
+      "name": "D · P7 পিকার — সঞ্চয়পত্রের ধরন",
+      "registryId": "sanchayapatra",
+      "overlay": "picker/sanchayapatra-scheme",
+      "variant": "open",
+      "width": 1440
+    },
+    "70:21452": {
+      "page": "desktop",
+      "name": "D · P8 পিকার — মুদ্রা",
+      "registryId": "currency-converter",
+      "overlay": "picker/currency",
+      "variant": "open",
+      "width": 1440
+    },
+    "70:21733": {
+      "page": "desktop",
+      "name": "D · R1 শিট — রেমিট্যান্স সাজাও",
+      "registryId": "remittance-compare",
+      "overlay": "sheet/remittance-sort",
+      "variant": "open",
+      "width": 1440
+    },
+    "70:22033": {
+      "page": "desktop",
+      "name": "D · R2 শিট — অন্য সাইটে যাচ্ছ",
+      "registryId": "remittance-compare",
+      "overlay": "sheet/external-link",
+      "variant": "open",
+      "width": 1440
+    },
+    "70:22384": {
+      "page": "desktop",
+      "name": "D · E3-b শিট — মেসে সদস্য যোগ",
+      "registryId": "mess",
+      "overlay": "sheet/mess-add-member",
+      "variant": "open",
+      "width": 1440
+    },
+    "70:22671": {"page": "desktop", "name": "D · 10 Guide Wizard — ধাপ ১", "registryId": "guide-wizard", "variant": "step-1", "width": 1440},
+    "70:22756": {"page": "desktop", "name": "D · 10b Guide Wizard — ধাপ ২", "registryId": "guide-wizard", "variant": "step-2", "width": 1440},
+    "70:22842": {"page": "desktop", "name": "D · 10c Guide Wizard — ধাপ ৩", "registryId": "guide-wizard", "variant": "step-3", "width": 1440},
+    "70:22930": {"page": "desktop", "name": "D · 10 Guide Wizard — Result", "registryId": "guide-wizard", "variant": "result", "width": 1440},
+    "70:45059": {"page": "desktop", "name": "D · 15 Home — Dark mode", "registryId": "home", "variant": "dark", "width": 1440},
+    "70:45106": {"page": "desktop", "name": "D · 15 Calculator — Dark mode", "registryId": "cash-out", "variant": "dark", "width": 1440},
+    "73:42050": {"page": "desktop", "name": "D · G7 বিভাগ — আইনি কাগজ", "registryId": "guides-legal", "variant": "default", "width": 1440},
+    "73:42243": {"page": "desktop", "name": "D · G8 বিভাগ — শিক্ষা", "registryId": "guides-education", "variant": "default", "width": 1440},
+    "73:42436": {"page": "desktop", "name": "D · G9 বিভাগ — প্রবাসী", "registryId": "guides-expatriate", "variant": "default", "width": 1440},
+    "73:42626": {"page": "desktop", "name": "OV টোস্ট — কপি হয়েছে", "overlay": "toast/copied", "variant": "component", "width": 420},
+    "73:42630": {"page": "desktop", "name": "OV টোস্ট — PDF সেভ হয়েছে", "overlay": "toast/pdf-saved", "variant": "component", "width": 420},
+    "73:42634": {
+      "page": "desktop",
+      "name": "OV টোস্ট — লিংক কপি হয়েছে",
+      "overlay": "toast/link-copied",
+      "variant": "component",
+      "width": 420
+    },
+    "77:19655": {
+      "page": "desktop",
+      "name": "D · E5-b CGPA — নতুন সেমিস্টার যোগ হয়েছে",
+      "registryId": "cgpa",
+      "variant": "semester-added",
+      "width": 1440
+    },
+    "77:19914": {
+      "page": "desktop",
+      "name": "D · E7-b ইনভয়েস — নতুন আইটেম যোগ হয়েছে",
+      "registryId": "invoice",
+      "variant": "item-added",
+      "width": 1440
+    },
+    "77:20123": {
+      "page": "desktop",
+      "name": "D · E2-c ভাড়া ভাগ — ৪টা রুম",
+      "registryId": "rent-split",
+      "variant": "mode-by-room-4-rooms",
+      "width": 1440
+    },
+    "77:20323": {
+      "page": "desktop",
+      "name": "D · T1-c কনভার্টার — মুছে ফেলার পর",
+      "registryId": "unicode-bijoy",
+      "variant": "cleared",
+      "width": 1440
+    }
+  }
+}

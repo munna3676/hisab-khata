@@ -62,7 +62,8 @@ export function SegmentedControl<V extends string = string>({
       class={cx(
         'relative isolate flex h-touch min-w-0 overflow-hidden rounded-input bg-paper',
         // 1.5px line border drawn over the options, as Figma's inside stroke sits over the selected fill.
-        "after:pointer-events-none after:absolute after:inset-0 after:z-10 after:rounded-[inherit] after:border-[1.5px] after:border-line after:content-['']",
+        // An inset ring rather than a border, so it stays 1.5px at DPR 1 (Chrome floors borders to 1px there).
+        "after:pointer-events-none after:absolute after:inset-0 after:z-10 after:rounded-[inherit] after:inset-ring-[1.5px] after:inset-ring-line after:content-['']",
         // Keyboard focus is on a visually hidden radio: ring the whole control.
         'has-focus-visible:outline-2 has-focus-visible:outline-offset-2 has-focus-visible:outline-accent',
         disabled && 'opacity-50',

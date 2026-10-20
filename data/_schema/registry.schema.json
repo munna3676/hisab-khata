@@ -1,0 +1,143 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://hisabkhata.app/schema/registry.json",
+  "title": "Page registry",
+  "description": "Every user-facing page of হিসাব খাতা (data/registry/tools.json). Routes, menus, search, the sitemap and the app router all read this list, so a page exists in one place only.",
+  "type": "object",
+  "required": ["groups", "entries"],
+  "additionalProperties": false,
+  "properties": {
+    "$schema": { "type": "string" },
+    "groups": {
+      "description": "The tool groups of the 'সব টুল' page (Figma A1), in display order.",
+      "type": "array",
+      "items": { "$ref": "#/$defs/group" }
+    },
+    "entries": {
+      "type": "array",
+      "minItems": 1,
+      "items": { "$ref": "#/$defs/entry" }
+    }
+  },
+  "$defs": {
+    "id": {
+      "description": "Stable kebab-case id. Never rename one: saved items, share links and analytics keep it.",
+      "type": "string",
+      "pattern": "^[a-z0-9]+(-[a-z0-9]+)*$"
+    },
+    "localized": {
+      "type": "object",
+      "required": ["bn", "en"],
+      "additionalProperties": false,
+      "properties": {
+        "bn": { "type": "string", "minLength": 1 },
+        "en": { "type": "string", "minLength": 1 }
+      }
+    },
+    "figmaIds": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": { "type": "string", "pattern": "^[0-9]+:[0-9]+$" }
+    },
+    "group": {
+      "type": "object",
+      "required": ["id", "name", "items"],
+      "additionalProperties": false,
+      "properties": {
+        "id": { "$ref": "#/$defs/id" },
+        "name": { "$ref": "#/$defs/localized" },
+        "items": { "type": "array", "minItems": 1, "uniqueItems": true, "items": { "$ref": "#/$defs/id" } }
+      }
+    },
+    "entry": {
+      "type": "object",
+      "required": ["id", "kind", "section", "priority", "route", "name", "description", "keywords", "related", "engine", "dataFiles", "figma"],
+      "additionalProperties": false,
+      "properties": {
+        "id": { "$ref": "#/$defs/id" },
+        "kind": {
+          "description": "tool = calculator, converter or text tool; hub = a page that lists other pages; guide = government or how-to guide (and the guide wizard); mfs / bank / remittance = provider pages and comparisons; static = about, privacy and the like; system = home, search, all tools, saved, 404, offline.",
+          "enum": ["tool", "hub", "guide", "mfs", "bank", "remittance", "static", "system"]
+        },
+        "section": {
+          "description": "'root', or the id of the hub this page sits under (the breadcrumb parent).",
+          "$ref": "#/$defs/id"
+        },
+        "priority": {
+          "description": "launch = in the first release; later = listed in Figma as 'শীঘ্রই' or not yet designed.",
+          "enum": ["launch", "later"]
+        },
+        "route": {
+          "description": "ASCII paths. English is the Bangla path under /en. A [param] segment is filled from data (e.g. [bank] from data/banks.json).",
+          "type": "object",
+          "required": ["bn", "en"],
+          "additionalProperties": false,
+          "properties": {
+            "bn": { "type": "string", "pattern": "^/$|^(/([a-z0-9]+(-[a-z0-9]+)*|\\[[a-z]+\\]))+$" },
+            "en": { "type": "string", "pattern": "^/en/$|^/en(/([a-z0-9]+(-[a-z0-9]+)*|\\[[a-z]+\\]))+$" }
+          }
+        },
+        "name": { "$ref": "#/$defs/localized", "description": "The page title (H1). Bangla is the Figma text." },
+        "shortName": { "$ref": "#/$defs/localized", "description": "Label for list rows, chips and tabs, where Figma shows a shorter one." },
+        "description": { "$ref": "#/$defs/localized", "description": "The line under the title; also the meta description." },
+        "breadcrumb": {
+          "description": "Labels after 'হোম' exactly as the Figma frame shows them. The first label links to the section hub.",
+          "type": "object",
+          "required": ["bn", "en"],
+          "additionalProperties": false,
+          "properties": {
+            "bn": { "type": "array", "minItems": 1, "items": { "type": "string", "minLength": 1 } },
+            "en": { "type": "array", "minItems": 1, "items": { "type": "string", "minLength": 1 } }
+          }
+        },
+        "keywords": {
+          "description": "Search terms in Bangla, Banglish and English, including common misspellings (bikash, bkas).",
+          "type": "array",
+          "minItems": 3,
+          "uniqueItems": true,
+          "items": { "type": "string", "minLength": 1 }
+        },
+        "related": {
+          "description": "Ids shown under 'আরও টুল' / 'সম্পর্কিত গাইড'.",
+          "type": "array",
+          "uniqueItems": true,
+          "items": { "$ref": "#/$defs/id" }
+        },
+        "engine": {
+          "description": "The packages/core/src module that does the sums, or null.",
+          "anyOf": [{ "type": "string", "pattern": "^[a-z0-9]+(-[a-z0-9]+)*\\.ts$" }, { "type": "null" }]
+        },
+        "dataFiles": {
+          "description": "Files under data/ the page reads (planned files may not exist yet).",
+          "type": "array",
+          "uniqueItems": true,
+          "items": { "type": "string", "pattern": "^[a-z0-9]+(-[a-z0-9]+)*(/[a-z0-9]+(-[a-z0-9]+)*)*\\.json$" }
+        },
+        "figma": {
+          "description": "Figma frames that draw this page (base, dark, modes, states). Overlays drawn over it are in design/figma-map.json.",
+          "type": "object",
+          "required": ["mobile", "desktop"],
+          "additionalProperties": false,
+          "properties": {
+            "mobile": { "$ref": "#/$defs/figmaIds" },
+            "desktop": { "$ref": "#/$defs/figmaIds" }
+          }
+        },
+        "items": {
+          "description": "Hubs only: the pages the hub lists, in Figma order.",
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": { "$ref": "#/$defs/id" }
+        },
+        "draftCopy": {
+          "description": "true when the Bangla name or description is not verbatim from Figma and needs an editor's check.",
+          "const": true
+        }
+      },
+      "if": { "properties": { "kind": { "const": "hub" } } },
+      "then": { "required": ["items"], "properties": { "items": true } },
+      "else": { "not": { "required": ["items"], "properties": { "items": true } } }
+    }
+  }
+}

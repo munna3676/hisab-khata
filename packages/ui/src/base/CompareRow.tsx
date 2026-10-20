@@ -64,7 +64,7 @@ export function CompareRow({
         <span class="flex min-w-0 flex-wrap items-center gap-x-1.5 gap-y-0.5">
           <span class="type-label text-ink">{provider}</span>
           {badgeText != null && state !== 'default' && (
-            <Badge tone={state === 'best' ? 'good' : 'warn'} appear>
+            <Badge tone={state === 'best' ? 'good' : 'warn'} appear wrap>
               {badgeText}
             </Badge>
           )}

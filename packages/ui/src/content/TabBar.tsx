@@ -97,9 +97,13 @@ export function TabBar<V extends string = string>({
   }, [current])
 
   const enabled = items.map((item, i) => (item.disabled ? -1 : i)).filter((i) => i >= 0)
+  // The one tab in the Tab order: the selected one, or the first enabled tab when the
+  // value matches no tab (or the selected tab is disabled), so the list is never skipped.
+  const selectedIndex = items.findIndex((item) => item.value === current && !item.disabled)
+  const tabStop = selectedIndex >= 0 ? selectedIndex : (enabled[0] ?? -1)
 
   const onKeyDown = (event: JSX.TargetedKeyboardEvent<HTMLElement>) => {
-    if (links) return
+    if (links || event.altKey || event.ctrlKey || event.metaKey) return
     const at = tabRefs.current.findIndex((el) => el === document.activeElement)
     if (at < 0 || enabled.length === 0) return
     const pos = enabled.indexOf(at)
@@ -122,7 +126,8 @@ export function TabBar<V extends string = string>({
         tabRefs.current[i] = el
       },
       class: cx(
-        'pressable relative flex min-h-touch min-w-touch shrink-0 items-center justify-center px-2.5 pt-3 pb-3 type-label whitespace-nowrap focus-visible:-outline-offset-2 [--hover-tint-opacity:0.04]',
+        // Figma: 12px above the 14/20 label, 10px + the 2.5px indicator below; with the 1px rule the bar is 46px.
+        'pressable relative flex min-h-touch min-w-touch shrink-0 items-center justify-center px-2.5 pt-3 pb-3.25 type-label whitespace-nowrap focus-visible:-outline-offset-2 [--hover-tint-opacity:0.04]',
         selected ? 'text-accent' : 'text-soft hover:text-ink',
         item.disabled && 'opacity-50',
       ),
@@ -170,7 +175,7 @@ export function TabBar<V extends string = string>({
         id={tabId(base, item.value)}
         aria-selected={selected}
         aria-controls={panels ? tabPanelId(base, item.value) : undefined}
-        tabIndex={selected ? 0 : -1}
+        tabIndex={i === tabStop ? 0 : -1}
         disabled={item.disabled}
         onClick={() => select(item.value)}
       >

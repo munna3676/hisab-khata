@@ -31,27 +31,12 @@
   }
 
   /* ---- FAQ accordion (Figma FAQ Item 9:284) ----
-     The answer opens by transitioning grid-template-rows 0fr → 1fr (smooth height without
-     measuring), with an opacity fade. visibility flips at the end of a close, so a closed
-     answer leaves the tab order and the accessibility tree but stays in the HTML for search. */
-  .hkc-faq-panel {
-    display: grid;
-    grid-template-rows: 0fr;
-    opacity: 0;
-    visibility: hidden;
-    transition:
-      grid-template-rows var(--duration-sheet) var(--ease-out),
-      opacity var(--duration-sheet) var(--ease-out),
-      visibility 0s linear var(--duration-sheet);
-  }
-  .hkc-faq-panel[data-open] {
-    grid-template-rows: 1fr;
-    opacity: 1;
-    visibility: visible;
-    transition:
-      grid-template-rows var(--duration-sheet) var(--ease-out),
-      opacity var(--duration-sheet) var(--ease-out),
-      visibility 0s;
+     A closed answer is hidden="until-found" (no height, out of the a11y tree, found by
+     find-in-page). An answer the user opens fades in and settles 4px down: opacity and
+     translate only. The page below the item moves at once (no height animation, which
+     the motion rules forbid). The chevron turns with `rotate`. */
+  .hkc-faq-panel[data-open][data-toggled] > .hkc-faq-answer {
+    animation: hkc-answer-in var(--duration-sheet) var(--ease-out) both;
   }
   .hkc-faq-chevron {
     transition: rotate var(--duration-sheet) var(--ease-out);
@@ -90,22 +75,26 @@
     scale: 1 1;
   }
 
-  /* ---- Breakdown table: sticky first column and header inside the scroll box ---- */
-  .hkc-table :is(thead th) {
-    background-color: var(--bg-sheet);
+  /* ---- Breakdown table (Figma EMI Calculator 27:5861): subtle header, sticky first
+     column and, with maxHeight, a sticky header row inside the scroll box. Separate
+     borders (border-spacing 0) so every sticky cell keeps its own rule line. ---- */
+  .hkc-table thead th {
+    background-color: var(--bg-subtle);
   }
   .hkc-table[data-sticky-head] thead th {
     position: sticky;
     top: 0;
     z-index: 2;
   }
-  .hkc-table :is(th[scope="row"], thead th:first-child, tfoot th) {
+  .hkc-table :is(tbody, tfoot) th {
     position: sticky;
     left: 0;
     z-index: 1;
     background-color: var(--bg-sheet);
   }
-  .hkc-table[data-sticky-head] thead th:first-child {
+  .hkc-table thead th:first-child {
+    position: sticky;
+    left: 0;
     z-index: 3;
   }
 
@@ -135,35 +124,41 @@
     outline: 2px solid var(--brand-accent);
     outline-offset: 2px;
   }
+  /* Checklist Item and Wizard Option pass extra props to their (visually hidden) native
+     input, so the preview attribute lands there: draw the state on the visible parts. */
+  .pressable:has(> input[data-content-preview="hover"])::after {
+    opacity: var(--hover-tint-opacity);
+  }
+  .pressable:has(> input[data-content-preview="pressed"]) {
+    scale: var(--press-scale);
+  }
+  .pressable:has(> input[data-content-preview="pressed"])::after {
+    opacity: var(--press-tint-opacity);
+  }
+  input[data-content-preview="focus"] {
+    outline: none;
+  }
+  .hkc-check > input[data-content-preview="focus"] + span,
+  [data-wizard-option]:has(> input[data-content-preview="focus"]) {
+    outline: 2px solid var(--brand-accent);
+    outline-offset: 2px;
+  }
 }
 
-/* Reduced motion: no drawn tick, no turning chevron and no height animation; the answer
-   only fades (--duration-sheet is 100 ms there). Unlayered so it beats the rules above. */
+@keyframes hkc-answer-in {
+  from {
+    opacity: 0;
+    translate: 0 calc(var(--enter-y) * -0.5);
+  }
+}
+
+/* Reduced motion: no drawn tick and no turning chevron (the answer's slide is already
+   0px there through --enter-y, so it only fades). Unlayered so it beats the rules above. */
 html[data-motion="reduce"] :is(.hkc-tick, .hkc-faq-chevron) {
   transition: none;
-}
-html[data-motion="reduce"] .hkc-faq-panel {
-  transition:
-    opacity var(--duration-sheet) var(--ease-out),
-    visibility 0s linear var(--duration-sheet);
-}
-html[data-motion="reduce"] .hkc-faq-panel[data-open] {
-  transition:
-    opacity var(--duration-sheet) var(--ease-out),
-    visibility 0s;
 }
 @media (prefers-reduced-motion: reduce) {
   html:not([data-motion="full"]) :is(.hkc-tick, .hkc-faq-chevron) {
     transition: none;
-  }
-  html:not([data-motion="full"]) .hkc-faq-panel {
-    transition:
-      opacity var(--duration-sheet) var(--ease-out),
-      visibility 0s linear var(--duration-sheet);
-  }
-  html:not([data-motion="full"]) .hkc-faq-panel[data-open] {
-    transition:
-      opacity var(--duration-sheet) var(--ease-out),
-      visibility 0s;
   }
 }

@@ -53,8 +53,8 @@ export interface RemittanceCardProps extends Omit<HTMLAttributes<HTMLElement>, '
 
 /**
  * Remittance Card (Figma 9:247, State Default | Best): one service in the remittance
- * comparison. The best card gets a green double-weight border (drawn as border + inset
- * ring, so its content does not move), a green amount, a "সেরা" badge that fades and
+ * comparison. The best card gets a 2px green border (264px tall in Figma against the
+ * default 256px: the badge row is 26px), a green amount, a "সেরা" badge that fades and
  * scales in, and the primary button. Numbers in Figma are layout samples, not rates.
  */
 export function RemittanceCard({
@@ -91,8 +91,8 @@ export function RemittanceCard({
     <article
       {...rest}
       class={cx(
-        'flex min-w-0 flex-col items-start gap-3 rounded-[12px] border bg-sheet p-4 text-ink',
-        best ? 'border-good inset-ring inset-ring-good' : 'border-line',
+        'flex min-w-0 flex-col items-start gap-3 rounded-[12px] bg-sheet p-4 text-ink',
+        best ? 'border-2 border-good' : 'border border-line',
         className,
       )}
       data-remittance-card

@@ -19,7 +19,7 @@ export interface AnswerCardProps extends Omit<HTMLAttributes<HTMLElement>, 'clas
 
 /**
  * Direct answer at the top of search results (Figma "Answer Card" 7:302):
- * accent-tint card with an accent border, eyebrow, H3 question, the answer in
+ * accent-tint card (12px radius) with an accent border, eyebrow, H3 question, the answer in
  * the number face (26/28 Bold) with a soft detail on the same baseline, and a
  * blue "full comparison" link.
  */
@@ -36,14 +36,16 @@ export function AnswerCard({
 }: AnswerCardProps) {
   return (
     <section
-      class={cx('flex flex-col items-start gap-2 rounded-card border border-accent bg-accent-tint p-4.5', className)}
+      class={cx('flex flex-col items-start gap-2 rounded-[12px] border border-accent bg-accent-tint p-4.5', className)}
       data-answer-card
       {...rest}
     >
       <p class="font-body text-[0.75rem] leading-5 font-semibold text-accent">{eyebrow}</p>
       <Question class="type-h3 text-ink">{question}</Question>
       <p class="flex flex-wrap items-baseline gap-x-2">
-        <span class="font-number text-[1.625rem] leading-7 font-bold tracking-[-0.01em] whitespace-nowrap text-ink">{answer}</span>
+        <span class="hk-nav-num text-[1.625rem] leading-7 font-bold whitespace-nowrap text-ink" data-answer>
+          {answer}
+        </span>
         {detail && <span class="type-body-small text-soft">{detail}</span>}
       </p>
       {href && (

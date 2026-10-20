@@ -1,0 +1,2370 @@
+{
+  "$schema": "../_schema/registry.schema.json",
+  "groups": [
+    {
+      "id": "mfs",
+      "name": {"bn": "মোবাইল ব্যাংকিং", "en": "Mobile banking"},
+      "items": ["cash-out", "send-money", "mfs-compare"]
+    },
+    {
+      "id": "bank-loan",
+      "name": {"bn": "ব্যাংক ও লোন", "en": "Banks and loans"},
+      "items": ["emi", "dps", "fdr", "loan-eligibility", "loan-compare"]
+    },
+    {
+      "id": "money",
+      "name": {"bn": "টাকা ও হিসাব", "en": "Money and accounts"},
+      "items": [
+        "vat", "discount-percentage", "profit-margin", "savings-goal", "salary", "income-tax",
+        "sanchayapatra", "currency-converter", "data-pack"
+      ]
+    },
+    {
+      "id": "date-age",
+      "name": {"bn": "তারিখ ও বয়স", "en": "Date and age"},
+      "items": ["age", "job-age-limit", "bangla-date", "hijri-date", "day-count"]
+    },
+    {
+      "id": "land-gold",
+      "name": {"bn": "জমি ও সোনা", "en": "Land and gold"},
+      "items": ["land-converter", "land-price", "gold-converter", "jewelry-bill"]
+    },
+    {
+      "id": "edu-daily",
+      "name": {"bn": "শিক্ষা ও দৈনন্দিন", "en": "Education and daily life"},
+      "items": ["gpa", "cgpa", "mess", "rent-split", "electricity-bill", "delivery-profit", "invoice"]
+    },
+    {"id": "religion", "name": {"bn": "ধর্ম", "en": "Religion"}, "items": ["zakat", "fitra", "sehri-iftar"]},
+    {
+      "id": "bangla-text",
+      "name": {"bn": "বাংলা লেখা", "en": "Bangla writing"},
+      "items": ["unicode-bijoy", "font-style", "number-to-words"]
+    }
+  ],
+  "entries": [
+    {
+      "id": "home",
+      "kind": "system",
+      "section": "root",
+      "priority": "launch",
+      "route": {"bn": "/", "en": "/en/"},
+      "name": {"bn": "টাকার হিসাব, এক খাতায়", "en": "Every taka, in one ledger"},
+      "shortName": {"bn": "হোম", "en": "Home"},
+      "description": {
+        "bn": "বিকাশ-নগদের চার্জ, লোনের কিস্তি, জমির মাপ আর সরকারি কাজের গাইড। লগইন লাগবে না।",
+        "en": "bKash and Nagad charges, loan EMI, land units and government service guides for Bangladesh. No login."
+      },
+      "keywords": [
+        "হিসাব খাতা", "হিসাব", "hisab khata", "hishab khata", "hisabkhata", "bd utility",
+        "bangladesh calculator", "বাংলা ক্যালকুলেটর"
+      ],
+      "related": ["all-tools", "search", "cash-out", "emi"],
+      "engine": null,
+      "dataFiles": ["gold/bajus-rates.json", "finance/currency-rates.json", "mfs-charges.json"],
+      "figma": {"mobile": ["11:2", "18:1959", "25:4022"], "desktop": ["19:2", "70:45059", "66:27511"]}
+    },
+    {
+      "id": "search",
+      "kind": "system",
+      "section": "root",
+      "priority": "launch",
+      "route": {"bn": "/search", "en": "/en/search"},
+      "name": {"bn": "খোঁজো", "en": "Search"},
+      "description": {
+        "bn": "টুল, গাইড বা চার্জ খোঁজো বাংলা বা ইংরেজিতে, যেমন \"cash out\" বা \"ক্যাশআউট\"।",
+        "en": "Find a tool, guide or charge in Bangla or English, e.g. \"bkash cash out 5000\"."
+      },
+      "keywords": ["খোঁজো", "খোঁজ", "search", "khoj", "find", "সার্চ"],
+      "related": ["all-tools", "home"],
+      "engine": null,
+      "dataFiles": ["search/synonyms.json"],
+      "figma": {
+        "mobile": ["11:349", "58:16199", "58:16478", "58:16731"],
+        "desktop": ["66:993", "69:37376", "69:37601", "69:37813"]
+      },
+      "draftCopy": true
+    },
+    {
+      "id": "all-tools",
+      "kind": "system",
+      "section": "root",
+      "priority": "launch",
+      "route": {"bn": "/tools", "en": "/en/tools"},
+      "name": {"bn": "সব টুল", "en": "All tools"},
+      "description": {
+        "bn": "৪০টির বেশি টুল, বিভাগ অনুযায়ী সাজানো। সবগুলো ফ্রি।",
+        "en": "More than 40 tools, grouped by section. All free."
+      },
+      "keywords": ["সব টুল", "টুল", "all tools", "sob tool", "tools list", "ক্যালকুলেটর তালিকা", "calculator list"],
+      "related": ["search", "calculators", "saved"],
+      "engine": null,
+      "dataFiles": [],
+      "figma": {"mobile": ["24:2352", "60:18595"], "desktop": ["66:2859", "69:38757"]}
+    },
+    {
+      "id": "saved",
+      "kind": "system",
+      "section": "root",
+      "priority": "launch",
+      "route": {"bn": "/saved", "en": "/en/saved"},
+      "name": {"bn": "সেভ করা", "en": "Saved"},
+      "description": {"bn": "তোমার ফোনেই সেভ থাকে, লগইন লাগে না।", "en": "Kept on your phone. No login needed."},
+      "keywords": ["সেভ", "সেভ করা", "স্টার", "saved", "save", "bookmark", "favourite", "favorite", "checklist"],
+      "related": ["all-tools", "home"],
+      "engine": null,
+      "dataFiles": [],
+      "figma": {"mobile": ["24:3152", "60:19241"], "desktop": ["66:3015", "69:39024"]}
+    },
+    {
+      "id": "not-found",
+      "kind": "system",
+      "section": "root",
+      "priority": "launch",
+      "route": {"bn": "/404", "en": "/en/404"},
+      "name": {"bn": "এই পাতাটা খাতায় নেই", "en": "This page is not in the ledger"},
+      "description": {
+        "bn": "লিংকটা পুরোনো বা ভুল হতে পারে। হোম থেকে বা খুঁজে দেখো।",
+        "en": "The link may be old or wrong. Start from the home page or search."
+      },
+      "keywords": ["৪০৪", "পেজ পাওয়া যায়নি", "404", "page not found", "not found"],
+      "related": ["home", "search"],
+      "engine": null,
+      "dataFiles": [],
+      "figma": {"mobile": ["62:20721"], "desktop": ["69:42485"]}
+    },
+    {
+      "id": "offline",
+      "kind": "system",
+      "section": "root",
+      "priority": "launch",
+      "route": {"bn": "/offline", "en": "/en/offline"},
+      "name": {"bn": "ইন্টারনেট সংযোগ নেই", "en": "No internet connection"},
+      "description": {
+        "bn": "এই পেজটা আগে খোলা হয়নি, তাই অফলাইনে দেখানো যাচ্ছে না। সেভ করা টুলগুলো অফলাইনেও চলবে।",
+        "en": "This page was not opened before, so it cannot be shown offline. Saved tools still work offline."
+      },
+      "keywords": ["অফলাইন", "ইন্টারনেট নেই", "offline", "no internet", "no connection"],
+      "related": ["saved", "home"],
+      "engine": null,
+      "dataFiles": [],
+      "figma": {"mobile": ["62:20526"], "desktop": ["69:42309"]}
+    },
+    {
+      "id": "mobile-banking",
+      "kind": "hub",
+      "section": "root",
+      "priority": "launch",
+      "route": {"bn": "/mfs", "en": "/en/mfs"},
+      "name": {"bn": "মোবাইল ব্যাংকিং", "en": "Mobile banking"},
+      "description": {
+        "bn": "বিকাশ, নগদ, রকেট আর উপায়ের চার্জ, লিমিট আর কাজের গাইড।",
+        "en": "Charges, limits and how-to guides for bKash, Nagad, Rocket and Upay."
+      },
+      "breadcrumb": {"bn": ["সব বিভাগ"], "en": ["All sections"]},
+      "keywords": [
+        "মোবাইল ব্যাংকিং", "বিকাশ", "নগদ", "রকেট", "উপায়", "mobile banking", "mfs", "bkash", "bikash",
+        "nagad", "nogod", "rocket", "upay"
+      ],
+      "related": ["cash-out", "mfs-compare", "remittance"],
+      "engine": null,
+      "dataFiles": [],
+      "figma": {"mobile": ["24:3351"], "desktop": ["66:3206"]},
+      "items": [
+        "mfs-bkash-cash-out", "mfs-nagad-cash-out", "mfs-rocket-cash-out", "mfs-upay-cash-out", "cash-out",
+        "send-money", "mfs-compare", "guide-priyo-agent", "guide-wrong-number", "guide-account-hacked"
+      ]
+    },
+    {
+      "id": "bank",
+      "kind": "hub",
+      "section": "root",
+      "priority": "launch",
+      "route": {"bn": "/bank", "en": "/en/bank"},
+      "name": {"bn": "ব্যাংক", "en": "Banks"},
+      "description": {
+        "bn": "লোন, DPS, FDR আর তুলনা: ব্যাংকের রেট আর ব্যাংকের হিসাবের সব টুল এক জায়গায়।",
+        "en": "Loans, DPS, FDR and comparison: bank rates and banking calculators in one place."
+      },
+      "keywords": ["ব্যাংক", "ব্যাংক ও লোন", "লোন", "bank", "banks", "bank loan", "bank rate", "fdr", "dps", "loan"],
+      "related": ["bank-list", "emi", "mobile-banking"],
+      "engine": null,
+      "dataFiles": [],
+      "figma": {"mobile": [], "desktop": []},
+      "items": ["bank-list", "bank-compare", "emi", "dps", "fdr", "loan-eligibility", "loan-compare"],
+      "draftCopy": true
+    },
+    {
+      "id": "remittance",
+      "kind": "hub",
+      "section": "root",
+      "priority": "launch",
+      "route": {"bn": "/remittance", "en": "/en/remittance"},
+      "name": {"bn": "রেমিট্যান্স", "en": "Remittance"},
+      "description": {
+        "bn": "বিদেশ থেকে কোনটায় বেশি: রেমিট্যান্স তুলনা, কারেন্সি কনভার্টার আর বৈধ পথে টাকা পাঠানোর গাইড।",
+        "en": "Which channel pays more from abroad: remittance comparison, currency converter and guides to sending money legally."
+      },
+      "keywords": [
+        "রেমিট্যান্স", "প্রবাসী", "remittance", "remitance", "send money to bangladesh", "probashi",
+        "expatriate"
+      ],
+      "related": ["remittance-compare", "currency-converter", "guides-expatriate"],
+      "engine": null,
+      "dataFiles": [],
+      "figma": {"mobile": [], "desktop": []},
+      "items": ["remittance-compare", "currency-converter", "guide-saudi-to-bkash", "guide-hundi", "guides-expatriate"],
+      "draftCopy": true
+    },
+    {
+      "id": "calculators",
+      "kind": "hub",
+      "section": "root",
+      "priority": "launch",
+      "route": {"bn": "/calculators", "en": "/en/calculators"},
+      "name": {"bn": "ক্যালকুলেটর", "en": "Calculators"},
+      "description": {
+        "bn": "টাকা, পড়াশোনা, দৈনন্দিন হিসাব, ধর্ম আর বাংলা লেখার টুল।",
+        "en": "Tools for money, study, everyday sums, religion and Bangla writing."
+      },
+      "breadcrumb": {"bn": ["সব বিভাগ"], "en": ["All sections"]},
+      "keywords": [
+        "ক্যালকুলেটর", "হিসাব", "calculator", "calculater", "calculators", "online calculator",
+        "bangla calculator"
+      ],
+      "related": ["all-tools", "date-land-gold"],
+      "engine": null,
+      "dataFiles": [],
+      "figma": {"mobile": ["24:3582"], "desktop": ["66:3383"]},
+      "items": [
+        "vat", "discount-percentage", "profit-margin", "savings-goal", "salary", "income-tax",
+        "sanchayapatra", "currency-converter", "data-pack", "gpa", "cgpa", "mess", "rent-split",
+        "electricity-bill", "delivery-profit", "invoice", "zakat", "fitra", "sehri-iftar", "unicode-bijoy",
+        "font-style", "number-to-words"
+      ]
+    },
+    {
+      "id": "date-land-gold",
+      "kind": "hub",
+      "section": "root",
+      "priority": "launch",
+      "route": {"bn": "/date-land-gold", "en": "/en/date-land-gold"},
+      "name": {"bn": "তারিখ, জমি, সোনা", "en": "Date, land, gold"},
+      "description": {
+        "bn": "বয়স, বাংলা তারিখ, জমির মাপ আর সোনার হিসাব। ৯টা টুল, ইন্টারনেট ছাড়াও চলে।",
+        "en": "Age, Bangla date, land measures and gold. 9 tools that work without internet."
+      },
+      "breadcrumb": {"bn": ["সব বিভাগ"], "en": ["All sections"]},
+      "keywords": ["তারিখ", "জমি", "সোনা", "বয়স", "date", "land", "gold", "kotha bigha", "vori"],
+      "related": ["calculators", "all-tools"],
+      "engine": null,
+      "dataFiles": [],
+      "figma": {"mobile": ["14:910"], "desktop": ["66:1416"]},
+      "items": [
+        "age", "job-age-limit", "bangla-date", "hijri-date", "day-count", "land-converter", "land-price",
+        "gold-converter", "jewelry-bill"
+      ]
+    },
+    {
+      "id": "sorkari-kaj",
+      "kind": "hub",
+      "section": "root",
+      "priority": "launch",
+      "route": {"bn": "/sorkari-kaj", "en": "/en/sorkari-kaj"},
+      "name": {"bn": "সরকারি কাজ", "en": "Government services"},
+      "description": {
+        "bn": "NID, পাসপোর্ট, জন্ম নিবন্ধন, জমি আর অন্য সরকারি কাজের ধাপে ধাপে গাইড।",
+        "en": "Step-by-step guides for NID, passport, birth registration, land and other government services."
+      },
+      "breadcrumb": {"bn": ["সব বিভাগ"], "en": ["All sections"]},
+      "keywords": [
+        "সরকারি কাজ", "সরকারি সেবা", "গাইড", "sorkari kaj", "sarkari kaj", "government service",
+        "govt service", "guide", "nid", "passport"
+      ],
+      "related": ["guide-wizard", "name-spelling"],
+      "engine": null,
+      "dataFiles": [],
+      "figma": {"mobile": ["24:4065"], "desktop": ["66:3553"]},
+      "items": [
+        "guide-wizard", "guide-nid-correction", "guide-e-passport", "guide-birth-registration",
+        "guide-driving-license", "guide-namjari", "guides-legal", "guides-education", "guides-expatriate",
+        "name-spelling"
+      ]
+    },
+    {
+      "id": "guides-legal",
+      "kind": "hub",
+      "section": "sorkari-kaj",
+      "priority": "launch",
+      "route": {"bn": "/sorkari-kaj/legal", "en": "/en/sorkari-kaj/legal"},
+      "name": {"bn": "আইনি কাগজ", "en": "Legal papers"},
+      "description": {
+        "bn": "হলফনামা, পাওয়ার অব অ্যাটর্নি, ওয়ারিশ সনদের মতো কাগজ কোথায় কিভাবে করাতে হয়।",
+        "en": "Where and how to get papers like an affidavit, a power of attorney or an heirship certificate."
+      },
+      "breadcrumb": {"bn": ["সরকারি কাজ"], "en": ["Government services"]},
+      "keywords": ["আইনি কাগজ", "হলফনামা", "ওয়ারিশ সনদ", "legal papers", "legal documents", "affidavit", "ainy kagoj"],
+      "related": ["sorkari-kaj", "guide-namjari"],
+      "engine": null,
+      "dataFiles": [],
+      "figma": {"mobile": ["73:21966"], "desktop": ["73:42050"]},
+      "items": ["guide-affidavit", "guide-power-of-attorney", "guide-warish-certificate", "guide-namjari"]
+    },
+    {
+      "id": "guides-education",
+      "kind": "hub",
+      "section": "sorkari-kaj",
+      "priority": "launch",
+      "route": {"bn": "/sorkari-kaj/education", "en": "/en/sorkari-kaj/education"},
+      "name": {"bn": "শিক্ষা", "en": "Education"},
+      "description": {
+        "bn": "সনদ যাচাই, নম্বরপত্র তোলা আর উপবৃত্তির আবেদনের ধাপ।",
+        "en": "Steps to verify certificates, get board mark sheets and apply for stipends."
+      },
+      "breadcrumb": {"bn": ["সরকারি কাজ"], "en": ["Government services"]},
+      "keywords": ["শিক্ষা", "সনদ", "নম্বরপত্র", "education", "certificate", "marksheet", "shikkha"],
+      "related": ["sorkari-kaj", "gpa"],
+      "engine": null,
+      "dataFiles": [],
+      "figma": {"mobile": ["73:22162"], "desktop": ["73:42243"]},
+      "items": ["guide-certificate-verification", "guide-board-marksheet", "guide-stipend", "gpa"]
+    },
+    {
+      "id": "guides-expatriate",
+      "kind": "hub",
+      "section": "sorkari-kaj",
+      "priority": "launch",
+      "route": {"bn": "/sorkari-kaj/expatriate", "en": "/en/sorkari-kaj/expatriate"},
+      "name": {"bn": "প্রবাসী", "en": "Expatriates"},
+      "description": {
+        "bn": "বিদেশ যাওয়ার কাগজ, টাকা পাঠানো আর প্রবাসীদের সেবা।",
+        "en": "Papers for going abroad, sending money home and services for expatriates."
+      },
+      "breadcrumb": {"bn": ["সরকারি কাজ"], "en": ["Government services"]},
+      "keywords": ["প্রবাসী", "বিদেশ", "probashi", "probasi", "expatriate", "abroad", "bidesh", "bmet", "visa check"],
+      "related": ["remittance", "sorkari-kaj"],
+      "engine": null,
+      "dataFiles": [],
+      "figma": {"mobile": ["73:22357"], "desktop": ["73:42436"]},
+      "items": [
+        "guide-bmet-registration", "guide-police-clearance", "guide-saudi-to-bkash", "guide-hundi",
+        "remittance-compare"
+      ]
+    },
+    {
+      "id": "cash-out",
+      "kind": "tool",
+      "section": "mobile-banking",
+      "priority": "launch",
+      "route": {"bn": "/tools/cash-out", "en": "/en/tools/cash-out"},
+      "name": {"bn": "বিকাশ, নগদ, রকেট ক্যাশ আউট চার্জ", "en": "bKash, Nagad, Rocket cash out charge"},
+      "shortName": {"bn": "ক্যাশ আউট চার্জ", "en": "Cash out charge"},
+      "description": {
+        "bn": "টাকার পরিমাণ লিখলেই ৭টা উপায়ের চার্জ পাশাপাশি দেখাবে।",
+        "en": "Type an amount to see the charge for all 7 ways side by side."
+      },
+      "breadcrumb": {"bn": ["মোবাইল ব্যাংকিং", "ক্যাশ আউট চার্জ"], "en": ["Mobile banking", "Cash out charge"]},
+      "keywords": [
+        "ক্যাশ আউট চার্জ", "ক্যাশআউট", "টাকা তোলার চার্জ", "বিকাশ ক্যাশ আউট", "নগদ ক্যাশ আউট",
+        "রকেট ক্যাশ আউট", "প্রিয় এজেন্ট", "কত তোলা যাবে", "cash out charge", "cashout", "cash out",
+        "bkash cash out", "bikash cash out", "bkas cashout", "nagad cash out", "nogod cash out",
+        "rocket cash out", "priyo agent", "cash out calculator"
+      ],
+      "related": ["send-money", "mfs-compare", "mfs-bkash-cash-out", "guide-priyo-agent"],
+      "engine": "mfs-charge.ts",
+      "dataFiles": ["mfs-charges.json"],
+      "figma": {
+        "mobile": ["13:404", "18:2004", "58:15240", "58:15542", "58:15873"],
+        "desktop": ["19:360", "70:45106", "69:36351", "69:36721", "69:37090"]
+      }
+    },
+    {
+      "id": "send-money",
+      "kind": "tool",
+      "section": "mobile-banking",
+      "priority": "launch",
+      "route": {"bn": "/tools/send-money", "en": "/en/tools/send-money"},
+      "name": {"bn": "সেন্ড মানি চার্জ ক্যালকুলেটর", "en": "Send money charge calculator"},
+      "shortName": {"bn": "সেন্ড মানি চার্জ", "en": "Send money charge"},
+      "description": {
+        "bn": "প্রিয় নম্বরে ফ্রি লিমিট কতটা বাকি, আর কত চার্জ লাগবে।",
+        "en": "How much of the free Priyo number limit is left, and what the charge will be."
+      },
+      "breadcrumb": {"bn": ["মোবাইল ব্যাংকিং", "সেন্ড মানি"], "en": ["Mobile banking", "Send money"]},
+      "keywords": [
+        "সেন্ড মানি চার্জ", "টাকা পাঠানোর চার্জ", "প্রিয় নম্বর", "send money charge", "sendmoney",
+        "send mony", "bkash send money", "bikash send money", "nagad send money", "priyo number"
+      ],
+      "related": ["cash-out", "mfs-bkash-send-money", "mfs-compare"],
+      "engine": "mfs-charge.ts",
+      "dataFiles": ["mfs-charges.json"],
+      "figma": {"mobile": ["26:5863"], "desktop": ["66:28717"]}
+    },
+    {
+      "id": "mfs-compare",
+      "kind": "mfs",
+      "section": "mobile-banking",
+      "priority": "launch",
+      "route": {"bn": "/mfs/compare", "en": "/en/mfs/compare"},
+      "name": {"bn": "বিকাশ vs নগদ vs রকেট", "en": "bKash vs Nagad vs Rocket"},
+      "shortName": {"bn": "MFS তুলনা", "en": "MFS comparison"},
+      "description": {
+        "bn": "চার্জ আর সুবিধা এক টেবিলে। সবুজ মানে সবচেয়ে সাশ্রয়ী।",
+        "en": "Charges and features in one table. Green marks the cheapest."
+      },
+      "breadcrumb": {"bn": ["মোবাইল ব্যাংকিং", "তুলনা"], "en": ["Mobile banking", "Compare"]},
+      "keywords": [
+        "MFS তুলনা", "বিকাশ না নগদ", "কোনটা ভালো", "সবচেয়ে কম চার্জ", "bkash vs nagad",
+        "bkash vs nagad vs rocket", "mfs compare", "mobile banking comparison", "cheapest cash out"
+      ],
+      "related": ["cash-out", "send-money", "mobile-banking"],
+      "engine": "mfs-charge.ts",
+      "dataFiles": ["mfs-charges.json"],
+      "figma": {"mobile": ["26:5706"], "desktop": ["66:28534"]}
+    },
+    {
+      "id": "mfs-bkash-cash-out",
+      "kind": "mfs",
+      "section": "mobile-banking",
+      "priority": "launch",
+      "route": {"bn": "/mfs/bkash/cash-out", "en": "/en/mfs/bkash/cash-out"},
+      "name": {"bn": "বিকাশ ক্যাশ আউট চার্জ", "en": "bKash cash out charge"},
+      "shortName": {"bn": "ক্যাশ আউট", "en": "Cash out"},
+      "description": {
+        "bn": "বিকাশের ক্যাশ আউট চার্জ, প্রতি ১,০০০ টাকায়, VAT সহ। দ্রুত হিসাব আর লেনদেন লিমিট।",
+        "en": "bKash cash out charge per ৳1,000 including VAT, with a quick calculator and transaction limits."
+      },
+      "breadcrumb": {"bn": ["মোবাইল ব্যাংকিং"], "en": ["Mobile banking"]},
+      "keywords": [
+        "বিকাশ ক্যাশ আউট চার্জ", "bkash cash out charge", "bikash cash out", "bkas cashout", "বিকাশ",
+        "bkash", "bikash", "bkas", "bikas", "b-kash", "ক্যাশ আউট", "ক্যাশআউট", "টাকা তোলা", "cash out",
+        "cashout", "kash out", "withdraw", "প্রিয় এজেন্ট", "priyo agent"
+      ],
+      "related": [
+        "mfs-bkash-send-money", "mfs-bkash-cash-in", "mfs-bkash-bill-pay", "mfs-bkash-limits",
+        "guide-priyo-agent", "cash-out"
+      ],
+      "engine": "mfs-charge.ts",
+      "dataFiles": ["mfs-charges.json", "mfs-providers.json"],
+      "figma": {"mobile": ["14:706"], "desktop": ["66:1207"]},
+      "draftCopy": true
+    },
+    {
+      "id": "mfs-bkash-send-money",
+      "kind": "mfs",
+      "section": "mobile-banking",
+      "priority": "launch",
+      "route": {"bn": "/mfs/bkash/send-money", "en": "/en/mfs/bkash/send-money"},
+      "name": {"bn": "বিকাশ সেন্ড মানি চার্জ", "en": "bKash send money charge"},
+      "shortName": {"bn": "সেন্ড মানি", "en": "Send money"},
+      "description": {
+        "bn": "বিকাশের সেন্ড মানি চার্জ, আর অ্যাপে সেন্ড মানি করবো কিভাবে।",
+        "en": "bKash send money charges, and how to send money in the app."
+      },
+      "breadcrumb": {"bn": ["মোবাইল ব্যাংকিং"], "en": ["Mobile banking"]},
+      "keywords": [
+        "বিকাশ সেন্ড মানি চার্জ", "bkash send money charge", "bikash send money", "bkas sendmoney", "বিকাশ",
+        "bkash", "bikash", "bkas", "bikas", "b-kash", "সেন্ড মানি", "টাকা পাঠানো", "send money", "sendmoney",
+        "send mony"
+      ],
+      "related": [
+        "mfs-bkash-cash-out", "mfs-bkash-cash-in", "mfs-bkash-bill-pay", "mfs-bkash-limits",
+        "guide-bkash-to-bank", "send-money"
+      ],
+      "engine": "mfs-charge.ts",
+      "dataFiles": ["mfs-charges.json", "mfs-providers.json"],
+      "figma": {"mobile": ["55:11850"], "desktop": ["69:9169"]},
+      "draftCopy": true
+    },
+    {
+      "id": "mfs-bkash-cash-in",
+      "kind": "mfs",
+      "section": "mobile-banking",
+      "priority": "launch",
+      "route": {"bn": "/mfs/bkash/cash-in", "en": "/en/mfs/bkash/cash-in"},
+      "name": {"bn": "বিকাশ ক্যাশ ইন", "en": "bKash cash in"},
+      "shortName": {"bn": "ক্যাশ ইন", "en": "Cash in"},
+      "description": {
+        "bn": "বিকাশ এজেন্ট থেকে ক্যাশ ইন, আর অ্যাড মানি: ব্যাংক অ্যাকাউন্ট, কার্ড বা অন্য ওয়ালেট থেকে।",
+        "en": "Cash in at a bKash agent, or add money from a bank account, card or another wallet."
+      },
+      "breadcrumb": {"bn": ["মোবাইল ব্যাংকিং"], "en": ["Mobile banking"]},
+      "keywords": [
+        "বিকাশ ক্যাশ ইন", "bkash cash in", "bikash cash in", "bkas cashin", "বিকাশ", "bkash", "bikash",
+        "bkas", "bikas", "b-kash", "ক্যাশ ইন", "অ্যাড মানি", "টাকা জমা", "cash in", "cashin", "add money"
+      ],
+      "related": ["mfs-bkash-cash-out", "mfs-bkash-send-money", "mfs-bkash-bill-pay", "mfs-bkash-limits", "cash-out"],
+      "engine": "mfs-charge.ts",
+      "dataFiles": ["mfs-charges.json", "mfs-providers.json"],
+      "figma": {"mobile": ["55:12069"], "desktop": ["69:9441"]},
+      "draftCopy": true
+    },
+    {
+      "id": "mfs-bkash-bill-pay",
+      "kind": "mfs",
+      "section": "mobile-banking",
+      "priority": "launch",
+      "route": {"bn": "/mfs/bkash/bill-pay", "en": "/en/mfs/bkash/bill-pay"},
+      "name": {"bn": "বিকাশ বিল পে", "en": "bKash bill pay"},
+      "shortName": {"bn": "বিল পে", "en": "Bill pay"},
+      "description": {
+        "bn": "বিকাশ দিয়ে কোন কোন বিল দেওয়া যায়: বিদ্যুৎ, গ্যাস, পানি, ইন্টারনেট ও টিভি, শিক্ষা ফি।",
+        "en": "Which bills you can pay with bKash: electricity, gas, water, internet and TV, school fees."
+      },
+      "breadcrumb": {"bn": ["মোবাইল ব্যাংকিং"], "en": ["Mobile banking"]},
+      "keywords": [
+        "বিকাশ বিল পে", "bkash bill pay", "bikash bill pay", "bkas pay bill", "বিকাশ", "bkash", "bikash",
+        "bkas", "bikas", "b-kash", "বিল পে", "বিল দেওয়া", "বিদ্যুৎ বিল", "bill pay", "pay bill",
+        "electricity bill"
+      ],
+      "related": ["mfs-bkash-cash-out", "mfs-bkash-send-money", "mfs-bkash-cash-in", "mfs-bkash-limits", "cash-out"],
+      "engine": "mfs-charge.ts",
+      "dataFiles": ["mfs-charges.json", "mfs-providers.json"],
+      "figma": {"mobile": ["55:12267"], "desktop": ["69:9693"]},
+      "draftCopy": true
+    },
+    {
+      "id": "mfs-bkash-limits",
+      "kind": "mfs",
+      "section": "mobile-banking",
+      "priority": "launch",
+      "route": {"bn": "/mfs/bkash/limits", "en": "/en/mfs/bkash/limits"},
+      "name": {"bn": "বিকাশ লিমিট", "en": "bKash limits"},
+      "shortName": {"bn": "লিমিট", "en": "Limits"},
+      "description": {"bn": "বিকাশের দৈনিক সীমা আর মাসিক সীমা।", "en": "bKash daily and monthly transaction limits."},
+      "breadcrumb": {"bn": ["মোবাইল ব্যাংকিং"], "en": ["Mobile banking"]},
+      "keywords": [
+        "বিকাশ লিমিট", "bkash limits", "bikash limit", "bkas daily limit", "বিকাশ", "bkash", "bikash",
+        "bkas", "bikas", "b-kash", "লিমিট", "সীমা", "দৈনিক সীমা", "limit", "daily limit", "monthly limit",
+        "transaction limit"
+      ],
+      "related": [
+        "mfs-bkash-cash-out", "mfs-bkash-send-money", "mfs-bkash-cash-in", "mfs-bkash-bill-pay",
+        "guide-bkash-to-bank", "cash-out"
+      ],
+      "engine": null,
+      "dataFiles": ["mfs-charges.json", "mfs-providers.json"],
+      "figma": {"mobile": ["55:12529"], "desktop": ["69:9997"]},
+      "draftCopy": true
+    },
+    {
+      "id": "mfs-nagad-cash-out",
+      "kind": "mfs",
+      "section": "mobile-banking",
+      "priority": "launch",
+      "route": {"bn": "/mfs/nagad/cash-out", "en": "/en/mfs/nagad/cash-out"},
+      "name": {"bn": "নগদ ক্যাশ আউট চার্জ", "en": "Nagad cash out charge"},
+      "shortName": {"bn": "ক্যাশ আউট", "en": "Cash out"},
+      "description": {
+        "bn": "নগদের ক্যাশ আউট চার্জ, প্রতি ১,০০০ টাকায়, VAT সহ। দ্রুত হিসাব আর লেনদেন লিমিট।",
+        "en": "Nagad cash out charge per ৳1,000 including VAT, with a quick calculator and transaction limits."
+      },
+      "breadcrumb": {"bn": ["মোবাইল ব্যাংকিং"], "en": ["Mobile banking"]},
+      "keywords": [
+        "নগদ ক্যাশ আউট চার্জ", "nagad cash out charge", "nogod cash out", "nagod cashout", "নগদ", "nagad",
+        "nogod", "nagod", "nogot", "ক্যাশ আউট", "ক্যাশআউট", "টাকা তোলা", "cash out", "cashout", "kash out",
+        "withdraw"
+      ],
+      "related": ["mfs-nagad-send-money", "mfs-nagad-cash-in", "mfs-nagad-bill-pay", "mfs-nagad-limits", "cash-out"],
+      "engine": "mfs-charge.ts",
+      "dataFiles": ["mfs-charges.json", "mfs-providers.json"],
+      "figma": {"mobile": ["26:5113"], "desktop": ["66:27749"]},
+      "draftCopy": true
+    },
+    {
+      "id": "mfs-nagad-send-money",
+      "kind": "mfs",
+      "section": "mobile-banking",
+      "priority": "launch",
+      "route": {"bn": "/mfs/nagad/send-money", "en": "/en/mfs/nagad/send-money"},
+      "name": {"bn": "নগদ সেন্ড মানি চার্জ", "en": "Nagad send money charge"},
+      "shortName": {"bn": "সেন্ড মানি", "en": "Send money"},
+      "description": {
+        "bn": "নগদের সেন্ড মানি চার্জ, আর অ্যাপে সেন্ড মানি করবো কিভাবে।",
+        "en": "Nagad send money charges, and how to send money in the app."
+      },
+      "breadcrumb": {"bn": ["মোবাইল ব্যাংকিং"], "en": ["Mobile banking"]},
+      "keywords": [
+        "নগদ সেন্ড মানি চার্জ", "nagad send money charge", "nogod send money", "nagod sendmoney", "নগদ",
+        "nagad", "nogod", "nagod", "nogot", "সেন্ড মানি", "টাকা পাঠানো", "send money", "sendmoney",
+        "send mony"
+      ],
+      "related": ["mfs-nagad-cash-out", "mfs-nagad-cash-in", "mfs-nagad-bill-pay", "mfs-nagad-limits", "send-money"],
+      "engine": "mfs-charge.ts",
+      "dataFiles": ["mfs-charges.json", "mfs-providers.json"],
+      "figma": {"mobile": ["55:12754"], "desktop": ["69:10267"]},
+      "draftCopy": true
+    },
+    {
+      "id": "mfs-nagad-cash-in",
+      "kind": "mfs",
+      "section": "mobile-banking",
+      "priority": "launch",
+      "route": {"bn": "/mfs/nagad/cash-in", "en": "/en/mfs/nagad/cash-in"},
+      "name": {"bn": "নগদ ক্যাশ ইন", "en": "Nagad cash in"},
+      "shortName": {"bn": "ক্যাশ ইন", "en": "Cash in"},
+      "description": {
+        "bn": "নগদ এজেন্ট থেকে ক্যাশ ইন, আর অ্যাড মানি: ব্যাংক অ্যাকাউন্ট, কার্ড বা অন্য ওয়ালেট থেকে।",
+        "en": "Cash in at a Nagad agent, or add money from a bank account, card or another wallet."
+      },
+      "breadcrumb": {"bn": ["মোবাইল ব্যাংকিং"], "en": ["Mobile banking"]},
+      "keywords": [
+        "নগদ ক্যাশ ইন", "nagad cash in", "nogod cash in", "nagod cashin", "নগদ", "nagad", "nogod", "nagod",
+        "nogot", "ক্যাশ ইন", "অ্যাড মানি", "টাকা জমা", "cash in", "cashin", "add money"
+      ],
+      "related": ["mfs-nagad-cash-out", "mfs-nagad-send-money", "mfs-nagad-bill-pay", "mfs-nagad-limits", "cash-out"],
+      "engine": "mfs-charge.ts",
+      "dataFiles": ["mfs-charges.json", "mfs-providers.json"],
+      "figma": {"mobile": ["55:12978"], "desktop": ["69:10533"]},
+      "draftCopy": true
+    },
+    {
+      "id": "mfs-nagad-bill-pay",
+      "kind": "mfs",
+      "section": "mobile-banking",
+      "priority": "launch",
+      "route": {"bn": "/mfs/nagad/bill-pay", "en": "/en/mfs/nagad/bill-pay"},
+      "name": {"bn": "নগদ বিল পে", "en": "Nagad bill pay"},
+      "shortName": {"bn": "বিল পে", "en": "Bill pay"},
+      "description": {
+        "bn": "নগদ দিয়ে কোন কোন বিল দেওয়া যায়: বিদ্যুৎ, গ্যাস, পানি, ইন্টারনেট ও টিভি, শিক্ষা ফি।",
+        "en": "Which bills you can pay with Nagad: electricity, gas, water, internet and TV, school fees."
+      },
+      "breadcrumb": {"bn": ["মোবাইল ব্যাংকিং"], "en": ["Mobile banking"]},
+      "keywords": [
+        "নগদ বিল পে", "nagad bill pay", "nogod bill pay", "nagod pay bill", "নগদ", "nagad", "nogod", "nagod",
+        "nogot", "বিল পে", "বিল দেওয়া", "বিদ্যুৎ বিল", "bill pay", "pay bill", "electricity bill"
+      ],
+      "related": ["mfs-nagad-cash-out", "mfs-nagad-send-money", "mfs-nagad-cash-in", "mfs-nagad-limits", "cash-out"],
+      "engine": "mfs-charge.ts",
+      "dataFiles": ["mfs-charges.json", "mfs-providers.json"],
+      "figma": {"mobile": ["55:13178"], "desktop": ["69:10782"]},
+      "draftCopy": true
+    },
+    {
+      "id": "mfs-nagad-limits",
+      "kind": "mfs",
+      "section": "mobile-banking",
+      "priority": "launch",
+      "route": {"bn": "/mfs/nagad/limits", "en": "/en/mfs/nagad/limits"},
+      "name": {"bn": "নগদ লিমিট", "en": "Nagad limits"},
+      "shortName": {"bn": "লিমিট", "en": "Limits"},
+      "description": {"bn": "নগদের দৈনিক সীমা আর মাসিক সীমা।", "en": "Nagad daily and monthly transaction limits."},
+      "breadcrumb": {"bn": ["মোবাইল ব্যাংকিং"], "en": ["Mobile banking"]},
+      "keywords": [
+        "নগদ লিমিট", "nagad limits", "nogod limit", "nagod daily limit", "নগদ", "nagad", "nogod", "nagod",
+        "nogot", "লিমিট", "সীমা", "দৈনিক সীমা", "limit", "daily limit", "monthly limit", "transaction limit"
+      ],
+      "related": ["mfs-nagad-cash-out", "mfs-nagad-send-money", "mfs-nagad-cash-in", "mfs-nagad-bill-pay", "cash-out"],
+      "engine": null,
+      "dataFiles": ["mfs-charges.json", "mfs-providers.json"],
+      "figma": {"mobile": ["55:13445"], "desktop": ["69:11079"]},
+      "draftCopy": true
+    },
+    {
+      "id": "mfs-rocket-cash-out",
+      "kind": "mfs",
+      "section": "mobile-banking",
+      "priority": "launch",
+      "route": {"bn": "/mfs/rocket/cash-out", "en": "/en/mfs/rocket/cash-out"},
+      "name": {"bn": "রকেট ক্যাশ আউট চার্জ", "en": "Rocket cash out charge"},
+      "shortName": {"bn": "ক্যাশ আউট", "en": "Cash out"},
+      "description": {
+        "bn": "রকেটের ক্যাশ আউট চার্জ, প্রতি ১,০০০ টাকায়, VAT সহ। দ্রুত হিসাব আর লেনদেন লিমিট।",
+        "en": "Rocket cash out charge per ৳1,000 including VAT, with a quick calculator and transaction limits."
+      },
+      "breadcrumb": {"bn": ["মোবাইল ব্যাংকিং"], "en": ["Mobile banking"]},
+      "keywords": [
+        "রকেট ক্যাশ আউট চার্জ", "rocket cash out charge", "roket cash out", "dbbl rocket cashout", "রকেট",
+        "ডাচ-বাংলা", "rocket", "roket", "dbbl rocket", "dutch bangla", "ক্যাশ আউট", "ক্যাশআউট", "টাকা তোলা",
+        "cash out", "cashout", "kash out", "withdraw"
+      ],
+      "related": ["mfs-rocket-send-money", "mfs-rocket-cash-in", "mfs-rocket-bill-pay", "mfs-rocket-limits", "cash-out"],
+      "engine": "mfs-charge.ts",
+      "dataFiles": ["mfs-charges.json", "mfs-providers.json"],
+      "figma": {"mobile": ["26:5317"], "desktop": ["66:28004"]},
+      "draftCopy": true
+    },
+    {
+      "id": "mfs-rocket-send-money",
+      "kind": "mfs",
+      "section": "mobile-banking",
+      "priority": "launch",
+      "route": {"bn": "/mfs/rocket/send-money", "en": "/en/mfs/rocket/send-money"},
+      "name": {"bn": "রকেট সেন্ড মানি চার্জ", "en": "Rocket send money charge"},
+      "shortName": {"bn": "সেন্ড মানি", "en": "Send money"},
+      "description": {
+        "bn": "রকেটের সেন্ড মানি চার্জ, আর অ্যাপে সেন্ড মানি করবো কিভাবে।",
+        "en": "Rocket send money charges, and how to send money in the app."
+      },
+      "breadcrumb": {"bn": ["মোবাইল ব্যাংকিং"], "en": ["Mobile banking"]},
+      "keywords": [
+        "রকেট সেন্ড মানি চার্জ", "rocket send money charge", "roket send money", "dbbl rocket sendmoney",
+        "রকেট", "ডাচ-বাংলা", "rocket", "roket", "dbbl rocket", "dutch bangla", "সেন্ড মানি", "টাকা পাঠানো",
+        "send money", "sendmoney", "send mony"
+      ],
+      "related": ["mfs-rocket-cash-out", "mfs-rocket-cash-in", "mfs-rocket-bill-pay", "mfs-rocket-limits", "send-money"],
+      "engine": "mfs-charge.ts",
+      "dataFiles": ["mfs-charges.json", "mfs-providers.json"],
+      "figma": {"mobile": ["56:13169"], "desktop": ["69:11336"]},
+      "draftCopy": true
+    },
+    {
+      "id": "mfs-rocket-cash-in",
+      "kind": "mfs",
+      "section": "mobile-banking",
+      "priority": "launch",
+      "route": {"bn": "/mfs/rocket/cash-in", "en": "/en/mfs/rocket/cash-in"},
+      "name": {"bn": "রকেট ক্যাশ ইন", "en": "Rocket cash in"},
+      "shortName": {"bn": "ক্যাশ ইন", "en": "Cash in"},
+      "description": {
+        "bn": "রকেট এজেন্ট থেকে ক্যাশ ইন, আর অ্যাড মানি: ব্যাংক অ্যাকাউন্ট, কার্ড বা অন্য ওয়ালেট থেকে।",
+        "en": "Cash in at a Rocket agent, or add money from a bank account, card or another wallet."
+      },
+      "breadcrumb": {"bn": ["মোবাইল ব্যাংকিং"], "en": ["Mobile banking"]},
+      "keywords": [
+        "রকেট ক্যাশ ইন", "rocket cash in", "roket cash in", "dbbl rocket cashin", "রকেট", "ডাচ-বাংলা",
+        "rocket", "roket", "dbbl rocket", "dutch bangla", "ক্যাশ ইন", "অ্যাড মানি", "টাকা জমা", "cash in",
+        "cashin", "add money"
+      ],
+      "related": ["mfs-rocket-cash-out", "mfs-rocket-send-money", "mfs-rocket-bill-pay", "mfs-rocket-limits", "cash-out"],
+      "engine": "mfs-charge.ts",
+      "dataFiles": ["mfs-charges.json", "mfs-providers.json"],
+      "figma": {"mobile": ["56:13377"], "desktop": ["69:11602"]},
+      "draftCopy": true
+    },
+    {
+      "id": "mfs-rocket-bill-pay",
+      "kind": "mfs",
+      "section": "mobile-banking",
+      "priority": "launch",
+      "route": {"bn": "/mfs/rocket/bill-pay", "en": "/en/mfs/rocket/bill-pay"},
+      "name": {"bn": "রকেট বিল পে", "en": "Rocket bill pay"},
+      "shortName": {"bn": "বিল পে", "en": "Bill pay"},
+      "description": {
+        "bn": "রকেট দিয়ে কোন কোন বিল দেওয়া যায়: বিদ্যুৎ, গ্যাস, পানি, ইন্টারনেট ও টিভি, শিক্ষা ফি।",
+        "en": "Which bills you can pay with Rocket: electricity, gas, water, internet and TV, school fees."
+      },
+      "breadcrumb": {"bn": ["মোবাইল ব্যাংকিং"], "en": ["Mobile banking"]},
+      "keywords": [
+        "রকেট বিল পে", "rocket bill pay", "roket bill pay", "dbbl rocket pay bill", "রকেট", "ডাচ-বাংলা",
+        "rocket", "roket", "dbbl rocket", "dutch bangla", "বিল পে", "বিল দেওয়া", "বিদ্যুৎ বিল", "bill pay",
+        "pay bill", "electricity bill"
+      ],
+      "related": ["mfs-rocket-cash-out", "mfs-rocket-send-money", "mfs-rocket-cash-in", "mfs-rocket-limits", "cash-out"],
+      "engine": "mfs-charge.ts",
+      "dataFiles": ["mfs-charges.json", "mfs-providers.json"],
+      "figma": {"mobile": ["56:13567"], "desktop": ["69:11851"]},
+      "draftCopy": true
+    },
+    {
+      "id": "mfs-rocket-limits",
+      "kind": "mfs",
+      "section": "mobile-banking",
+      "priority": "launch",
+      "route": {"bn": "/mfs/rocket/limits", "en": "/en/mfs/rocket/limits"},
+      "name": {"bn": "রকেট লিমিট", "en": "Rocket limits"},
+      "shortName": {"bn": "লিমিট", "en": "Limits"},
+      "description": {"bn": "রকেটের দৈনিক সীমা আর মাসিক সীমা।", "en": "Rocket daily and monthly transaction limits."},
+      "breadcrumb": {"bn": ["মোবাইল ব্যাংকিং"], "en": ["Mobile banking"]},
+      "keywords": [
+        "রকেট লিমিট", "rocket limits", "roket limit", "dbbl rocket daily limit", "রকেট", "ডাচ-বাংলা",
+        "rocket", "roket", "dbbl rocket", "dutch bangla", "লিমিট", "সীমা", "দৈনিক সীমা", "limit",
+        "daily limit", "monthly limit", "transaction limit"
+      ],
+      "related": [
+        "mfs-rocket-cash-out", "mfs-rocket-send-money", "mfs-rocket-cash-in", "mfs-rocket-bill-pay",
+        "cash-out"
+      ],
+      "engine": null,
+      "dataFiles": ["mfs-charges.json", "mfs-providers.json"],
+      "figma": {"mobile": ["56:13824"], "desktop": ["69:12148"]},
+      "draftCopy": true
+    },
+    {
+      "id": "mfs-upay-cash-out",
+      "kind": "mfs",
+      "section": "mobile-banking",
+      "priority": "launch",
+      "route": {"bn": "/mfs/upay/cash-out", "en": "/en/mfs/upay/cash-out"},
+      "name": {"bn": "উপায় ক্যাশ আউট চার্জ", "en": "Upay cash out charge"},
+      "shortName": {"bn": "ক্যাশ আউট", "en": "Cash out"},
+      "description": {
+        "bn": "উপায়ের ক্যাশ আউট চার্জ, প্রতি ১,০০০ টাকায়, VAT সহ। দ্রুত হিসাব আর লেনদেন লিমিট।",
+        "en": "Upay cash out charge per ৳1,000 including VAT, with a quick calculator and transaction limits."
+      },
+      "breadcrumb": {"bn": ["মোবাইল ব্যাংকিং"], "en": ["Mobile banking"]},
+      "keywords": [
+        "উপায় ক্যাশ আউট চার্জ", "upay cash out charge", "upai cash out", "ucb upay cashout", "উপায়",
+        "ইউসিবি", "upay", "upai", "ucb upay", "ক্যাশ আউট", "ক্যাশআউট", "টাকা তোলা", "cash out", "cashout",
+        "kash out", "withdraw"
+      ],
+      "related": ["mfs-upay-send-money", "mfs-upay-cash-in", "mfs-upay-bill-pay", "mfs-upay-limits", "cash-out"],
+      "engine": "mfs-charge.ts",
+      "dataFiles": ["mfs-charges.json", "mfs-providers.json"],
+      "figma": {"mobile": ["26:5511"], "desktop": ["66:28252"]},
+      "draftCopy": true
+    },
+    {
+      "id": "mfs-upay-send-money",
+      "kind": "mfs",
+      "section": "mobile-banking",
+      "priority": "launch",
+      "route": {"bn": "/mfs/upay/send-money", "en": "/en/mfs/upay/send-money"},
+      "name": {"bn": "উপায় সেন্ড মানি চার্জ", "en": "Upay send money charge"},
+      "shortName": {"bn": "সেন্ড মানি", "en": "Send money"},
+      "description": {
+        "bn": "উপায়ের সেন্ড মানি চার্জ, আর অ্যাপে সেন্ড মানি করবো কিভাবে।",
+        "en": "Upay send money charges, and how to send money in the app."
+      },
+      "breadcrumb": {"bn": ["মোবাইল ব্যাংকিং"], "en": ["Mobile banking"]},
+      "keywords": [
+        "উপায় সেন্ড মানি চার্জ", "upay send money charge", "upai send money", "ucb upay sendmoney", "উপায়",
+        "ইউসিবি", "upay", "upai", "ucb upay", "সেন্ড মানি", "টাকা পাঠানো", "send money", "sendmoney",
+        "send mony"
+      ],
+      "related": ["mfs-upay-cash-out", "mfs-upay-cash-in", "mfs-upay-bill-pay", "mfs-upay-limits", "send-money"],
+      "engine": "mfs-charge.ts",
+      "dataFiles": ["mfs-charges.json", "mfs-providers.json"],
+      "figma": {"mobile": ["56:14026"], "desktop": ["69:12404"]},
+      "draftCopy": true
+    },
+    {
+      "id": "mfs-upay-cash-in",
+      "kind": "mfs",
+      "section": "mobile-banking",
+      "priority": "launch",
+      "route": {"bn": "/mfs/upay/cash-in", "en": "/en/mfs/upay/cash-in"},
+      "name": {"bn": "উপায় ক্যাশ ইন", "en": "Upay cash in"},
+      "shortName": {"bn": "ক্যাশ ইন", "en": "Cash in"},
+      "description": {
+        "bn": "উপায় এজেন্ট থেকে ক্যাশ ইন, আর অ্যাড মানি: ব্যাংক অ্যাকাউন্ট, কার্ড বা অন্য ওয়ালেট থেকে।",
+        "en": "Cash in at a Upay agent, or add money from a bank account, card or another wallet."
+      },
+      "breadcrumb": {"bn": ["মোবাইল ব্যাংকিং"], "en": ["Mobile banking"]},
+      "keywords": [
+        "উপায় ক্যাশ ইন", "upay cash in", "upai cash in", "ucb upay cashin", "উপায়", "ইউসিবি", "upay",
+        "upai", "ucb upay", "ক্যাশ ইন", "অ্যাড মানি", "টাকা জমা", "cash in", "cashin", "add money"
+      ],
+      "related": ["mfs-upay-cash-out", "mfs-upay-send-money", "mfs-upay-bill-pay", "mfs-upay-limits", "cash-out"],
+      "engine": "mfs-charge.ts",
+      "dataFiles": ["mfs-charges.json", "mfs-providers.json"],
+      "figma": {"mobile": ["56:14242"], "desktop": ["69:12668"]},
+      "draftCopy": true
+    },
+    {
+      "id": "mfs-upay-bill-pay",
+      "kind": "mfs",
+      "section": "mobile-banking",
+      "priority": "launch",
+      "route": {"bn": "/mfs/upay/bill-pay", "en": "/en/mfs/upay/bill-pay"},
+      "name": {"bn": "উপায় বিল পে", "en": "Upay bill pay"},
+      "shortName": {"bn": "বিল পে", "en": "Bill pay"},
+      "description": {
+        "bn": "উপায় দিয়ে কোন কোন বিল দেওয়া যায়: বিদ্যুৎ, গ্যাস, পানি, ইন্টারনেট ও টিভি, শিক্ষা ফি।",
+        "en": "Which bills you can pay with Upay: electricity, gas, water, internet and TV, school fees."
+      },
+      "breadcrumb": {"bn": ["মোবাইল ব্যাংকিং"], "en": ["Mobile banking"]},
+      "keywords": [
+        "উপায় বিল পে", "upay bill pay", "upai bill pay", "ucb upay pay bill", "উপায়", "ইউসিবি", "upay",
+        "upai", "ucb upay", "বিল পে", "বিল দেওয়া", "বিদ্যুৎ বিল", "bill pay", "pay bill",
+        "electricity bill"
+      ],
+      "related": ["mfs-upay-cash-out", "mfs-upay-send-money", "mfs-upay-cash-in", "mfs-upay-limits", "cash-out"],
+      "engine": "mfs-charge.ts",
+      "dataFiles": ["mfs-charges.json", "mfs-providers.json"],
+      "figma": {"mobile": ["56:14437"], "desktop": ["69:12917"]},
+      "draftCopy": true
+    },
+    {
+      "id": "mfs-upay-limits",
+      "kind": "mfs",
+      "section": "mobile-banking",
+      "priority": "launch",
+      "route": {"bn": "/mfs/upay/limits", "en": "/en/mfs/upay/limits"},
+      "name": {"bn": "উপায় লিমিট", "en": "Upay limits"},
+      "shortName": {"bn": "লিমিট", "en": "Limits"},
+      "description": {"bn": "উপায়ের দৈনিক সীমা আর মাসিক সীমা।", "en": "Upay daily and monthly transaction limits."},
+      "breadcrumb": {"bn": ["মোবাইল ব্যাংকিং"], "en": ["Mobile banking"]},
+      "keywords": [
+        "উপায় লিমিট", "upay limits", "upai limit", "ucb upay daily limit", "উপায়", "ইউসিবি", "upay",
+        "upai", "ucb upay", "লিমিট", "সীমা", "দৈনিক সীমা", "limit", "daily limit", "monthly limit",
+        "transaction limit"
+      ],
+      "related": ["mfs-upay-cash-out", "mfs-upay-send-money", "mfs-upay-cash-in", "mfs-upay-bill-pay", "cash-out"],
+      "engine": null,
+      "dataFiles": ["mfs-charges.json", "mfs-providers.json"],
+      "figma": {"mobile": ["56:14699"], "desktop": ["69:13214"]},
+      "draftCopy": true
+    },
+    {
+      "id": "emi",
+      "kind": "tool",
+      "section": "bank",
+      "priority": "launch",
+      "route": {"bn": "/tools/emi", "en": "/en/tools/emi"},
+      "name": {"bn": "লোন EMI ক্যালকুলেটর", "en": "Loan EMI calculator"},
+      "shortName": {"bn": "লোন EMI", "en": "Loan EMI"},
+      "description": {
+        "bn": "ঋণের পরিমাণ, সুদের হার আর মেয়াদ দিলে মাসিক কিস্তি আর মোট সুদ।",
+        "en": "Enter the loan amount, interest rate and term to get the monthly instalment and total interest."
+      },
+      "breadcrumb": {"bn": ["ব্যাংক", "লোন EMI"], "en": ["Banks", "Loan EMI"]},
+      "keywords": [
+        "EMI", "ইএমআই", "কিস্তি", "লোনের কিস্তি", "মাসিক কিস্তি", "emi calculator", "emi calculater",
+        "loan emi", "home loan", "car loan", "personal loan", "kisti"
+      ],
+      "related": ["loan-compare", "loan-eligibility", "bank-detail-loan"],
+      "engine": "emi.ts",
+      "dataFiles": [],
+      "figma": {"mobile": ["27:5771"], "desktop": ["66:29012"]}
+    },
+    {
+      "id": "dps",
+      "kind": "tool",
+      "section": "bank",
+      "priority": "launch",
+      "route": {"bn": "/tools/dps", "en": "/en/tools/dps"},
+      "name": {"bn": "DPS মুনাফা ক্যালকুলেটর", "en": "DPS profit calculator"},
+      "shortName": {"bn": "DPS", "en": "DPS"},
+      "description": {
+        "bn": "মাসে মাসে জমালে মেয়াদ শেষে কত পাবে, উৎসে কর কেটে।",
+        "en": "What a monthly deposit grows to at maturity, after source tax."
+      },
+      "breadcrumb": {"bn": ["ব্যাংক", "DPS"], "en": ["Banks", "DPS"]},
+      "keywords": [
+        "DPS", "ডিপিএস", "মাসিক সঞ্চয়", "মুনাফা", "dps calculator", "deposit pension scheme", "dps profit",
+        "dps munafa", "monthly savings scheme"
+      ],
+      "related": ["fdr", "savings-goal", "bank-detail-dps"],
+      "engine": "dps.ts",
+      "dataFiles": ["finance/interest-tax.json", "finance/excise-duty.json"],
+      "figma": {"mobile": ["27:6030", "64:21115"], "desktop": ["66:29288", "69:39346"]}
+    },
+    {
+      "id": "fdr",
+      "kind": "tool",
+      "section": "bank",
+      "priority": "launch",
+      "route": {"bn": "/tools/fdr", "en": "/en/tools/fdr"},
+      "name": {"bn": "FDR মুনাফা ক্যালকুলেটর", "en": "FDR profit calculator"},
+      "shortName": {"bn": "FDR", "en": "FDR"},
+      "description": {
+        "bn": "এককালীন জমার মুনাফা, উৎসে কর আর মেয়াদ শেষের টাকা।",
+        "en": "Profit, source tax and maturity amount on a fixed deposit."
+      },
+      "breadcrumb": {"bn": ["ব্যাংক", "FDR"], "en": ["Banks", "FDR"]},
+      "keywords": [
+        "FDR", "এফডিআর", "ফিক্সড ডিপোজিট", "স্থায়ী আমানত", "fdr calculator", "fixed deposit", "fdr rate",
+        "fdr munafa", "term deposit"
+      ],
+      "related": ["dps", "sanchayapatra", "bank-detail-fdr"],
+      "engine": "fdr.ts",
+      "dataFiles": ["finance/interest-tax.json", "finance/excise-duty.json"],
+      "figma": {"mobile": ["27:6253", "64:21334"], "desktop": ["66:29578", "69:39636"]}
+    },
+    {
+      "id": "loan-eligibility",
+      "kind": "tool",
+      "section": "bank",
+      "priority": "launch",
+      "route": {"bn": "/tools/loan-eligibility", "en": "/en/tools/loan-eligibility"},
+      "name": {"bn": "কত টাকা লোন পাবো?", "en": "How much loan can I get?"},
+      "shortName": {"bn": "লোন যোগ্যতা", "en": "Loan eligibility"},
+      "description": {
+        "bn": "মাসিক আয় আর চলতি কিস্তি দেখে আনুমানিক কত লোন পাওয়া যেতে পারে।",
+        "en": "An estimate of the loan you may get from your monthly income and current instalments."
+      },
+      "breadcrumb": {"bn": ["ব্যাংক", "লোন যোগ্যতা"], "en": ["Banks", "Loan eligibility"]},
+      "keywords": [
+        "লোন যোগ্যতা", "কত লোন পাবো", "loan eligibility", "loan eligibilty", "loan kot pabo",
+        "personal loan limit", "dbr"
+      ],
+      "related": ["emi", "loan-compare"],
+      "engine": "loan-eligibility.ts",
+      "dataFiles": ["finance/loan-dbr.json", "finance/loan-caps.json"],
+      "figma": {"mobile": ["27:6477"], "desktop": ["66:29859"]}
+    },
+    {
+      "id": "loan-compare",
+      "kind": "tool",
+      "section": "bank",
+      "priority": "launch",
+      "route": {"bn": "/tools/loan-compare", "en": "/en/tools/loan-compare"},
+      "name": {"bn": "দুটো লোন অফার তুলনা", "en": "Compare two loan offers"},
+      "shortName": {"bn": "লোন তুলনা", "en": "Loan comparison"},
+      "description": {
+        "bn": "সুদ আর ফি মিলিয়ে কোন অফারে মোট খরচ কম।",
+        "en": "Which offer costs less in total, counting interest and fees."
+      },
+      "breadcrumb": {"bn": ["ব্যাংক", "লোন তুলনা"], "en": ["Banks", "Loan comparison"]},
+      "keywords": [
+        "লোন তুলনা", "কোন লোন ভালো", "প্রসেসিং ফি", "loan compare", "loan comparison", "processing fee",
+        "loan offer"
+      ],
+      "related": ["emi", "bank-compare"],
+      "engine": "loan-compare.ts",
+      "dataFiles": ["finance/loan-fees.json"],
+      "figma": {"mobile": ["27:6681"], "desktop": ["66:30163"]}
+    },
+    {
+      "id": "currency-converter",
+      "kind": "tool",
+      "section": "remittance",
+      "priority": "launch",
+      "route": {"bn": "/tools/currency-converter", "en": "/en/tools/currency-converter"},
+      "name": {"bn": "কারেন্সি কনভার্টার", "en": "Currency converter"},
+      "shortName": {"bn": "কারেন্সি কনভার্টার", "en": "Currency converter"},
+      "description": {
+        "bn": "রিয়াল, দিরহাম, ডলার, রিঙ্গিত থেকে টাকায় কত।",
+        "en": "How many taka for riyal, dirham, dollar or ringgit."
+      },
+      "breadcrumb": {"bn": ["রেমিট্যান্স", "কারেন্সি"], "en": ["Remittance", "Currency"]},
+      "keywords": [
+        "কারেন্সি", "ডলার রেট", "রিয়াল রেট", "টাকার রেট", "currency converter", "dollar rate", "riyal rate",
+        "dirham", "ringgit", "usd to bdt", "sar to bdt", "exchange rate", "taka rate"
+      ],
+      "related": ["remittance-compare", "guide-saudi-to-bkash"],
+      "engine": "currency.ts",
+      "dataFiles": ["finance/currency-rates.json"],
+      "figma": {"mobile": ["27:6940"], "desktop": ["66:30468"]}
+    },
+    {
+      "id": "vat",
+      "kind": "tool",
+      "section": "calculators",
+      "priority": "launch",
+      "route": {"bn": "/tools/vat", "en": "/en/tools/vat"},
+      "name": {"bn": "VAT ক্যালকুলেটর", "en": "VAT calculator"},
+      "shortName": {"bn": "VAT", "en": "VAT"},
+      "description": {
+        "bn": "দামের সাথে VAT যোগ করো, অথবা VAT সহ দাম থেকে VAT আলাদা করো।",
+        "en": "Add VAT to a price, or take VAT out of a VAT-inclusive price."
+      },
+      "breadcrumb": {"bn": ["ক্যালকুলেটর", "VAT"], "en": ["Calculators", "VAT"]},
+      "keywords": [
+        "VAT", "ভ্যাট", "মূসক", "ভ্যাট হিসাব", "vat calculator", "vat calculater", "15% vat", "vat bad",
+        "vat jog", "vat exclusive"
+      ],
+      "related": ["invoice", "discount-percentage", "profit-margin"],
+      "engine": "vat.ts",
+      "dataFiles": ["commerce/vat-rates.json", "commerce/sd-rates.json"],
+      "figma": {"mobile": ["28:6772", "60:17985"], "desktop": ["68:4691", "69:37970"]}
+    },
+    {
+      "id": "discount-percentage",
+      "kind": "tool",
+      "section": "calculators",
+      "priority": "launch",
+      "route": {"bn": "/tools/discount-percentage", "en": "/en/tools/discount-percentage"},
+      "name": {"bn": "ডিসকাউন্ট ও শতাংশ", "en": "Discount and percentage"},
+      "shortName": {"bn": "ডিসকাউন্ট ও শতাংশ", "en": "Discount and percentage"},
+      "description": {
+        "bn": "ছাড়ের পর কত দিতে হবে, আর যেকোনো সংখ্যার শতাংশ।",
+        "en": "What you pay after a discount, and the percentage of any number."
+      },
+      "breadcrumb": {"bn": ["ক্যালকুলেটর", "ডিসকাউন্ট"], "en": ["Calculators", "Discount"]},
+      "keywords": [
+        "ডিসকাউন্ট", "শতাংশ", "পার্সেন্ট", "ছাড়", "discount calculator", "percentage", "percent", "parcent",
+        "% off", "sale price"
+      ],
+      "related": ["vat", "profit-margin"],
+      "engine": "percentage.ts",
+      "dataFiles": [],
+      "figma": {"mobile": ["28:6970"], "desktop": ["68:4983"]}
+    },
+    {
+      "id": "profit-margin",
+      "kind": "tool",
+      "section": "calculators",
+      "priority": "launch",
+      "route": {"bn": "/tools/profit-margin", "en": "/en/tools/profit-margin"},
+      "name": {"bn": "লাভের মার্জিন ক্যালকুলেটর", "en": "Profit margin calculator"},
+      "shortName": {"bn": "লাভের মার্জিন", "en": "Profit margin"},
+      "description": {
+        "bn": "কেনা আর বেচার দাম দিলে লাভ, মার্জিন আর মার্কআপ।",
+        "en": "Profit, margin and markup from the buying and selling price."
+      },
+      "breadcrumb": {"bn": ["ক্যালকুলেটর", "লাভ"], "en": ["Calculators", "Profit"]},
+      "keywords": [
+        "লাভ", "মার্জিন", "মার্কআপ", "বিক্রির দাম", "profit margin", "markup", "labh", "business profit",
+        "margin calculator"
+      ],
+      "related": ["delivery-profit", "discount-percentage", "vat"],
+      "engine": "profit-margin.ts",
+      "dataFiles": [],
+      "figma": {"mobile": ["28:7145"], "desktop": ["68:5225"]}
+    },
+    {
+      "id": "savings-goal",
+      "kind": "tool",
+      "section": "calculators",
+      "priority": "launch",
+      "route": {"bn": "/tools/savings-goal", "en": "/en/tools/savings-goal"},
+      "name": {"bn": "সঞ্চয় লক্ষ্য", "en": "Savings goal"},
+      "shortName": {"bn": "সঞ্চয় লক্ষ্য", "en": "Savings goal"},
+      "description": {
+        "bn": "নির্দিষ্ট সময়ে লক্ষ্যের টাকা জমাতে মাসে কত রাখতে হবে।",
+        "en": "How much to put aside each month to reach a goal by a set date."
+      },
+      "breadcrumb": {"bn": ["ক্যালকুলেটর", "সঞ্চয় লক্ষ্য"], "en": ["Calculators", "Savings goal"]},
+      "keywords": ["সঞ্চয়", "সঞ্চয় লক্ষ্য", "টাকা জমানো", "savings goal", "saving plan", "sonchoy", "monthly saving"],
+      "related": ["dps", "fdr"],
+      "engine": "savings-goal.ts",
+      "dataFiles": ["finance/savings-goal-presets.json"],
+      "figma": {"mobile": ["28:7332"], "desktop": ["68:5478"]}
+    },
+    {
+      "id": "salary",
+      "kind": "tool",
+      "section": "calculators",
+      "priority": "launch",
+      "route": {"bn": "/tools/salary", "en": "/en/tools/salary"},
+      "name": {"bn": "বেতন ভাগ", "en": "Salary breakdown"},
+      "shortName": {"bn": "বেতন ভাগ", "en": "Salary breakdown"},
+      "description": {
+        "bn": "মোট বেতন থেকে বেসিক, বাড়িভাড়া, মেডিকেল আর যাতায়াত ভাতা।",
+        "en": "Basic, house rent, medical and conveyance from your gross salary."
+      },
+      "breadcrumb": {"bn": ["ক্যালকুলেটর", "বেতন"], "en": ["Calculators", "Salary"]},
+      "keywords": [
+        "বেতন", "বেসিক", "বাড়িভাড়া", "salary breakdown", "basic salary", "gross salary",
+        "house rent allowance", "beton", "salary calculator"
+      ],
+      "related": ["income-tax"],
+      "engine": "salary.ts",
+      "dataFiles": ["finance/salary-presets.json"],
+      "figma": {"mobile": ["28:7512"], "desktop": ["68:5723"]}
+    },
+    {
+      "id": "income-tax",
+      "kind": "tool",
+      "section": "calculators",
+      "priority": "launch",
+      "route": {"bn": "/tools/income-tax", "en": "/en/tools/income-tax"},
+      "name": {"bn": "আয়কর ক্যালকুলেটর", "en": "Income tax calculator"},
+      "shortName": {"bn": "আয়কর", "en": "Income tax"},
+      "description": {
+        "bn": "বছরের আয় দিলে স্ল্যাব অনুযায়ী কত কর আসবে।",
+        "en": "Enter your yearly income to see the tax by slab."
+      },
+      "breadcrumb": {"bn": ["ক্যালকুলেটর", "আয়কর"], "en": ["Calculators", "Income tax"]},
+      "keywords": [
+        "আয়কর", "ট্যাক্স", "কর", "ফ্রিল্যান্সার", "রিটার্ন", "income tax", "tax calculator",
+        "tax calculater", "aykor", "freelancer tax", "tax slab", "tax return"
+      ],
+      "related": ["salary", "sanchayapatra"],
+      "engine": "income-tax.ts",
+      "dataFiles": ["income-tax-2026-27.json"],
+      "figma": {"mobile": ["28:7708", "64:21554"], "desktop": ["68:6010", "69:39942"]}
+    },
+    {
+      "id": "sanchayapatra",
+      "kind": "tool",
+      "section": "calculators",
+      "priority": "launch",
+      "route": {"bn": "/tools/sanchayapatra", "en": "/en/tools/sanchayapatra"},
+      "name": {"bn": "সঞ্চয়পত্র মুনাফা", "en": "Sanchayapatra profit"},
+      "shortName": {"bn": "সঞ্চয়পত্র", "en": "Sanchayapatra"},
+      "description": {
+        "bn": "স্কিম আর টাকার পরিমাণ দিলে মুনাফা, উৎসে কর আর হাতে কত পাবে।",
+        "en": "Profit, source tax and take-home amount for a savings certificate scheme."
+      },
+      "breadcrumb": {"bn": ["ক্যালকুলেটর", "সঞ্চয়পত্র"], "en": ["Calculators", "Sanchayapatra"]},
+      "keywords": [
+        "সঞ্চয়পত্র", "পরিবার সঞ্চয়পত্র", "পেনশনার সঞ্চয়পত্র", "sanchayapatra", "sanchaypatra",
+        "sonchoypotro", "savings certificate", "paribar sanchayapatra"
+      ],
+      "related": ["fdr", "dps", "income-tax"],
+      "engine": "sanchayapatra.ts",
+      "dataFiles": ["finance/sanchayapatra.json"],
+      "figma": {"mobile": ["29:7661"], "desktop": ["68:6269"]}
+    },
+    {
+      "id": "data-pack",
+      "kind": "tool",
+      "section": "calculators",
+      "priority": "launch",
+      "route": {"bn": "/tools/data-pack", "en": "/en/tools/data-pack"},
+      "name": {"bn": "মোবাইল ডেটা প্যাক তুলনা", "en": "Mobile data pack comparison"},
+      "shortName": {"bn": "মোবাইল ডেটা প্যাক", "en": "Mobile data pack"},
+      "description": {
+        "bn": "বাজেট আর মেয়াদ দিলে চার অপারেটরের প্যাক পাশাপাশি।",
+        "en": "Packs from the four operators side by side for your budget and validity."
+      },
+      "breadcrumb": {"bn": ["ক্যালকুলেটর", "ডেটা প্যাক"], "en": ["Calculators", "Data pack"]},
+      "keywords": [
+        "ডেটা প্যাক", "ইন্টারনেট প্যাক", "এমবি", "জিপি", "data pack", "internet pack", "gp internet", "robi",
+        "banglalink", "teletalk", "airtel", "mb offer"
+      ],
+      "related": ["electricity-bill", "mess"],
+      "engine": "data-pack.ts",
+      "dataFiles": ["data-packs.json"],
+      "figma": {"mobile": ["29:7863"], "desktop": ["68:6553"]}
+    },
+    {
+      "id": "age",
+      "kind": "tool",
+      "section": "date-land-gold",
+      "priority": "launch",
+      "route": {"bn": "/tools/age", "en": "/en/tools/age"},
+      "name": {"bn": "বয়স ক্যালকুলেটর", "en": "Age calculator"},
+      "shortName": {"bn": "বয়স", "en": "Age"},
+      "description": {
+        "bn": "জন্ম তারিখ থেকে যেকোনো তারিখে বয়স কত, বছর-মাস-দিনে।",
+        "en": "Your age on any date from your date of birth, in years, months and days."
+      },
+      "breadcrumb": {"bn": ["তারিখ ও বয়স", "বয়স"], "en": ["Date and age", "Age"]},
+      "keywords": [
+        "বয়স", "বয়স ক্যালকুলেটর", "জন্ম তারিখ", "age calculator", "age calculater", "boyos",
+        "jonmo tarikh", "date of birth"
+      ],
+      "related": ["job-age-limit", "day-count"],
+      "engine": "age.ts",
+      "dataFiles": [],
+      "figma": {"mobile": ["29:8051"], "desktop": ["68:6790"]}
+    },
+    {
+      "id": "job-age-limit",
+      "kind": "tool",
+      "section": "date-land-gold",
+      "priority": "launch",
+      "route": {"bn": "/tools/job-age-limit", "en": "/en/tools/job-age-limit"},
+      "name": {"bn": "সরকারি চাকরির বয়সসীমা", "en": "Government job age limit"},
+      "shortName": {"bn": "বয়সসীমা", "en": "Age limit"},
+      "description": {
+        "bn": "সার্কুলারের তারিখে তোমার বয়স কত, আর আবেদন করা যাবে কিনা।",
+        "en": "Your age on the circular date, and whether you can still apply."
+      },
+      "breadcrumb": {"bn": ["তারিখ ও বয়স", "বয়সসীমা"], "en": ["Date and age", "Age limit"]},
+      "keywords": [
+        "বয়সসীমা", "সরকারি চাকরি", "চাকরির বয়স", "bcs age limit", "job age limit", "govt job age",
+        "sorkari chakri", "age limit"
+      ],
+      "related": ["age", "day-count"],
+      "engine": "job-age-limit.ts",
+      "dataFiles": ["jobs/govt-age-limit.json"],
+      "figma": {"mobile": ["29:8239"], "desktop": ["68:7039"]}
+    },
+    {
+      "id": "bangla-date",
+      "kind": "tool",
+      "section": "date-land-gold",
+      "priority": "launch",
+      "route": {"bn": "/tools/bangla-date", "en": "/en/tools/bangla-date"},
+      "name": {"bn": "বাংলা তারিখ কনভার্টার", "en": "Bangla date converter"},
+      "shortName": {"bn": "বাংলা তারিখ", "en": "Bangla date"},
+      "description": {
+        "bn": "যেকোনো ইংরেজি তারিখের বাংলা তারিখ, মাস আর ঋতু।",
+        "en": "The Bangla date, month and season for any English date."
+      },
+      "breadcrumb": {"bn": ["তারিখ ও বয়স", "বাংলা তারিখ"], "en": ["Date and age", "Bangla date"]},
+      "keywords": [
+        "বাংলা তারিখ", "আজ কত তারিখ", "বঙ্গাব্দ", "পহেলা বৈশাখ", "bangla date", "bangla calendar",
+        "bengali date", "aj koto tarikh", "pohela boishakh"
+      ],
+      "related": ["hijri-date", "day-count"],
+      "engine": "bangla-date.ts",
+      "dataFiles": ["dates/special-days.json"],
+      "figma": {"mobile": ["29:8406", "60:18179"], "desktop": ["68:7265", "69:38230"]}
+    },
+    {
+      "id": "hijri-date",
+      "kind": "tool",
+      "section": "date-land-gold",
+      "priority": "launch",
+      "route": {"bn": "/tools/hijri-date", "en": "/en/tools/hijri-date"},
+      "name": {"bn": "হিজরি তারিখ", "en": "Hijri date"},
+      "shortName": {"bn": "হিজরি", "en": "Hijri"},
+      "description": {
+        "bn": "আজকের ও যেকোনো দিনের হিজরি তারিখ, চাঁদ দেখার অ্যাডজাস্ট সহ।",
+        "en": "Today's or any day's Hijri date, with the moon-sighting adjustment."
+      },
+      "breadcrumb": {"bn": ["তারিখ ও বয়স", "হিজরি"], "en": ["Date and age", "Hijri"]},
+      "keywords": [
+        "হিজরি", "আরবি তারিখ", "চাঁদের তারিখ", "hijri date", "islamic date", "arabic date", "hijri calendar",
+        "ajker arabi tarikh"
+      ],
+      "related": ["bangla-date", "sehri-iftar"],
+      "engine": "hijri-date.ts",
+      "dataFiles": ["dates/hijri-offset.json"],
+      "figma": {"mobile": ["29:8587"], "desktop": ["68:7511"]}
+    },
+    {
+      "id": "day-count",
+      "kind": "tool",
+      "section": "date-land-gold",
+      "priority": "launch",
+      "route": {"bn": "/tools/day-count", "en": "/en/tools/day-count"},
+      "name": {"bn": "দিন গণনা", "en": "Day count"},
+      "shortName": {"bn": "দিন গণনা", "en": "Day count"},
+      "description": {"bn": "দুই তারিখের মাঝে কত দিন, সপ্তাহ আর মাস।", "en": "Days, weeks and months between two dates."},
+      "breadcrumb": {"bn": ["তারিখ ও বয়স", "দিন গণনা"], "en": ["Date and age", "Day count"]},
+      "keywords": ["দিন গণনা", "কত দিন", "ছুটি", "day count", "days between dates", "date difference", "din gonona"],
+      "related": ["age", "bangla-date"],
+      "engine": "day-count.ts",
+      "dataFiles": ["dates/weekend.json", "dates/holidays-2026.json"],
+      "figma": {"mobile": ["31:8462"], "desktop": ["68:7759"]}
+    },
+    {
+      "id": "land-converter",
+      "kind": "tool",
+      "section": "date-land-gold",
+      "priority": "launch",
+      "route": {"bn": "/tools/land-converter", "en": "/en/tools/land-converter"},
+      "name": {"bn": "জমি মাপের কনভার্টার", "en": "Land measurement converter"},
+      "shortName": {"bn": "জমি কনভার্টার", "en": "Land converter"},
+      "description": {
+        "bn": "শতাংশ, কাঠা, বিঘা, একর, বর্গফুট একসাথে। এলাকা অনুযায়ী কাঠার মাপ বেছে নাও।",
+        "en": "Decimal, katha, bigha, acre and square feet together. Pick the katha size used in your area."
+      },
+      "breadcrumb": {"bn": ["জমি ও সোনা", "জমি কনভার্টার"], "en": ["Land and gold", "Land converter"]},
+      "keywords": [
+        "জমি", "কাঠা", "বিঘা", "শতাংশ", "ডেসিমাল", "একর", "বর্গফুট", "কানি", "land converter", "katha",
+        "kotha", "bigha", "decimal", "shotangsho", "acre", "sqft", "jomi mapa", "kani"
+      ],
+      "related": ["land-price", "guide-namjari"],
+      "engine": "land.ts",
+      "dataFiles": ["land/conventions.json"],
+      "figma": {"mobile": ["31:8623"], "desktop": ["68:8014"]}
+    },
+    {
+      "id": "land-price",
+      "kind": "tool",
+      "section": "date-land-gold",
+      "priority": "launch",
+      "route": {"bn": "/tools/land-price", "en": "/en/tools/land-price"},
+      "name": {"bn": "জমির দাম ক্যালকুলেটর", "en": "Land price calculator"},
+      "shortName": {"bn": "জমির দাম", "en": "Land price"},
+      "description": {
+        "bn": "জমির পরিমাণ আর একক প্রতি দাম দিলে মোট দাম, আর অন্য এককে দাম।",
+        "en": "Total price from the land size and the price per unit, and the price in other units."
+      },
+      "breadcrumb": {"bn": ["জমি ও সোনা", "জমির দাম"], "en": ["Land and gold", "Land price"]},
+      "keywords": [
+        "জমির দাম", "কাঠা প্রতি দাম", "রেজিস্ট্রি খরচ", "land price", "jomir dam", "registration cost",
+        "land value"
+      ],
+      "related": ["land-converter", "guide-namjari"],
+      "engine": "land-price.ts",
+      "dataFiles": ["land/registration-costs.json"],
+      "figma": {"mobile": ["31:8835"], "desktop": ["68:8251"]}
+    },
+    {
+      "id": "gold-converter",
+      "kind": "tool",
+      "section": "date-land-gold",
+      "priority": "launch",
+      "route": {"bn": "/tools/gold-converter", "en": "/en/tools/gold-converter"},
+      "name": {"bn": "সোনা-রুপা কনভার্টার", "en": "Gold and silver converter"},
+      "shortName": {"bn": "সোনা", "en": "Gold"},
+      "description": {
+        "bn": "ভরি, আনা, রতি আর গ্রাম একসাথে। দাম দিলে মোট মূল্যও দেখাবে।",
+        "en": "Bhori, ana, roti and grams together. Add a rate to see the total value."
+      },
+      "breadcrumb": {"bn": ["জমি ও সোনা", "সোনা"], "en": ["Land and gold", "Gold"]},
+      "keywords": [
+        "সোনা", "রুপা", "ভরি", "আনা", "রতি", "সোনার দাম", "gold", "silver", "vori", "bhori", "gold price",
+        "sonar dam", "22 carat", "gram"
+      ],
+      "related": ["jewelry-bill", "zakat"],
+      "engine": "gold.ts",
+      "dataFiles": ["gold/bajus-rates.json"],
+      "figma": {"mobile": ["31:9006"], "desktop": ["68:8527"]}
+    },
+    {
+      "id": "jewelry-bill",
+      "kind": "tool",
+      "section": "date-land-gold",
+      "priority": "launch",
+      "route": {"bn": "/tools/jewelry-bill", "en": "/en/tools/jewelry-bill"},
+      "name": {"bn": "গহনার বিল ক্যালকুলেটর", "en": "Jewellery bill calculator"},
+      "shortName": {"bn": "গহনার বিল", "en": "Jewellery bill"},
+      "description": {
+        "bn": "ওজন, রেট, মজুরি আর VAT দিলে দোকানের বিল কত আসবে।",
+        "en": "The shop bill from weight, rate, making charge and VAT."
+      },
+      "breadcrumb": {"bn": ["জমি ও সোনা", "গহনার বিল"], "en": ["Land and gold", "Jewellery bill"]},
+      "keywords": ["গহনা", "গয়না", "মজুরি", "jewelry bill", "jewellery", "gohona", "goyna", "making charge", "gold bill"],
+      "related": ["gold-converter", "zakat"],
+      "engine": "jewelry-bill.ts",
+      "dataFiles": ["gold/jewellery-rules.json", "gold/bajus-rates.json"],
+      "figma": {"mobile": ["31:9216"], "desktop": ["68:8774"]}
+    },
+    {
+      "id": "gpa",
+      "kind": "tool",
+      "section": "calculators",
+      "priority": "launch",
+      "route": {"bn": "/tools/gpa", "en": "/en/tools/gpa"},
+      "name": {"bn": "SSC ও HSC GPA ক্যালকুলেটর", "en": "SSC and HSC GPA calculator"},
+      "shortName": {"bn": "GPA", "en": "GPA"},
+      "description": {
+        "bn": "প্রতিটা বিষয়ের গ্রেড বেছে নাও, ৪র্থ বিষয়ের বোনাস সহ GPA দেখাবে।",
+        "en": "Pick each subject's grade to get your GPA, with the 4th-subject bonus."
+      },
+      "breadcrumb": {"bn": ["শিক্ষা", "GPA"], "en": ["Education", "GPA"]},
+      "keywords": [
+        "GPA", "জিপিএ", "এসএসসি", "এইচএসসি", "দাখিল", "আলিম", "রেজাল্ট", "চতুর্থ বিষয়", "gpa calculator",
+        "gpa calculater", "ssc gpa", "hsc gpa", "result", "4th subject"
+      ],
+      "related": ["cgpa", "guides-education"],
+      "engine": "gpa.ts",
+      "dataFiles": ["education/board-grading.json", "education/board-subjects.json"],
+      "figma": {"mobile": ["32:9141", "64:21757"], "desktop": ["68:9069", "69:40220"]}
+    },
+    {
+      "id": "cgpa",
+      "kind": "tool",
+      "section": "calculators",
+      "priority": "launch",
+      "route": {"bn": "/tools/cgpa", "en": "/en/tools/cgpa"},
+      "name": {"bn": "ভার্সিটি CGPA ক্যালকুলেটর", "en": "University CGPA calculator"},
+      "shortName": {"bn": "CGPA", "en": "CGPA"},
+      "description": {
+        "bn": "প্রতি সেমিস্টারের GPA আর ক্রেডিট দিলে মোট CGPA, আর টার্গেট ছুঁতে কত লাগবে।",
+        "en": "Overall CGPA from each semester's GPA and credits, and what you need to reach a target."
+      },
+      "breadcrumb": {"bn": ["শিক্ষা", "CGPA"], "en": ["Education", "CGPA"]},
+      "keywords": [
+        "CGPA", "সিজিপিএ", "সেমিস্টার", "cgpa calculator", "university result", "semester", "varsity",
+        "target cgpa"
+      ],
+      "related": ["gpa"],
+      "engine": "cgpa.ts",
+      "dataFiles": ["education/ugc-grading.json"],
+      "figma": {"mobile": ["32:9391", "76:45268"], "desktop": ["68:9337", "77:19655"]}
+    },
+    {
+      "id": "mess",
+      "kind": "tool",
+      "section": "calculators",
+      "priority": "launch",
+      "route": {"bn": "/tools/mess", "en": "/en/tools/mess"},
+      "name": {"bn": "মেস হিসাব", "en": "Mess accounts"},
+      "shortName": {"bn": "মেস হিসাব", "en": "Mess accounts"},
+      "description": {
+        "bn": "মাসের বাজার, মিল আর কে কত জমা দিয়েছে, দিলেই কে কত দেবে বা পাবে।",
+        "en": "Enter the month's bazar, meals and deposits to see who owes or gets how much."
+      },
+      "breadcrumb": {"bn": ["দৈনন্দিন", "মেস হিসাব"], "en": ["Daily life", "Mess accounts"]},
+      "keywords": [
+        "মেস", "মেসের হিসাব", "মিল রেট", "বাজার", "mess hisab", "mess calculator", "meal rate", "mil rate",
+        "bachelor mess"
+      ],
+      "related": ["rent-split", "electricity-bill"],
+      "engine": "mess.ts",
+      "dataFiles": [],
+      "figma": {"mobile": ["32:9600"], "desktop": ["68:9664"]}
+    },
+    {
+      "id": "rent-split",
+      "kind": "tool",
+      "section": "calculators",
+      "priority": "launch",
+      "route": {"bn": "/tools/rent-split", "en": "/en/tools/rent-split"},
+      "name": {"bn": "ভাড়া ভাগ", "en": "Rent split"},
+      "shortName": {"bn": "ভাড়া ভাগ", "en": "Rent split"},
+      "description": {
+        "bn": "বাসা ভাড়া আর বিল রুমমেটদের মধ্যে সমান বা রুম অনুযায়ী ভাগ।",
+        "en": "Split rent and bills between roommates equally or by room size."
+      },
+      "breadcrumb": {"bn": ["দৈনন্দিন", "ভাড়া ভাগ"], "en": ["Daily life", "Rent split"]},
+      "keywords": ["ভাড়া", "বাসা ভাড়া", "রুমমেট", "rent split", "house rent", "bhara", "roommate", "flat rent"],
+      "related": ["mess", "electricity-bill"],
+      "engine": "rent-split.ts",
+      "dataFiles": [],
+      "figma": {"mobile": ["32:9869", "60:18356", "76:45698"], "desktop": ["68:9953", "69:38497", "77:20123"]}
+    },
+    {
+      "id": "electricity-bill",
+      "kind": "tool",
+      "section": "calculators",
+      "priority": "launch",
+      "route": {"bn": "/tools/electricity-bill", "en": "/en/tools/electricity-bill"},
+      "name": {"bn": "বিদ্যুৎ বিল ক্যালকুলেটর", "en": "Electricity bill calculator"},
+      "shortName": {"bn": "বিদ্যুৎ বিল", "en": "Electricity bill"},
+      "description": {
+        "bn": "ইউনিট দিলে ধাপ অনুযায়ী বিল, ডিমান্ড চার্জ আর VAT সহ কত আসবে।",
+        "en": "Your bill by slab from the units used, with demand charge and VAT."
+      },
+      "breadcrumb": {"bn": ["দৈনন্দিন", "বিদ্যুৎ বিল"], "en": ["Daily life", "Electricity bill"]},
+      "keywords": [
+        "বিদ্যুৎ বিল", "কারেন্ট বিল", "ইউনিট", "পল্লী বিদ্যুৎ", "electricity bill", "current bill",
+        "biddut bill", "desco", "dpdc", "palli bidyut", "nesco", "prepaid meter", "unit price"
+      ],
+      "related": ["rent-split", "mess", "mfs-bkash-bill-pay"],
+      "engine": "electricity-bill.ts",
+      "dataFiles": ["electricity-tariff.json"],
+      "figma": {"mobile": ["32:10067"], "desktop": ["68:10233"]}
+    },
+    {
+      "id": "delivery-profit",
+      "kind": "tool",
+      "section": "calculators",
+      "priority": "launch",
+      "route": {"bn": "/tools/delivery-profit", "en": "/en/tools/delivery-profit"},
+      "name": {"bn": "ডেলিভারি চার্জ ও লাভ", "en": "Delivery charge and profit"},
+      "shortName": {"bn": "ডেলিভারি ও লাভ", "en": "Delivery and profit"},
+      "description": {
+        "bn": "অনলাইনে বিক্রি করলে কুরিয়ার চার্জ আর COD চার্জ কেটে আসল লাভ কত।",
+        "en": "Your real profit on an online sale after courier and COD charges."
+      },
+      "breadcrumb": {"bn": ["দৈনন্দিন", "ডেলিভারি ও লাভ"], "en": ["Daily life", "Delivery and profit"]},
+      "keywords": [
+        "ডেলিভারি চার্জ", "কুরিয়ার", "অনলাইন ব্যবসা", "delivery charge", "courier charge", "cod charge",
+        "steadfast", "pathao", "redx", "f-commerce", "online business"
+      ],
+      "related": ["profit-margin", "invoice"],
+      "engine": "delivery-profit.ts",
+      "dataFiles": ["commerce/couriers.json", "commerce/delivery-zones.json"],
+      "figma": {"mobile": ["32:10283"], "desktop": ["68:10484"]}
+    },
+    {
+      "id": "invoice",
+      "kind": "tool",
+      "section": "calculators",
+      "priority": "launch",
+      "route": {"bn": "/tools/invoice", "en": "/en/tools/invoice"},
+      "name": {"bn": "ইনভয়েস মেকার", "en": "Invoice maker"},
+      "shortName": {"bn": "ইনভয়েস", "en": "Invoice"},
+      "description": {
+        "bn": "ফ্রিল্যান্সার আর ছোট ব্যবসার জন্য। তথ্য দাও, PDF ইনভয়েস নামাও।",
+        "en": "For freelancers and small businesses. Fill in the details and download a PDF invoice."
+      },
+      "breadcrumb": {"bn": ["দৈনন্দিন", "ইনভয়েস"], "en": ["Daily life", "Invoice"]},
+      "keywords": [
+        "ইনভয়েস", "বিল", "রসিদ", "ক্যাশ মেমো", "invoice", "invoice maker", "bill maker", "receipt",
+        "freelancer invoice", "pdf invoice", "cash memo"
+      ],
+      "related": ["vat", "delivery-profit", "number-to-words"],
+      "engine": "invoice.ts",
+      "dataFiles": ["commerce/vat-rates.json"],
+      "figma": {"mobile": ["34:10083", "76:45491"], "desktop": ["68:10777", "77:19914"]}
+    },
+    {
+      "id": "zakat",
+      "kind": "tool",
+      "section": "calculators",
+      "priority": "launch",
+      "route": {"bn": "/tools/zakat", "en": "/en/tools/zakat"},
+      "name": {"bn": "যাকাত ক্যালকুলেটর", "en": "Zakat calculator"},
+      "shortName": {"bn": "যাকাত", "en": "Zakat"},
+      "description": {
+        "bn": "সম্পদ আর দেনা দিলে নিসাব পূর্ণ হয়েছে কিনা, আর যাকাত কত।",
+        "en": "Whether your wealth meets the nisab after debts, and how much zakat is due."
+      },
+      "breadcrumb": {"bn": ["ধর্ম", "যাকাত"], "en": ["Religion", "Zakat"]},
+      "keywords": ["যাকাত", "জাকাত", "নিসাব", "যাকাতের হিসাব", "zakat", "jakat", "zakat calculator", "nisab"],
+      "related": ["fitra", "gold-converter"],
+      "engine": "zakat.ts",
+      "dataFiles": ["religion/zakat.json", "gold/bajus-rates.json"],
+      "figma": {"mobile": ["34:10298"], "desktop": ["68:11035"]}
+    },
+    {
+      "id": "fitra",
+      "kind": "tool",
+      "section": "calculators",
+      "priority": "launch",
+      "route": {"bn": "/tools/fitra", "en": "/en/tools/fitra"},
+      "name": {"bn": "ফিতরা ক্যালকুলেটর", "en": "Fitra calculator"},
+      "shortName": {"bn": "ফিতরা", "en": "Fitra"},
+      "description": {
+        "bn": "পরিবারের সদস্য আর পণ্যের ধরন বেছে মোট ফিতরা।",
+        "en": "Total fitra for your family by the item you choose."
+      },
+      "breadcrumb": {"bn": ["ধর্ম", "ফিতরা"], "en": ["Religion", "Fitra"]},
+      "keywords": ["ফিতরা", "সদকাতুল ফিতর", "fitra", "fitrah", "sadaqatul fitr", "fitra amount"],
+      "related": ["zakat", "sehri-iftar"],
+      "engine": "fitra.ts",
+      "dataFiles": ["religion/fitra.json"],
+      "figma": {"mobile": ["34:10519"], "desktop": ["68:11339"]}
+    },
+    {
+      "id": "sehri-iftar",
+      "kind": "tool",
+      "section": "calculators",
+      "priority": "launch",
+      "route": {"bn": "/tools/sehri-iftar", "en": "/en/tools/sehri-iftar"},
+      "name": {"bn": "সেহরি ও ইফতারের সময়", "en": "Sehri and iftar times"},
+      "shortName": {"bn": "সেহরি ও ইফতার", "en": "Sehri and iftar"},
+      "description": {
+        "bn": "জেলা বেছে নাও, আজকের আর পুরো রমজানের সময়সূচি।",
+        "en": "Pick your district for today's times and the full Ramadan timetable."
+      },
+      "breadcrumb": {"bn": ["ধর্ম", "সেহরি ও ইফতার"], "en": ["Religion", "Sehri and iftar"]},
+      "keywords": [
+        "সেহরি", "ইফতার", "রমজান", "রোজা", "সময়সূচি", "sehri", "iftar", "ramadan", "ramzan", "roja",
+        "sehri time", "iftar time"
+      ],
+      "related": ["fitra", "hijri-date", "zakat"],
+      "engine": "sehri-iftar.ts",
+      "dataFiles": ["religion/sehri-iftar-method.json", "religion/ramadan.json", "districts.json"],
+      "figma": {"mobile": ["34:10709"], "desktop": ["68:11606"]}
+    },
+    {
+      "id": "unicode-bijoy",
+      "kind": "tool",
+      "section": "calculators",
+      "priority": "launch",
+      "route": {"bn": "/tools/unicode-bijoy", "en": "/en/tools/unicode-bijoy"},
+      "name": {"bn": "ইউনিকোড-বিজয় কনভার্টার", "en": "Unicode to Bijoy converter"},
+      "description": {
+        "bn": "ইউনিকোড বাংলা লেখাকে বিজয় (SutonnyMJ) তে, বা উল্টোটা।",
+        "en": "Convert Unicode Bangla text to Bijoy (SutonnyMJ), or back."
+      },
+      "breadcrumb": {"bn": ["বাংলা লেখা", "কনভার্টার"], "en": ["Bangla writing", "Converter"]},
+      "keywords": [
+        "বিজয়", "ইউনিকোড", "সুতন্নি", "অভ্র", "bijoy", "unicode", "sutonnymj", "sutonny",
+        "unicode to bijoy", "bijoy to unicode", "avro", "font converter"
+      ],
+      "related": ["font-style", "number-to-words"],
+      "engine": "bijoy.ts",
+      "dataFiles": [],
+      "figma": {"mobile": ["34:10896", "64:22007", "76:45938"], "desktop": ["68:11824", "69:40475", "77:20323"]}
+    },
+    {
+      "id": "font-style",
+      "kind": "tool",
+      "section": "calculators",
+      "priority": "launch",
+      "route": {"bn": "/tools/font-style", "en": "/en/tools/font-style"},
+      "name": {"bn": "ফন্ট স্টাইল জেনারেটর", "en": "Font style generator"},
+      "shortName": {"bn": "ফন্ট স্টাইল", "en": "Font style"},
+      "description": {
+        "bn": "ফেসবুক বায়ো, ইনস্টাগ্রাম নাম বা পোস্টের জন্য স্টাইলিশ লেখা। কপি করে বসিয়ে দাও।",
+        "en": "Stylish text for a Facebook bio, Instagram name or post. Copy and paste it."
+      },
+      "breadcrumb": {"bn": ["বাংলা লেখা", "ফন্ট স্টাইল"], "en": ["Bangla writing", "Font style"]},
+      "keywords": [
+        "ফন্ট স্টাইল", "স্টাইলিশ নাম", "font style", "stylish name", "fancy text", "facebook bio",
+        "instagram font", "stylish font"
+      ],
+      "related": ["unicode-bijoy"],
+      "engine": "font-style.ts",
+      "dataFiles": [],
+      "figma": {"mobile": ["34:11052"], "desktop": ["68:12045"]}
+    },
+    {
+      "id": "number-to-words",
+      "kind": "tool",
+      "section": "calculators",
+      "priority": "launch",
+      "route": {"bn": "/tools/number-to-words", "en": "/en/tools/number-to-words"},
+      "name": {"bn": "সংখ্যা থেকে কথা", "en": "Number to words"},
+      "shortName": {"bn": "সংখ্যা থেকে কথা", "en": "Number to words"},
+      "description": {
+        "bn": "চেক, রসিদ বা দলিলে টাকার অঙ্ক কথায় লেখার জন্য।",
+        "en": "Write an amount in words for a cheque, receipt or deed."
+      },
+      "breadcrumb": {"bn": ["বাংলা লেখা", "সংখ্যা থেকে কথা"], "en": ["Bangla writing", "Number to words"]},
+      "keywords": [
+        "কথায়", "সংখ্যা কথায়", "টাকা কথায়", "কথায় লেখা", "number to words", "amount in words",
+        "in words", "cheque", "taka in words", "lakh"
+      ],
+      "related": ["invoice", "unicode-bijoy"],
+      "engine": "number-words.ts",
+      "dataFiles": [],
+      "figma": {"mobile": ["35:10878", "64:22147"], "desktop": ["68:12242", "69:40676"]}
+    },
+    {
+      "id": "name-spelling",
+      "kind": "tool",
+      "section": "sorkari-kaj",
+      "priority": "launch",
+      "route": {"bn": "/tools/name-spelling", "en": "/en/tools/name-spelling"},
+      "name": {"bn": "নাম-বানান মিল চেকার", "en": "Name spelling match checker"},
+      "shortName": {"bn": "নাম-বানান মিল চেকার", "en": "Name spelling checker"},
+      "description": {
+        "bn": "NID, সনদ, পাসপোর্টে নাম আর বাবা-মায়ের নাম এক বানানে আছে কিনা দেখো।",
+        "en": "Check that your name and your parents' names are spelt the same on your NID, certificates and passport."
+      },
+      "breadcrumb": {"bn": ["সরকারি কাজ", "নাম-বানান মিল"], "en": ["Government services", "Name spelling match"]},
+      "keywords": [
+        "নামের বানান", "নাম মিল", "বানান", "মোঃ", "মোহাম্মদ", "name spelling", "name mismatch", "nid name",
+        "md mohammad", "nam banan"
+      ],
+      "related": ["guide-nid-correction", "guide-e-passport", "guide-birth-registration"],
+      "engine": null,
+      "dataFiles": ["text/name-variants.json"],
+      "figma": {"mobile": ["35:11001"], "desktop": ["68:12441"]}
+    },
+    {
+      "id": "bank-list",
+      "kind": "bank",
+      "section": "bank",
+      "priority": "launch",
+      "route": {"bn": "/bank/list", "en": "/en/bank/list"},
+      "name": {"bn": "ব্যাংক তালিকা", "en": "Bank list"},
+      "description": {
+        "bn": "লোন, DPS আর FDR রেট এক জায়গায়, ২-৩টা ব্যাংক পাশাপাশি তুলনা করো।",
+        "en": "Loan, DPS and FDR rates in one place. Compare 2-3 banks side by side."
+      },
+      "breadcrumb": {"bn": ["ব্যাংক"], "en": ["Banks"]},
+      "keywords": [
+        "ব্যাংক", "ব্যাংক তালিকা", "ব্যাংকের রেট", "ইসলামী ব্যাংক", "bank list", "bank rates", "fdr rate",
+        "dps rate", "loan rate", "islamic bank"
+      ],
+      "related": ["bank-compare", "fdr", "dps", "emi"],
+      "engine": null,
+      "dataFiles": ["banks.json"],
+      "figma": {"mobile": ["15:1050", "57:15169"], "desktop": ["66:1584", "69:36141"]}
+    },
+    {
+      "id": "bank-detail-fdr",
+      "kind": "bank",
+      "section": "bank",
+      "priority": "launch",
+      "route": {"bn": "/bank/[bank]/fdr", "en": "/en/bank/[bank]/fdr"},
+      "name": {"bn": "FDR রেট, মেয়াদ অনুযায়ী", "en": "FDR rates by term"},
+      "shortName": {"bn": "FDR", "en": "FDR"},
+      "description": {
+        "bn": "এই ব্যাংকে FDR করলে মেয়াদ শেষে কত পাবে, আর মেয়াদ অনুযায়ী FDR রেট।",
+        "en": "This bank's FDR rates by term, and what a deposit returns at maturity."
+      },
+      "breadcrumb": {"bn": ["ব্যাংক"], "en": ["Banks"]},
+      "keywords": [
+        "ব্যাংকের FDR রেট", "FDR রেট", "bank fdr rate", "brac bank fdr", "dbbl fdr rate",
+        "fixed deposit rate", "ব্র্যাক ব্যাংক", "ডাচ-বাংলা", "brac bank", "dutch bangla bank", "dbbl"
+      ],
+      "related": ["fdr", "bank-detail-dps", "bank-detail-loan", "bank-detail-account", "bank-detail-card"],
+      "engine": "fdr.ts",
+      "dataFiles": ["banks.json", "finance/interest-tax.json", "finance/excise-duty.json"],
+      "figma": {"mobile": ["15:1233"], "desktop": ["66:1822"]},
+      "draftCopy": true
+    },
+    {
+      "id": "bank-detail-dps",
+      "kind": "bank",
+      "section": "bank",
+      "priority": "launch",
+      "route": {"bn": "/bank/[bank]/dps", "en": "/en/bank/[bank]/dps"},
+      "name": {"bn": "DPS রেট", "en": "DPS rates"},
+      "shortName": {"bn": "DPS", "en": "DPS"},
+      "description": {
+        "bn": "এই ব্যাংকে DPS করলে মেয়াদ শেষে হাতে কত পাবে, আর DPS রেট।",
+        "en": "This bank's DPS rates, and what you get in hand at maturity."
+      },
+      "breadcrumb": {"bn": ["ব্যাংক"], "en": ["Banks"]},
+      "keywords": [
+        "ব্যাংকের DPS রেট", "DPS রেট", "bank dps rate", "brac bank dps", "dps interest rate",
+        "ব্র্যাক ব্যাংক", "ডাচ-বাংলা", "brac bank", "dutch bangla bank", "dbbl"
+      ],
+      "related": ["dps", "bank-detail-fdr", "bank-detail-loan", "bank-detail-account", "bank-detail-card"],
+      "engine": "dps.ts",
+      "dataFiles": ["banks.json", "finance/interest-tax.json", "finance/excise-duty.json"],
+      "figma": {"mobile": ["57:14466"], "desktop": ["69:13470"]},
+      "draftCopy": true
+    },
+    {
+      "id": "bank-detail-loan",
+      "kind": "bank",
+      "section": "bank",
+      "priority": "launch",
+      "route": {"bn": "/bank/[bank]/loan", "en": "/en/bank/[bank]/loan"},
+      "name": {"bn": "লোনের সুদহার", "en": "Loan interest rates"},
+      "shortName": {"bn": "লোন", "en": "Loan"},
+      "description": {
+        "bn": "লোনের সুদহার আর মাসিক কিস্তি (EMI)। প্রসেসিং ফি আর আগাম পরিশোধ চার্জ ব্যাংকের শিডিউল অব চার্জেসে থাকে।",
+        "en": "Loan interest rates and the monthly instalment (EMI). Processing and early settlement fees are in the bank's schedule of charges."
+      },
+      "breadcrumb": {"bn": ["ব্যাংক"], "en": ["Banks"]},
+      "keywords": [
+        "লোনের সুদহার", "পার্সোনাল লোন", "bank loan rate", "personal loan interest", "home loan rate",
+        "car loan rate", "ব্র্যাক ব্যাংক", "ডাচ-বাংলা", "brac bank", "dutch bangla bank", "dbbl"
+      ],
+      "related": ["emi", "loan-compare", "bank-detail-fdr", "bank-detail-dps", "bank-detail-account", "bank-detail-card"],
+      "engine": "emi.ts",
+      "dataFiles": ["banks.json"],
+      "figma": {"mobile": ["57:14646"], "desktop": ["69:35515"]},
+      "draftCopy": true
+    },
+    {
+      "id": "bank-detail-account",
+      "kind": "bank",
+      "section": "bank",
+      "priority": "launch",
+      "route": {"bn": "/bank/[bank]/account", "en": "/en/bank/[bank]/account"},
+      "name": {"bn": "সেভিংস অ্যাকাউন্টের খরচ", "en": "Savings account costs"},
+      "shortName": {"bn": "অ্যাকাউন্ট", "en": "Account"},
+      "description": {
+        "bn": "সেভিংস অ্যাকাউন্টের খরচ আর অ্যাকাউন্ট খুলতে যা লাগবে।",
+        "en": "Savings account costs and what you need to open an account."
+      },
+      "breadcrumb": {"bn": ["ব্যাংক"], "en": ["Banks"]},
+      "keywords": [
+        "সেভিংস অ্যাকাউন্ট", "অ্যাকাউন্ট খোলা", "savings account", "account opening", "bank account charge",
+        "minimum balance", "ব্র্যাক ব্যাংক", "ডাচ-বাংলা", "brac bank", "dutch bangla bank", "dbbl"
+      ],
+      "related": ["bank-list", "bank-detail-fdr", "bank-detail-dps", "bank-detail-loan", "bank-detail-card"],
+      "engine": null,
+      "dataFiles": ["banks.json"],
+      "figma": {"mobile": ["57:14831"], "desktop": ["69:35730"]},
+      "draftCopy": true
+    },
+    {
+      "id": "bank-detail-card",
+      "kind": "bank",
+      "section": "bank",
+      "priority": "launch",
+      "route": {"bn": "/bank/[bank]/card", "en": "/en/bank/[bank]/card"},
+      "name": {"bn": "ক্রেডিট কার্ড ও ডেবিট কার্ড", "en": "Credit and debit cards"},
+      "shortName": {"bn": "কার্ড", "en": "Card"},
+      "description": {
+        "bn": "এই ব্যাংকের ক্রেডিট কার্ড আর ডেবিট কার্ডের ফি ও সুবিধা।",
+        "en": "This bank's credit and debit card fees and features."
+      },
+      "breadcrumb": {"bn": ["ব্যাংক"], "en": ["Banks"]},
+      "keywords": [
+        "ক্রেডিট কার্ড", "ডেবিট কার্ড", "credit card", "debit card", "card fee", "annual fee", "visa card",
+        "ব্র্যাক ব্যাংক", "ডাচ-বাংলা", "brac bank", "dutch bangla bank", "dbbl"
+      ],
+      "related": ["bank-list", "bank-detail-fdr", "bank-detail-dps", "bank-detail-loan", "bank-detail-account"],
+      "engine": null,
+      "dataFiles": ["banks.json"],
+      "figma": {"mobile": ["57:15004"], "desktop": ["69:35945"]},
+      "draftCopy": true
+    },
+    {
+      "id": "bank-compare",
+      "kind": "bank",
+      "section": "bank",
+      "priority": "launch",
+      "route": {"bn": "/bank/compare", "en": "/en/bank/compare"},
+      "name": {"bn": "ব্যাংক তুলনা", "en": "Bank comparison"},
+      "description": {
+        "bn": "২-৩টা ব্যাংকের FDR, DPS আর লোন রেট পাশাপাশি। সবচেয়ে ভালো রেট সবুজ রঙে।",
+        "en": "FDR, DPS and loan rates of 2-3 banks side by side. The best rate is in green."
+      },
+      "breadcrumb": {"bn": ["ব্যাংক", "তুলনা"], "en": ["Banks", "Compare"]},
+      "keywords": [
+        "ব্যাংক তুলনা", "কোন ব্যাংক ভালো", "bank compare", "bank comparison", "best fdr rate", "best bank",
+        "fdr rate compare"
+      ],
+      "related": ["bank-list", "fdr", "loan-compare"],
+      "engine": null,
+      "dataFiles": ["banks.json"],
+      "figma": {"mobile": ["15:1385"], "desktop": ["66:2040"]},
+      "draftCopy": true
+    },
+    {
+      "id": "remittance-compare",
+      "kind": "remittance",
+      "section": "remittance",
+      "priority": "launch",
+      "route": {"bn": "/remittance/compare", "en": "/en/remittance/compare"},
+      "name": {"bn": "রেমিট্যান্স তুলনা", "en": "Remittance comparison"},
+      "shortName": {"bn": "রেমিট্যান্স তুলনা", "en": "Remittance comparison"},
+      "description": {
+        "bn": "বিদেশ থেকে টাকা পাঠালে কোন সার্ভিসে পরিবার বেশি টাকা পাবে।",
+        "en": "Which service gets your family the most taka when you send money from abroad."
+      },
+      "breadcrumb": {"bn": ["রেমিট্যান্স"], "en": ["Remittance"]},
+      "keywords": [
+        "রেমিট্যান্স", "বিদেশ থেকে টাকা পাঠানো", "প্রবাস থেকে টাকা", "প্রণোদনা", "remittance", "remitance",
+        "send money to bangladesh", "western union", "exchange house", "saudi to bangladesh",
+        "dubai to bangladesh", "incentive"
+      ],
+      "related": ["currency-converter", "guide-saudi-to-bkash", "guide-hundi"],
+      "engine": "currency.ts",
+      "dataFiles": ["remittance.json", "finance/currency-rates.json"],
+      "figma": {"mobile": ["16:1382"], "desktop": ["66:2217"]}
+    },
+    {
+      "id": "guide-wizard",
+      "kind": "guide",
+      "section": "sorkari-kaj",
+      "priority": "launch",
+      "route": {"bn": "/guides/wizard", "en": "/en/guides/wizard"},
+      "name": {"bn": "তোমার ঠিক কোন কাগজ লাগবে?", "en": "Which papers do you need?"},
+      "description": {
+        "bn": "৩টা প্রশ্নের উত্তর দাও, শুধু তোমার দরকারি কাগজের তালিকা পাবে।",
+        "en": "Answer 3 questions to get a list of only the papers you need."
+      },
+      "keywords": [
+        "কোন কাগজ লাগবে", "কাগজের তালিকা", "চেকলিস্ট", "আমার কী লাগবে", "documents needed", "checklist",
+        "kagoj", "required documents"
+      ],
+      "related": ["guide-nid-correction", "sorkari-kaj"],
+      "engine": null,
+      "dataFiles": ["guides/nid-correction.json"],
+      "figma": {
+        "mobile": ["17:1843", "62:19727", "62:19792", "17:1897"],
+        "desktop": ["70:22671", "70:22756", "70:22842", "70:22930"]
+      }
+    },
+    {
+      "id": "guide-nid-correction",
+      "kind": "guide",
+      "section": "sorkari-kaj",
+      "priority": "launch",
+      "route": {"bn": "/guides/nid-correction", "en": "/en/guides/nid-correction"},
+      "name": {"bn": "NID সংশোধন কিভাবে করবো", "en": "How to correct your NID"},
+      "description": {
+        "bn": "নাম, বাবা-মায়ের নাম, জন্ম তারিখ বা ঠিকানা ভুল থাকলে অনলাইনে আবেদন করার পুরো ধাপ।",
+        "en": "The full steps to apply online when your name, parents' names, date of birth or address is wrong."
+      },
+      "breadcrumb": {"bn": ["সরকারি কাজ", "NID"], "en": ["Government services", "NID"]},
+      "keywords": [
+        "NID সংশোধন", "এনআইডি", "জাতীয় পরিচয়পত্র", "ভোটার আইডি", "জন্ম তারিখ সংশোধন", "nid correction",
+        "nid songshodhon", "nid songsodhon", "nid card", "voter id correction", "nid name correction"
+      ],
+      "related": ["guide-wizard", "name-spelling", "guide-birth-registration"],
+      "engine": null,
+      "dataFiles": ["guides/nid-correction.json"],
+      "figma": {"mobile": ["17:1577"], "desktop": ["66:2466"]}
+    },
+    {
+      "id": "guide-e-passport",
+      "kind": "guide",
+      "section": "sorkari-kaj",
+      "priority": "launch",
+      "route": {"bn": "/guides/e-passport", "en": "/en/guides/e-passport"},
+      "name": {"bn": "ই-পাসপোর্ট: নতুন ও রিনিউ", "en": "e-Passport: new and renewal"},
+      "description": {
+        "bn": "অনলাইন আবেদন থেকে পাসপোর্ট হাতে পাওয়া পর্যন্ত পুরো ধাপ।",
+        "en": "Every step from the online application to getting your passport."
+      },
+      "breadcrumb": {"bn": ["সরকারি কাজ", "পাসপোর্ট"], "en": ["Government services", "Passport"]},
+      "keywords": [
+        "পাসপোর্ট", "ই-পাসপোর্ট", "পাসপোর্ট ফি", "e passport", "epassport", "passport renew", "passport fee",
+        "pasport"
+      ],
+      "related": ["name-spelling", "guide-police-clearance", "guide-nid-correction"],
+      "engine": null,
+      "dataFiles": ["guides/e-passport.json"],
+      "figma": {"mobile": ["35:11159"], "desktop": ["68:12657"]}
+    },
+    {
+      "id": "guide-birth-registration",
+      "kind": "guide",
+      "section": "sorkari-kaj",
+      "priority": "launch",
+      "route": {"bn": "/guides/birth-registration", "en": "/en/guides/birth-registration"},
+      "name": {"bn": "জন্ম নিবন্ধন: নতুন ও সংশোধন", "en": "Birth registration: new and correction"},
+      "description": {
+        "bn": "অনলাইনে আবেদন, প্রমাণ কাগজ আর অফিসে জমা দেওয়ার ধাপ।",
+        "en": "Applying online, the proof documents, and submitting at the office."
+      },
+      "breadcrumb": {"bn": ["সরকারি কাজ", "জন্ম নিবন্ধন"], "en": ["Government services", "Birth registration"]},
+      "keywords": [
+        "জন্ম নিবন্ধন", "জন্ম সনদ", "birth certificate", "birth registration", "jonmo nibondhon", "bdris",
+        "birth certificate correction"
+      ],
+      "related": ["guide-nid-correction", "name-spelling"],
+      "engine": null,
+      "dataFiles": ["guides/birth-registration.json"],
+      "figma": {"mobile": ["35:11409"], "desktop": ["68:12961"]}
+    },
+    {
+      "id": "guide-driving-license",
+      "kind": "guide",
+      "section": "sorkari-kaj",
+      "priority": "launch",
+      "route": {"bn": "/guides/driving-license", "en": "/en/guides/driving-license"},
+      "name": {"bn": "ড্রাইভিং লাইসেন্স", "en": "Driving licence"},
+      "description": {
+        "bn": "লার্নার থেকে স্মার্ট কার্ড পর্যন্ত, পরীক্ষা সহ সব ধাপ।",
+        "en": "Every step from learner to smart card, including the test."
+      },
+      "breadcrumb": {"bn": ["সরকারি কাজ", "ড্রাইভিং লাইসেন্স"], "en": ["Government services", "Driving licence"]},
+      "keywords": [
+        "ড্রাইভিং লাইসেন্স", "লার্নার", "লাইসেন্স ফি", "driving license", "driving licence", "brta",
+        "learner card", "smart card license"
+      ],
+      "related": ["guide-nid-correction"],
+      "engine": null,
+      "dataFiles": ["guides/driving-license.json"],
+      "figma": {"mobile": ["35:11659"], "desktop": ["68:13264"]}
+    },
+    {
+      "id": "guide-namjari",
+      "kind": "guide",
+      "section": "sorkari-kaj",
+      "priority": "launch",
+      "route": {"bn": "/guides/namjari", "en": "/en/guides/namjari"},
+      "name": {"bn": "জমির নামজারি (মিউটেশন)", "en": "Land mutation (namjari)"},
+      "description": {
+        "bn": "জমি কেনা বা উত্তরাধিকারের পর নিজের নামে খতিয়ান করার ধাপ।",
+        "en": "Steps to get the khatian in your name after buying or inheriting land."
+      },
+      "breadcrumb": {"bn": ["সরকারি কাজ", "জমি"], "en": ["Government services", "Land"]},
+      "keywords": [
+        "নামজারি", "মিউটেশন", "খতিয়ান", "খারিজ", "ভূমি", "namjari", "mutation", "land mutation", "khatian",
+        "kharij", "e-namjari"
+      ],
+      "related": ["land-converter", "land-price", "guide-warish-certificate"],
+      "engine": null,
+      "dataFiles": ["guides/namjari.json"],
+      "figma": {"mobile": ["35:11891"], "desktop": ["69:8829"]}
+    },
+    {
+      "id": "guide-priyo-agent",
+      "kind": "guide",
+      "section": "mobile-banking",
+      "priority": "launch",
+      "route": {"bn": "/guides/priyo-agent", "en": "/en/guides/priyo-agent"},
+      "name": {"bn": "প্রিয় এজেন্ট কিভাবে সেট করবো", "en": "How to set a Priyo Agent"},
+      "description": {
+        "bn": "বিকাশে প্রিয় এজেন্ট সেট করার ধাপ, যাতে ক্যাশ আউটে চার্জ কম লাগে।",
+        "en": "Steps to set a Priyo Agent in bKash so cash out costs less."
+      },
+      "keywords": [
+        "প্রিয় এজেন্ট", "প্রিয় এজেন্ট সেট", "priyo agent", "priyo agent set", "bkash priyo agent",
+        "bikash priyo agent"
+      ],
+      "related": ["mfs-bkash-cash-out", "cash-out"],
+      "engine": null,
+      "dataFiles": ["guides/priyo-agent.json"],
+      "figma": {"mobile": [], "desktop": []},
+      "draftCopy": true
+    },
+    {
+      "id": "guide-wrong-number",
+      "kind": "guide",
+      "section": "mobile-banking",
+      "priority": "launch",
+      "route": {"bn": "/guides/wrong-number", "en": "/en/guides/wrong-number"},
+      "name": {"bn": "ভুল নম্বরে টাকা গেলে কী করবো", "en": "What to do if money goes to the wrong number"},
+      "description": {
+        "bn": "বিকাশ, নগদ, রকেট বা উপায়ে ভুল নম্বরে টাকা চলে গেলে যত দ্রুত সম্ভব যা করতে হবে।",
+        "en": "What to do as fast as possible when bKash, Nagad, Rocket or Upay money goes to the wrong number."
+      },
+      "breadcrumb": {"bn": ["মোবাইল ব্যাংকিং", "জরুরি"], "en": ["Mobile banking", "Emergency"]},
+      "keywords": [
+        "ভুল নম্বরে টাকা", "ভুল নাম্বারে টাকা", "টাকা ফেরত", "হেল্পলাইন", "wrong number",
+        "wrong number money", "bkash wrong number", "vul number", "refund"
+      ],
+      "related": ["guide-account-hacked", "mfs-bkash-send-money"],
+      "engine": null,
+      "dataFiles": ["guides/wrong-number.json"],
+      "figma": {"mobile": ["61:18761"], "desktop": ["69:40871"]}
+    },
+    {
+      "id": "guide-bkash-to-bank",
+      "kind": "guide",
+      "section": "mobile-banking",
+      "priority": "launch",
+      "route": {"bn": "/guides/bkash-to-bank", "en": "/en/guides/bkash-to-bank"},
+      "name": {"bn": "বিকাশ থেকে ব্যাংকে টাকা পাঠাবো কিভাবে", "en": "How to send money from bKash to a bank"},
+      "description": {
+        "bn": "বিকাশ অ্যাপ দিয়ে নিজের বা অন্যের ব্যাংক অ্যাকাউন্টে টাকা পাঠানোর ধাপ, চার্জ আর সীমা।",
+        "en": "Steps, charges and limits for sending money from the bKash app to your own or someone else's bank account."
+      },
+      "breadcrumb": {"bn": ["মোবাইল ব্যাংকিং", "বিকাশ"], "en": ["Mobile banking", "bKash"]},
+      "keywords": [
+        "বিকাশ থেকে ব্যাংকে", "ব্যাংকে টাকা পাঠানো", "bkash to bank", "bikash to bank", "transfer to bank",
+        "bkash bank transfer"
+      ],
+      "related": ["mfs-bkash-send-money", "mfs-bkash-limits"],
+      "engine": null,
+      "dataFiles": ["guides/bkash-to-bank.json"],
+      "figma": {"mobile": ["61:19104"], "desktop": ["69:41164"]}
+    },
+    {
+      "id": "guide-account-hacked",
+      "kind": "guide",
+      "section": "mobile-banking",
+      "priority": "launch",
+      "route": {"bn": "/guides/account-hacked", "en": "/en/guides/account-hacked"},
+      "name": {"bn": "অ্যাকাউন্ট হ্যাক হলে কী করবো", "en": "What to do if your account is hacked"},
+      "description": {
+        "bn": "বিকাশ, নগদ বা রকেট অ্যাকাউন্ট থেকে অজান্তে টাকা গেলে বা পিন ফাঁস হলে প্রথম ৩০ মিনিটে যা করতে হবে।",
+        "en": "What to do in the first 30 minutes if money leaves your bKash, Nagad or Rocket account or your PIN leaks."
+      },
+      "breadcrumb": {"bn": ["মোবাইল ব্যাংকিং", "নিরাপত্তা"], "en": ["Mobile banking", "Security"]},
+      "keywords": [
+        "অ্যাকাউন্ট হ্যাক", "পিন", "প্রতারণা", "প্রতারক", "account hacked", "bkash hacked", "pin leak",
+        "fraud", "scam", "otp"
+      ],
+      "related": ["guide-wrong-number"],
+      "engine": null,
+      "dataFiles": ["guides/account-hacked.json"],
+      "figma": {"mobile": ["61:20123"], "desktop": ["69:42037"]}
+    },
+    {
+      "id": "guide-saudi-to-bkash",
+      "kind": "guide",
+      "section": "remittance",
+      "priority": "launch",
+      "route": {"bn": "/guides/saudi-to-bkash", "en": "/en/guides/saudi-to-bkash"},
+      "name": {"bn": "সৌদি থেকে বিকাশে টাকা পাঠাবো কিভাবে", "en": "How to send money from Saudi Arabia to bKash"},
+      "description": {
+        "bn": "বৈধ পথে প্রবাস থেকে সরাসরি পরিবারের বিকাশে টাকা পাঠানোর ধাপ আর প্রণোদনা।",
+        "en": "Steps and incentive for sending money legally from abroad straight to your family's bKash."
+      },
+      "breadcrumb": {"bn": ["রেমিট্যান্স"], "en": ["Remittance"]},
+      "keywords": [
+        "সৌদি থেকে বিকাশে", "প্রবাস থেকে বিকাশে", "প্রণোদনা", "saudi to bkash", "saudi riyal to bkash",
+        "remittance bkash", "stc pay", "probash theke bkash"
+      ],
+      "related": ["remittance-compare", "currency-converter", "guide-hundi"],
+      "engine": null,
+      "dataFiles": ["guides/saudi-to-bkash.json"],
+      "figma": {"mobile": ["61:19444"], "desktop": ["69:41455"]}
+    },
+    {
+      "id": "guide-hundi",
+      "kind": "guide",
+      "section": "remittance",
+      "priority": "launch",
+      "route": {"bn": "/guides/hundi", "en": "/en/guides/hundi"},
+      "name": {"bn": "হুন্ডি কেন বিপজ্জনক", "en": "Why hundi is dangerous"},
+      "description": {
+        "bn": "হুন্ডিতে রেট একটু বেশি মনে হলেও ঝুঁকি অনেক বেশি। বৈধ পথে পাঠালে কী কী সুবিধা।",
+        "en": "Hundi may look like a better rate, but the risk is much higher. What you gain by sending money legally."
+      },
+      "breadcrumb": {"bn": ["রেমিট্যান্স"], "en": ["Remittance"]},
+      "keywords": ["হুন্ডি", "অবৈধ পথে টাকা", "hundi", "hundi risk", "illegal remittance", "hawala"],
+      "related": ["remittance-compare", "guide-saudi-to-bkash"],
+      "engine": null,
+      "dataFiles": ["guides/hundi.json"],
+      "figma": {"mobile": ["61:19784"], "desktop": ["69:41746"]}
+    },
+    {
+      "id": "guide-affidavit",
+      "kind": "guide",
+      "section": "guides-legal",
+      "priority": "later",
+      "route": {"bn": "/guides/affidavit", "en": "/en/guides/affidavit"},
+      "name": {"bn": "হলফনামা (এফিডেভিট) কিভাবে করবো", "en": "How to make an affidavit"},
+      "description": {
+        "bn": "হলফনামা কোথায় আর কিভাবে করাতে হয়, কোন স্ট্যাম্প আর কী কাগজ লাগে।",
+        "en": "Where and how to make an affidavit, and the stamp paper and documents you need."
+      },
+      "keywords": ["হলফনামা", "এফিডেভিট", "নোটারি", "affidavit", "holofnama", "notary", "name change affidavit"],
+      "related": ["guide-power-of-attorney", "guide-warish-certificate"],
+      "engine": null,
+      "dataFiles": ["guides/affidavit.json"],
+      "figma": {"mobile": [], "desktop": []},
+      "draftCopy": true
+    },
+    {
+      "id": "guide-power-of-attorney",
+      "kind": "guide",
+      "section": "guides-legal",
+      "priority": "later",
+      "route": {"bn": "/guides/power-of-attorney", "en": "/en/guides/power-of-attorney"},
+      "name": {"bn": "পাওয়ার অব অ্যাটর্নি", "en": "Power of attorney"},
+      "description": {
+        "bn": "দেশে বা প্রবাস থেকে কাউকে আমমোক্তার নিয়োগ করার ধাপ আর কাগজ।",
+        "en": "Steps and papers to appoint someone as your attorney, at home or from abroad."
+      },
+      "keywords": ["পাওয়ার অব অ্যাটর্নি", "আমমোক্তারনামা", "power of attorney", "poa", "ammoktarnama"],
+      "related": ["guide-affidavit", "guides-expatriate"],
+      "engine": null,
+      "dataFiles": ["guides/power-of-attorney.json"],
+      "figma": {"mobile": [], "desktop": []},
+      "draftCopy": true
+    },
+    {
+      "id": "guide-warish-certificate",
+      "kind": "guide",
+      "section": "guides-legal",
+      "priority": "later",
+      "route": {"bn": "/guides/warish-certificate", "en": "/en/guides/warish-certificate"},
+      "name": {"bn": "ওয়ারিশ সনদ", "en": "Heirship certificate"},
+      "description": {
+        "bn": "ওয়ারিশ সনদ কোথায় আর কিভাবে তুলতে হয়, কী কাগজ লাগে।",
+        "en": "Where and how to get an heirship (warish) certificate, and the papers you need."
+      },
+      "keywords": [
+        "ওয়ারিশ সনদ", "ওয়ারিশান সনদ", "উত্তরাধিকার", "warish certificate", "warishan",
+        "succession certificate", "heirship"
+      ],
+      "related": ["guide-namjari", "guide-affidavit"],
+      "engine": null,
+      "dataFiles": ["guides/warish-certificate.json"],
+      "figma": {"mobile": [], "desktop": []},
+      "draftCopy": true
+    },
+    {
+      "id": "guide-certificate-verification",
+      "kind": "guide",
+      "section": "guides-education",
+      "priority": "later",
+      "route": {"bn": "/guides/certificate-verification", "en": "/en/guides/certificate-verification"},
+      "name": {"bn": "সনদ সত্যায়ন ও অনলাইনে যাচাই", "en": "Certificate attestation and online verification"},
+      "description": {
+        "bn": "শিক্ষা সনদ সত্যায়ন করানো আর অনলাইনে যাচাই করার ধাপ।",
+        "en": "Steps to attest an education certificate and verify it online."
+      },
+      "keywords": [
+        "সনদ সত্যায়ন", "সত্যায়িত", "সনদ যাচাই", "certificate verification", "attestation",
+        "certificate attest", "online verify", "sonod"
+      ],
+      "related": ["guide-board-marksheet", "gpa"],
+      "engine": null,
+      "dataFiles": ["guides/certificate-verification.json"],
+      "figma": {"mobile": [], "desktop": []},
+      "draftCopy": true
+    },
+    {
+      "id": "guide-board-marksheet",
+      "kind": "guide",
+      "section": "guides-education",
+      "priority": "later",
+      "route": {"bn": "/guides/board-marksheet", "en": "/en/guides/board-marksheet"},
+      "name": {"bn": "বোর্ডের নম্বরপত্র তোলা ও সংশোধন", "en": "Getting and correcting board mark sheets"},
+      "description": {
+        "bn": "শিক্ষা বোর্ড থেকে নম্বরপত্র তোলা আর ভুল থাকলে সংশোধন করার ধাপ।",
+        "en": "Steps to get your mark sheet from the education board and correct mistakes."
+      },
+      "keywords": [
+        "নম্বরপত্র", "মার্কশিট", "সনদ সংশোধন", "marksheet", "mark sheet", "transcript", "board certificate",
+        "duplicate certificate"
+      ],
+      "related": ["guide-certificate-verification", "gpa", "name-spelling"],
+      "engine": null,
+      "dataFiles": ["guides/board-marksheet.json"],
+      "figma": {"mobile": [], "desktop": []},
+      "draftCopy": true
+    },
+    {
+      "id": "guide-stipend",
+      "kind": "guide",
+      "section": "guides-education",
+      "priority": "later",
+      "route": {"bn": "/guides/stipend", "en": "/en/guides/stipend"},
+      "name": {"bn": "উপবৃত্তির আবেদন", "en": "Stipend application"},
+      "description": {
+        "bn": "উপবৃত্তির জন্য কারা, কিভাবে আর কখন আবেদন করতে পারে।",
+        "en": "Who can apply for a stipend, how and when."
+      },
+      "keywords": ["উপবৃত্তি", "বৃত্তি", "stipend", "upobritti", "scholarship", "student stipend"],
+      "related": ["guide-certificate-verification"],
+      "engine": null,
+      "dataFiles": ["guides/stipend.json"],
+      "figma": {"mobile": [], "desktop": []},
+      "draftCopy": true
+    },
+    {
+      "id": "guide-bmet-registration",
+      "kind": "guide",
+      "section": "guides-expatriate",
+      "priority": "later",
+      "route": {"bn": "/guides/bmet-registration", "en": "/en/guides/bmet-registration"},
+      "name": {"bn": "বিএমইটি রেজিস্ট্রেশন ও স্মার্ট কার্ড", "en": "BMET registration and smart card"},
+      "description": {
+        "bn": "বিদেশে কাজে যাওয়ার আগে বিএমইটি রেজিস্ট্রেশন আর স্মার্ট কার্ড করার ধাপ।",
+        "en": "Steps for BMET registration and the smart card before going abroad to work."
+      },
+      "keywords": [
+        "বিএমইটি", "আমি প্রবাসী", "ম্যানপাওয়ার", "ভিসা চেক", "bmet", "ami probashi", "smart card",
+        "emigration clearance", "manpower card", "visa check"
+      ],
+      "related": ["guide-police-clearance", "guide-saudi-to-bkash"],
+      "engine": null,
+      "dataFiles": ["guides/bmet-registration.json"],
+      "figma": {"mobile": [], "desktop": []},
+      "draftCopy": true
+    },
+    {
+      "id": "guide-police-clearance",
+      "kind": "guide",
+      "section": "guides-expatriate",
+      "priority": "later",
+      "route": {"bn": "/guides/police-clearance", "en": "/en/guides/police-clearance"},
+      "name": {"bn": "পুলিশ ক্লিয়ারেন্স সার্টিফিকেট", "en": "Police clearance certificate"},
+      "description": {
+        "bn": "অনলাইনে পুলিশ ক্লিয়ারেন্সের আবেদন, ফি জমা আর সনদ তোলার ধাপ।",
+        "en": "Steps to apply online for police clearance, pay the fee and collect the certificate."
+      },
+      "keywords": ["পুলিশ ক্লিয়ারেন্স", "police clearance", "pcc", "police certificate", "clearance certificate"],
+      "related": ["guide-bmet-registration", "guide-e-passport"],
+      "engine": null,
+      "dataFiles": ["guides/police-clearance.json"],
+      "figma": {"mobile": [], "desktop": []},
+      "draftCopy": true
+    },
+    {
+      "id": "about",
+      "kind": "static",
+      "section": "root",
+      "priority": "launch",
+      "route": {"bn": "/about", "en": "/en/about"},
+      "name": {"bn": "আমাদের কথা", "en": "About us"},
+      "description": {
+        "bn": "হিসাব খাতা একটা ফ্রি বাংলা ওয়েবসাইট, যেখানে বাংলাদেশের মানুষের প্রতিদিনের টাকার হিসাব আর সরকারি কাজের ধাপ সহজ করে দেখানো হয়।",
+        "en": "Hisab Khata is a free Bangla website that makes everyday money sums and government-task steps simple for people in Bangladesh."
+      },
+      "breadcrumb": {"bn": ["আমাদের কথা"], "en": ["About us"]},
+      "keywords": ["আমাদের কথা", "হিসাব খাতা কী", "about", "about us", "hisab khata"],
+      "related": ["privacy", "contact", "disclaimer"],
+      "engine": null,
+      "dataFiles": [],
+      "figma": {"mobile": ["18:1839"], "desktop": ["66:2668"]}
+    },
+    {
+      "id": "privacy",
+      "kind": "static",
+      "section": "root",
+      "priority": "launch",
+      "route": {"bn": "/privacy", "en": "/en/privacy"},
+      "name": {"bn": "প্রাইভেসি পলিসি", "en": "Privacy policy"},
+      "description": {
+        "bn": "ক্যালকুলেটরে যে সংখ্যা লেখো, তা শুধু তোমার ব্রাউজারেই হিসাব হয়। আমরা সেগুলো কোনো সার্ভারে পাঠাই বা রাখি না।",
+        "en": "The numbers you type into a calculator are worked out only in your browser. We never send them to a server or keep them."
+      },
+      "breadcrumb": {"bn": ["প্রাইভেসি পলিসি"], "en": ["Privacy policy"]},
+      "keywords": ["প্রাইভেসি", "কুকি", "privacy", "privacy policy", "cookie"],
+      "related": ["about", "contact", "disclaimer"],
+      "engine": null,
+      "dataFiles": [],
+      "figma": {"mobile": ["25:3761"], "desktop": ["66:26989"]}
+    },
+    {
+      "id": "contact",
+      "kind": "static",
+      "section": "root",
+      "priority": "launch",
+      "route": {"bn": "/contact", "en": "/en/contact"},
+      "name": {"bn": "যোগাযোগ", "en": "Contact"},
+      "description": {
+        "bn": "ভুল রেট জানাতে, নতুন টুলের আইডিয়া দিতে বা বিজ্ঞাপনের জন্য লেখো।",
+        "en": "Write to report a wrong rate, suggest a new tool or ask about advertising."
+      },
+      "breadcrumb": {"bn": ["যোগাযোগ"], "en": ["Contact"]},
+      "keywords": ["যোগাযোগ", "ভুল রেট", "বিজ্ঞাপন", "contact", "email", "report", "feedback"],
+      "related": ["about", "privacy", "disclaimer"],
+      "engine": null,
+      "dataFiles": [],
+      "figma": {"mobile": ["25:3815", "60:19409"], "desktop": ["66:27112", "69:39201"]}
+    },
+    {
+      "id": "disclaimer",
+      "kind": "static",
+      "section": "root",
+      "priority": "launch",
+      "route": {"bn": "/disclaimer", "en": "/en/disclaimer"},
+      "name": {"bn": "দায় অস্বীকার", "en": "Disclaimer"},
+      "description": {
+        "bn": "এই সাইটের সব হিসাব আর তথ্য শুধু ধারণা দেওয়ার জন্য।",
+        "en": "All calculations and information on this site are estimates only."
+      },
+      "breadcrumb": {"bn": ["দায় অস্বীকার"], "en": ["Disclaimer"]},
+      "keywords": ["দায় অস্বীকার", "দায়মুক্তি", "disclaimer", "terms"],
+      "related": ["about", "privacy", "contact"],
+      "engine": null,
+      "dataFiles": [],
+      "figma": {"mobile": ["25:3892"], "desktop": ["66:27244"]}
+    },
+    {
+      "id": "changelog",
+      "kind": "static",
+      "section": "root",
+      "priority": "launch",
+      "route": {"bn": "/changelog", "en": "/en/changelog"},
+      "name": {"bn": "পরিবর্তনের তালিকা", "en": "Change log"},
+      "description": {
+        "bn": "কোন চার্জ বা রেট কবে বদলেছে, নতুন তারিখ উপরে।",
+        "en": "Which charge or rate changed when, newest first."
+      },
+      "breadcrumb": {"bn": ["পরিবর্তনের তালিকা"], "en": ["Change log"]},
+      "keywords": ["পরিবর্তনের তালিকা", "নতুন রেট", "কী বদলেছে", "change log", "changelog", "rate update", "whats new"],
+      "related": ["about", "privacy", "contact"],
+      "engine": null,
+      "dataFiles": ["changelog.json"],
+      "figma": {"mobile": ["25:3944"], "desktop": ["66:27387"]}
+    }
+  ]
+}

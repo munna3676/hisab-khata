@@ -65,8 +65,8 @@ export function Footer({
           )}
         >
           <div class={cx('flex flex-col items-start gap-2.5', auto && '@4xl:min-w-0 @4xl:flex-1', desk && 'min-w-0 flex-1')}>
-            {/* A linked logo is 44px tall; the negative margin keeps the 30px row of the design. */}
-            <Logo name={name} href={homeHref} class={homeHref ? '-my-1.75' : undefined} />
+            {/* A linked logo is 44px tall; the negative margin keeps the design's 32px logo row (the mark is 32). */}
+            <Logo name={name} href={homeHref} class={homeHref ? '-my-1.5' : undefined} />
             <p class="max-w-105 type-body-small text-soft">{description}</p>
           </div>
           <nav aria-label={linksLabel}>

@@ -1,5 +1,5 @@
-// Gallery island: a live BottomNav. Tapping a tab moves aria-current and slides
-// the indicator (transform only, --duration-tab), the way the app shell routes in place.
+// Gallery island: a live BottomNav. Tapping a tab moves aria-current (and the
+// accent colour) without leaving the page, the way the app shell routes in place.
 import { BottomNav, type BottomNavId } from '@hisab/ui/nav'
 import { useState } from 'preact/hooks'
 

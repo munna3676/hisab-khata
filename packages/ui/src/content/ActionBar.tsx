@@ -41,18 +41,20 @@ export interface ActionBarProps {
 
 /**
  * Action Bar (Figma 9:314): share (primary), PDF (secondary) and "ভুল পেলেন?" (ghost),
- * 44px tall. On a phone share and PDF split the row and the ghost action takes its own
- * width; once the bar is wider than 512px (container query) the buttons keep their
- * natural widths, left-aligned.
+ * 44px tall, 8px apart. As in Figma the buttons split the row into equal thirds at every
+ * width (342px phone, 676/732/1080px desktop). The ghost column never gets narrower than
+ * its own label, so on a 320-360px phone it keeps its text and the other two give way.
  */
 export function ActionBar({ onShare, onPdf, onReport, reportHref, hide = [], labels, class: className }: ActionBarProps) {
   const l = { ...DEFAULT_LABELS, ...labels }
   const show = (a: ActionBarAction) => !hide.includes(a)
-  const columns = [show('share') && '1fr', show('pdf') && '1fr', show('report') && 'auto'].filter(Boolean).join(' ')
+  const columns = [show('share') && 'minmax(0,1fr)', show('pdf') && 'minmax(0,1fr)', show('report') && 'minmax(max-content,1fr)']
+    .filter(Boolean)
+    .join(' ')
 
   return (
-    <div class={cx('@container min-w-0', className)} data-action-bar>
-      <div role="group" aria-label={l.group} class="grid gap-2 @lg:flex @lg:flex-wrap" style={{ gridTemplateColumns: columns }}>
+    <div class={cx('min-w-0', className)} data-action-bar>
+      <div role="group" aria-label={l.group} class="grid gap-2" style={{ gridTemplateColumns: columns }}>
         {show('share') && (
           <Button variant="primary" icon={<Share />} onClick={onShare} class="min-w-0 px-3!">
             {l.share}
@@ -65,11 +67,11 @@ export function ActionBar({ onShare, onPdf, onReport, reportHref, hide = [], lab
         )}
         {show('report') &&
           (typeof reportHref === 'string' ? (
-            <Button variant="ghost" icon={<Flag />} href={reportHref} onClick={onReport} class="px-2!">
+            <Button variant="ghost" icon={<Flag />} href={reportHref} onClick={onReport} class="px-0.5!">
               {l.report}
             </Button>
           ) : (
-            <Button variant="ghost" icon={<Flag />} onClick={onReport} class="px-2!">
+            <Button variant="ghost" icon={<Flag />} onClick={onReport} class="px-0.5!">
               {l.report}
             </Button>
           ))}

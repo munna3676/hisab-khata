@@ -31,7 +31,8 @@ export interface SearchBarProps {
 /**
  * Search Bar (Figma 5:97). A <form role="search"> that works without JS. The Large bar's
  * visible button is 72x40 as in Figma inside a 44px-tall hit area; the Compact input keeps
- * a 44px hit area inside the 40px pill. Focus fades in a 2px blue ring (opacity only).
+ * a 44px hit area inside the 40px pill. Focus in the input fades in a 2px blue ring around
+ * the bar (opacity only); the button's keyboard ring is the 2px accent one around its block.
  */
 export function SearchBar({
   size = 'large',
@@ -73,7 +74,8 @@ export function SearchBar({
             "h-14 rounded-[12px] border-[1.5px] border-line bg-sheet pr-2 before:pointer-events-none before:absolute before:-inset-[1.5px] before:-z-10 before:rounded-[inherit] before:opacity-50 before:shadow-[0_4px_16px_var(--overlay-shadow)] before:content-['']"
           : 'h-10 rounded-full bg-subtle pr-3',
         large ? 'after:-inset-[1.5px]' : 'after:inset-0',
-        "after:pointer-events-none after:absolute after:rounded-[inherit] after:border-2 after:border-blue after:opacity-0 after:transition-opacity after:duration-hover after:ease-out after:content-[''] focus-within:after:opacity-100",
+        // The 2px blue ring shows while the input has focus (not the button, which has its own ring).
+        "after:pointer-events-none after:absolute after:rounded-[inherit] after:border-2 after:border-blue after:opacity-0 after:transition-opacity after:duration-hover after:ease-out after:content-[''] has-[input:focus]:after:opacity-100",
         className,
       )}
     >
@@ -102,8 +104,9 @@ export function SearchBar({
           type="submit"
           class={cx(
             'pressable h-11 w-18 shrink-0 rounded-input type-label text-on-accent',
-            // The 72x40 accent block, 2px in from the 44px hit area (tint follows it).
+            // The 72x40 accent block, 2px in from the 44px hit area (tint and focus ring follow it).
             "before:pointer-events-none before:absolute before:inset-x-0 before:inset-y-0.5 before:-z-10 before:rounded-[inherit] before:bg-accent before:content-[''] after:inset-y-0.5",
+            'focus-visible:outline-hidden focus-visible:before:outline-2 focus-visible:before:outline-offset-2 focus-visible:before:outline-accent',
           )}
         >
           {buttonLabel}

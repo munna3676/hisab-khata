@@ -26,6 +26,13 @@ export interface TextFieldProps extends Omit<InputHTMLAttributes<HTMLInputElemen
  * Text Field (Figma 5:73): label, 52px box on paper with optional unit boxes, helper or
  * error text. The 1.5px line border and the 2px focus (blue) or error (accent) border are
  * drawn by ::before/::after, so focus fades in with opacity and nothing else animates.
+ * The box keeps 1.5px of padding where Figma's inside stroke sits, so the unit boxes start
+ * inside the border (prefix divider 49.5px in, value text 63.5px in, as in Figma).
+ * One <label> holds the label text and the box, so a tap anywhere on the box (a unit too)
+ * focuses the input without JS, and the input has exactly one label; aria-labelledby keeps
+ * its name to the label text, and the units are read as its description.
+ * The message line is one polite live region that stays in the DOM, so an error that
+ * appears where there was no helper is still announced.
  */
 export function TextField({
   label,
@@ -40,6 +47,7 @@ export function TextField({
   boxClass,
   inputRef,
   'aria-describedby': describedBy,
+  'aria-labelledby': labelledBy,
   ...input
 }: TextFieldProps) {
   const inputId = useUid(id as string | undefined, 'field')
@@ -47,6 +55,7 @@ export function TextField({
   const message = invalid ? error : helper
   const hasMessage = message != null && message !== false && message !== ''
   const ids = {
+    label: `${inputId}-label`,
     prefix: `${inputId}-prefix`,
     suffix: `${inputId}-suffix`,
     message: `${inputId}-message`,
@@ -63,49 +72,53 @@ export function TextField({
 
   return (
     <div class={cx('grid min-w-0 content-start gap-2', className)} data-invalid={invalid ? '' : undefined}>
-      <label for={inputId} class="type-label text-ink">
-        {label}
-      </label>
-      <div
-        class={cx(
-          'relative flex h-13 min-w-0 items-stretch overflow-hidden rounded-input bg-paper',
-          // Resting 1.5px line border, and the 2px state border above it (opacity only).
-          "before:pointer-events-none before:absolute before:inset-0 before:rounded-[inherit] before:border-[1.5px] before:border-line before:content-['']",
-          "after:pointer-events-none after:absolute after:inset-0 after:rounded-[inherit] after:border-2 after:opacity-0 after:transition-opacity after:duration-hover after:ease-out after:content-['']",
-          invalid ? 'after:border-accent after:opacity-100' : 'after:border-blue focus-within:after:opacity-100',
-          disabled && 'opacity-50',
-          boxClass,
-        )}
-      >
-        {prefix != null && (
-          // A <label> so a tap on the unit focuses the input; hidden from the name, read as the description.
-          <label for={inputId} id={ids.prefix} aria-hidden="true" class={cx(affix, 'border-r border-line')}>
-            {prefix}
-          </label>
-        )}
-        <input
-          {...input}
-          id={inputId}
-          ref={inputRef}
-          disabled={disabled}
-          aria-invalid={invalid ? true : undefined}
-          aria-describedby={describedByIds || undefined}
+      <label for={inputId} class="grid min-w-0 gap-2">
+        <span id={ids.label} class="type-label text-ink">
+          {label}
+        </span>
+        <span
           class={cx(
-            'h-full min-w-0 flex-1 bg-transparent px-3.5 text-ink outline-hidden placeholder:text-soft disabled:cursor-not-allowed',
-            numeric ? 'hk-num text-number-l' : 'type-body-medium',
+            'relative flex h-13 min-w-0 items-stretch overflow-hidden rounded-input bg-paper p-[1.5px]',
+            // Resting 1.5px line border, and the 2px state border above it (opacity only). The resting one
+            // is an inset ring, not a border: Chrome floors a 1.5px border to 1px at DPR 1, which would
+            // leave a sliver of the 1.5px padding showing between the border and a unit box.
+            "before:pointer-events-none before:absolute before:inset-0 before:rounded-[inherit] before:inset-ring-[1.5px] before:inset-ring-line before:content-['']",
+            "after:pointer-events-none after:absolute after:inset-0 after:rounded-[inherit] after:border-2 after:opacity-0 after:transition-opacity after:duration-hover after:ease-out after:content-['']",
+            invalid ? 'after:border-accent after:opacity-100' : 'after:border-blue focus-within:after:opacity-100',
+            disabled && 'opacity-50',
+            boxClass,
           )}
-        />
-        {suffix != null && (
-          <label for={inputId} id={ids.suffix} aria-hidden="true" class={cx(affix, 'border-l border-line')}>
-            {suffix}
-          </label>
-        )}
-      </div>
-      {hasMessage && (
-        <p id={ids.message} class={cx('type-body-small', invalid ? 'text-accent' : 'text-soft')} aria-live="polite">
-          {message}
-        </p>
-      )}
+        >
+          {prefix != null && (
+            // Hidden from the name, read as the description (aria-describedby).
+            <span id={ids.prefix} aria-hidden="true" class={cx(affix, 'border-r border-line')}>
+              {prefix}
+            </span>
+          )}
+          <input
+            {...input}
+            id={inputId}
+            ref={inputRef}
+            disabled={disabled}
+            aria-labelledby={typeof labelledBy === 'string' ? labelledBy : ids.label}
+            aria-invalid={invalid ? true : undefined}
+            aria-describedby={describedByIds || undefined}
+            class={cx(
+              'h-full min-w-0 flex-1 bg-transparent px-3.5 text-ink outline-hidden placeholder:text-soft disabled:cursor-not-allowed',
+              numeric ? 'hk-num text-number-l' : 'type-body-medium',
+            )}
+          />
+          {suffix != null && (
+            <span id={ids.suffix} aria-hidden="true" class={cx(affix, 'border-l border-line')}>
+              {suffix}
+            </span>
+          )}
+        </span>
+      </label>
+      {/* Always rendered: an empty live region is out of the flow (sr-only adds no grid gap). */}
+      <p id={ids.message} class={cx('type-body-small', invalid ? 'text-accent' : 'text-soft', !hasMessage && 'sr-only')} aria-live="polite">
+        {hasMessage ? message : null}
+      </p>
     </div>
   )
 }

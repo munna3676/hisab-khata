@@ -1,4 +1,4 @@
-// The 30 Figma icons (Design System › Icons, node 3:2) exported from src/icons/base.tsx.
+// The 32 Figma icons (Design System › Icons, node 3:2) exported from src/icons/base.tsx.
 import { cleanup, render } from '@testing-library/preact'
 import { afterEach, describe, expect, it } from 'vitest'
 import * as allIcons from '../icons'

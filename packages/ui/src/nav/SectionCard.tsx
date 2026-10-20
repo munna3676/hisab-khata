@@ -15,8 +15,8 @@ export interface SectionCardProps extends Omit<AnchorHTMLAttributes<HTMLAnchorEl
 }
 
 /**
- * Section entry on the home page (Figma "Section Card" 7:280): icon tile, 15/21
- * SemiBold title and a 12/17 soft subtitle, stacked. Two per row on phones,
+ * Section entry on the home page (Figma "Section Card" 7:280): 12px radius, icon
+ * tile, 15/21 SemiBold title and a 12/17 soft subtitle, stacked. Two per row on phones,
  * six per row on the desktop home. One link; lifts on hover, presses to .97.
  */
 export function SectionCard({ href, title, subtitle, icon, titleAs: Title = 'h3', class: className, ...rest }: SectionCardProps) {
@@ -24,7 +24,7 @@ export function SectionCard({ href, title, subtitle, icon, titleAs: Title = 'h3'
     <a
       href={href}
       class={cx(
-        'lift pressable flex flex-col items-start gap-2.5 rounded-card border border-line bg-sheet p-4 text-ink [--hover-tint-opacity:0]',
+        'lift pressable flex flex-col items-start gap-2.5 rounded-[12px] border border-line bg-sheet p-4 text-ink [--hover-tint-opacity:0]',
         className,
       )}
       data-section-card
