@@ -94,6 +94,21 @@ describe('DatePicker', () => {
     expect([picked.getFullYear(), picked.getMonth(), picked.getDate()]).toEqual([1999, 3, 1])
   })
 
+  it('fast keys are not lost: each one lands before focus catches up', async () => {
+    render(<DatePicker defaultValue={new Date(2000, 2, 15)} today={new Date(2000, 0, 1)} />)
+    const start = screen.getByRole('gridcell', { name: '১৫ মার্চ ২০০০' })
+    act(() => start.focus())
+    // Real key events: Preact re-renders between them (a microtask) but browsers paint
+    // later, so a focus move left to a paint-time effect would still be pending here.
+    const key = (k: string) => document.activeElement!.dispatchEvent(new KeyboardEvent('keydown', { key: k, bubbles: true }))
+    key('ArrowRight')
+    await Promise.resolve()
+    key('ArrowDown')
+    await Promise.resolve()
+    await act(async () => {})
+    expect(document.activeElement?.getAttribute('aria-label')).toBe('২৩ মার্চ ২০০০')
+  })
+
   it('confirm is disabled until a day is chosen; cancel calls back', () => {
     const onCancel = vi.fn()
     render(<DatePicker today={TODAY} onCancel={onCancel} />)

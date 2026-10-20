@@ -1,5 +1,5 @@
 import type { ComponentChildren, JSX } from 'preact'
-import { useEffect, useRef, useState } from 'preact/hooks'
+import { useEffect, useLayoutEffect, useRef, useState } from 'preact/hooks'
 import { Button } from '../base/Button'
 import { IconButton } from '../base/IconButton'
 import { useUid } from '../base/uid'
@@ -131,8 +131,10 @@ export function DatePicker({
     setFocusDay(draft)
   }, [valueKey])
 
-  // After keyboard moves, focus follows the roving tab stop.
-  useEffect(() => {
+  // After keyboard moves, focus follows the roving tab stop. A layout effect, so focus has
+  // moved before the next key arrives: with a later effect, a fast second key landed on the
+  // old cell, whose focus then reset the day and the keystroke was lost.
+  useLayoutEffect(() => {
     if (!moveFocus.current) return
     moveFocus.current = false
     gridRef.current?.querySelector<HTMLElement>('[tabindex="0"]')?.focus()
@@ -281,12 +283,12 @@ export function DatePicker({
       </div>
 
       {showActions && (
-        // Figma: two near-equal buttons; the confirm one may take more room for the date.
-        <div class="flex min-w-0 gap-3">
-          <Button variant="secondary" class="min-w-0 flex-1" onClick={onCancel}>
+        // Figma: two equal buttons; the confirm column grows past half only when the date needs it.
+        <div class="grid min-w-0 grid-cols-[minmax(max-content,1fr)_minmax(max-content,1fr)] gap-3">
+          <Button variant="secondary" block onClick={onCancel}>
             {labels.cancel}
           </Button>
-          <Button class="min-w-0 flex-[1_0_auto]" disabled={!draft} onClick={() => draft && onConfirm?.(toDate(draft))}>
+          <Button block disabled={!draft} onClick={() => draft && onConfirm?.(toDate(draft))}>
             {draft ? labels.confirm(formatYMD(draft, lang, digits)) : labels.pick}
           </Button>
         </div>

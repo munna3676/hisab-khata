@@ -86,8 +86,11 @@ Filesystem or IndexedDB in packages/platform). `update()` accepts a release only
 when the signature verifies with a trusted key, the version is higher, every
 changed file has its signed SHA-256 and passes `checkDataFile`, and no bundled
 file is missing. It writes the new set to the spare slot and flips one pointer;
-`load()` re-verifies the stored set and falls back to the other slot, then to
-the bundle.
+`load()` re-verifies both stored sets and uses the highest verified version
+(so a rewritten pointer cannot roll the app back), then the bundle. `update()`
+runs `load()` first when the app has not, so a replayed older release can never
+overwrite a newer stored one. Files and the manifest over `maxFileBytes` (2 MB)
+are refused, a file before it is downloaded (its signed size is known).
 
 ## Commands
 

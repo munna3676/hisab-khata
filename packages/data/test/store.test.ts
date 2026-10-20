@@ -278,3 +278,136 @@ describe('DataStore', () => {
     expect(srv.fetched.filter((u) => u === MANIFEST_URL)).toHaveLength(1)
   })
 })
+
+describe('DataStore against a hostile server or storage', () => {
+  it('ignores a replayed older release once a newer one is in use', async () => {
+    const srv = server()
+    const storage = memoryStorage()
+    const store = storeWith(srv, storage)
+    await store.load()
+    const old = await srv.publish(101, { 'mfs-charges.json': mfs(17.5) })
+    await store.update()
+    await srv.publish(102, { 'mfs-charges.json': mfs(16) })
+    await store.update()
+    const before = new Map(storage.map)
+    srv.bodies.set(MANIFEST_URL, JSON.stringify(old.signed))
+    expect(await store.update()).toEqual({ status: 'current', version: 102 })
+    expect(agentRate(store)).toBe(16)
+    expect(storage.map).toEqual(before)
+  })
+
+  it('an update() before load() cannot roll a newer stored release back to a replayed older one', async () => {
+    const srv = server()
+    const storage = memoryStorage()
+    const first = storeWith(srv, storage)
+    await first.load()
+    await srv.publish(101, { 'mfs-charges.json': mfs(17.5) })
+    await first.update()
+    const replay = await srv.publish(102, { 'mfs-charges.json': mfs(17) })
+    await srv.publish(103, { 'mfs-charges.json': mfs(16) })
+    await first.update()
+    expect(first.version).toBe(103)
+
+    // Next launch: the app asks for an update first and the server replays 102.
+    srv.bodies.set(MANIFEST_URL, JSON.stringify(replay.signed))
+    const next = storeWith(srv, storage)
+    expect(await next.update()).toEqual({ status: 'current', version: 103 })
+    const restarted = storeWith(srv, storage)
+    await restarted.load()
+    expect(restarted.version).toBe(103)
+    expect(agentRate(restarted)).toBe(16)
+  })
+
+  it('a pointer rewritten to the older slot does not roll the app back', async () => {
+    const srv = server()
+    const storage = memoryStorage()
+    const store = storeWith(srv, storage)
+    await store.load()
+    await srv.publish(101, { 'mfs-charges.json': mfs(17.5) })
+    await store.update()
+    await srv.publish(102, { 'mfs-charges.json': mfs(16) })
+    await store.update()
+    const active = storage.map.get('hisab-data/active')!
+    storage.map.set('hisab-data/active', active === 'a' ? 'b' : 'a')
+    const restarted = storeWith(srv, storage)
+    await restarted.load()
+    expect(restarted.version).toBe(102)
+  })
+
+  it('refuses a file the signed manifest says is too large without downloading it, and an oversized manifest', async () => {
+    const srv = server()
+    const store = new DataStore({ bundled, trustedKeys, storage: memoryStorage(), manifestUrl: MANIFEST_URL, fetch: srv.fetch, maxFileBytes: 20_000 })
+    await store.load()
+    const big = mfs(17.5)
+    const text = JSON.stringify(big, null, 2) + '\n' + ' '.repeat(30_000)
+    await srv.publish(101, { 'mfs-charges.json': text })
+    expect(await store.update()).toMatchObject({ status: 'rejected', reason: 'download', detail: 'mfs-charges.json is too large' })
+    expect(srv.fetched).toEqual([MANIFEST_URL])
+
+    srv.bodies.set(MANIFEST_URL, ' '.repeat(30_000))
+    expect(await store.update()).toMatchObject({ status: 'rejected', reason: 'bad-manifest' })
+    expect(store.version).toBe(100)
+  })
+
+  it('rejects a partial (truncated) download', async () => {
+    const srv = server()
+    const store = storeWith(srv)
+    await store.load()
+    const text = JSON.stringify(mfs(17.5), null, 2) + '\n'
+    await srv.publish(101, { 'mfs-charges.json': text }, { serve: { 'mfs-charges.json': text.slice(0, text.length >> 1) } })
+    expect(await store.update()).toMatchObject({ status: 'rejected', reason: 'hash', detail: 'mfs-charges.json' })
+    expect(store.version).toBe(100)
+  })
+
+  it('rejects a validly signed manifest with an unsafe path, a negative size or a key id that is an Object property', async () => {
+    const srv = server()
+    const store = storeWith(srv)
+    await store.load()
+    const { manifest } = await srv.publish(101, { 'mfs-charges.json': mfs(17.5) })
+    const sha = manifest.files['mfs-charges.json']!.sha256
+    for (const files of [{ ...manifest.files, '../secret.json': { sha256: sha, bytes: 10 } }, { ...manifest.files, 'mfs-charges.json': { sha256: sha, bytes: -1 } }]) {
+      srv.bodies.set(MANIFEST_URL, JSON.stringify(await signManifest({ ...manifest, files }, secretKey)))
+      expect(await store.update()).toMatchObject({ status: 'rejected', reason: 'bad-manifest' })
+    }
+    const signed = await signManifest(manifest, secretKey)
+    for (const keyId of ['__proto__', 'constructor', 'toString']) {
+      srv.bodies.set(MANIFEST_URL, JSON.stringify({ ...signed, keyId }))
+      expect(await store.update()).toMatchObject({ status: 'rejected', reason: 'unknown-key' })
+    }
+    expect(store.version).toBe(100)
+  })
+
+  it('loads a stored set that lost its texts map and can still update from it', async () => {
+    const srv = server()
+    const storage = memoryStorage()
+    const store = storeWith(srv, storage)
+    await store.load()
+    // A release that only bumps the version: every file comes from the bundle.
+    await srv.publish(101, {})
+    expect(await store.update()).toEqual({ status: 'updated', version: 101, changed: [] })
+    const key = `hisab-data/set-${storage.map.get('hisab-data/active')}`
+    const slot = JSON.parse(storage.map.get(key)!)
+    delete slot.texts
+    storage.map.set(key, JSON.stringify(slot))
+    const restarted = storeWith(srv, storage)
+    await restarted.load()
+    expect(restarted.version).toBe(101)
+    await srv.publish(102, { 'mfs-charges.json': mfs(16) })
+    expect(await restarted.update()).toEqual({ status: 'updated', version: 102, changed: ['mfs-charges.json'] })
+  })
+
+  it('rejects schema-valid but absurd values in a signed release', async () => {
+    const srv = server()
+    const store = storeWith(srv)
+    await store.load()
+    const vat = JSON.parse(repoTexts['commerce/vat-rates.json']!)
+    vat.defaultPct.value = 150
+    await srv.publish(101, { 'commerce/vat-rates.json': vat })
+    expect(await store.update()).toMatchObject({ status: 'rejected', reason: 'invalid', detail: expect.stringMatching(/defaultPct\/value/) })
+    const fitra = JSON.parse(repoTexts['religion/fitra.json']!)
+    fitra.value.items[0].kgPerPerson = 1650
+    await srv.publish(102, { 'religion/fitra.json': fitra })
+    expect(await store.update()).toMatchObject({ status: 'rejected', reason: 'invalid', detail: expect.stringMatching(/kgPerPerson = 1650/) })
+    expect(store.version).toBe(100)
+  })
+})

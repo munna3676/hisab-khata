@@ -35,7 +35,7 @@ export default function PickerDemo() {
         onClose={() => setWhich(null)}
         title="জেলা বেছে নাও"
         label="জেলা"
-        searchPlaceholder="জেলার নাম লেখো"
+        searchPlaceholder="জেলার নাম লেখো, যেমন কুমিল্লা"
         caption="৬৪ জেলা · বিভাগীয় শহর আগে"
         options={DISTRICTS}
         groups={DISTRICT_GROUPS}

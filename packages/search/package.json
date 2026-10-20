@@ -8,9 +8,10 @@
     "./*": "./src/*.ts"
   },
   "scripts": {
-    "test": "vitest run --passWithNoTests",
+    "test": "vitest run",
     "test:watch": "vitest",
-    "typecheck": "tsc --noEmit"
+    "typecheck": "tsc --noEmit",
+    "build:index": "node src/build-index.ts"
   },
   "dependencies": {
     "@hisab/core": "workspace:*",

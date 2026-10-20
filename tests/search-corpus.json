@@ -1,0 +1,2955 @@
+{
+  "$comment": "Search quality corpus for @hisab/search (packages/search/test/corpus.test.ts). \"search\": the query passes when one of \"top3\" is in the first 3 hits; at least 95% must pass. \"intents\": parseIntent must return this toolId and params (null: no intent); every \"must\" row has to pass and produce an answer card.",
+  "search": [
+    {
+      "q": "bkash cash out",
+      "top3": [
+        "mfs-bkash-cash-out",
+        "cash-out"
+      ]
+    },
+    {
+      "q": "bkash cashout charge",
+      "top3": [
+        "mfs-bkash-cash-out",
+        "cash-out"
+      ]
+    },
+    {
+      "q": "bikash cash out charge",
+      "top3": [
+        "mfs-bkash-cash-out",
+        "cash-out"
+      ]
+    },
+    {
+      "q": "bkas cashout",
+      "top3": [
+        "mfs-bkash-cash-out",
+        "cash-out"
+      ]
+    },
+    {
+      "q": "b-kash kash out",
+      "top3": [
+        "mfs-bkash-cash-out",
+        "cash-out"
+      ]
+    },
+    {
+      "q": "বিকাশ ক্যাশ আউট",
+      "top3": [
+        "mfs-bkash-cash-out",
+        "cash-out"
+      ]
+    },
+    {
+      "q": "বিকাশ ক্যাশআউট চার্জ",
+      "top3": [
+        "mfs-bkash-cash-out",
+        "cash-out"
+      ]
+    },
+    {
+      "q": "বিকাশের ক্যাশ আউট চার্জ কত",
+      "top3": [
+        "mfs-bkash-cash-out",
+        "cash-out"
+      ]
+    },
+    {
+      "q": "বিকাশ থেকে টাকা তোলার চার্জ",
+      "top3": [
+        "mfs-bkash-cash-out",
+        "cash-out"
+      ]
+    },
+    {
+      "q": "bkash taka tolar charge",
+      "top3": [
+        "mfs-bkash-cash-out",
+        "cash-out"
+      ]
+    },
+    {
+      "q": "bkash cash out 5000",
+      "top3": [
+        "mfs-bkash-cash-out",
+        "cash-out"
+      ]
+    },
+    {
+      "q": "বিকাশ ক্যাশআউট ৫০০০",
+      "top3": [
+        "mfs-bkash-cash-out",
+        "cash-out"
+      ]
+    },
+    {
+      "q": "bikash 1000 taka cash out",
+      "top3": [
+        "mfs-bkash-cash-out",
+        "cash-out"
+      ]
+    },
+    {
+      "q": "bkash",
+      "top3": [
+        "mfs-bkash-cash-out",
+        "mobile-banking",
+        "mfs-bkash-send-money",
+        "mfs-bkash-limits",
+        "mfs-bkash-cash-in",
+        "mfs-bkash-bill-pay"
+      ]
+    },
+    {
+      "q": "বিকাশ",
+      "top3": [
+        "mfs-bkash-cash-out",
+        "mobile-banking",
+        "mfs-bkash-send-money",
+        "mfs-bkash-limits",
+        "mfs-bkash-cash-in",
+        "mfs-bkash-bill-pay"
+      ]
+    },
+    {
+      "q": "nagad cash out",
+      "top3": [
+        "mfs-nagad-cash-out",
+        "cash-out"
+      ]
+    },
+    {
+      "q": "nogod cash out charge",
+      "top3": [
+        "mfs-nagad-cash-out",
+        "cash-out"
+      ]
+    },
+    {
+      "q": "নগদ ক্যাশ আউট চার্জ",
+      "top3": [
+        "mfs-nagad-cash-out",
+        "cash-out"
+      ]
+    },
+    {
+      "q": "নগদে টাকা তোলার খরচ",
+      "top3": [
+        "mfs-nagad-cash-out",
+        "cash-out"
+      ]
+    },
+    {
+      "q": "nagod cashout",
+      "top3": [
+        "mfs-nagad-cash-out",
+        "cash-out"
+      ]
+    },
+    {
+      "q": "rocket cash out charge",
+      "top3": [
+        "mfs-rocket-cash-out",
+        "cash-out"
+      ]
+    },
+    {
+      "q": "roket cashout",
+      "top3": [
+        "mfs-rocket-cash-out",
+        "cash-out"
+      ]
+    },
+    {
+      "q": "রকেট ক্যাশ আউট",
+      "top3": [
+        "mfs-rocket-cash-out",
+        "cash-out"
+      ]
+    },
+    {
+      "q": "dbbl rocket cash out",
+      "top3": [
+        "mfs-rocket-cash-out",
+        "cash-out"
+      ]
+    },
+    {
+      "q": "upay cash out",
+      "top3": [
+        "mfs-upay-cash-out",
+        "cash-out"
+      ]
+    },
+    {
+      "q": "উপায় ক্যাশ আউট চার্জ",
+      "top3": [
+        "mfs-upay-cash-out",
+        "cash-out"
+      ]
+    },
+    {
+      "q": "upai cashout charge",
+      "top3": [
+        "mfs-upay-cash-out",
+        "cash-out"
+      ]
+    },
+    {
+      "q": "cash out charge",
+      "top3": [
+        "cash-out",
+        "mfs-compare"
+      ]
+    },
+    {
+      "q": "ক্যাশ আউট চার্জ ক্যালকুলেটর",
+      "top3": [
+        "cash-out"
+      ]
+    },
+    {
+      "q": "cashout calculator",
+      "top3": [
+        "cash-out"
+      ]
+    },
+    {
+      "q": "kash out charj",
+      "top3": [
+        "cash-out",
+        "mfs-bkash-cash-out",
+        "mfs-nagad-cash-out",
+        "mfs-rocket-cash-out",
+        "mfs-upay-cash-out"
+      ]
+    },
+    {
+      "q": "টাকা তোলার চার্জ",
+      "top3": [
+        "cash-out",
+        "mfs-bkash-cash-out",
+        "mfs-nagad-cash-out",
+        "mfs-rocket-cash-out",
+        "mfs-upay-cash-out"
+      ]
+    },
+    {
+      "q": "bkash send money",
+      "top3": [
+        "mfs-bkash-send-money",
+        "send-money"
+      ]
+    },
+    {
+      "q": "bkash send money charge",
+      "top3": [
+        "mfs-bkash-send-money",
+        "send-money"
+      ]
+    },
+    {
+      "q": "বিকাশ সেন্ড মানি চার্জ",
+      "top3": [
+        "mfs-bkash-send-money",
+        "send-money"
+      ]
+    },
+    {
+      "q": "বিকাশে টাকা পাঠানোর চার্জ",
+      "top3": [
+        "mfs-bkash-send-money",
+        "send-money"
+      ]
+    },
+    {
+      "q": "nagad send money",
+      "top3": [
+        "mfs-nagad-send-money",
+        "send-money"
+      ]
+    },
+    {
+      "q": "nogod send mony",
+      "top3": [
+        "mfs-nagad-send-money",
+        "send-money"
+      ]
+    },
+    {
+      "q": "রকেট সেন্ড মানি",
+      "top3": [
+        "mfs-rocket-send-money",
+        "send-money"
+      ]
+    },
+    {
+      "q": "upay sendmoney charge",
+      "top3": [
+        "mfs-upay-send-money",
+        "send-money"
+      ]
+    },
+    {
+      "q": "send money charge",
+      "top3": [
+        "send-money"
+      ]
+    },
+    {
+      "q": "sendmoney calculator",
+      "top3": [
+        "send-money"
+      ]
+    },
+    {
+      "q": "টাকা পাঠানোর চার্জ",
+      "top3": [
+        "send-money",
+        "mfs-bkash-send-money",
+        "mfs-nagad-send-money",
+        "mfs-rocket-send-money",
+        "mfs-upay-send-money"
+      ]
+    },
+    {
+      "q": "priyo number",
+      "top3": [
+        "send-money",
+        "mfs-bkash-send-money"
+      ]
+    },
+    {
+      "q": "প্রিয় নম্বর চার্জ",
+      "top3": [
+        "send-money",
+        "mfs-bkash-send-money"
+      ]
+    },
+    {
+      "q": "bkash cash in",
+      "top3": [
+        "mfs-bkash-cash-in"
+      ]
+    },
+    {
+      "q": "বিকাশ ক্যাশ ইন",
+      "top3": [
+        "mfs-bkash-cash-in"
+      ]
+    },
+    {
+      "q": "bkash add money",
+      "top3": [
+        "mfs-bkash-cash-in"
+      ]
+    },
+    {
+      "q": "nagad cash in",
+      "top3": [
+        "mfs-nagad-cash-in"
+      ]
+    },
+    {
+      "q": "rocket cashin",
+      "top3": [
+        "mfs-rocket-cash-in"
+      ]
+    },
+    {
+      "q": "upay add money",
+      "top3": [
+        "mfs-upay-cash-in"
+      ]
+    },
+    {
+      "q": "bkash bill pay",
+      "top3": [
+        "mfs-bkash-bill-pay"
+      ]
+    },
+    {
+      "q": "বিকাশে বিদ্যুৎ বিল",
+      "top3": [
+        "mfs-bkash-bill-pay",
+        "electricity-bill"
+      ]
+    },
+    {
+      "q": "nagad pay bill",
+      "top3": [
+        "mfs-nagad-bill-pay"
+      ]
+    },
+    {
+      "q": "rocket bill pay",
+      "top3": [
+        "mfs-rocket-bill-pay"
+      ]
+    },
+    {
+      "q": "upay bill payment",
+      "top3": [
+        "mfs-upay-bill-pay"
+      ]
+    },
+    {
+      "q": "bkash limit",
+      "top3": [
+        "mfs-bkash-limits"
+      ]
+    },
+    {
+      "q": "বিকাশ লিমিট",
+      "top3": [
+        "mfs-bkash-limits"
+      ]
+    },
+    {
+      "q": "bkash daily limit",
+      "top3": [
+        "mfs-bkash-limits"
+      ]
+    },
+    {
+      "q": "বিকাশের দৈনিক সীমা",
+      "top3": [
+        "mfs-bkash-limits"
+      ]
+    },
+    {
+      "q": "nagad limit",
+      "top3": [
+        "mfs-nagad-limits"
+      ]
+    },
+    {
+      "q": "nogod daily limit",
+      "top3": [
+        "mfs-nagad-limits"
+      ]
+    },
+    {
+      "q": "rocket limit",
+      "top3": [
+        "mfs-rocket-limits"
+      ]
+    },
+    {
+      "q": "upay transaction limit",
+      "top3": [
+        "mfs-upay-limits"
+      ]
+    },
+    {
+      "q": "bkash vs nagad",
+      "top3": [
+        "mfs-compare"
+      ]
+    },
+    {
+      "q": "বিকাশ না নগদ",
+      "top3": [
+        "mfs-compare"
+      ]
+    },
+    {
+      "q": "bkash nagad rocket compare",
+      "top3": [
+        "mfs-compare"
+      ]
+    },
+    {
+      "q": "cheapest cash out",
+      "top3": [
+        "mfs-compare",
+        "cash-out"
+      ]
+    },
+    {
+      "q": "সবচেয়ে কম চার্জ",
+      "top3": [
+        "mfs-compare"
+      ]
+    },
+    {
+      "q": "mobile banking",
+      "top3": [
+        "mobile-banking"
+      ]
+    },
+    {
+      "q": "মোবাইল ব্যাংকিং",
+      "top3": [
+        "mobile-banking"
+      ]
+    },
+    {
+      "q": "mfs",
+      "top3": [
+        "mobile-banking",
+        "mfs-compare"
+      ]
+    },
+    {
+      "q": "priyo agent",
+      "top3": [
+        "guide-priyo-agent",
+        "cash-out",
+        "mfs-bkash-cash-out"
+      ]
+    },
+    {
+      "q": "প্রিয় এজেন্ট সেট",
+      "top3": [
+        "guide-priyo-agent"
+      ]
+    },
+    {
+      "q": "bkash priyo agent kivabe set korbo",
+      "top3": [
+        "guide-priyo-agent"
+      ]
+    },
+    {
+      "q": "wrong number e taka",
+      "top3": [
+        "guide-wrong-number"
+      ]
+    },
+    {
+      "q": "ভুল নম্বরে টাকা চলে গেছে",
+      "top3": [
+        "guide-wrong-number"
+      ]
+    },
+    {
+      "q": "vul number e taka gele",
+      "top3": [
+        "guide-wrong-number"
+      ]
+    },
+    {
+      "q": "bkash wrong number",
+      "top3": [
+        "guide-wrong-number"
+      ]
+    },
+    {
+      "q": "bkash to bank",
+      "top3": [
+        "guide-bkash-to-bank"
+      ]
+    },
+    {
+      "q": "বিকাশ থেকে ব্যাংকে টাকা",
+      "top3": [
+        "guide-bkash-to-bank"
+      ]
+    },
+    {
+      "q": "bikash theke bank e taka pathano",
+      "top3": [
+        "guide-bkash-to-bank"
+      ]
+    },
+    {
+      "q": "bkash account hacked",
+      "top3": [
+        "guide-account-hacked"
+      ]
+    },
+    {
+      "q": "অ্যাকাউন্ট হ্যাক",
+      "top3": [
+        "guide-account-hacked"
+      ]
+    },
+    {
+      "q": "একাউন্ট হ্যাক হলে কি করবো",
+      "top3": [
+        "guide-account-hacked"
+      ]
+    },
+    {
+      "q": "pin leak",
+      "top3": [
+        "guide-account-hacked"
+      ]
+    },
+    {
+      "q": "bkash fraud",
+      "top3": [
+        "guide-account-hacked"
+      ]
+    },
+    {
+      "q": "otp scam",
+      "top3": [
+        "guide-account-hacked"
+      ]
+    },
+    {
+      "q": "emi calculator",
+      "top3": [
+        "emi"
+      ]
+    },
+    {
+      "q": "emi calculater",
+      "top3": [
+        "emi"
+      ]
+    },
+    {
+      "q": "ইএমআই",
+      "top3": [
+        "emi"
+      ]
+    },
+    {
+      "q": "লোনের কিস্তি",
+      "top3": [
+        "emi"
+      ]
+    },
+    {
+      "q": "মাসিক কিস্তি হিসাব",
+      "top3": [
+        "emi"
+      ]
+    },
+    {
+      "q": "loan kisti",
+      "top3": [
+        "emi"
+      ]
+    },
+    {
+      "q": "home loan emi",
+      "top3": [
+        "emi",
+        "bank-detail-loan"
+      ]
+    },
+    {
+      "q": "car loan",
+      "top3": [
+        "emi",
+        "bank-detail-loan"
+      ]
+    },
+    {
+      "q": "personal loan interest",
+      "top3": [
+        "bank-detail-loan",
+        "emi"
+      ]
+    },
+    {
+      "q": "dps calculator",
+      "top3": [
+        "dps"
+      ]
+    },
+    {
+      "q": "ডিপিএস",
+      "top3": [
+        "dps",
+        "bank-detail-dps"
+      ]
+    },
+    {
+      "q": "dps munafa",
+      "top3": [
+        "dps"
+      ]
+    },
+    {
+      "q": "মাসিক সঞ্চয় মুনাফা",
+      "top3": [
+        "dps",
+        "savings-goal"
+      ]
+    },
+    {
+      "q": "fdr calculator",
+      "top3": [
+        "fdr"
+      ]
+    },
+    {
+      "q": "এফডিআর মুনাফা",
+      "top3": [
+        "fdr",
+        "bank-detail-fdr"
+      ]
+    },
+    {
+      "q": "fixed deposit",
+      "top3": [
+        "fdr",
+        "bank-detail-fdr"
+      ]
+    },
+    {
+      "q": "স্থায়ী আমানত",
+      "top3": [
+        "fdr",
+        "bank-detail-fdr"
+      ]
+    },
+    {
+      "q": "fdr rate",
+      "top3": [
+        "bank-detail-fdr",
+        "fdr",
+        "bank-compare",
+        "bank-list"
+      ]
+    },
+    {
+      "q": "best fdr rate",
+      "top3": [
+        "bank-compare",
+        "bank-detail-fdr"
+      ]
+    },
+    {
+      "q": "brac bank fdr",
+      "top3": [
+        "bank-detail-fdr"
+      ]
+    },
+    {
+      "q": "dbbl dps rate",
+      "top3": [
+        "bank-detail-dps"
+      ]
+    },
+    {
+      "q": "loan eligibility",
+      "top3": [
+        "loan-eligibility"
+      ]
+    },
+    {
+      "q": "কত টাকা লোন পাবো",
+      "top3": [
+        "loan-eligibility"
+      ]
+    },
+    {
+      "q": "loan koto pabo",
+      "top3": [
+        "loan-eligibility"
+      ]
+    },
+    {
+      "q": "loan compare",
+      "top3": [
+        "loan-compare"
+      ]
+    },
+    {
+      "q": "দুটো লোন তুলনা",
+      "top3": [
+        "loan-compare"
+      ]
+    },
+    {
+      "q": "processing fee",
+      "top3": [
+        "loan-compare"
+      ]
+    },
+    {
+      "q": "bank list",
+      "top3": [
+        "bank-list"
+      ]
+    },
+    {
+      "q": "ব্যাংকের তালিকা",
+      "top3": [
+        "bank-list"
+      ]
+    },
+    {
+      "q": "islamic bank",
+      "top3": [
+        "bank-list"
+      ]
+    },
+    {
+      "q": "bank compare",
+      "top3": [
+        "bank-compare"
+      ]
+    },
+    {
+      "q": "কোন ব্যাংক ভালো",
+      "top3": [
+        "bank-compare"
+      ]
+    },
+    {
+      "q": "savings account",
+      "top3": [
+        "bank-detail-account"
+      ]
+    },
+    {
+      "q": "minimum balance",
+      "top3": [
+        "bank-detail-account"
+      ]
+    },
+    {
+      "q": "credit card",
+      "top3": [
+        "bank-detail-card"
+      ]
+    },
+    {
+      "q": "ক্রেডিট কার্ড ফি",
+      "top3": [
+        "bank-detail-card"
+      ]
+    },
+    {
+      "q": "debit card annual fee",
+      "top3": [
+        "bank-detail-card"
+      ]
+    },
+    {
+      "q": "ব্যাংক",
+      "top3": [
+        "bank",
+        "bank-list"
+      ]
+    },
+    {
+      "q": "sanchayapatra",
+      "top3": [
+        "sanchayapatra"
+      ]
+    },
+    {
+      "q": "সঞ্চয়পত্র মুনাফা",
+      "top3": [
+        "sanchayapatra"
+      ]
+    },
+    {
+      "q": "sonchoypotro",
+      "top3": [
+        "sanchayapatra"
+      ]
+    },
+    {
+      "q": "paribar sanchayapatra",
+      "top3": [
+        "sanchayapatra"
+      ]
+    },
+    {
+      "q": "পরিবার সঞ্চয়পত্র",
+      "top3": [
+        "sanchayapatra"
+      ]
+    },
+    {
+      "q": "savings goal",
+      "top3": [
+        "savings-goal"
+      ]
+    },
+    {
+      "q": "সঞ্চয় লক্ষ্য",
+      "top3": [
+        "savings-goal"
+      ]
+    },
+    {
+      "q": "taka jomano",
+      "top3": [
+        "savings-goal"
+      ]
+    },
+    {
+      "q": "remittance",
+      "top3": [
+        "remittance-compare",
+        "remittance"
+      ]
+    },
+    {
+      "q": "remitance compare",
+      "top3": [
+        "remittance-compare"
+      ]
+    },
+    {
+      "q": "রেমিট্যান্স",
+      "top3": [
+        "remittance-compare",
+        "remittance"
+      ]
+    },
+    {
+      "q": "বিদেশ থেকে টাকা পাঠানো",
+      "top3": [
+        "remittance-compare"
+      ]
+    },
+    {
+      "q": "saudi to bangladesh",
+      "top3": [
+        "remittance-compare",
+        "guide-saudi-to-bkash"
+      ]
+    },
+    {
+      "q": "western union",
+      "top3": [
+        "remittance-compare"
+      ]
+    },
+    {
+      "q": "prvasi incentive",
+      "top3": [
+        "remittance-compare",
+        "remittance",
+        "guide-saudi-to-bkash"
+      ]
+    },
+    {
+      "q": "saudi theke bkash",
+      "top3": [
+        "guide-saudi-to-bkash"
+      ]
+    },
+    {
+      "q": "সৌদি থেকে বিকাশে টাকা",
+      "top3": [
+        "guide-saudi-to-bkash"
+      ]
+    },
+    {
+      "q": "stc pay",
+      "top3": [
+        "guide-saudi-to-bkash"
+      ]
+    },
+    {
+      "q": "hundi",
+      "top3": [
+        "guide-hundi"
+      ]
+    },
+    {
+      "q": "হুন্ডি",
+      "top3": [
+        "guide-hundi"
+      ]
+    },
+    {
+      "q": "currency converter",
+      "top3": [
+        "currency-converter"
+      ]
+    },
+    {
+      "q": "dollar rate",
+      "top3": [
+        "currency-converter"
+      ]
+    },
+    {
+      "q": "ডলার রেট",
+      "top3": [
+        "currency-converter"
+      ]
+    },
+    {
+      "q": "riyal rate",
+      "top3": [
+        "currency-converter"
+      ]
+    },
+    {
+      "q": "সৌদি রিয়াল রেট",
+      "top3": [
+        "currency-converter"
+      ]
+    },
+    {
+      "q": "usd to bdt",
+      "top3": [
+        "currency-converter"
+      ]
+    },
+    {
+      "q": "dirham rate",
+      "top3": [
+        "currency-converter"
+      ]
+    },
+    {
+      "q": "ringgit",
+      "top3": [
+        "currency-converter"
+      ]
+    },
+    {
+      "q": "exchange rate",
+      "top3": [
+        "currency-converter"
+      ]
+    },
+    {
+      "q": "probashi",
+      "top3": [
+        "guides-expatriate",
+        "remittance"
+      ]
+    },
+    {
+      "q": "vat calculator",
+      "top3": [
+        "vat"
+      ]
+    },
+    {
+      "q": "ভ্যাট",
+      "top3": [
+        "vat"
+      ]
+    },
+    {
+      "q": "vat hisab",
+      "top3": [
+        "vat"
+      ]
+    },
+    {
+      "q": "মূসক",
+      "top3": [
+        "vat"
+      ]
+    },
+    {
+      "q": "15% vat",
+      "top3": [
+        "vat"
+      ]
+    },
+    {
+      "q": "discount calculator",
+      "top3": [
+        "discount-percentage"
+      ]
+    },
+    {
+      "q": "percentage",
+      "top3": [
+        "discount-percentage"
+      ]
+    },
+    {
+      "q": "parcent",
+      "top3": [
+        "discount-percentage"
+      ]
+    },
+    {
+      "q": "ছাড়ের হিসাব",
+      "top3": [
+        "discount-percentage"
+      ]
+    },
+    {
+      "q": "profit margin",
+      "top3": [
+        "profit-margin"
+      ]
+    },
+    {
+      "q": "লাভের হিসাব",
+      "top3": [
+        "profit-margin"
+      ]
+    },
+    {
+      "q": "markup",
+      "top3": [
+        "profit-margin"
+      ]
+    },
+    {
+      "q": "salary breakdown",
+      "top3": [
+        "salary"
+      ]
+    },
+    {
+      "q": "বেতন",
+      "top3": [
+        "salary"
+      ]
+    },
+    {
+      "q": "basic salary",
+      "top3": [
+        "salary"
+      ]
+    },
+    {
+      "q": "house rent allowance",
+      "top3": [
+        "salary"
+      ]
+    },
+    {
+      "q": "income tax",
+      "top3": [
+        "income-tax"
+      ]
+    },
+    {
+      "q": "আয়কর",
+      "top3": [
+        "income-tax"
+      ]
+    },
+    {
+      "q": "tax calculater",
+      "top3": [
+        "income-tax"
+      ]
+    },
+    {
+      "q": "aykor hisab",
+      "top3": [
+        "income-tax"
+      ]
+    },
+    {
+      "q": "freelancer tax",
+      "top3": [
+        "income-tax"
+      ]
+    },
+    {
+      "q": "tax slab",
+      "top3": [
+        "income-tax"
+      ]
+    },
+    {
+      "q": "data pack",
+      "top3": [
+        "data-pack"
+      ]
+    },
+    {
+      "q": "gp internet pack",
+      "top3": [
+        "data-pack"
+      ]
+    },
+    {
+      "q": "ইন্টারনেট প্যাক",
+      "top3": [
+        "data-pack"
+      ]
+    },
+    {
+      "q": "robi mb offer",
+      "top3": [
+        "data-pack"
+      ]
+    },
+    {
+      "q": "mess hisab",
+      "top3": [
+        "mess"
+      ]
+    },
+    {
+      "q": "মেসের হিসাব",
+      "top3": [
+        "mess"
+      ]
+    },
+    {
+      "q": "meal rate",
+      "top3": [
+        "mess"
+      ]
+    },
+    {
+      "q": "rent split",
+      "top3": [
+        "rent-split"
+      ]
+    },
+    {
+      "q": "বাসা ভাড়া ভাগ",
+      "top3": [
+        "rent-split"
+      ]
+    },
+    {
+      "q": "roommate rent",
+      "top3": [
+        "rent-split"
+      ]
+    },
+    {
+      "q": "electricity bill",
+      "top3": [
+        "electricity-bill"
+      ]
+    },
+    {
+      "q": "বিদ্যুৎ বিল",
+      "top3": [
+        "electricity-bill",
+        "mfs-bkash-bill-pay"
+      ]
+    },
+    {
+      "q": "বিদ্যুত বিল হিসাব",
+      "top3": [
+        "electricity-bill"
+      ]
+    },
+    {
+      "q": "current bill",
+      "top3": [
+        "electricity-bill"
+      ]
+    },
+    {
+      "q": "biddut bill calculator",
+      "top3": [
+        "electricity-bill"
+      ]
+    },
+    {
+      "q": "palli bidyut",
+      "top3": [
+        "electricity-bill"
+      ]
+    },
+    {
+      "q": "desco prepaid",
+      "top3": [
+        "electricity-bill"
+      ]
+    },
+    {
+      "q": "delivery charge",
+      "top3": [
+        "delivery-profit"
+      ]
+    },
+    {
+      "q": "courier charge",
+      "top3": [
+        "delivery-profit"
+      ]
+    },
+    {
+      "q": "steadfast",
+      "top3": [
+        "delivery-profit"
+      ]
+    },
+    {
+      "q": "invoice maker",
+      "top3": [
+        "invoice"
+      ]
+    },
+    {
+      "q": "ইনভয়েস",
+      "top3": [
+        "invoice"
+      ]
+    },
+    {
+      "q": "cash memo",
+      "top3": [
+        "invoice"
+      ]
+    },
+    {
+      "q": "money receipt",
+      "top3": [
+        "invoice"
+      ]
+    },
+    {
+      "q": "calculator",
+      "top3": [
+        "calculators"
+      ]
+    },
+    {
+      "q": "ক্যালকুলেটর",
+      "top3": [
+        "calculators"
+      ]
+    },
+    {
+      "q": "age calculator",
+      "top3": [
+        "age"
+      ]
+    },
+    {
+      "q": "বয়স",
+      "top3": [
+        "age"
+      ]
+    },
+    {
+      "q": "boyos koto",
+      "top3": [
+        "age"
+      ]
+    },
+    {
+      "q": "jonmo tarikh theke boyos",
+      "top3": [
+        "age"
+      ]
+    },
+    {
+      "q": "date of birth",
+      "top3": [
+        "age"
+      ]
+    },
+    {
+      "q": "job age limit",
+      "top3": [
+        "job-age-limit"
+      ]
+    },
+    {
+      "q": "সরকারি চাকরির বয়সসীমা",
+      "top3": [
+        "job-age-limit"
+      ]
+    },
+    {
+      "q": "bcs age limit",
+      "top3": [
+        "job-age-limit"
+      ]
+    },
+    {
+      "q": "bangla date",
+      "top3": [
+        "bangla-date"
+      ]
+    },
+    {
+      "q": "আজ কত তারিখ",
+      "top3": [
+        "bangla-date"
+      ]
+    },
+    {
+      "q": "aj koto tarikh",
+      "top3": [
+        "bangla-date"
+      ]
+    },
+    {
+      "q": "বঙ্গাব্দ",
+      "top3": [
+        "bangla-date"
+      ]
+    },
+    {
+      "q": "pohela boishakh",
+      "top3": [
+        "bangla-date"
+      ]
+    },
+    {
+      "q": "hijri date",
+      "top3": [
+        "hijri-date"
+      ]
+    },
+    {
+      "q": "আরবি তারিখ",
+      "top3": [
+        "hijri-date"
+      ]
+    },
+    {
+      "q": "ajker arabi tarikh",
+      "top3": [
+        "hijri-date"
+      ]
+    },
+    {
+      "q": "day count",
+      "top3": [
+        "day-count"
+      ]
+    },
+    {
+      "q": "দুই তারিখের মধ্যে কত দিন",
+      "top3": [
+        "day-count"
+      ]
+    },
+    {
+      "q": "din gonona",
+      "top3": [
+        "day-count"
+      ]
+    },
+    {
+      "q": "land converter",
+      "top3": [
+        "land-converter"
+      ]
+    },
+    {
+      "q": "জমির মাপ",
+      "top3": [
+        "land-converter"
+      ]
+    },
+    {
+      "q": "কাঠা বিঘা শতাংশ",
+      "top3": [
+        "land-converter"
+      ]
+    },
+    {
+      "q": "katha to sqft",
+      "top3": [
+        "land-converter"
+      ]
+    },
+    {
+      "q": "kotha bigha",
+      "top3": [
+        "land-converter",
+        "date-land-gold"
+      ]
+    },
+    {
+      "q": "decimal to katha",
+      "top3": [
+        "land-converter"
+      ]
+    },
+    {
+      "q": "১ শতাংশ কত বর্গফুট",
+      "top3": [
+        "land-converter"
+      ]
+    },
+    {
+      "q": "1 bigha koto shotok",
+      "top3": [
+        "land-converter"
+      ]
+    },
+    {
+      "q": "ekor",
+      "top3": [
+        "land-converter"
+      ]
+    },
+    {
+      "q": "land price",
+      "top3": [
+        "land-price"
+      ]
+    },
+    {
+      "q": "জমির দাম",
+      "top3": [
+        "land-price"
+      ]
+    },
+    {
+      "q": "registry khoroch",
+      "top3": [
+        "land-price"
+      ]
+    },
+    {
+      "q": "gold price",
+      "top3": [
+        "gold-converter"
+      ]
+    },
+    {
+      "q": "সোনার দাম",
+      "top3": [
+        "gold-converter"
+      ]
+    },
+    {
+      "q": "sonar dam",
+      "top3": [
+        "gold-converter"
+      ]
+    },
+    {
+      "q": "vori to gram",
+      "top3": [
+        "gold-converter"
+      ]
+    },
+    {
+      "q": "ভরি আনা রতি",
+      "top3": [
+        "gold-converter"
+      ]
+    },
+    {
+      "q": "22 carat gold",
+      "top3": [
+        "gold-converter"
+      ]
+    },
+    {
+      "q": "rupar dam",
+      "top3": [
+        "gold-converter"
+      ]
+    },
+    {
+      "q": "gold 2 vori",
+      "top3": [
+        "gold-converter"
+      ]
+    },
+    {
+      "q": "jewelry bill",
+      "top3": [
+        "jewelry-bill"
+      ]
+    },
+    {
+      "q": "গহনার মজুরি",
+      "top3": [
+        "jewelry-bill"
+      ]
+    },
+    {
+      "q": "goyna bill",
+      "top3": [
+        "jewelry-bill"
+      ]
+    },
+    {
+      "q": "gpa calculator",
+      "top3": [
+        "gpa"
+      ]
+    },
+    {
+      "q": "ssc gpa",
+      "top3": [
+        "gpa"
+      ]
+    },
+    {
+      "q": "এইচএসসি জিপিএ",
+      "top3": [
+        "gpa"
+      ]
+    },
+    {
+      "q": "চতুর্থ বিষয়",
+      "top3": [
+        "gpa"
+      ]
+    },
+    {
+      "q": "dakhil result",
+      "top3": [
+        "gpa"
+      ]
+    },
+    {
+      "q": "cgpa calculator",
+      "top3": [
+        "cgpa"
+      ]
+    },
+    {
+      "q": "সিজিপিএ",
+      "top3": [
+        "cgpa"
+      ]
+    },
+    {
+      "q": "varsity semester cgpa",
+      "top3": [
+        "cgpa"
+      ]
+    },
+    {
+      "q": "zakat",
+      "top3": [
+        "zakat"
+      ]
+    },
+    {
+      "q": "যাকাত",
+      "top3": [
+        "zakat"
+      ]
+    },
+    {
+      "q": "jakat hisab",
+      "top3": [
+        "zakat"
+      ]
+    },
+    {
+      "q": "nisab",
+      "top3": [
+        "zakat"
+      ]
+    },
+    {
+      "q": "fitra",
+      "top3": [
+        "fitra"
+      ]
+    },
+    {
+      "q": "ফিতরা কত",
+      "top3": [
+        "fitra"
+      ]
+    },
+    {
+      "q": "fetra",
+      "top3": [
+        "fitra"
+      ]
+    },
+    {
+      "q": "sehri time",
+      "top3": [
+        "sehri-iftar"
+      ]
+    },
+    {
+      "q": "ইফতারের সময়",
+      "top3": [
+        "sehri-iftar"
+      ]
+    },
+    {
+      "q": "ramadan calendar",
+      "top3": [
+        "sehri-iftar"
+      ]
+    },
+    {
+      "q": "roja sehri iftar",
+      "top3": [
+        "sehri-iftar"
+      ]
+    },
+    {
+      "q": "bijoy to unicode",
+      "top3": [
+        "unicode-bijoy"
+      ]
+    },
+    {
+      "q": "ইউনিকোড বিজয়",
+      "top3": [
+        "unicode-bijoy"
+      ]
+    },
+    {
+      "q": "sutonnymj",
+      "top3": [
+        "unicode-bijoy"
+      ]
+    },
+    {
+      "q": "avro",
+      "top3": [
+        "unicode-bijoy"
+      ]
+    },
+    {
+      "q": "font style",
+      "top3": [
+        "font-style"
+      ]
+    },
+    {
+      "q": "stylish name",
+      "top3": [
+        "font-style"
+      ]
+    },
+    {
+      "q": "facebook stylish font",
+      "top3": [
+        "font-style"
+      ]
+    },
+    {
+      "q": "number to words",
+      "top3": [
+        "number-to-words"
+      ]
+    },
+    {
+      "q": "টাকা কথায়",
+      "top3": [
+        "number-to-words"
+      ]
+    },
+    {
+      "q": "amount in words",
+      "top3": [
+        "number-to-words"
+      ]
+    },
+    {
+      "q": "cheque taka in words",
+      "top3": [
+        "number-to-words"
+      ]
+    },
+    {
+      "q": "name spelling",
+      "top3": [
+        "name-spelling"
+      ]
+    },
+    {
+      "q": "নামের বানান",
+      "top3": [
+        "name-spelling"
+      ]
+    },
+    {
+      "q": "md mohammad",
+      "top3": [
+        "name-spelling"
+      ]
+    },
+    {
+      "q": "মোঃ মোহাম্মদ",
+      "top3": [
+        "name-spelling"
+      ]
+    },
+    {
+      "q": "nid correction",
+      "top3": [
+        "guide-nid-correction"
+      ]
+    },
+    {
+      "q": "এনআইডি সংশোধন",
+      "top3": [
+        "guide-nid-correction"
+      ]
+    },
+    {
+      "q": "nid songshodhon",
+      "top3": [
+        "guide-nid-correction"
+      ]
+    },
+    {
+      "q": "জাতীয় পরিচয়পত্র সংশোধন",
+      "top3": [
+        "guide-nid-correction"
+      ]
+    },
+    {
+      "q": "voter id correction",
+      "top3": [
+        "guide-nid-correction"
+      ]
+    },
+    {
+      "q": "passport",
+      "top3": [
+        "guide-e-passport"
+      ]
+    },
+    {
+      "q": "ই-পাসপোর্ট",
+      "top3": [
+        "guide-e-passport"
+      ]
+    },
+    {
+      "q": "passport renew",
+      "top3": [
+        "guide-e-passport"
+      ]
+    },
+    {
+      "q": "pasport fee",
+      "top3": [
+        "guide-e-passport"
+      ]
+    },
+    {
+      "q": "birth certificate",
+      "top3": [
+        "guide-birth-registration"
+      ]
+    },
+    {
+      "q": "জন্ম নিবন্ধন",
+      "top3": [
+        "guide-birth-registration"
+      ]
+    },
+    {
+      "q": "jonmo nibondhon songshodhon",
+      "top3": [
+        "guide-birth-registration"
+      ]
+    },
+    {
+      "q": "driving license",
+      "top3": [
+        "guide-driving-license"
+      ]
+    },
+    {
+      "q": "ড্রাইভিং লাইসেন্স",
+      "top3": [
+        "guide-driving-license"
+      ]
+    },
+    {
+      "q": "brta learner",
+      "top3": [
+        "guide-driving-license"
+      ]
+    },
+    {
+      "q": "namjari",
+      "top3": [
+        "guide-namjari"
+      ]
+    },
+    {
+      "q": "নামজারি",
+      "top3": [
+        "guide-namjari"
+      ]
+    },
+    {
+      "q": "land mutation",
+      "top3": [
+        "guide-namjari"
+      ]
+    },
+    {
+      "q": "khatian",
+      "top3": [
+        "guide-namjari"
+      ]
+    },
+    {
+      "q": "affidavit",
+      "top3": [
+        "guide-affidavit"
+      ]
+    },
+    {
+      "q": "হলফনামা",
+      "top3": [
+        "guide-affidavit"
+      ]
+    },
+    {
+      "q": "power of attorney",
+      "top3": [
+        "guide-power-of-attorney"
+      ]
+    },
+    {
+      "q": "আমমোক্তারনামা",
+      "top3": [
+        "guide-power-of-attorney"
+      ]
+    },
+    {
+      "q": "warish certificate",
+      "top3": [
+        "guide-warish-certificate"
+      ]
+    },
+    {
+      "q": "ওয়ারিশ সনদ",
+      "top3": [
+        "guide-warish-certificate"
+      ]
+    },
+    {
+      "q": "certificate verification",
+      "top3": [
+        "guide-certificate-verification"
+      ]
+    },
+    {
+      "q": "সনদ সত্যায়ন",
+      "top3": [
+        "guide-certificate-verification"
+      ]
+    },
+    {
+      "q": "marksheet",
+      "top3": [
+        "guide-board-marksheet"
+      ]
+    },
+    {
+      "q": "নম্বরপত্র সংশোধন",
+      "top3": [
+        "guide-board-marksheet"
+      ]
+    },
+    {
+      "q": "upobritti",
+      "top3": [
+        "guide-stipend"
+      ]
+    },
+    {
+      "q": "উপবৃত্তি",
+      "top3": [
+        "guide-stipend"
+      ]
+    },
+    {
+      "q": "bmet registration",
+      "top3": [
+        "guide-bmet-registration"
+      ]
+    },
+    {
+      "q": "আমি প্রবাসী",
+      "top3": [
+        "guide-bmet-registration"
+      ]
+    },
+    {
+      "q": "manpower card",
+      "top3": [
+        "guide-bmet-registration"
+      ]
+    },
+    {
+      "q": "police clearance",
+      "top3": [
+        "guide-police-clearance"
+      ]
+    },
+    {
+      "q": "পুলিশ ক্লিয়ারেন্স",
+      "top3": [
+        "guide-police-clearance"
+      ]
+    },
+    {
+      "q": "pcc",
+      "top3": [
+        "guide-police-clearance"
+      ]
+    },
+    {
+      "q": "কোন কাগজ লাগবে",
+      "top3": [
+        "guide-wizard"
+      ]
+    },
+    {
+      "q": "documents checklist",
+      "top3": [
+        "guide-wizard"
+      ]
+    },
+    {
+      "q": "sorkari kaj",
+      "top3": [
+        "sorkari-kaj"
+      ]
+    },
+    {
+      "q": "সরকারি কাজ",
+      "top3": [
+        "sorkari-kaj"
+      ]
+    },
+    {
+      "q": "legal papers",
+      "top3": [
+        "guides-legal"
+      ]
+    },
+    {
+      "q": "শিক্ষা",
+      "top3": [
+        "guides-education"
+      ]
+    },
+    {
+      "q": "সব টুল",
+      "top3": [
+        "all-tools"
+      ]
+    },
+    {
+      "q": "all tools",
+      "top3": [
+        "all-tools"
+      ]
+    },
+    {
+      "q": "saved",
+      "top3": [
+        "saved"
+      ]
+    },
+    {
+      "q": "সেভ করা",
+      "top3": [
+        "saved"
+      ]
+    },
+    {
+      "q": "about us",
+      "top3": [
+        "about"
+      ]
+    },
+    {
+      "q": "privacy policy",
+      "top3": [
+        "privacy"
+      ]
+    },
+    {
+      "q": "contact",
+      "top3": [
+        "contact"
+      ]
+    },
+    {
+      "q": "যোগাযোগ",
+      "top3": [
+        "contact"
+      ]
+    },
+    {
+      "q": "disclaimer",
+      "top3": [
+        "disclaimer"
+      ]
+    },
+    {
+      "q": "changelog",
+      "top3": [
+        "changelog"
+      ]
+    },
+    {
+      "q": "নতুন রেট",
+      "top3": [
+        "changelog"
+      ]
+    },
+    {
+      "q": "hisab khata",
+      "top3": [
+        "home",
+        "about"
+      ]
+    },
+    {
+      "q": "bkaash cashout",
+      "top3": [
+        "mfs-bkash-cash-out",
+        "cash-out"
+      ]
+    },
+    {
+      "q": "bkashcash out",
+      "top3": [
+        "mfs-bkash-cash-out",
+        "cash-out"
+      ]
+    },
+    {
+      "q": "nagadd cash outt",
+      "top3": [
+        "mfs-nagad-cash-out",
+        "cash-out"
+      ]
+    },
+    {
+      "q": "বিকাশ cash out",
+      "top3": [
+        "mfs-bkash-cash-out",
+        "cash-out"
+      ]
+    },
+    {
+      "q": "bkash ক্যাশ আউট ৫০০০ টাকা",
+      "top3": [
+        "mfs-bkash-cash-out",
+        "cash-out"
+      ]
+    },
+    {
+      "q": "rokcet cash out",
+      "top3": [
+        "mfs-rocket-cash-out",
+        "cash-out"
+      ]
+    },
+    {
+      "q": "emii calculator",
+      "top3": [
+        "emi"
+      ]
+    },
+    {
+      "q": "emi calcultor",
+      "top3": [
+        "emi"
+      ]
+    },
+    {
+      "q": "lone emi",
+      "top3": [
+        "emi"
+      ]
+    },
+    {
+      "q": "pasport renew fee",
+      "top3": [
+        "guide-e-passport"
+      ]
+    },
+    {
+      "q": "pasport",
+      "top3": [
+        "guide-e-passport"
+      ]
+    },
+    {
+      "q": "zakat calcultor",
+      "top3": [
+        "zakat"
+      ]
+    },
+    {
+      "q": "jakaat",
+      "top3": [
+        "zakat"
+      ]
+    },
+    {
+      "q": "jomir dam",
+      "top3": [
+        "land-price"
+      ]
+    },
+    {
+      "q": "boyosh",
+      "top3": [
+        "age"
+      ]
+    },
+    {
+      "q": "বয়শ",
+      "top3": [
+        "age"
+      ]
+    },
+    {
+      "q": "ingome tax",
+      "top3": [
+        "income-tax"
+      ]
+    },
+    {
+      "q": "incom tax calculator bd",
+      "top3": [
+        "income-tax"
+      ]
+    },
+    {
+      "q": "বিদ্যুত বিল",
+      "top3": [
+        "electricity-bill",
+        "mfs-bkash-bill-pay",
+        "mfs-nagad-bill-pay",
+        "mfs-rocket-bill-pay",
+        "mfs-upay-bill-pay"
+      ]
+    },
+    {
+      "q": "sehri iftar time dhaka",
+      "top3": [
+        "sehri-iftar"
+      ]
+    },
+    {
+      "q": "sehri ifter",
+      "top3": [
+        "sehri-iftar"
+      ]
+    },
+    {
+      "q": "kotha to shotangsho",
+      "top3": [
+        "land-converter"
+      ]
+    },
+    {
+      "q": "bigah",
+      "top3": [
+        "land-converter"
+      ]
+    },
+    {
+      "q": "sanchoypotro munafa",
+      "top3": [
+        "sanchayapatra"
+      ]
+    },
+    {
+      "q": "savings certificat",
+      "top3": [
+        "sanchayapatra"
+      ]
+    },
+    {
+      "q": "jonmo nibondon",
+      "top3": [
+        "guide-birth-registration"
+      ]
+    },
+    {
+      "q": "nid card songsodhon",
+      "top3": [
+        "guide-nid-correction"
+      ]
+    },
+    {
+      "q": "drivin licence",
+      "top3": [
+        "guide-driving-license"
+      ]
+    },
+    {
+      "q": "currancy converter",
+      "top3": [
+        "currency-converter"
+      ]
+    },
+    {
+      "q": "dolar rate today",
+      "top3": [
+        "currency-converter"
+      ]
+    },
+    {
+      "q": "gpa calculater ssc",
+      "top3": [
+        "gpa"
+      ]
+    },
+    {
+      "q": "cgpa calculater",
+      "top3": [
+        "cgpa"
+      ]
+    },
+    {
+      "q": "meal rate hisab",
+      "top3": [
+        "mess"
+      ]
+    },
+    {
+      "q": "bari vara",
+      "top3": [
+        "rent-split",
+        "salary"
+      ]
+    },
+    {
+      "q": "ফিতরার পরিমাণ",
+      "top3": [
+        "fitra"
+      ]
+    },
+    {
+      "q": "uniccode to bijoy",
+      "top3": [
+        "unicode-bijoy"
+      ]
+    },
+    {
+      "q": "stylish font",
+      "top3": [
+        "font-style"
+      ]
+    },
+    {
+      "q": "taka in word",
+      "top3": [
+        "number-to-words"
+      ]
+    },
+    {
+      "q": "nam banan",
+      "top3": [
+        "name-spelling"
+      ]
+    },
+    {
+      "q": "vat calculater",
+      "top3": [
+        "vat"
+      ]
+    },
+    {
+      "q": "vatt",
+      "top3": [
+        "vat"
+      ]
+    },
+    {
+      "q": "dicount",
+      "top3": [
+        "discount-percentage"
+      ]
+    },
+    {
+      "q": "প্রফিট মার্জিন",
+      "top3": [
+        "profit-margin"
+      ]
+    },
+    {
+      "q": "delivary charge",
+      "top3": [
+        "delivery-profit"
+      ]
+    },
+    {
+      "q": "invoise",
+      "top3": [
+        "invoice"
+      ]
+    },
+    {
+      "q": "remitence",
+      "top3": [
+        "remittance",
+        "remittance-compare"
+      ]
+    },
+    {
+      "q": "hundi ki",
+      "top3": [
+        "guide-hundi"
+      ]
+    },
+    {
+      "q": "warishan sonod",
+      "top3": [
+        "guide-warish-certificate"
+      ]
+    },
+    {
+      "q": "affidevit",
+      "top3": [
+        "guide-affidavit"
+      ]
+    },
+    {
+      "q": "namjary",
+      "top3": [
+        "guide-namjari"
+      ]
+    }
+  ],
+  "intents": [
+    {
+      "q": "bkash cash out 5000",
+      "must": true,
+      "intent": {
+        "toolId": "cash-out",
+        "params": {
+          "service": "cashOut",
+          "amount": 5000,
+          "provider": "bkash"
+        }
+      }
+    },
+    {
+      "q": "বিকাশ ক্যাশআউট ৫০০০",
+      "must": true,
+      "intent": {
+        "toolId": "cash-out",
+        "params": {
+          "service": "cashOut",
+          "amount": 5000,
+          "provider": "bkash"
+        }
+      }
+    },
+    {
+      "q": "bikash 5k",
+      "must": true,
+      "intent": {
+        "toolId": "cash-out",
+        "params": {
+          "service": "cashOut",
+          "amount": 5000,
+          "provider": "bkash"
+        }
+      }
+    },
+    {
+      "q": "bkash 5,000 tk cash out",
+      "intent": {
+        "toolId": "cash-out",
+        "params": {
+          "service": "cashOut",
+          "amount": 5000,
+          "provider": "bkash"
+        }
+      }
+    },
+    {
+      "q": "বিকাশে ৫ হাজার টাকা তুললে কত চার্জ",
+      "intent": {
+        "toolId": "cash-out",
+        "params": {
+          "service": "cashOut",
+          "amount": 5000,
+          "provider": "bkash"
+        }
+      }
+    },
+    {
+      "q": "nagad cash out 10000",
+      "intent": {
+        "toolId": "cash-out",
+        "params": {
+          "service": "cashOut",
+          "amount": 10000,
+          "provider": "nagad"
+        }
+      }
+    },
+    {
+      "q": "নগদ ক্যাশ আউট ২০০০",
+      "intent": {
+        "toolId": "cash-out",
+        "params": {
+          "service": "cashOut",
+          "amount": 2000,
+          "provider": "nagad"
+        }
+      }
+    },
+    {
+      "q": "rocket 3000 cashout",
+      "intent": {
+        "toolId": "cash-out",
+        "params": {
+          "service": "cashOut",
+          "amount": 3000,
+          "provider": "rocket"
+        }
+      }
+    },
+    {
+      "q": "upay cash out 1500",
+      "intent": {
+        "toolId": "cash-out",
+        "params": {
+          "service": "cashOut",
+          "amount": 1500,
+          "provider": "upay"
+        }
+      }
+    },
+    {
+      "q": "cash out 10000",
+      "intent": {
+        "toolId": "cash-out",
+        "params": {
+          "service": "cashOut",
+          "amount": 10000
+        }
+      }
+    },
+    {
+      "q": "nagad send money 2000",
+      "must": true,
+      "intent": {
+        "toolId": "send-money",
+        "params": {
+          "service": "sendMoney",
+          "amount": 2000,
+          "provider": "nagad"
+        }
+      }
+    },
+    {
+      "q": "bkash send money 500 taka",
+      "intent": {
+        "toolId": "send-money",
+        "params": {
+          "service": "sendMoney",
+          "amount": 500,
+          "provider": "bkash"
+        }
+      }
+    },
+    {
+      "q": "বিকাশ সেন্ড মানি ১০০০",
+      "intent": {
+        "toolId": "send-money",
+        "params": {
+          "service": "sendMoney",
+          "amount": 1000,
+          "provider": "bkash"
+        }
+      }
+    },
+    {
+      "q": "emi 5 lakh 12% 3 years",
+      "must": true,
+      "intent": {
+        "toolId": "emi",
+        "params": {
+          "principal": 500000,
+          "ratePct": 12,
+          "months": 36
+        }
+      }
+    },
+    {
+      "q": "ইএমআই ৫ লাখ ১২% ৩ বছর",
+      "intent": {
+        "toolId": "emi",
+        "params": {
+          "principal": 500000,
+          "ratePct": 12,
+          "months": 36
+        }
+      }
+    },
+    {
+      "q": "loan 200000 10% 24 months",
+      "intent": {
+        "toolId": "emi",
+        "params": {
+          "principal": 200000,
+          "ratePct": 10,
+          "months": 24
+        }
+      }
+    },
+    {
+      "q": "emi 10 lakh 9.5% 5 yr",
+      "intent": {
+        "toolId": "emi",
+        "params": {
+          "principal": 1000000,
+          "ratePct": 9.5,
+          "months": 60
+        }
+      }
+    },
+    {
+      "q": "১ শতাংশ কত বর্গফুট",
+      "must": true,
+      "intent": {
+        "toolId": "land-converter",
+        "params": {
+          "value": 1,
+          "from": "decimal",
+          "to": "sqft"
+        }
+      }
+    },
+    {
+      "q": "1 shotok koto sqft",
+      "intent": {
+        "toolId": "land-converter",
+        "params": {
+          "value": 1,
+          "from": "decimal",
+          "to": "sqft"
+        }
+      }
+    },
+    {
+      "q": "5 katha to sqft",
+      "intent": {
+        "toolId": "land-converter",
+        "params": {
+          "value": 5,
+          "from": "katha",
+          "to": "sqft"
+        }
+      }
+    },
+    {
+      "q": "১ বিঘা কত শতাংশ",
+      "intent": {
+        "toolId": "land-converter",
+        "params": {
+          "value": 1,
+          "from": "bigha",
+          "to": "decimal"
+        }
+      }
+    },
+    {
+      "q": "10 decimal in katha",
+      "intent": {
+        "toolId": "land-converter",
+        "params": {
+          "value": 10,
+          "from": "decimal",
+          "to": "katha"
+        }
+      }
+    },
+    {
+      "q": "2 acre",
+      "intent": {
+        "toolId": "land-converter",
+        "params": {
+          "value": 2,
+          "from": "acre"
+        }
+      }
+    },
+    {
+      "q": "gold 2 vori",
+      "must": true,
+      "intent": {
+        "toolId": "gold-converter",
+        "params": {
+          "vori": 2,
+          "metal": "gold"
+        }
+      }
+    },
+    {
+      "q": "২ ভরি সোনার দাম",
+      "intent": {
+        "toolId": "gold-converter",
+        "params": {
+          "vori": 2,
+          "metal": "gold"
+        }
+      }
+    },
+    {
+      "q": "2 vori 4 ana sona 22k",
+      "intent": {
+        "toolId": "gold-converter",
+        "params": {
+          "vori": 2,
+          "ana": 4,
+          "metal": "gold",
+          "karat": "22K"
+        }
+      }
+    },
+    {
+      "q": "10 gram gold koto vori",
+      "intent": {
+        "toolId": "gold-converter",
+        "params": {
+          "gram": 10,
+          "metal": "gold",
+          "to": "vori"
+        }
+      }
+    },
+    {
+      "q": "1 vori koto gram",
+      "intent": {
+        "toolId": "gold-converter",
+        "params": {
+          "vori": 1,
+          "metal": "gold",
+          "to": "gram"
+        }
+      }
+    },
+    {
+      "q": "rupa 3 vori",
+      "intent": {
+        "toolId": "gold-converter",
+        "params": {
+          "vori": 3,
+          "metal": "silver"
+        }
+      }
+    },
+    {
+      "q": "age 1995-03-12",
+      "must": true,
+      "intent": {
+        "toolId": "age",
+        "params": {
+          "birth": "1995-03-12"
+        }
+      }
+    },
+    {
+      "q": "বয়স ১২/০৩/১৯৯৫",
+      "intent": {
+        "toolId": "age",
+        "params": {
+          "birth": "1995-03-12"
+        }
+      }
+    },
+    {
+      "q": "boyos 12-03-1995",
+      "intent": {
+        "toolId": "age",
+        "params": {
+          "birth": "1995-03-12"
+        }
+      }
+    },
+    {
+      "q": "date of birth 12 march 1995",
+      "intent": {
+        "toolId": "age",
+        "params": {
+          "birth": "1995-03-12"
+        }
+      }
+    },
+    {
+      "q": "১৯৯৫-০৩-১২",
+      "intent": {
+        "toolId": "age",
+        "params": {
+          "birth": "1995-03-12"
+        }
+      }
+    },
+    {
+      "q": "vat 1000",
+      "intent": {
+        "toolId": "vat",
+        "params": {
+          "amount": 1000,
+          "mode": "add"
+        }
+      }
+    },
+    {
+      "q": "১৫% ভ্যাট ২০০০ টাকা",
+      "intent": {
+        "toolId": "vat",
+        "params": {
+          "amount": 2000,
+          "mode": "add",
+          "ratePct": 15
+        }
+      }
+    },
+    {
+      "q": "1150 taka vat bad",
+      "intent": {
+        "toolId": "vat",
+        "params": {
+          "amount": 1150,
+          "mode": "remove"
+        }
+      }
+    },
+    {
+      "q": "5000 in words",
+      "intent": {
+        "toolId": "number-to-words",
+        "params": {
+          "amount": 5000
+        }
+      }
+    },
+    {
+      "q": "২৫০০০ টাকা কথায়",
+      "intent": {
+        "toolId": "number-to-words",
+        "params": {
+          "amount": 25000
+        }
+      }
+    },
+    {
+      "q": "100 usd",
+      "intent": {
+        "toolId": "currency-converter",
+        "params": {
+          "amount": 100,
+          "code": "USD",
+          "direction": "toBdt"
+        }
+      }
+    },
+    {
+      "q": "500 riyal koto taka",
+      "intent": {
+        "toolId": "currency-converter",
+        "params": {
+          "amount": 500,
+          "code": "SAR",
+          "direction": "toBdt"
+        }
+      }
+    },
+    {
+      "q": "৫০০ সৌদি রিয়াল",
+      "intent": {
+        "toolId": "currency-converter",
+        "params": {
+          "amount": 500,
+          "code": "SAR",
+          "direction": "toBdt"
+        }
+      }
+    },
+    {
+      "q": "20% of 5000",
+      "intent": {
+        "toolId": "discount-percentage",
+        "params": {
+          "value": 5000,
+          "pct": 20
+        }
+      }
+    },
+    {
+      "q": "1000 taka 20% discount",
+      "intent": {
+        "toolId": "discount-percentage",
+        "params": {
+          "price": 1000,
+          "discount": 20
+        }
+      }
+    },
+    {
+      "q": "bkash helpline 16247",
+      "intent": null
+    },
+    {
+      "q": "ssc 2025 result",
+      "intent": null
+    },
+    {
+      "q": "income tax 2026-27",
+      "intent": null
+    },
+    {
+      "q": "404",
+      "intent": null
+    },
+    {
+      "q": "bkash cash out",
+      "intent": null
+    },
+    {
+      "q": "emi calculator",
+      "intent": null
+    },
+    {
+      "q": "bkash 01712345678",
+      "intent": null
+    },
+    {
+      "q": "bkash send 1000",
+      "intent": {
+        "toolId": "send-money",
+        "params": {
+          "service": "sendMoney",
+          "amount": 1000,
+          "provider": "bkash"
+        }
+      }
+    },
+    {
+      "q": "nagad 2000 pathabo",
+      "intent": {
+        "toolId": "send-money",
+        "params": {
+          "service": "sendMoney",
+          "amount": 2000,
+          "provider": "nagad"
+        }
+      }
+    },
+    {
+      "q": "bkash cash out 5000 nagad",
+      "intent": {
+        "toolId": "cash-out",
+        "params": {
+          "service": "cashOut",
+          "amount": 5000
+        }
+      }
+    },
+    {
+      "q": "emi 5 lakh 12% 3 years 6 months",
+      "intent": {
+        "toolId": "emi",
+        "params": {
+          "principal": 500000,
+          "ratePct": 12,
+          "months": 42
+        }
+      }
+    }
+  ]
+}

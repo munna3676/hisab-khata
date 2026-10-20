@@ -83,20 +83,14 @@ export function Picker({
   }, [matches, groups])
   const flat = useMemo(() => sections.flatMap((s) => s.items), [sections])
 
-  const selectedIndex = flat.findIndex((o) => o.value === value)
-  const [active, setActive] = useState(selectedIndex)
+  // The active option belongs to the query it was chosen for. It is worked out during
+  // render, not reset in an effect, so a paste followed at once by Enter picks the best
+  // match of the new text instead of nothing (or a stale row).
+  const [nav, setNav] = useState(() => ({ query: defaultQuery, index: flat.findIndex((o) => o.value === value) }))
+  const active = nav.query === query ? Math.min(nav.index, flat.length - 1) : flat.length ? 0 : -1
+  const setActive = (index: number) => setNav({ query, index })
   const [keyboard, setKeyboard] = useState(false)
   const optionId = (index: number) => `${pickerId}-opt-${index}`
-
-  // New results: highlight the selected option if it is still listed, else the best match.
-  const firstRun = useRef(true)
-  useEffect(() => {
-    if (firstRun.current) {
-      firstRun.current = false
-      return
-    }
-    setActive(flat.length ? 0 : -1)
-  }, [query])
 
   // The Search Bar's input becomes the combobox that owns the list.
   useEffect(() => {
@@ -199,11 +193,11 @@ export function Picker({
           ),
         )}
       </div>
-      {flat.length === 0 && (
-        <p class="type-body-small text-soft" role="status">
-          {emptyText(query)}
-        </p>
-      )}
+      {/* Always in the page so screen readers announce "nothing found" when it fills in;
+          while empty it is taken out of the flow so it adds no 16px gap. */}
+      <p class="type-body-small text-soft empty:absolute" role="status" data-picker-empty>
+        {flat.length === 0 ? emptyText(query) : null}
+      </p>
     </div>
   )
 }

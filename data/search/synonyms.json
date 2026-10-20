@@ -5,21 +5,2990 @@
       "variants": [
         "bkash",
         "bikash",
-        "bkas"
+        "bkas",
+        "bikas",
+        "b-kash",
+        "b kash",
+        "bekash",
+        "bkash app",
+        "বিকাস",
+        "বিকাশ অ্যাপ"
       ]
     },
     {
       "canonical": "নগদ",
       "variants": [
         "nagad",
-        "nogod"
+        "nogod",
+        "nagod",
+        "nogot",
+        "nogad",
+        "naged",
+        "nagat",
+        "নোগদ",
+        "nagad app"
+      ]
+    },
+    {
+      "canonical": "রকেট",
+      "variants": [
+        "rocket",
+        "roket",
+        "rokket",
+        "dbbl rocket",
+        "rocket dbbl",
+        "ডাচ বাংলা রকেট",
+        "রকেট ডাচ বাংলা"
+      ]
+    },
+    {
+      "canonical": "উপায়",
+      "variants": [
+        "upay",
+        "upai",
+        "ucb upay",
+        "upay app",
+        "উপায়",
+        "উপাই"
+      ]
+    },
+    {
+      "canonical": "ডাচ বাংলা",
+      "variants": [
+        "dutch bangla",
+        "dutch-bangla",
+        "dbbl",
+        "dutch bangla bank",
+        "ডাচ-বাংলা",
+        "ডাচবাংলা",
+        "ডাচ বাংলা ব্যাংক"
+      ]
+    },
+    {
+      "canonical": "ব্র্যাক ব্যাংক",
+      "variants": [
+        "brac bank",
+        "brack bank",
+        "brac",
+        "ব্রাক ব্যাংক",
+        "ব্র্যাক"
+      ]
+    },
+    {
+      "canonical": "ইসলামী ব্যাংক",
+      "variants": [
+        "islami bank",
+        "ibbl",
+        "islami bank bangladesh",
+        "ইসলামি ব্যাংক"
+      ]
+    },
+    {
+      "canonical": "ইউসিবি",
+      "variants": [
+        "ucb",
+        "united commercial bank"
+      ]
+    },
+    {
+      "canonical": "মোবাইল ব্যাংকিং",
+      "variants": [
+        "mobile banking",
+        "mfs",
+        "mobile bank",
+        "mobail banking",
+        "এমএফএস"
+      ]
+    },
+    {
+      "canonical": "ক্যাশ আউট",
+      "variants": [
+        "cash out",
+        "cashout",
+        "cash-out",
+        "kash out",
+        "kashout",
+        "cash aut",
+        "cash outt",
+        "ক্যাশআউট",
+        "ক্যাশ-আউট",
+        "কেশ আউট",
+        "টাকা তোলা",
+        "টাকা উঠানো",
+        "taka tola",
+        "tk tola",
+        "taka uthano",
+        "withdraw",
+        "withdrawal",
+        "withdraw money"
+      ]
+    },
+    {
+      "canonical": "সেন্ড মানি",
+      "variants": [
+        "send money",
+        "sendmoney",
+        "send mony",
+        "sent money",
+        "send many",
+        "সেন্ডমানি",
+        "সেন্ড মানী",
+        "টাকা পাঠানো",
+        "টাকা পাঠাবো",
+        "taka pathano",
+        "taka pathabo",
+        "money transfer"
+      ]
+    },
+    {
+      "canonical": "ক্যাশ ইন",
+      "variants": [
+        "cash in",
+        "cashin",
+        "cash-in",
+        "kash in",
+        "ক্যাশইন",
+        "add money",
+        "অ্যাড মানি",
+        "এড মানি",
+        "টাকা জমা",
+        "taka joma"
+      ]
+    },
+    {
+      "canonical": "বিল পে",
+      "variants": [
+        "bill pay",
+        "pay bill",
+        "paybill",
+        "billpay",
+        "bill payment",
+        "পে বিল",
+        "বিল দেওয়া",
+        "বিল দেয়া",
+        "bill deya"
+      ]
+    },
+    {
+      "canonical": "লিমিট",
+      "variants": [
+        "limit",
+        "limits",
+        "limite",
+        "সীমা",
+        "sima",
+        "লিমিটের",
+        "transaction limit"
+      ]
+    },
+    {
+      "canonical": "চার্জ",
+      "variants": [
+        "charge",
+        "charges",
+        "charj",
+        "sharge",
+        "চার্জের",
+        "খরচ",
+        "khoroch",
+        "cost"
+      ]
+    },
+    {
+      "canonical": "ফি",
+      "variants": [
+        "fee",
+        "fees",
+        "ফী"
+      ]
+    },
+    {
+      "canonical": "প্রিয় এজেন্ট",
+      "variants": [
+        "priyo agent",
+        "prio agent",
+        "priyo ajent",
+        "priyo agnet",
+        "favourite agent",
+        "favorite agent",
+        "প্রিয়এজেন্ট",
+        "প্রিও এজেন্ট"
+      ]
+    },
+    {
+      "canonical": "প্রিয় নম্বর",
+      "variants": [
+        "priyo number",
+        "prio number",
+        "priyo nambar",
+        "favourite number",
+        "favorite number",
+        "প্রিয় নাম্বার"
+      ]
+    },
+    {
+      "canonical": "এজেন্ট",
+      "variants": [
+        "agent",
+        "ajent",
+        "agant",
+        "এজেণ্ট"
+      ]
+    },
+    {
+      "canonical": "অ্যাপ",
+      "variants": [
+        "app",
+        "apps",
+        "অ্যাপস",
+        "এপ"
+      ]
+    },
+    {
+      "canonical": "এটিএম",
+      "variants": [
+        "atm",
+        "atm booth",
+        "এটিএম বুথ"
+      ]
+    },
+    {
+      "canonical": "ইউএসএসডি",
+      "variants": [
+        "*247#",
+        "ডায়াল"
+      ]
+    },
+    {
+      "canonical": "দৈনিক",
+      "variants": [
+        "daily",
+        "doinik",
+        "per day",
+        "দিনে"
+      ]
+    },
+    {
+      "canonical": "মাসিক",
+      "variants": [
+        "monthly",
+        "mashik",
+        "masik",
+        "per month",
+        "মাসে"
       ]
     },
     {
       "canonical": "ক্যালকুলেটর",
       "variants": [
         "calculator",
-        "calculater"
+        "calculators",
+        "calculater",
+        "calcualtor",
+        "calculetor",
+        "calculator bd",
+        "calc",
+        "ক্যালকুলেটার",
+        "ক্যালকুলেটরের"
+      ]
+    },
+    {
+      "canonical": "হিসাব",
+      "variants": [
+        "hisab",
+        "hishab",
+        "hisaab",
+        "hiseb",
+        "হিসেব",
+        "calculation",
+        "calculate"
+      ]
+    },
+    {
+      "canonical": "হিসাব খাতা",
+      "variants": [
+        "hisab khata",
+        "hishab khata",
+        "hisabkhata",
+        "hisab-khata",
+        "হিসাবখাতা"
+      ]
+    },
+    {
+      "canonical": "টাকা",
+      "variants": [
+        "taka",
+        "takar",
+        "tk",
+        "bdt",
+        "টাকার",
+        "টাকায়"
+      ]
+    },
+    {
+      "canonical": "তুলনা",
+      "variants": [
+        "compare",
+        "comparison",
+        "compair",
+        "vs",
+        "versus",
+        "tulona",
+        "tulna",
+        "তুলনামূলক"
+      ]
+    },
+    {
+      "canonical": "সবচেয়ে কম",
+      "variants": [
+        "cheapest",
+        "lowest",
+        "sobcheye kom",
+        "least",
+        "কম খরচে"
+      ]
+    },
+    {
+      "canonical": "ভালো",
+      "variants": [
+        "best",
+        "valo",
+        "bhalo",
+        "ভাল"
+      ]
+    },
+    {
+      "canonical": "কোনটা",
+      "variants": [
+        "which",
+        "konta",
+        "kon",
+        "কোন"
+      ]
+    },
+    {
+      "canonical": "কিভাবে",
+      "variants": [
+        "how to",
+        "kivabe",
+        "kibhabe",
+        "কীভাবে",
+        "কি ভাবে",
+        "how"
+      ]
+    },
+    {
+      "canonical": "কাগজ",
+      "variants": [
+        "documents",
+        "document",
+        "papers",
+        "paper",
+        "kagoj",
+        "kagaj",
+        "কাগজপত্র",
+        "ডকুমেন্ট",
+        "ডকুমেন্টস"
+      ]
+    },
+    {
+      "canonical": "চেকলিস্ট",
+      "variants": [
+        "checklist",
+        "check list",
+        "চেক লিস্ট"
+      ]
+    },
+    {
+      "canonical": "গাইড",
+      "variants": [
+        "guide",
+        "gaid",
+        "guideline",
+        "নির্দেশিকা",
+        "নিয়ম",
+        "niyom",
+        "process",
+        "প্রক্রিয়া"
+      ]
+    },
+    {
+      "canonical": "লাগবে",
+      "variants": [
+        "lagbe",
+        "need",
+        "needed",
+        "required",
+        "দরকার",
+        "dorkar"
+      ]
+    },
+    {
+      "canonical": "তালিকা",
+      "variants": [
+        "list",
+        "talika",
+        "তালিকার",
+        "লিস্ট"
+      ]
+    },
+    {
+      "canonical": "রেট",
+      "variants": [
+        "rate",
+        "rates",
+        "ret",
+        "রেইট",
+        "দর",
+        "dor"
+      ]
+    },
+    {
+      "canonical": "দাম",
+      "variants": [
+        "price",
+        "prices",
+        "dam",
+        "daam",
+        "মূল্য",
+        "mullo",
+        "value"
+      ]
+    },
+    {
+      "canonical": "টুল",
+      "variants": [
+        "tool",
+        "tools",
+        "tul",
+        "টুলস"
+      ]
+    },
+    {
+      "canonical": "সব",
+      "variants": [
+        "all",
+        "sob",
+        "shob",
+        "সকল"
+      ]
+    },
+    {
+      "canonical": "খোঁজো",
+      "variants": [
+        "search",
+        "khoj",
+        "khojo",
+        "find",
+        "সার্চ",
+        "খোঁজ",
+        "খুঁজুন"
+      ]
+    },
+    {
+      "canonical": "সেভ",
+      "variants": [
+        "save",
+        "saved",
+        "bookmark",
+        "favourite",
+        "favorite",
+        "স্টার",
+        "star",
+        "সেভ করা"
+      ]
+    },
+    {
+      "canonical": "অফলাইন",
+      "variants": [
+        "offline",
+        "no internet",
+        "no connection",
+        "ইন্টারনেট নেই",
+        "নেট নেই"
+      ]
+    },
+    {
+      "canonical": "আমাদের কথা",
+      "variants": [
+        "about",
+        "about us",
+        "হিসাব খাতা কী"
+      ]
+    },
+    {
+      "canonical": "প্রাইভেসি",
+      "variants": [
+        "privacy",
+        "privacy policy",
+        "praivesi",
+        "গোপনীয়তা",
+        "প্রাইভেসি পলিসি"
+      ]
+    },
+    {
+      "canonical": "কুকি",
+      "variants": [
+        "cookie",
+        "cookies"
+      ]
+    },
+    {
+      "canonical": "যোগাযোগ",
+      "variants": [
+        "contact",
+        "contact us",
+        "jogajog",
+        "email",
+        "ইমেইল",
+        "feedback",
+        "ফিডব্যাক",
+        "report",
+        "রিপোর্ট"
+      ]
+    },
+    {
+      "canonical": "দায় অস্বীকার",
+      "variants": [
+        "disclaimer",
+        "dai oshikar",
+        "দায়মুক্তি",
+        "terms",
+        "শর্তাবলী"
+      ]
+    },
+    {
+      "canonical": "পরিবর্তনের তালিকা",
+      "variants": [
+        "changelog",
+        "change log",
+        "whats new",
+        "what's new",
+        "কী বদলেছে",
+        "rate update",
+        "নতুন রেট"
+      ]
+    },
+    {
+      "canonical": "বিজ্ঞাপন",
+      "variants": [
+        "ad",
+        "ads",
+        "advertise",
+        "advertisement",
+        "biggapon"
+      ]
+    },
+    {
+      "canonical": "পেজ পাওয়া যায়নি",
+      "variants": [
+        "page not found",
+        "not found",
+        "404",
+        "৪০৪",
+        "পেজ নেই"
+      ]
+    },
+    {
+      "canonical": "বাংলা",
+      "variants": [
+        "bangla",
+        "bengali",
+        "bangali",
+        "বাঙলা"
+      ]
+    },
+    {
+      "canonical": "ইংরেজি",
+      "variants": [
+        "english",
+        "ingreji",
+        "ইংলিশ"
+      ]
+    },
+    {
+      "canonical": "অনলাইন",
+      "variants": [
+        "online",
+        "onlain",
+        "অনলাইনে"
+      ]
+    },
+    {
+      "canonical": "আজ",
+      "variants": [
+        "today",
+        "aj",
+        "aaj",
+        "ajke",
+        "আজকে",
+        "আজকের",
+        "ajker"
+      ]
+    },
+    {
+      "canonical": "বছর",
+      "variants": [
+        "year",
+        "years",
+        "yr",
+        "yrs",
+        "bochor",
+        "bosor",
+        "bachar",
+        "সাল",
+        "sal"
+      ]
+    },
+    {
+      "canonical": "মাস",
+      "variants": [
+        "month",
+        "months",
+        "mas",
+        "mash"
+      ]
+    },
+    {
+      "canonical": "দিন",
+      "variants": [
+        "day",
+        "days",
+        "din"
+      ]
+    },
+    {
+      "canonical": "সময়",
+      "variants": [
+        "time",
+        "somoy",
+        "shomoy",
+        "timing"
+      ]
+    },
+    {
+      "canonical": "সময়সূচি",
+      "variants": [
+        "schedule",
+        "time table",
+        "timetable",
+        "somoysuchi",
+        "সময়সূচী",
+        "সময় সূচি"
+      ]
+    },
+    {
+      "canonical": "নতুন",
+      "variants": [
+        "new",
+        "notun"
+      ]
+    },
+    {
+      "canonical": "ভুল",
+      "variants": [
+        "wrong",
+        "vul",
+        "bhul",
+        "mistake",
+        "error",
+        "ভূল"
+      ]
+    },
+    {
+      "canonical": "ফেরত",
+      "variants": [
+        "refund",
+        "ferot",
+        "ferat",
+        "return money",
+        "money back",
+        "টাকা ফেরত"
+      ]
+    },
+    {
+      "canonical": "পাবো",
+      "variants": [
+        "pabo",
+        "get",
+        "পাব",
+        "পাওয়া"
+      ]
+    },
+    {
+      "canonical": "নম্বর",
+      "variants": [
+        "number",
+        "nombor",
+        "nambar",
+        "numbar",
+        "নাম্বার",
+        "নং"
+      ]
+    },
+    {
+      "canonical": "ব্যবসা",
+      "variants": [
+        "business",
+        "bebsa",
+        "babsa",
+        "byabsa",
+        "বিজনেস"
+      ]
+    },
+    {
+      "canonical": "অফার",
+      "variants": [
+        "offer",
+        "offers",
+        "ofar",
+        "অফারের"
+      ]
+    },
+    {
+      "canonical": "ব্যাংক",
+      "variants": [
+        "bank",
+        "banks",
+        "byank",
+        "banking",
+        "ব্যাঙ্ক",
+        "ব্যাংকের"
+      ]
+    },
+    {
+      "canonical": "লোন",
+      "variants": [
+        "loan",
+        "loans",
+        "lone",
+        "lon",
+        "ঋণ",
+        "rin",
+        "rinn",
+        "লোনের"
+      ]
+    },
+    {
+      "canonical": "সুদ",
+      "variants": [
+        "interest",
+        "sud",
+        "shud",
+        "interest rate",
+        "sudhar",
+        "সুদহার",
+        "সুদের হার",
+        "rate of interest"
+      ]
+    },
+    {
+      "canonical": "এফডিআর",
+      "variants": [
+        "fdr",
+        "f.d.r",
+        "fixed deposit",
+        "ফিক্সড ডিপোজিট",
+        "term deposit",
+        "স্থায়ী আমানত",
+        "আমানত"
+      ]
+    },
+    {
+      "canonical": "ডিপিএস",
+      "variants": [
+        "dps",
+        "d.p.s",
+        "deposit pension scheme",
+        "monthly savings scheme",
+        "মাসিক সঞ্চয় স্কিম"
+      ]
+    },
+    {
+      "canonical": "ইএমআই",
+      "variants": [
+        "emi",
+        "e.m.i",
+        "ই এম আই",
+        "কিস্তি",
+        "kisti",
+        "kist",
+        "installment",
+        "instalment",
+        "emi calculator bd",
+        "মাসিক কিস্তি",
+        "mashik kisti"
+      ]
+    },
+    {
+      "canonical": "লোন যোগ্যতা",
+      "variants": [
+        "loan eligibility",
+        "loan eligibilty",
+        "eligibility",
+        "eligible",
+        "joggota",
+        "যোগ্যতা"
+      ]
+    },
+    {
+      "canonical": "ডিবিআর",
+      "variants": [
+        "dbr",
+        "debt burden ratio"
+      ]
+    },
+    {
+      "canonical": "প্রসেসিং ফি",
+      "variants": [
+        "processing fee",
+        "processing charge",
+        "প্রসেসিং চার্জ"
+      ]
+    },
+    {
+      "canonical": "পার্সোনাল লোন",
+      "variants": [
+        "personal loan",
+        "parsonal loan",
+        "ব্যক্তিগত ঋণ"
+      ]
+    },
+    {
+      "canonical": "হোম লোন",
+      "variants": [
+        "home loan",
+        "house loan",
+        "বাড়ির লোন",
+        "গৃহ ঋণ"
+      ]
+    },
+    {
+      "canonical": "কার লোন",
+      "variants": [
+        "car loan",
+        "auto loan",
+        "গাড়ির লোন"
+      ]
+    },
+    {
+      "canonical": "সঞ্চয়পত্র",
+      "variants": [
+        "sanchayapatra",
+        "sanchaypatra",
+        "sonchoypotro",
+        "sanchoypatro",
+        "sanchaypotro",
+        "songchoypotro",
+        "savings certificate",
+        "সঞ্চয় পত্র",
+        "সঞ্চয়পত্রের"
+      ]
+    },
+    {
+      "canonical": "পরিবার সঞ্চয়পত্র",
+      "variants": [
+        "paribar sanchayapatra",
+        "poribar sonchoypotro",
+        "family savings certificate",
+        "পারিবারিক সঞ্চয়পত্র"
+      ]
+    },
+    {
+      "canonical": "পেনশনার",
+      "variants": [
+        "pensioner",
+        "pension",
+        "পেনশন"
+      ]
+    },
+    {
+      "canonical": "সঞ্চয়",
+      "variants": [
+        "savings",
+        "saving",
+        "sonchoy",
+        "sanchay",
+        "songchoy",
+        "জমানো",
+        "jomano",
+        "টাকা জমানো"
+      ]
+    },
+    {
+      "canonical": "সঞ্চয় লক্ষ্য",
+      "variants": [
+        "savings goal",
+        "saving goal",
+        "saving plan",
+        "goal",
+        "target",
+        "টার্গেট"
+      ]
+    },
+    {
+      "canonical": "মুনাফা",
+      "variants": [
+        "munafa",
+        "monafa",
+        "return",
+        "রিটার্ন",
+        "yield"
+      ]
+    },
+    {
+      "canonical": "সেভিংস অ্যাকাউন্ট",
+      "variants": [
+        "savings account",
+        "saving account",
+        "সেভিং অ্যাকাউন্ট",
+        "সঞ্চয়ী হিসাব"
+      ]
+    },
+    {
+      "canonical": "অ্যাকাউন্ট",
+      "variants": [
+        "account",
+        "akaunt",
+        "acount",
+        "একাউন্ট",
+        "অ্যাকাউন্টের"
+      ]
+    },
+    {
+      "canonical": "অ্যাকাউন্ট খোলা",
+      "variants": [
+        "account opening",
+        "account open",
+        "open account",
+        "একাউন্ট খোলা"
+      ]
+    },
+    {
+      "canonical": "মিনিমাম ব্যালেন্স",
+      "variants": [
+        "minimum balance",
+        "min balance",
+        "ন্যূনতম স্থিতি"
+      ]
+    },
+    {
+      "canonical": "ব্যালেন্স",
+      "variants": [
+        "balance",
+        "byalens",
+        "ব্যালান্স"
+      ]
+    },
+    {
+      "canonical": "ক্রেডিট কার্ড",
+      "variants": [
+        "credit card",
+        "creditcard",
+        "kredit card",
+        "ক্রেডিটকার্ড"
+      ]
+    },
+    {
+      "canonical": "ডেবিট কার্ড",
+      "variants": [
+        "debit card",
+        "debitcard",
+        "ডেবিটকার্ড"
+      ]
+    },
+    {
+      "canonical": "কার্ড",
+      "variants": [
+        "card",
+        "cards",
+        "kard",
+        "visa card",
+        "master card",
+        "mastercard",
+        "ভিসা কার্ড"
+      ]
+    },
+    {
+      "canonical": "বার্ষিক ফি",
+      "variants": [
+        "annual fee",
+        "yearly fee",
+        "card fee"
+      ]
+    },
+    {
+      "canonical": "ইসলামিক",
+      "variants": [
+        "islamic",
+        "islami",
+        "shariah",
+        "শরিয়াহ",
+        "ইসলামি"
+      ]
+    },
+    {
+      "canonical": "রেমিট্যান্স",
+      "variants": [
+        "remittance",
+        "remitance",
+        "remitence",
+        "remmitance",
+        "রেমিটেন্স",
+        "রেমিট্যান্সের",
+        "send money to bangladesh",
+        "বিদেশ থেকে টাকা পাঠানো",
+        "প্রবাস থেকে টাকা"
+      ]
+    },
+    {
+      "canonical": "প্রবাসী",
+      "variants": [
+        "probashi",
+        "probasi",
+        "prabasi",
+        "expatriate",
+        "expat",
+        "nrb",
+        "প্রবাস",
+        "probash"
+      ]
+    },
+    {
+      "canonical": "বিদেশ",
+      "variants": [
+        "abroad",
+        "bidesh",
+        "foreign",
+        "overseas",
+        "বিদেশে"
+      ]
+    },
+    {
+      "canonical": "সৌদি",
+      "variants": [
+        "saudi",
+        "saudia",
+        "ksa",
+        "saudi arabia",
+        "সৌদি আরব"
+      ]
+    },
+    {
+      "canonical": "দুবাই",
+      "variants": [
+        "dubai",
+        "uae",
+        "emirates",
+        "আমিরাত"
+      ]
+    },
+    {
+      "canonical": "মালয়েশিয়া",
+      "variants": [
+        "malaysia",
+        "malaysiya",
+        "মালয়শিয়া"
+      ]
+    },
+    {
+      "canonical": "কাতার",
+      "variants": [
+        "qatar",
+        "katar"
+      ]
+    },
+    {
+      "canonical": "ওয়েস্টার্ন ইউনিয়ন",
+      "variants": [
+        "western union",
+        "wu",
+        "westarn union"
+      ]
+    },
+    {
+      "canonical": "এক্সচেঞ্জ হাউস",
+      "variants": [
+        "exchange house",
+        "money exchange"
+      ]
+    },
+    {
+      "canonical": "প্রণোদনা",
+      "variants": [
+        "incentive",
+        "pronodona",
+        "bonus",
+        "বোনাস",
+        "cash incentive"
+      ]
+    },
+    {
+      "canonical": "হুন্ডি",
+      "variants": [
+        "hundi",
+        "hawala",
+        "hundee",
+        "হুণ্ডি",
+        "অবৈধ পথে টাকা",
+        "illegal remittance"
+      ]
+    },
+    {
+      "canonical": "এসটিসি পে",
+      "variants": [
+        "stc pay",
+        "stcpay"
+      ]
+    },
+    {
+      "canonical": "কারেন্সি",
+      "variants": [
+        "currency",
+        "karensi",
+        "curency",
+        "মুদ্রা",
+        "ফরেন কারেন্সি"
+      ]
+    },
+    {
+      "canonical": "এক্সচেঞ্জ রেট",
+      "variants": [
+        "exchange rate",
+        "conversion rate",
+        "রূপান্তর হার",
+        "বিনিময় হার"
+      ]
+    },
+    {
+      "canonical": "ডলার",
+      "variants": [
+        "dollar",
+        "dollars",
+        "usd",
+        "dolar",
+        "doller",
+        "us dollar",
+        "মার্কিন ডলার"
+      ]
+    },
+    {
+      "canonical": "রিয়াল",
+      "variants": [
+        "riyal",
+        "rial",
+        "riyals",
+        "sar",
+        "saudi riyal",
+        "রিয়েল",
+        "সৌদি রিয়াল"
+      ]
+    },
+    {
+      "canonical": "দিরহাম",
+      "variants": [
+        "dirham",
+        "aed",
+        "derham",
+        "dirhams"
+      ]
+    },
+    {
+      "canonical": "রিংগিত",
+      "variants": [
+        "ringgit",
+        "myr",
+        "ringit",
+        "রিঙ্গিত"
+      ]
+    },
+    {
+      "canonical": "পাউন্ড",
+      "variants": [
+        "pound",
+        "gbp",
+        "pound sterling"
+      ]
+    },
+    {
+      "canonical": "ইউরো",
+      "variants": [
+        "euro",
+        "eur"
+      ]
+    },
+    {
+      "canonical": "রুপি",
+      "variants": [
+        "rupee",
+        "rupees",
+        "inr",
+        "রুপী",
+        "indian rupee"
+      ]
+    },
+    {
+      "canonical": "বিএমইটি",
+      "variants": [
+        "bmet",
+        "b.m.e.t",
+        "ami probashi",
+        "আমি প্রবাসী"
+      ]
+    },
+    {
+      "canonical": "ম্যানপাওয়ার",
+      "variants": [
+        "manpower",
+        "man power",
+        "manpower card",
+        "emigration clearance",
+        "বহির্গমন ছাড়পত্র"
+      ]
+    },
+    {
+      "canonical": "ভিসা",
+      "variants": [
+        "visa",
+        "bhisa",
+        "visa check",
+        "ভিসা চেক"
+      ]
+    },
+    {
+      "canonical": "স্মার্ট কার্ড",
+      "variants": [
+        "smart card",
+        "smartcard",
+        "স্মার্টকার্ড"
+      ]
+    },
+    {
+      "canonical": "ভ্যাট",
+      "variants": [
+        "vat",
+        "v.a.t",
+        "মূসক",
+        "musok",
+        "mushak",
+        "value added tax",
+        "ভেট"
+      ]
+    },
+    {
+      "canonical": "পার্সেন্ট",
+      "variants": [
+        "percent",
+        "percentage",
+        "parcent",
+        "persent",
+        "porcent",
+        "পারসেন্ট",
+        "পার্সেন্টেজ"
+      ]
+    },
+    {
+      "canonical": "ডিসকাউন্ট",
+      "variants": [
+        "discount",
+        "discaunt",
+        "diskount",
+        "discout",
+        "ছাড়",
+        "chhar",
+        "sale",
+        "সেল"
+      ]
+    },
+    {
+      "canonical": "লাভ",
+      "variants": [
+        "profit",
+        "labh",
+        "lav",
+        "laab",
+        "লাভের",
+        "মুনাফা মার্জিন"
+      ]
+    },
+    {
+      "canonical": "মার্জিন",
+      "variants": [
+        "margin",
+        "marjin",
+        "মার্জিনের"
+      ]
+    },
+    {
+      "canonical": "মার্কআপ",
+      "variants": [
+        "markup",
+        "mark up",
+        "mark-up",
+        "মার্ক আপ"
+      ]
+    },
+    {
+      "canonical": "বিক্রি",
+      "variants": [
+        "sell",
+        "selling",
+        "bikri",
+        "বিক্রয়",
+        "বিক্রির দাম",
+        "sale price",
+        "selling price"
+      ]
+    },
+    {
+      "canonical": "ক্রয়মূল্য",
+      "variants": [
+        "cost price",
+        "buying price",
+        "কেনা দাম",
+        "kena dam"
+      ]
+    },
+    {
+      "canonical": "বেতন",
+      "variants": [
+        "salary",
+        "beton",
+        "betan",
+        "মাইনে",
+        "maine",
+        "বেতনের",
+        "gross salary",
+        "গ্রস বেতন"
+      ]
+    },
+    {
+      "canonical": "বেসিক",
+      "variants": [
+        "basic",
+        "basic salary",
+        "মূল বেতন",
+        "বেসিক বেতন"
+      ]
+    },
+    {
+      "canonical": "বাড়িভাড়া",
+      "variants": [
+        "house rent",
+        "house rent allowance",
+        "hra",
+        "bari vara",
+        "barivara",
+        "bari bhara",
+        "বাড়ি ভাড়া",
+        "বাসা ভাড়া",
+        "basa vara",
+        "basha bhara"
+      ]
+    },
+    {
+      "canonical": "ভাড়া",
+      "variants": [
+        "rent",
+        "bhara",
+        "vara",
+        "ভারা",
+        "flat rent",
+        "ফ্ল্যাট ভাড়া"
+      ]
+    },
+    {
+      "canonical": "রুমমেট",
+      "variants": [
+        "roommate",
+        "room mate",
+        "roomate",
+        "rummet"
+      ]
+    },
+    {
+      "canonical": "আয়কর",
+      "variants": [
+        "income tax",
+        "incometax",
+        "aykor",
+        "ayekor",
+        "ay kor",
+        "ইনকাম ট্যাক্স",
+        "আয় কর"
+      ]
+    },
+    {
+      "canonical": "ট্যাক্স",
+      "variants": [
+        "tax",
+        "taks",
+        "tex",
+        "কর",
+        "tax slab",
+        "ট্যাক্সের"
+      ]
+    },
+    {
+      "canonical": "রিটার্ন জমা",
+      "variants": [
+        "tax return",
+        "return submission",
+        "e-return",
+        "ই-রিটার্ন"
+      ]
+    },
+    {
+      "canonical": "ফ্রিল্যান্সার",
+      "variants": [
+        "freelancer",
+        "freelance",
+        "freelancing",
+        "freelencer",
+        "ফ্রিলান্সার",
+        "ফ্রিল্যান্সিং"
+      ]
+    },
+    {
+      "canonical": "ডেটা প্যাক",
+      "variants": [
+        "data pack",
+        "internet pack",
+        "data package",
+        "mb pack",
+        "net pack",
+        "ডাটা প্যাক",
+        "ইন্টারনেট প্যাক",
+        "mb offer",
+        "internet offer"
+      ]
+    },
+    {
+      "canonical": "ইন্টারনেট",
+      "variants": [
+        "internet",
+        "net",
+        "inter net",
+        "ইন্টারনেটের"
+      ]
+    },
+    {
+      "canonical": "এমবি",
+      "variants": [
+        "mb",
+        "gb",
+        "জিবি",
+        "megabyte",
+        "gigabyte"
+      ]
+    },
+    {
+      "canonical": "জিপি",
+      "variants": [
+        "gp",
+        "grameenphone",
+        "grameen phone",
+        "গ্রামীণফোন",
+        "গ্রামীণ ফোন"
+      ]
+    },
+    {
+      "canonical": "রবি",
+      "variants": [
+        "robi"
+      ]
+    },
+    {
+      "canonical": "বাংলালিংক",
+      "variants": [
+        "banglalink",
+        "bl",
+        "বাংলা লিংক"
+      ]
+    },
+    {
+      "canonical": "টেলিটক",
+      "variants": [
+        "teletalk",
+        "telitalk"
+      ]
+    },
+    {
+      "canonical": "এয়ারটেল",
+      "variants": [
+        "airtel",
+        "artel"
+      ]
+    },
+    {
+      "canonical": "মেস",
+      "variants": [
+        "mess",
+        "mes",
+        "মেসের",
+        "mess hisab",
+        "মেস হিসাব"
+      ]
+    },
+    {
+      "canonical": "মিল রেট",
+      "variants": [
+        "meal rate",
+        "mil rate",
+        "mill rate",
+        "meal",
+        "মিল",
+        "মিলের"
+      ]
+    },
+    {
+      "canonical": "বাজার",
+      "variants": [
+        "bazar",
+        "bajar",
+        "market",
+        "grocery",
+        "বাজারের"
+      ]
+    },
+    {
+      "canonical": "ব্যাচেলর",
+      "variants": [
+        "bachelor",
+        "bachelors",
+        "ব্যাচেলার"
+      ]
+    },
+    {
+      "canonical": "বিদ্যুৎ বিল",
+      "variants": [
+        "electricity bill",
+        "current bill",
+        "biddut bill",
+        "bidyut bill",
+        "bidduth bill",
+        "electric bill",
+        "light bill",
+        "কারেন্ট বিল",
+        "বিদ্যুতের বিল",
+        "বিদ্যুৎ বিলের"
+      ]
+    },
+    {
+      "canonical": "বিদ্যুৎ",
+      "variants": [
+        "electricity",
+        "biddut",
+        "bidyut",
+        "current",
+        "কারেন্ট",
+        "power",
+        "বিদ্যুতের"
+      ]
+    },
+    {
+      "canonical": "বিল",
+      "variants": [
+        "bill",
+        "bills",
+        "বিলের"
+      ]
+    },
+    {
+      "canonical": "ইউনিট",
+      "variants": [
+        "unit",
+        "units",
+        "ইউনিটের",
+        "kwh",
+        "কিলোওয়াট"
+      ]
+    },
+    {
+      "canonical": "পল্লী বিদ্যুৎ",
+      "variants": [
+        "palli bidyut",
+        "polli biddut",
+        "palli biddut",
+        "reb",
+        "pbs",
+        "পল্লি বিদ্যুৎ"
+      ]
+    },
+    {
+      "canonical": "ডেসকো",
+      "variants": [
+        "desco"
+      ]
+    },
+    {
+      "canonical": "ডিপিডিসি",
+      "variants": [
+        "dpdc"
+      ]
+    },
+    {
+      "canonical": "নেসকো",
+      "variants": [
+        "nesco"
+      ]
+    },
+    {
+      "canonical": "ওজোপাডিকো",
+      "variants": [
+        "wzpdco",
+        "ozopadico"
+      ]
+    },
+    {
+      "canonical": "প্রিপেইড",
+      "variants": [
+        "prepaid",
+        "pre paid",
+        "pre-paid",
+        "prepaid meter",
+        "প্রিপেইড মিটার"
+      ]
+    },
+    {
+      "canonical": "মিটার",
+      "variants": [
+        "meter",
+        "miter",
+        "মিটারের"
+      ]
+    },
+    {
+      "canonical": "ডেলিভারি চার্জ",
+      "variants": [
+        "delivery charge",
+        "delivery cost",
+        "delivery fee",
+        "ডেলিভারি খরচ",
+        "courier charge",
+        "কুরিয়ার চার্জ"
+      ]
+    },
+    {
+      "canonical": "ডেলিভারি",
+      "variants": [
+        "delivery",
+        "delivary",
+        "deliveri",
+        "dalivery"
+      ]
+    },
+    {
+      "canonical": "কুরিয়ার",
+      "variants": [
+        "courier",
+        "curier",
+        "kurier",
+        "currier",
+        "কুরিয়ারের"
+      ]
+    },
+    {
+      "canonical": "স্টেডফাস্ট",
+      "variants": [
+        "steadfast",
+        "stedfast",
+        "steadfast courier"
+      ]
+    },
+    {
+      "canonical": "পাঠাও",
+      "variants": [
+        "pathao",
+        "patao"
+      ]
+    },
+    {
+      "canonical": "রেডএক্স",
+      "variants": [
+        "redx",
+        "red x",
+        "red-x"
+      ]
+    },
+    {
+      "canonical": "ক্যাশ অন ডেলিভারি",
+      "variants": [
+        "cod",
+        "cash on delivery",
+        "cod charge",
+        "সিওডি"
+      ]
+    },
+    {
+      "canonical": "অনলাইন ব্যবসা",
+      "variants": [
+        "online business",
+        "f-commerce",
+        "f commerce",
+        "fcommerce",
+        "facebook business",
+        "ফেসবুক পেজ ব্যবসা",
+        "ই-কমার্স",
+        "e-commerce"
+      ]
+    },
+    {
+      "canonical": "ইনভয়েস",
+      "variants": [
+        "invoice",
+        "invoise",
+        "inbois",
+        "ইনভয়েজ",
+        "ইনভয়েসের",
+        "invoice maker",
+        "bill maker",
+        "pdf invoice"
+      ]
+    },
+    {
+      "canonical": "রসিদ",
+      "variants": [
+        "receipt",
+        "roshid",
+        "rosid",
+        "money receipt",
+        "মানি রিসিট",
+        "রশিদ"
+      ]
+    },
+    {
+      "canonical": "ক্যাশ মেমো",
+      "variants": [
+        "cash memo",
+        "memo",
+        "মেমো",
+        "ক্যাশমেমো"
+      ]
+    },
+    {
+      "canonical": "পিডিএফ",
+      "variants": [
+        "pdf",
+        "pidief"
+      ]
+    },
+    {
+      "canonical": "বয়স",
+      "variants": [
+        "age",
+        "boyos",
+        "boyosh",
+        "boyas",
+        "bayas",
+        "boyes",
+        "বয়স কত",
+        "বয়সের"
+      ]
+    },
+    {
+      "canonical": "জন্ম তারিখ",
+      "variants": [
+        "date of birth",
+        "dob",
+        "birth date",
+        "birthdate",
+        "jonmo tarikh",
+        "jonmotarikh",
+        "জন্মতারিখ",
+        "জন্ম তারিখের"
+      ]
+    },
+    {
+      "canonical": "জন্মদিন",
+      "variants": [
+        "birthday",
+        "jonmodin",
+        "জন্ম দিন"
+      ]
+    },
+    {
+      "canonical": "তারিখ",
+      "variants": [
+        "date",
+        "tarikh",
+        "torikh",
+        "tarik",
+        "তারিক",
+        "তারিখের",
+        "dates"
+      ]
+    },
+    {
+      "canonical": "আজ কত তারিখ",
+      "variants": [
+        "aj koto tarikh",
+        "ajke koto tarikh",
+        "today date",
+        "aajker tarikh",
+        "আজকের তারিখ"
+      ]
+    },
+    {
+      "canonical": "ক্যালেন্ডার",
+      "variants": [
+        "calendar",
+        "calender",
+        "ক্যালেন্ডারের",
+        "পঞ্জিকা",
+        "ponjika"
+      ]
+    },
+    {
+      "canonical": "বঙ্গাব্দ",
+      "variants": [
+        "bangabda",
+        "bongabdo",
+        "bengali year",
+        "bangla year",
+        "বাংলা সাল"
+      ]
+    },
+    {
+      "canonical": "পহেলা বৈশাখ",
+      "variants": [
+        "pohela boishakh",
+        "pohela baishakh",
+        "poyla boishakh",
+        "pahela baishakh",
+        "নববর্ষ",
+        "nobobarsho"
+      ]
+    },
+    {
+      "canonical": "হিজরি",
+      "variants": [
+        "hijri",
+        "hijiri",
+        "hijri date",
+        "হিজরী",
+        "hijri calendar"
+      ]
+    },
+    {
+      "canonical": "আরবি",
+      "variants": [
+        "arabic",
+        "arbi",
+        "arobi",
+        "আরবী",
+        "arbi tarikh"
+      ]
+    },
+    {
+      "canonical": "চাঁদ",
+      "variants": [
+        "moon",
+        "chand",
+        "চাঁদের",
+        "lunar"
+      ]
+    },
+    {
+      "canonical": "দিন গণনা",
+      "variants": [
+        "day count",
+        "days count",
+        "din gonona",
+        "দিন গোনা",
+        "days between dates",
+        "date difference",
+        "days between"
+      ]
+    },
+    {
+      "canonical": "ছুটি",
+      "variants": [
+        "holiday",
+        "holidays",
+        "chuti",
+        "chhuti",
+        "leave",
+        "ছুটির"
+      ]
+    },
+    {
+      "canonical": "সরকারি চাকরি",
+      "variants": [
+        "govt job",
+        "government job",
+        "sorkari chakri",
+        "sarkari chakri",
+        "সরকারী চাকুরী",
+        "govt chakri"
+      ]
+    },
+    {
+      "canonical": "চাকরি",
+      "variants": [
+        "job",
+        "jobs",
+        "chakri",
+        "chakuri",
+        "চাকুরী",
+        "চাকরির",
+        "service"
+      ]
+    },
+    {
+      "canonical": "বয়সসীমা",
+      "variants": [
+        "age limit",
+        "boyos sima",
+        "boyosh sima",
+        "age bar",
+        "বয়স সীমা"
+      ]
+    },
+    {
+      "canonical": "বিসিএস",
+      "variants": [
+        "bcs",
+        "b.c.s"
+      ]
+    },
+    {
+      "canonical": "যাকাত",
+      "variants": [
+        "zakat",
+        "jakat",
+        "zakaat",
+        "zakah",
+        "জাকাত",
+        "যাকাতের",
+        "zakat calculator bd"
+      ]
+    },
+    {
+      "canonical": "নিসাব",
+      "variants": [
+        "nisab",
+        "nesab",
+        "নেসাব"
+      ]
+    },
+    {
+      "canonical": "ফিতরা",
+      "variants": [
+        "fitra",
+        "fitrah",
+        "fetra",
+        "ফেতরা",
+        "ফিতরাহ",
+        "sadaqatul fitr",
+        "sadakatul fitr",
+        "সদকাতুল ফিতর",
+        "fitra amount"
+      ]
+    },
+    {
+      "canonical": "সেহরি",
+      "variants": [
+        "sehri",
+        "sehari",
+        "sahri",
+        "suhoor",
+        "sehrir",
+        "সাহরি",
+        "সেহেরি",
+        "সেহরির"
+      ]
+    },
+    {
+      "canonical": "ইফতার",
+      "variants": [
+        "iftar",
+        "iftari",
+        "ifter",
+        "ইফতারি",
+        "ইফতারের"
+      ]
+    },
+    {
+      "canonical": "রমজান",
+      "variants": [
+        "ramadan",
+        "ramzan",
+        "ramjan",
+        "রমযান",
+        "রোজা",
+        "roja",
+        "roza",
+        "রমাদান"
+      ]
+    },
+    {
+      "canonical": "নামাজ",
+      "variants": [
+        "namaz",
+        "namaj",
+        "prayer",
+        "salat",
+        "নামায"
+      ]
+    },
+    {
+      "canonical": "জমি",
+      "variants": [
+        "land",
+        "jomi",
+        "zomi",
+        "jomin",
+        "জমিন",
+        "ভূমি",
+        "bhumi",
+        "vumi",
+        "জমির",
+        "জায়গা"
+      ]
+    },
+    {
+      "canonical": "কাঠা",
+      "variants": [
+        "katha",
+        "kotha",
+        "kattha",
+        "কাঠার"
+      ]
+    },
+    {
+      "canonical": "বিঘা",
+      "variants": [
+        "bigha",
+        "biga",
+        "bigah",
+        "বিগা",
+        "বিঘার"
+      ]
+    },
+    {
+      "canonical": "শতাংশ",
+      "variants": [
+        "shotangsho",
+        "shotansho",
+        "shatangsha",
+        "shotok",
+        "shatak",
+        "shotak",
+        "শতক",
+        "decimal",
+        "decimals",
+        "desimal",
+        "ডেসিমাল",
+        "ডিসমিল",
+        "শতাংশের"
+      ]
+    },
+    {
+      "canonical": "একর",
+      "variants": [
+        "acre",
+        "acres",
+        "acor",
+        "ekor",
+        "akor",
+        "একার"
+      ]
+    },
+    {
+      "canonical": "বর্গফুট",
+      "variants": [
+        "sqft",
+        "sq ft",
+        "sq. ft",
+        "square feet",
+        "square foot",
+        "sft",
+        "borgofut",
+        "bargafoot",
+        "স্কয়ার ফিট",
+        "স্কয়ার ফুট",
+        "স্কয়ারফিট",
+        "বর্গ ফুট"
+      ]
+    },
+    {
+      "canonical": "বর্গমিটার",
+      "variants": [
+        "sqm",
+        "sq m",
+        "square meter",
+        "square metre",
+        "বর্গ মিটার",
+        "স্কয়ার মিটার"
+      ]
+    },
+    {
+      "canonical": "বর্গগজ",
+      "variants": [
+        "sq yard",
+        "square yard",
+        "sqyd",
+        "গজ",
+        "বর্গ গজ"
+      ]
+    },
+    {
+      "canonical": "কানি",
+      "variants": [
+        "kani",
+        "kaani",
+        "কানির"
+      ]
+    },
+    {
+      "canonical": "গণ্ডা",
+      "variants": [
+        "gonda",
+        "ganda",
+        "গন্ডা"
+      ]
+    },
+    {
+      "canonical": "ছটাক",
+      "variants": [
+        "chotak",
+        "chhatak",
+        "chatak",
+        "ছটাকের"
+      ]
+    },
+    {
+      "canonical": "কড়া",
+      "variants": [
+        "kora",
+        "kara"
+      ]
+    },
+    {
+      "canonical": "ক্রান্তি",
+      "variants": [
+        "kranti",
+        "krantee"
+      ]
+    },
+    {
+      "canonical": "হেক্টর",
+      "variants": [
+        "hectare",
+        "hektor",
+        "hectar"
+      ]
+    },
+    {
+      "canonical": "মাপ",
+      "variants": [
+        "measurement",
+        "measure",
+        "mapa",
+        "map",
+        "মাপের",
+        "পরিমাপ"
+      ]
+    },
+    {
+      "canonical": "কনভার্টার",
+      "variants": [
+        "converter",
+        "convert",
+        "konverter",
+        "convertor",
+        "conversion",
+        "rupantor",
+        "রূপান্তর",
+        "কনভার্ট",
+        "কনভার্টর",
+        "কনভার্টারের"
+      ]
+    },
+    {
+      "canonical": "রেজিস্ট্রি খরচ",
+      "variants": [
+        "registration cost",
+        "registry cost",
+        "registry khoroch",
+        "রেজিস্ট্রেশন খরচ",
+        "দলিল খরচ",
+        "dolil khoroch"
+      ]
+    },
+    {
+      "canonical": "দলিল",
+      "variants": [
+        "deed",
+        "dolil",
+        "দলিলের"
+      ]
+    },
+    {
+      "canonical": "সোনা",
+      "variants": [
+        "gold",
+        "sona",
+        "shona",
+        "স্বর্ণ",
+        "sorno",
+        "swarna",
+        "gould",
+        "সোনার",
+        "স্বর্ণের"
+      ]
+    },
+    {
+      "canonical": "রুপা",
+      "variants": [
+        "silver",
+        "rupa",
+        "ruppa",
+        "রূপা",
+        "রুপার"
+      ]
+    },
+    {
+      "canonical": "ভরি",
+      "variants": [
+        "vori",
+        "bhori",
+        "vhori",
+        "vori price",
+        "ভরির"
+      ]
+    },
+    {
+      "canonical": "তোলা",
+      "variants": [
+        "tola",
+        "tula",
+        "তোলার"
+      ]
+    },
+    {
+      "canonical": "আনা",
+      "variants": [
+        "ana",
+        "anna",
+        "আনার"
+      ]
+    },
+    {
+      "canonical": "রতি",
+      "variants": [
+        "roti",
+        "rati",
+        "ratti",
+        "রতির"
+      ]
+    },
+    {
+      "canonical": "পয়েন্ট",
+      "variants": [
+        "point",
+        "points",
+        "পয়েন্টের"
+      ]
+    },
+    {
+      "canonical": "গ্রাম",
+      "variants": [
+        "gram",
+        "grams",
+        "gm",
+        "grm",
+        "গ্রামের"
+      ]
+    },
+    {
+      "canonical": "ক্যারেট",
+      "variants": [
+        "carat",
+        "karat",
+        "kt",
+        "crt",
+        "ক্যারট",
+        "ক্যারেটের",
+        "22k",
+        "21k",
+        "18k"
+      ]
+    },
+    {
+      "canonical": "গহনা",
+      "variants": [
+        "jewelry",
+        "jewellery",
+        "jwellery",
+        "jewelery",
+        "gohona",
+        "goyna",
+        "gahana",
+        "গয়না",
+        "গহনার",
+        "ornament"
+      ]
+    },
+    {
+      "canonical": "মজুরি",
+      "variants": [
+        "making charge",
+        "majuri",
+        "mojuri",
+        "মজুরী",
+        "making cost"
+      ]
+    },
+    {
+      "canonical": "বাজুস",
+      "variants": [
+        "bajus"
+      ]
+    },
+    {
+      "canonical": "জিপিএ",
+      "variants": [
+        "gpa",
+        "g.p.a",
+        "জি পি এ"
+      ]
+    },
+    {
+      "canonical": "সিজিপিএ",
+      "variants": [
+        "cgpa",
+        "c.g.p.a",
+        "সি জি পি এ"
+      ]
+    },
+    {
+      "canonical": "এসএসসি",
+      "variants": [
+        "ssc",
+        "s.s.c",
+        "matric",
+        "এস এস সি"
+      ]
+    },
+    {
+      "canonical": "এইচএসসি",
+      "variants": [
+        "hsc",
+        "h.s.c",
+        "এইচ এস সি",
+        "intermediate"
+      ]
+    },
+    {
+      "canonical": "দাখিল",
+      "variants": [
+        "dakhil",
+        "dakhel"
+      ]
+    },
+    {
+      "canonical": "আলিম",
+      "variants": [
+        "alim",
+        "aleem"
+      ]
+    },
+    {
+      "canonical": "রেজাল্ট",
+      "variants": [
+        "result",
+        "results",
+        "rezalt",
+        "ফলাফল",
+        "folafol"
+      ]
+    },
+    {
+      "canonical": "চতুর্থ বিষয়",
+      "variants": [
+        "4th subject",
+        "fourth subject",
+        "optional subject",
+        "ঐচ্ছিক বিষয়"
+      ]
+    },
+    {
+      "canonical": "সেমিস্টার",
+      "variants": [
+        "semester",
+        "semister",
+        "সেমিস্টারের"
+      ]
+    },
+    {
+      "canonical": "ভার্সিটি",
+      "variants": [
+        "university",
+        "varsity",
+        "versity",
+        "বিশ্ববিদ্যালয়",
+        "ইউনিভার্সিটি"
+      ]
+    },
+    {
+      "canonical": "শিক্ষা",
+      "variants": [
+        "education",
+        "shikkha",
+        "sikkha",
+        "sikha",
+        "শিক্ষার"
+      ]
+    },
+    {
+      "canonical": "সনদ",
+      "variants": [
+        "certificate",
+        "certificates",
+        "sonod",
+        "sanad",
+        "certificet",
+        "সার্টিফিকেট",
+        "সনদের"
+      ]
+    },
+    {
+      "canonical": "সত্যায়ন",
+      "variants": [
+        "attestation",
+        "attest",
+        "sottayon",
+        "সত্যায়িত",
+        "certificate attest",
+        "সত্যায়িতকরণ"
+      ]
+    },
+    {
+      "canonical": "যাচাই",
+      "variants": [
+        "verify",
+        "verification",
+        "jachai",
+        "যাচাইয়ের",
+        "online verify"
+      ]
+    },
+    {
+      "canonical": "নম্বরপত্র",
+      "variants": [
+        "marksheet",
+        "mark sheet",
+        "marks sheet",
+        "transcript",
+        "নাম্বারপত্র",
+        "মার্কশিট",
+        "number potro"
+      ]
+    },
+    {
+      "canonical": "বোর্ড",
+      "variants": [
+        "board",
+        "বোর্ডের",
+        "education board",
+        "শিক্ষা বোর্ড"
+      ]
+    },
+    {
+      "canonical": "ডুপ্লিকেট",
+      "variants": [
+        "duplicate",
+        "duplicat",
+        "ডুপ্লিকেট সনদ"
+      ]
+    },
+    {
+      "canonical": "উপবৃত্তি",
+      "variants": [
+        "stipend",
+        "upobritti",
+        "upabritti",
+        "upobrritti",
+        "উপবৃত্তির",
+        "student stipend"
+      ]
+    },
+    {
+      "canonical": "বৃত্তি",
+      "variants": [
+        "scholarship",
+        "britti",
+        "brritti",
+        "বৃত্তির"
+      ]
+    },
+    {
+      "canonical": "বিজয়",
+      "variants": [
+        "bijoy",
+        "bijay",
+        "bijoy bayanno",
+        "বিজয় বায়ান্ন"
+      ]
+    },
+    {
+      "canonical": "ইউনিকোড",
+      "variants": [
+        "unicode",
+        "unikod",
+        "unicod"
+      ]
+    },
+    {
+      "canonical": "সুতন্নি",
+      "variants": [
+        "sutonnymj",
+        "sutonny",
+        "sutonni",
+        "সুতনী",
+        "সুতন্নিএমজে"
+      ]
+    },
+    {
+      "canonical": "অভ্র",
+      "variants": [
+        "avro",
+        "obhro",
+        "avro keyboard",
+        "অভ্রো"
+      ]
+    },
+    {
+      "canonical": "ফন্ট",
+      "variants": [
+        "font",
+        "fonts",
+        "phont",
+        "ফন্টের"
+      ]
+    },
+    {
+      "canonical": "স্টাইলিশ",
+      "variants": [
+        "stylish",
+        "style",
+        "fancy",
+        "fancy text",
+        "স্টাইল",
+        "স্টাইলিস"
+      ]
+    },
+    {
+      "canonical": "ফেসবুক",
+      "variants": [
+        "facebook",
+        "fb",
+        "facebook bio",
+        "এফবি"
+      ]
+    },
+    {
+      "canonical": "ইনস্টাগ্রাম",
+      "variants": [
+        "instagram",
+        "insta",
+        "ig"
+      ]
+    },
+    {
+      "canonical": "নাম",
+      "variants": [
+        "name",
+        "nam",
+        "naam",
+        "নামের"
+      ]
+    },
+    {
+      "canonical": "বানান",
+      "variants": [
+        "spelling",
+        "banan",
+        "spell",
+        "বানানের",
+        "nam banan"
+      ]
+    },
+    {
+      "canonical": "মোহাম্মদ",
+      "variants": [
+        "mohammad",
+        "muhammad",
+        "mohammed",
+        "md",
+        "mohd",
+        "মোঃ",
+        "মুহাম্মদ",
+        "মোহাম্মাদ",
+        "মোহা",
+        "মো"
+      ]
+    },
+    {
+      "canonical": "কথায়",
+      "variants": [
+        "in words",
+        "kothay",
+        "kothai",
+        "words",
+        "amount in words",
+        "কথায় লেখা",
+        "কথায় লিখুন",
+        "অক্ষরে"
+      ]
+    },
+    {
+      "canonical": "সংখ্যা",
+      "variants": [
+        "songkha",
+        "sonkha",
+        "digit",
+        "digits",
+        "numeral",
+        "সংখ্যার"
+      ]
+    },
+    {
+      "canonical": "চেক",
+      "variants": [
+        "cheque",
+        "check",
+        "chek",
+        "চেকের"
+      ]
+    },
+    {
+      "canonical": "লাখ",
+      "variants": [
+        "lakh",
+        "lac",
+        "lakhs",
+        "lacs",
+        "লক্ষ",
+        "lokkho",
+        "lak"
+      ]
+    },
+    {
+      "canonical": "কোটি",
+      "variants": [
+        "crore",
+        "koti",
+        "cr",
+        "crores"
+      ]
+    },
+    {
+      "canonical": "হাজার",
+      "variants": [
+        "thousand",
+        "hajar",
+        "hazar",
+        "hajar taka"
+      ]
+    },
+    {
+      "canonical": "সরকারি কাজ",
+      "variants": [
+        "sorkari kaj",
+        "sarkari kaj",
+        "government service",
+        "govt service",
+        "government services",
+        "সরকারি সেবা",
+        "সরকারী কাজ"
+      ]
+    },
+    {
+      "canonical": "সরকারি",
+      "variants": [
+        "government",
+        "govt",
+        "gov",
+        "sorkari",
+        "sarkari",
+        "সরকারী"
+      ]
+    },
+    {
+      "canonical": "আইনি",
+      "variants": [
+        "legal",
+        "aini",
+        "ainy",
+        "আইন",
+        "law",
+        "আইনগত"
+      ]
+    },
+    {
+      "canonical": "এনআইডি",
+      "variants": [
+        "nid",
+        "n.i.d",
+        "nid card",
+        "national id",
+        "national id card",
+        "voter id",
+        "ভোটার আইডি",
+        "জাতীয় পরিচয়পত্র",
+        "আইডি কার্ড",
+        "id card",
+        "এন আই ডি"
+      ]
+    },
+    {
+      "canonical": "সংশোধন",
+      "variants": [
+        "correction",
+        "songshodhon",
+        "songsodhon",
+        "sangshodhan",
+        "correct",
+        "সংশোধনী",
+        "সংশোধনের",
+        "edit"
+      ]
+    },
+    {
+      "canonical": "পাসপোর্ট",
+      "variants": [
+        "passport",
+        "pasport",
+        "passpot",
+        "e passport",
+        "epassport",
+        "e-passport",
+        "ই-পাসপোর্ট",
+        "ই পাসপোর্ট",
+        "পাসপোর্টের"
+      ]
+    },
+    {
+      "canonical": "রিনিউ",
+      "variants": [
+        "renew",
+        "renewal",
+        "nobayon",
+        "নবায়ন",
+        "রিনিউয়াল"
+      ]
+    },
+    {
+      "canonical": "জন্ম নিবন্ধন",
+      "variants": [
+        "birth registration",
+        "birth certificate",
+        "jonmo nibondhon",
+        "jonmo nibondon",
+        "জন্ম সনদ",
+        "bdris",
+        "birth reg",
+        "জন্মনিবন্ধন"
+      ]
+    },
+    {
+      "canonical": "ড্রাইভিং লাইসেন্স",
+      "variants": [
+        "driving license",
+        "driving licence",
+        "driving lisence",
+        "driving lisens",
+        "license",
+        "licence",
+        "লাইসেন্স",
+        "ড্রাইভিং লাইসেন্সের"
+      ]
+    },
+    {
+      "canonical": "বিআরটিএ",
+      "variants": [
+        "brta",
+        "b.r.t.a"
+      ]
+    },
+    {
+      "canonical": "লার্নার",
+      "variants": [
+        "learner",
+        "lerner",
+        "learner card",
+        "লার্নার কার্ড"
+      ]
+    },
+    {
+      "canonical": "নামজারি",
+      "variants": [
+        "namjari",
+        "namjary",
+        "mutation",
+        "land mutation",
+        "মিউটেশন",
+        "খারিজ",
+        "kharij",
+        "e-namjari",
+        "e namjari",
+        "enamjari",
+        "ই-নামজারি"
+      ]
+    },
+    {
+      "canonical": "খতিয়ান",
+      "variants": [
+        "khatian",
+        "khotian",
+        "khatiyan",
+        "porcha",
+        "পর্চা",
+        "record of rights"
+      ]
+    },
+    {
+      "canonical": "হলফনামা",
+      "variants": [
+        "affidavit",
+        "afidavit",
+        "affidevit",
+        "holofnama",
+        "এফিডেভিট",
+        "এফিডেফিট"
+      ]
+    },
+    {
+      "canonical": "নোটারি",
+      "variants": [
+        "notary",
+        "notari",
+        "notary public"
+      ]
+    },
+    {
+      "canonical": "পাওয়ার অব অ্যাটর্নি",
+      "variants": [
+        "power of attorney",
+        "poa",
+        "ammoktarnama",
+        "আমমোক্তারনামা",
+        "attorney"
+      ]
+    },
+    {
+      "canonical": "ওয়ারিশ সনদ",
+      "variants": [
+        "warish certificate",
+        "warishan",
+        "warishan certificate",
+        "ওয়ারিশান সনদ",
+        "succession certificate",
+        "heirship",
+        "heirship certificate",
+        "waris",
+        "ওয়ারিশ"
+      ]
+    },
+    {
+      "canonical": "উত্তরাধিকার",
+      "variants": [
+        "uttoradhikar",
+        "inheritance",
+        "succession"
+      ]
+    },
+    {
+      "canonical": "পুলিশ ক্লিয়ারেন্স",
+      "variants": [
+        "police clearance",
+        "pcc",
+        "police certificate",
+        "polis clearance",
+        "পুলিশ ক্লিয়ারেন্স সার্টিফিকেট"
+      ]
+    },
+    {
+      "canonical": "ক্লিয়ারেন্স",
+      "variants": [
+        "clearance",
+        "clearance certificate",
+        "ছাড়পত্র"
+      ]
+    },
+    {
+      "canonical": "ভুল নম্বর",
+      "variants": [
+        "wrong number",
+        "vul number",
+        "bhul number",
+        "wrong num",
+        "ভুল নাম্বার",
+        "ভুল নাম্বারে",
+        "ভুল নম্বরে"
+      ]
+    },
+    {
+      "canonical": "হেল্পলাইন",
+      "variants": [
+        "helpline",
+        "help line",
+        "hotline",
+        "customer care",
+        "customer service",
+        "কাস্টমার কেয়ার"
+      ]
+    },
+    {
+      "canonical": "হ্যাক",
+      "variants": [
+        "hack",
+        "hacked",
+        "hak",
+        "hacking",
+        "হ্যাকড",
+        "হ্যাকিং"
+      ]
+    },
+    {
+      "canonical": "পিন",
+      "variants": [
+        "pin",
+        "pin code",
+        "pin leak",
+        "পিন কোড"
+      ]
+    },
+    {
+      "canonical": "প্রতারণা",
+      "variants": [
+        "fraud",
+        "scam",
+        "protarona",
+        "protarok",
+        "প্রতারক",
+        "ফ্রড",
+        "scammer",
+        "ঠকবাজ"
+      ]
+    },
+    {
+      "canonical": "ওটিপি",
+      "variants": [
+        "otp",
+        "o.t.p",
+        "verification code"
+      ]
+    },
+    {
+      "canonical": "ট্রান্সফার",
+      "variants": [
+        "transfer",
+        "transfar",
+        "ট্রান্সফারের"
       ]
     }
   ]

@@ -17,10 +17,16 @@ const WARN_DAYS = 60
 const FAIL_DAYS = 120
 const arg = (name) => process.argv.find((a) => a.startsWith(`--${name}=`))?.slice(name.length + 3)
 const root = resolve(arg('root') ?? new URL('../data/', import.meta.url).pathname)
+/** A real YYYY-MM-DD date at UTC midnight, or null ('2026-02-31' is not one, though Date would roll it to March 3). */
+const calendarDate = (text) => {
+  if (typeof text !== 'string' || !/^\d{4}-\d{2}-\d{2}$/.test(text)) return null
+  const date = new Date(text + 'T00:00:00Z')
+  return !Number.isNaN(date.getTime()) && date.toISOString().slice(0, 10) === text ? date : null
+}
 const todayArg = arg('today')
-const today = todayArg ? new Date(todayArg + 'T00:00:00Z') : new Date()
+const today = todayArg !== undefined ? calendarDate(todayArg) : new Date()
 const allowUnverified = process.argv.includes('--allow-unverified')
-if (Number.isNaN(today.getTime())) {
+if (!today) {
   console.error(`ERROR  --today=${todayArg} is not a date`)
   process.exit(1)
 }
@@ -53,8 +59,8 @@ const checkFact = (fact, where) => {
   facts++
   if (!('value' in fact)) errors.push(`${where} has no value`)
   if (typeof fact.source !== 'string' || !/^https?:\/\//.test(fact.source)) errors.push(`${where} has no source URL`)
-  const checked = typeof fact.checked === 'string' && /^\d{4}-\d{2}-\d{2}$/.test(fact.checked) ? new Date(fact.checked + 'T00:00:00Z') : null
-  if (!checked || Number.isNaN(checked.getTime())) return errors.push(`${where} has a bad checked date: ${fact.checked}`)
+  const checked = calendarDate(fact.checked)
+  if (!checked) return errors.push(`${where} has a bad checked date: ${fact.checked}`)
   const days = Math.floor((today - checked) / 86400000)
   if (days < 0) return errors.push(`${where} is checked in the future (${fact.checked})`)
   if (typeof fact.note === 'string' && /^unverified\b/i.test(fact.note)) {

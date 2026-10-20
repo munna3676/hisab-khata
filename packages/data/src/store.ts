@@ -50,7 +50,7 @@ export interface DataStoreOptions {
   fetch?: Fetcher
   /** File check; defaults to checkDataFile (schema + bounds + engine rules). */
   check?: (path: string, data: unknown) => string[]
-  /** Largest file accepted, in bytes. Default 2 MB. */
+  /** Largest file (and signed manifest) accepted, in bytes. Default 2 MB. */
   maxFileBytes?: number
   /** Storage key prefix. Default 'hisab-data'. */
   keyPrefix?: string
@@ -101,6 +101,8 @@ export class DataStore {
   private currentTexts: Record<string, string> = {}
   private activeSlot: Slot | null = null
   private pending: Promise<UpdateResult> | null = null
+  /** The last load(); update() waits for it, and runs one first when the app never called it. */
+  private loading: Promise<DataSnapshot> | null = null
   private readonly listeners = new Set<(snapshot: DataSnapshot) => void>()
 
   constructor(options: DataStoreOptions) {
@@ -130,34 +132,42 @@ export class DataStore {
   }
 
   /**
-   * Picks the newest good set: the active storage slot, else the spare one (the
-   * last good set), else the bundle. A stored set is checked again (signature,
-   * hashes, schemas) because storage can be corrupted or tampered with, and it
-   * is used only when it is newer than the bundle (an app update may ship newer data).
+   * Picks the newest good set: the stored slot with the highest verified
+   * version (normally the active one; the other holds the last good set),
+   * else the bundle. A stored set is checked again (signature, hashes,
+   * schemas) because storage can be corrupted or tampered with, and the
+   * version, not the pointer, decides between slots, so a rewritten pointer
+   * cannot roll the app back to an older release. A stored set is used only
+   * when it is newer than the bundle (an app update may ship newer data).
    */
-  async load(): Promise<DataSnapshot> {
+  load(): Promise<DataSnapshot> {
+    const loading = this.runLoad()
+    this.loading = loading
+    return loading
+  }
+
+  private async runLoad(): Promise<DataSnapshot> {
     const active = await this.readPointer()
     const order: Slot[] = active === 'b' ? ['b', 'a'] : ['a', 'b']
+    let best: { slot: Slot; snapshot: DataSnapshot; texts: Record<string, string> } | null = null
     for (const slot of order) {
       const raw = await this.safeGet(this.slotKey(slot))
       if (!raw) continue
       try {
-        const stored = JSON.parse(raw) as StoredSet
-        const snapshot = await this.verifySet(stored.signed, stored.texts ?? {}, (path) => {
+        const stored = JSON.parse(raw) as Partial<StoredSet> | null
+        const texts = isTextRecord(stored?.texts) ? stored.texts : {}
+        const snapshot = await this.verifySet(stored!.signed!, texts, (path) => {
           throw new Rejected('missing-file', path)
         })
         if (snapshot.manifest.version <= this.options.bundled.manifest.version) continue
-        this.activeSlot = slot
-        this.currentTexts = stored.texts
-        this.swap(snapshot)
-        return snapshot
+        if (!best || snapshot.manifest.version > best.snapshot.manifest.version) best = { slot, snapshot, texts }
       } catch {
         // A bad slot is skipped; the other slot or the bundle takes over.
       }
     }
-    this.activeSlot = null
-    this.currentTexts = {}
-    this.swap(this.options.bundled)
+    this.activeSlot = best?.slot ?? null
+    this.currentTexts = best?.texts ?? {}
+    this.swap(best?.snapshot ?? this.options.bundled)
     return this.current
   }
 
@@ -170,12 +180,17 @@ export class DataStore {
   }
 
   private async runUpdate(): Promise<UpdateResult> {
+    // Without the stored sets known, the spare slot would be guessed and a
+    // newer stored release could be overwritten by an older (replayed) one.
+    await (this.loading ?? this.load()).catch(() => undefined)
     const fetcher = this.options.fetch ?? ((url: string) => globalThis.fetch(url, { cache: 'no-store' }))
     let signedText: string
     try {
       const res = await fetcher(this.options.manifestUrl)
       if (!res.ok) return { status: 'offline', detail: `manifest HTTP ${res.status}` }
-      signedText = decoder.decode(await res.arrayBuffer())
+      const buffer = await res.arrayBuffer()
+      if (buffer.byteLength > this.maxBytes()) return { status: 'rejected', reason: 'bad-manifest', detail: 'manifest is too large' }
+      signedText = decoder.decode(buffer)
     } catch (e) {
       return { status: 'offline', detail: e instanceof Error ? e.message : String(e) }
     }
@@ -198,7 +213,7 @@ export class DataStore {
         if (reuse !== undefined && (await sha256Hex(reuse)) === opened.manifest.files[path]!.sha256) {
           texts[path] = reuse
         } else {
-          texts[path] = await this.download(path, fetcher)
+          texts[path] = await this.download(path, fetcher, opened.manifest.files[path]!.bytes)
           changed.push(path)
         }
         return texts[path]!
@@ -261,8 +276,10 @@ export class DataStore {
     return { manifest, files }
   }
 
-  private async download(path: string, fetcher: Fetcher): Promise<string> {
+  private async download(path: string, fetcher: Fetcher, bytes: number): Promise<string> {
     if (!isSafePath(path)) throw new Rejected('bad-manifest', `unsafe path ${path}`)
+    // The signed size is known up front: do not fetch a file the store would refuse anyway.
+    if (bytes > this.maxBytes()) throw new Rejected('download', `${path} is too large`)
     const base = this.options.baseUrl ?? new URL('./', this.options.manifestUrl).href
     let buffer: ArrayBuffer
     try {
@@ -272,12 +289,16 @@ export class DataStore {
     } catch (e) {
       throw new Rejected('download', `${path}: ${e instanceof Error ? e.message : String(e)}`)
     }
-    if (buffer.byteLength > (this.options.maxFileBytes ?? 2_000_000)) throw new Rejected('download', `${path} is too large`)
+    if (buffer.byteLength > this.maxBytes()) throw new Rejected('download', `${path} is too large`)
     try {
       return decoder.decode(buffer)
     } catch {
       throw new Rejected('invalid', `${path} is not UTF-8`)
     }
+  }
+
+  private maxBytes(): number {
+    return this.options.maxFileBytes ?? 2_000_000
   }
 
   private swap(snapshot: DataSnapshot): void {
@@ -306,6 +327,10 @@ export class DataStore {
   private slotKey(slot: Slot): string {
     return `${this.options.keyPrefix ?? 'hisab-data'}/set-${slot}`
   }
+}
+
+function isTextRecord(v: unknown): v is Record<string, string> {
+  return typeof v === 'object' && v !== null && !Array.isArray(v) && Object.values(v).every((t) => typeof t === 'string')
 }
 
 /** A StorageAdapter over a Map, for tests and for a session-only store. */

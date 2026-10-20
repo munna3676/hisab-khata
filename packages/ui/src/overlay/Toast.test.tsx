@@ -70,6 +70,28 @@ describe('ToastViewport + toaster', () => {
     expect(t.getAll()[0]!.leaving).toBe(true)
   })
 
+  it('stays held while focus is inside, even after the pointer leaves', () => {
+    const t = createToaster()
+    render(<ToastViewport toaster={t} position="inline" />)
+    act(() => {
+      t.show({ message: 'হিসাবটা সরানো হয়েছে', duration: 1000, action: { label: 'ফেরত আনো', onClick: () => {} } })
+    })
+    const el = document.querySelector('[data-toast]')!
+    const action = screen.getByRole('button', { name: 'ফেরত আনো' })
+    fireEvent.mouseEnter(el)
+    action.focus()
+    fireEvent.focusIn(action)
+    fireEvent.mouseLeave(el)
+    advance(5000)
+    expect(t.getAll()[0]!.leaving).toBe(false)
+    // Focus leaving the toast (not moving inside it) restarts the full timer.
+    fireEvent.focusOut(action, { relatedTarget: document.body })
+    advance(999)
+    expect(t.getAll()[0]!.leaving).toBe(false)
+    advance(1)
+    expect(t.getAll()[0]!.leaving).toBe(true)
+  })
+
   it('duration 0 stays until dismissed', () => {
     const t = createToaster()
     const id = t.show({ message: 'থাকবে', duration: 0 })

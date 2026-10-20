@@ -158,3 +158,62 @@ describe('engine rules a schema cannot express', () => {
     expect(checkDataFile('guides/nid-correction.json', guide)[0]).toMatch(/unknown document 'passport-copy'/)
   })
 })
+
+describe('sanity bounds on engine inputs a schema leaves open', () => {
+  const mutate = (path: string, edit: (d: any) => void) => {
+    const data = clone(readJson(path)) as any
+    edit(data)
+    return checkDataFile(path, data)
+  }
+  it('flags a fitra kg per person, an income tax slab width, a courier weight and a savings certificate limit that are typos', () => {
+    expect(mutate('religion/fitra.json', (d) => (d.value.items[0].kgPerPerson = 1650))).toEqual([
+      'religion/fitra.json: value/items/0/kgPerPerson = 1650 is outside 0.5…10',
+    ])
+    expect(mutate('income-tax-2026-27.json', (d) => (d.value.slabs[0].width = 3_000_000_000))).toEqual([
+      'income-tax-2026-27.json: value/slabs/0/width = 3000000000 is outside 10000…10000000',
+    ])
+    expect(mutate('commerce/couriers.json', (d) => (d.steadfast.value.zones['inside-dhaka'].slabs[0].maxKg = 1000))).toEqual([
+      'commerce/couriers.json: steadfast/value/zones/inside-dhaka/slabs/0/maxKg = 1000 is outside 0.1…100',
+    ])
+    expect(mutate('finance/sanchayapatra.json', (d) => (d.value[0].maxInvestment = 45_000_000_000))).toEqual([
+      'finance/sanchayapatra.json: value/0/maxInvestment = 45000000000 is outside 1000…100000000',
+    ])
+    expect(mutate('land/registration-costs.json', (d) => (d.value[3].perUnit = 2e9))).toHaveLength(1)
+    expect(mutate('electricity-tariff.json', (d) => (d.value.tariffs['LT-A'].lifeline.maxUnits = 50_000))).toHaveLength(1)
+  })
+})
+
+describe('search/synonyms.json', () => {
+  type Terms = { terms: { canonical: string; variants: string[] }[] }
+  const { terms } = readJson('search/synonyms.json') as Terms
+  /** Roughly what any search normalizer does first: NFC, lower case, hyphens and spaces as one space. */
+  const key = (s: string) => s.normalize('NFC').toLowerCase().replace(/[\s-]+/g, ' ').trim()
+
+  it('has one entry per canonical term', () => {
+    const keys = terms.map((t) => key(t.canonical))
+    expect(keys.filter((k, i) => keys.indexOf(k) !== i)).toEqual([])
+  })
+  it('never sends one spelling to two different terms', () => {
+    const owner = new Map<string, string>()
+    const clashes: string[] = []
+    for (const t of terms) {
+      for (const v of new Set(t.variants.map(key))) {
+        const other = owner.get(v)
+        if (other && other !== t.canonical) clashes.push(`${v}: ${other} / ${t.canonical}`)
+        owner.set(v, t.canonical)
+      }
+    }
+    expect(clashes).toEqual([])
+  })
+  it('no variant is the canonical form of another term (no chains or cycles)', () => {
+    const canon = new Map(terms.map((t) => [key(t.canonical), t.canonical]))
+    const chains = terms.flatMap((t) => t.variants.filter((v) => canon.has(key(v)) && canon.get(key(v)) !== t.canonical).map((v) => `${v} → ${t.canonical}`))
+    expect(chains).toEqual([])
+  })
+  it('every entry is short enough to be a search word, with no control or invisible characters', () => {
+    const bad = terms
+      .flatMap((t) => [t.canonical, ...t.variants])
+      .filter((s) => s.length > 40 || s !== s.trim() || /[\p{Cc}\u200b-\u200d\u2028\u2029\u2060\ufeff]/u.test(s))
+    expect(bad).toEqual([])
+  })
+})

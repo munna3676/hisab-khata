@@ -43,6 +43,8 @@ function readTree(tree) {
     walk(folder)
     return out
   }
+  // A ref is passed to git as an argument; one starting with '-' would be read as an option.
+  if (tree.startsWith('-')) throw new Error(`not a folder or git ref: ${tree}`)
   const git = (...args) => execFileSync('git', args, { cwd: repo, encoding: 'utf8', maxBuffer: 64 << 20 })
   for (const line of git('ls-tree', '-r', '--name-only', tree, '--', 'data/').split('\n')) {
     const rel = line.slice('data/'.length)

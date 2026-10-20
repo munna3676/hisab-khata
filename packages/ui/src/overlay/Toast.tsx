@@ -1,5 +1,5 @@
 import type { ComponentChildren, JSX } from 'preact'
-import { useEffect, useState } from 'preact/hooks'
+import { useEffect, useRef, useState } from 'preact/hooks'
 import { Alert, Check, Info } from '../icons/common'
 import { cx } from '../lib/cx'
 import { duration } from '../lib/motion'
@@ -189,8 +189,9 @@ export interface ToastViewportProps {
 /**
  * Where toasts appear: a polite live region (role=status) that is always in the page, so
  * screen readers announce each toast as it is added. Below lg it sits 16px above the
- * 56px bottom nav and the safe area; from lg, 24px from the bottom. The toasts pause their
- * timer while hovered or focused.
+ * 56px bottom nav and the safe area; from lg, 24px from the bottom. A toast's timer is held
+ * while the pointer is over it OR focus is inside it, and restarts only when both have left
+ * (moving the mouse away must not time out a toast whose action has keyboard focus).
  */
 export function ToastViewport({ toaster: store = toaster, label = 'বার্তা', position = 'fixed', class: className }: ToastViewportProps) {
   const [items, setItems] = useState<readonly ToastItem[]>(() => store.getAll())
@@ -198,6 +199,20 @@ export function ToastViewport({ toaster: store = toaster, label = 'বার্�
     setItems(store.getAll())
     return store.subscribe((next) => setItems([...next]))
   }, [store])
+
+  // Why each toast is held: hover and focus are tracked apart and resume needs both gone.
+  const holds = useRef(new Map<number, { hover: boolean; focus: boolean }>())
+  useEffect(() => {
+    for (const id of holds.current.keys()) if (!items.some((t) => t.id === id)) holds.current.delete(id)
+  }, [items])
+  const hold = (id: number, reason: 'hover' | 'focus', on: boolean) => {
+    const h = holds.current.get(id) ?? { hover: false, focus: false }
+    if (h[reason] === on) return
+    h[reason] = on
+    holds.current.set(id, h)
+    if (h.hover || h.focus) store.pause(id)
+    else store.resume(id)
+  }
 
   return (
     <div
@@ -225,10 +240,14 @@ export function ToastViewport({ toaster: store = toaster, label = 'বার্�
               }
             }
             leaving={item.leaving}
-            onMouseEnter={() => store.pause(item.id)}
-            onMouseLeave={() => store.resume(item.id)}
-            onFocusIn={() => store.pause(item.id)}
-            onFocusOut={() => store.resume(item.id)}
+            onMouseEnter={() => hold(item.id, 'hover', true)}
+            onMouseLeave={() => hold(item.id, 'hover', false)}
+            onFocusIn={() => hold(item.id, 'focus', true)}
+            onFocusOut={(event) => {
+              // Focus moving between elements of the same toast keeps it held.
+              if (event.relatedTarget instanceof Node && event.currentTarget.contains(event.relatedTarget)) return
+              hold(item.id, 'focus', false)
+            }}
           >
             {item.message}
           </Toast>

@@ -62,7 +62,8 @@ export function InstallAppPrompt({
           </li>
         ))}
       </ul>
-      <div class="grid min-w-0 grid-cols-2 gap-3">
+      {/* Figma: two equal buttons; a column never gets narrower than its label (no "ইনস্টল …"). */}
+      <div class="grid min-w-0 grid-cols-[minmax(max-content,1fr)_minmax(max-content,1fr)] gap-3">
         <Button variant="secondary" block onClick={onLater}>
           {laterLabel}
         </Button>

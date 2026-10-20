@@ -42,7 +42,8 @@ export interface RateAlertFormProps {
 }
 
 /**
- * Body of Sheet — Rate Alert (Figma S3 25:4431): Checklist Items for what to follow, an
+ * Body of Sheet — Rate Alert (Figma S3 25:4431): Checklist Items for what to follow (52px
+ * rows, 16px apart like every sheet row), an
  * email Text Field with an "@" unit box, primary "জানাতে চাই" and the secondary WhatsApp
  * channel button.
  */
@@ -69,7 +70,7 @@ export function RateAlertForm({
   }
   return (
     <form class={cx('grid min-w-0 gap-4', className)} onSubmit={submit} data-rate-alert-form>
-      <fieldset class="min-w-0">
+      <fieldset class="grid min-w-0 gap-4">
         <legend class="sr-only">{topicsLabel}</legend>
         {topics.map((t) => (
           <ChecklistItem key={t.value} name="topic" value={t.value} label={t.label} defaultChecked={t.defaultChecked} />

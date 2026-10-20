@@ -76,6 +76,8 @@ describe('Picker', () => {
 
   it('filters as you type (Banglish)', () => {
     const { input } = renderPicker()
+    // The "nothing found" live region is on the page before it has anything to say.
+    expect(screen.getByRole('status').textContent).toBe('')
     fireEvent.input(input, { target: { value: 'italy' } })
     expect(screen.getAllByRole('option').map((o) => o.textContent)).toEqual(['ইতালিEUR · ইউরো'])
     fireEvent.input(input, { target: { value: 'নেই' } })
@@ -97,6 +99,19 @@ describe('Picker', () => {
     expect(active()).toContain('সৌদি আরব')
     fireEvent.keyDown(input, { key: 'End', ctrlKey: true })
     expect(active()).toContain('ইতালি')
+    fireEvent.keyDown(input, { key: 'Enter' })
+    expect(onChange).toHaveBeenCalledWith('IT', COUNTRIES[5])
+  })
+
+  it('the active option follows the text in the same render (paste, then Enter at once)', () => {
+    const { input, onChange } = renderPicker()
+    fireEvent.input(input, { target: { value: 'zzzz' } })
+    expect(input.getAttribute('aria-activedescendant')).toBeNull()
+    fireEvent.keyDown(input, { key: 'Enter' })
+    expect(onChange).not.toHaveBeenCalled()
+    // A stale index from the empty list must not survive into the new results.
+    fireEvent.input(input, { target: { value: 'italy' } })
+    expect(document.getElementById(input.getAttribute('aria-activedescendant')!)?.textContent).toContain('ইতালি')
     fireEvent.keyDown(input, { key: 'Enter' })
     expect(onChange).toHaveBeenCalledWith('IT', COUNTRIES[5])
   })

@@ -28,13 +28,13 @@ export interface ShareTargetsProps {
 
 /**
  * The row of share targets (Figma 25:4291): equal columns, each a 52px subtle circle with
- * the icon and a 12/22 soft label under it; the whole column is the button. Below sm the
- * row borrows 8px of the sheet padding each side and tightens the gap, so "Messenger"
- * still fits on a 360px phone.
+ * the icon and a 12/22 soft label under it; the whole column is the button. Columns are 8px
+ * apart, and a label may run 4px into the gap on each side (Figma's "Messenger" is 63px in
+ * a 62px column), so it still fits on a 320px phone without truncating.
  */
 export function ShareTargets({ targets = DEFAULT_SHARE_TARGETS, onSelect, label = 'যেখানে পাঠাবে', class: className }: ShareTargetsProps) {
   return (
-    <div role="group" aria-label={label} class={cx('-mx-2 flex min-w-0 gap-1 sm:mx-0 sm:gap-2', className)}>
+    <div role="group" aria-label={label} class={cx('flex min-w-0 gap-2', className)}>
       {targets.map((t) => (
         <button
           key={t.id}
@@ -47,7 +47,7 @@ export function ShareTargets({ targets = DEFAULT_SHARE_TARGETS, onSelect, label 
             {t.icon}
           </span>
           {/* Figma 12/22: smaller than any type token, so the size is set here. */}
-          <span class="max-w-full truncate text-[0.75rem] leading-5.5 text-soft">{t.label}</span>
+          <span class="max-w-[calc(100%+0.5rem)] truncate text-[0.75rem] leading-5.5 text-soft">{t.label}</span>
         </button>
       ))}
     </div>

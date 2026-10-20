@@ -17,11 +17,14 @@ export type SheetVariant = 'responsive' | 'sheet' | 'dialog'
 export type SheetCloseReason = 'escape' | 'scrim' | 'close-button' | 'drag'
 type HeadingLevel = 2 | 3 | 4
 
+// Figma desktop modal (70:17810): 16px corners and a 0 12 40 drop shadow (the elevation
+// colour is the overlay/shadow token). The sheet has no shadow; it sits on the scrim.
+const DIALOG_SHADOW = 'shadow-[0_12px_40px_var(--overlay-shadow)]'
 const RADIUS: Record<SheetVariant, string> = {
   // Figma sheet: 20px top corners. Desktop modal (D · S1–S4): 16px all round.
   sheet: 'rounded-t-[20px]',
-  dialog: 'rounded-[16px]',
-  responsive: 'rounded-t-[20px] lg:rounded-[16px]',
+  dialog: `rounded-[16px] ${DIALOG_SHADOW}`,
+  responsive: 'rounded-t-[20px] lg:rounded-[16px] lg:shadow-[0_12px_40px_var(--overlay-shadow)]',
 }
 // Figma sheet: 12px top, 24px sides, 32px bottom (+ safe area), 16px between rows.
 // Desktop modal: 24px top, 28px sides and bottom.

@@ -132,7 +132,7 @@ const close = 'বন্ধ করো'
     <Specimen label="P2 পিকার — জেলা (with caption)" frame={false}>
       <div class={sheetStage}>
         <SheetSurface variant="sheet" title="জেলা বেছে নাও" headingLevel={4} onCloseClick={noop} closeLabel={close}>
-          <Picker label="জেলা" searchPlaceholder="জেলার নাম লেখো" caption="৬৪ জেলা · বিভাগীয় শহর আগে" options={DISTRICTS.slice(0, 6)} value="dhaka" />
+          <Picker label="জেলা" searchPlaceholder="জেলার নাম লেখো, যেমন কুমিল্লা" caption="৬৪ জেলা · বিভাগীয় শহর আগে" options={DISTRICTS.slice(0, 6)} value="dhaka" />
         </SheetSurface>
       </div>
     </Specimen>
@@ -191,10 +191,10 @@ const close = 'বন্ধ করো'
 
 <Group title="States" id="overlay-states" description="Figma 14 States (18:1904): offline banner, stale-data banner, empty search, 404 and the loading skeleton (shimmer is a translated gradient; still under lite and reduced motion).">
   <Grid cols={2}>
-    <Specimen label="Banner — offline">
+    <Specimen label="Banner — offline (অফলাইন ব্যানার)">
       <Banner tone="offline">ইন্টারনেট নেই। ক্যালকুলেটর চলবে, রেট শেষবার সেভ করা অবস্থায় দেখাচ্ছে।</Banner>
     </Specimen>
-    <Specimen label="Banner — stale (data purono)">
+    <Specimen label="Banner — stale (পুরোনো ডেটা সতর্কতা)">
       <Banner tone="stale">এই রেট ৬০ দিনের বেশি পুরোনো (শেষ যাচাই ১৯ আগস্ট)। লেনদেনের আগে অফিসিয়াল সাইটে মিলিয়ে নাও।</Banner>
     </Specimen>
     <Specimen label="EmptyState — খোঁজে কিছু পাওয়া যায়নি">
@@ -206,7 +206,7 @@ const close = 'বন্ধ করো'
     <Specimen label="NotFound — English">
       <NotFound lang="en" headingLevel={4} />
     </Specimen>
-    <Specimen label="Skeleton — loading card">
+    <Specimen label="Skeleton — loading card (লোডিং স্কেলেটন)">
       <SkeletonCard />
     </Specimen>
   </Grid>

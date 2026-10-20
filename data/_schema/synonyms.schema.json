@@ -19,13 +19,15 @@
         "properties": {
           "canonical": {
             "type": "string",
-            "minLength": 1
+            "minLength": 1,
+            "maxLength": 40
           },
           "variants": {
             "type": "array",
             "items": {
               "type": "string",
-              "minLength": 1
+              "minLength": 1,
+              "maxLength": 40
             },
             "minItems": 1,
             "uniqueItems": true

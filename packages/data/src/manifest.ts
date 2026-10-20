@@ -116,7 +116,7 @@ export function isManifest(m: unknown): m is DataManifest {
   if (typeof m.date !== 'string' || !/^\d{4}-\d{2}-\d{2}$/.test(m.date) || !isRecord(m.files)) return false
   return Object.entries(m.files).every(
     ([path, f]) =>
-      isSafePath(path) && isRecord(f) && typeof f.sha256 === 'string' && /^[0-9a-f]{64}$/.test(f.sha256) && Number.isSafeInteger(f.bytes),
+      isSafePath(path) && isRecord(f) && typeof f.sha256 === 'string' && /^[0-9a-f]{64}$/.test(f.sha256) && Number.isSafeInteger(f.bytes) && (f.bytes as number) >= 0,
   )
 }
 

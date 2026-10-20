@@ -84,6 +84,7 @@ export const DATA_FILES: readonly DataFileSpec[] = [
     bounds: [
       { path: 'value.tariffs.*.slabs.*.rate', min: 0, max: 50 },
       { path: 'value.tariffs.*.lifeline.rate', min: 0, max: 50 },
+      { path: 'value.tariffs.*.lifeline.maxUnits', min: 0, max: 1000 },
       { path: 'value.tariffs.*.todRates.*', min: 0, max: 50 },
       { path: 'value.tariffs.*.demandChargePerKw', min: 0, max: 500 },
       { path: 'value.tariffs.*.meterRent.*', min: 0, max: 2000 },
@@ -102,6 +103,9 @@ export const DATA_FILES: readonly DataFileSpec[] = [
       pctBound('value.rebate.incomePct', 50),
       pctBound('value.rebate.investmentPct', 50),
       { path: 'value.minimumTax.*', min: 0, max: 50_000 },
+      { path: 'value.slabs.*.width', min: 10_000, max: 10_000_000 },
+      { path: 'value.disabledDependentExtra', min: 0, max: 500_000 },
+      { path: 'value.rebate.cap', min: 0, max: 10_000_000 },
     ],
   },
   {
@@ -125,6 +129,8 @@ export const DATA_FILES: readonly DataFileSpec[] = [
       { path: '*.value.zones.*.extra.charge', min: 0, max: 1000 },
       pctBound('*.value.zones.*.codPct', 5),
       pctBound('*.value.returnChargePct'),
+      { path: '*.value.zones.*.slabs.*.maxKg', min: 0.1, max: 100 },
+      { path: '*.value.zones.*.extra.stepKg', min: 0.1, max: 100 },
     ],
   },
   { pattern: 'commerce/delivery-zones.json', schema: 'delivery-zones', facts: true, bundled: true },
@@ -163,6 +169,8 @@ export const DATA_FILES: readonly DataFileSpec[] = [
       { path: 'value.*.rateSlabs.*.ratePct', min: 1, max: 20 },
       pctBound('value.*.taxSlabs.*.taxPct', 30),
       { path: 'value.*.years', min: 1, max: 10 },
+      { path: 'value.*.minInvestment', min: 1000, max: 100_000_000 },
+      { path: 'value.*.maxInvestment', min: 1000, max: 100_000_000 },
     ],
   },
   { pattern: 'finance/savings-goal-presets.json', schema: 'savings-goal-presets', facts: true, bundled: true },
@@ -210,7 +218,17 @@ export const DATA_FILES: readonly DataFileSpec[] = [
       pctBound('value.ratePct', 10),
     ],
   },
-  { pattern: 'religion/fitra.json', schema: 'fitra', facts: true, bundled: true, bounds: [{ path: 'value.items.*.perPerson', min: 10, max: 20_000 }] },
+  {
+    pattern: 'religion/fitra.json',
+    schema: 'fitra',
+    facts: true,
+    bundled: true,
+    bounds: [
+      { path: 'value.items.*.perPerson', min: 10, max: 20_000 },
+      // Half a sa' of wheat to one sa' of the rest: about 1.6 to 3.5 kg.
+      { path: 'value.items.*.kgPerPerson', min: 0.5, max: 10 },
+    ],
+  },
   {
     pattern: 'religion/sehri-iftar-method.json',
     schema: 'sehri-iftar-method',
@@ -255,7 +273,7 @@ export const DATA_FILES: readonly DataFileSpec[] = [
     schema: 'land-registration-costs',
     facts: true,
     bundled: true,
-    bounds: [pctBound('value.*.pct', 20), { path: 'value.*.fixed', min: 0, max: 100_000 }],
+    bounds: [pctBound('value.*.pct', 20), { path: 'value.*.fixed', min: 0, max: 100_000 }, { path: 'value.*.perUnit', min: 0, max: 10_000_000 }],
   },
   { pattern: 'education/board-grading.json', schema: 'board-grading', facts: true, bundled: true, bounds: [{ path: 'value.scale.*.point', min: 0, max: 5 }] },
   { pattern: 'education/board-subjects.json', schema: 'board-subjects', facts: true, bundled: true },

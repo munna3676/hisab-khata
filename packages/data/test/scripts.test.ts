@@ -158,3 +158,43 @@ describe('scripts/changelog.mjs', () => {
     expect(checkDataFile('changelog.json', log)).toEqual([])
   })
 })
+
+describe('scripts/check-data.mjs dates', () => {
+  it('rejects a checked date or --today that is not on the calendar (2026-02-31 is not March 3)', () => {
+    const dir = copyData('bad-date')
+    editJson(dir, 'finance/loan-dbr.json', (f) => {
+      f.checked = '2026-02-31'
+      delete f.note
+    })
+    const r = run('check-data.mjs', [`--root=${dir}`, '--allow-unverified', '--today=2026-10-20'])
+    expect(r.code).toBe(1)
+    expect(r.err).toMatch(/finance\/loan-dbr\.json:\/ has a bad checked date: 2026-02-31/)
+    for (const today of ['2026-02-31', '2026-13-01', '2026', '']) expect(run('check-data.mjs', ['--allow-unverified', `--today=${today}`]).code).toBe(1)
+  })
+  it('fails a Fact checked in the future', () => {
+    const dir = copyData('future')
+    editJson(dir, 'finance/loan-dbr.json', (f) => {
+      f.checked = '2026-10-21'
+      delete f.note
+    })
+    const r = run('check-data.mjs', [`--root=${dir}`, '--allow-unverified', '--today=2026-10-20'])
+    expect(r.code).toBe(1)
+    expect(r.err).toMatch(/checked in the future/)
+  })
+})
+
+describe('scripts/changelog.mjs arguments', () => {
+  it('refuses a --from that git would read as an option', () => {
+    const r = run('changelog.mjs', ['--from=--output=/tmp/x'])
+    expect(r.code).not.toBe(0)
+    expect(r.err).toMatch(/not a folder or git ref: --output=\/tmp\/x/)
+  })
+})
+
+describe('scripts/sign-manifest.mjs keys', () => {
+  it('refuses a key that is not 32 bytes', () => {
+    const r = run('sign-manifest.mjs', ['--public-key'], { HISAB_DATA_SIGNING_KEY: toHex(new Uint8Array(16)) })
+    expect(r.code).toBe(1)
+    expect(r.err).toMatch(/must be 32 bytes/)
+  })
+})
