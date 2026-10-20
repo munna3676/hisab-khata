@@ -2,3 +2,88 @@
    Only for what Tailwind classes cannot express (keyframes, ::part, :has() chains, scroll-snap tweaks).
    Put rules inside @layer components so Tailwind utilities can still override them.
    Use token variables only (var(--brand-accent), var(--duration-sheet), var(--ease-out)); no raw hex. */
+
+@layer components {
+  /* ---- bottom sheet ----
+     Figma sheet bottom padding is 32px; on phones with a home indicator the safe area is added. */
+  .hko-sheet-pad {
+    padding-bottom: calc(var(--space-8) + env(safe-area-inset-bottom, 0px));
+  }
+
+  /* ---- toasts ----
+     Below lg: 16px above the 56px bottom nav and the safe area (Figma T1/T2). From lg there is
+     no bottom nav: 24px from the bottom. */
+  .hko-toasts {
+    bottom: calc(var(--size-bottom-nav) + env(safe-area-inset-bottom, 0px) + var(--space-4));
+  }
+  @media (min-width: 1024px) {
+    .hko-toasts {
+      bottom: var(--space-6);
+    }
+  }
+
+  /* ---- numbers (404, share card amount) ----
+     Same local workaround as the base group's .hk-num: --font-number has no Bengali glyphs,
+     so Bangla digits and ৳ fall back to the body face. */
+  .hko-num {
+    font-family: var(--font-number), var(--font-body);
+    font-variant-numeric: tabular-nums;
+    letter-spacing: -0.01em;
+  }
+
+  /* ---- share card thumbnail ----
+     Laid out at 2× (360px) so every text uses a type token, then scaled to the 180px Figma
+     thumbnail. Ruled ledger lines every 28px from 68px down (14px from 34px at 1×; the band
+     above is masked), and the red margin line 26px in at 75% opacity. */
+  .hko-share-card {
+    scale: 0.5;
+    transform-origin: 0 0;
+    background-image:
+      linear-gradient(to right, transparent 26px, color-mix(in srgb, var(--brand-margin) 75%, transparent) 26px 28px, transparent 28px),
+      linear-gradient(to bottom, var(--bg-sheet) 68px, transparent 68px),
+      repeating-linear-gradient(to bottom, transparent 0 27px, var(--border-rule) 27px 28px);
+    background-position:
+      0 0,
+      0 0,
+      0 41px;
+  }
+
+  /* ---- skeleton shimmer ----
+     A soft highlight on ::after slides across with `translate` (never background-position).
+     Lite and reduced motion: a still bar. */
+  .hko-skeleton {
+    position: relative;
+    overflow: hidden;
+    isolation: isolate;
+  }
+  .hko-skeleton::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    translate: -100% 0;
+    background: linear-gradient(90deg, transparent, color-mix(in srgb, var(--bg-sheet) 70%, transparent), transparent);
+    animation: hko-shimmer 1.4s linear infinite;
+    pointer-events: none;
+  }
+}
+
+@keyframes hko-shimmer {
+  from {
+    translate: -100% 0;
+  }
+  to {
+    translate: 100% 0;
+  }
+}
+
+/* Unlayered so it beats the rule above. */
+html:is([data-motion="lite"], [data-motion="reduce"]) .hko-skeleton::after {
+  animation: none;
+  opacity: 0;
+}
+@media (prefers-reduced-motion: reduce) {
+  html:not([data-motion="full"]) .hko-skeleton::after {
+    animation: none;
+    opacity: 0;
+  }
+}
