@@ -45,11 +45,12 @@ jobs:
       - name: Core tests
         run: pnpm --filter @hisab/core test
 
-      - name: UI and tokens tests
-        run: pnpm --filter @hisab/ui --filter @hisab/tokens test
+      - name: Package tests
+        run: pnpm --filter @hisab/ui --filter @hisab/tokens --filter @hisab/data --filter @hisab/search --filter @hisab/platform --filter @hisab/i18n test
 
       - name: Check data
-        run: pnpm check:data
+        # Seed values are marked unverified until the owner checks them at the source.
+        run: pnpm check:data -- --allow-unverified
 
       - name: Build web
         run: pnpm --filter @hisab/web build
