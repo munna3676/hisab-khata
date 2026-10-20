@@ -1,0 +1,40 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://hisabkhata.app/schema/delivery-zones.json",
+  "title": "Delivery zones",
+  "description": "data/commerce/delivery-zones.json: the এলাকা chips of the delivery tool.",
+  "type": "object",
+  "required": [
+    "zones"
+  ],
+  "properties": {
+    "zones": {
+      "type": "object",
+      "$ref": "fact.json",
+      "properties": {
+        "value": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": [
+              "id",
+              "label"
+            ],
+            "properties": {
+              "id": {
+                "$ref": "common.json#/$defs/id"
+              },
+              "label": {
+                "type": "string",
+                "minLength": 1
+              }
+            },
+            "additionalProperties": false
+          },
+          "minItems": 1
+        }
+      }
+    }
+  },
+  "additionalProperties": false
+}

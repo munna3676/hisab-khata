@@ -1,0 +1,103 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://hisabkhata.app/schema/couriers.json",
+  "title": "Courier rates",
+  "description": "data/commerce/couriers.json: courier id → Fact whose value is exactly @hisab/core CourierRate.",
+  "type": "object",
+  "minProperties": 1,
+  "propertyNames": {
+    "$ref": "common.json#/$defs/id"
+  },
+  "additionalProperties": {
+    "type": "object",
+    "$ref": "fact.json",
+    "properties": {
+      "value": {
+        "type": "object",
+        "required": [
+          "name",
+          "codBase",
+          "returnChargePct",
+          "zones"
+        ],
+        "properties": {
+          "name": {
+            "type": "string",
+            "minLength": 1
+          },
+          "codBase": {
+            "enum": [
+              "collected",
+              "collected-minus-delivery"
+            ]
+          },
+          "returnChargePct": {
+            "$ref": "common.json#/$defs/percent"
+          },
+          "zones": {
+            "type": "object",
+            "minProperties": 1,
+            "propertyNames": {
+              "$ref": "common.json#/$defs/id"
+            },
+            "additionalProperties": {
+              "type": "object",
+              "required": [
+                "slabs",
+                "extra",
+                "codPct"
+              ],
+              "properties": {
+                "slabs": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "required": [
+                      "maxKg",
+                      "charge"
+                    ],
+                    "properties": {
+                      "maxKg": {
+                        "type": "number",
+                        "exclusiveMinimum": 0
+                      },
+                      "charge": {
+                        "type": "number",
+                        "minimum": 0
+                      }
+                    },
+                    "additionalProperties": false
+                  },
+                  "minItems": 1
+                },
+                "extra": {
+                  "type": "object",
+                  "required": [
+                    "stepKg",
+                    "charge"
+                  ],
+                  "properties": {
+                    "stepKg": {
+                      "type": "number",
+                      "exclusiveMinimum": 0
+                    },
+                    "charge": {
+                      "type": "number",
+                      "minimum": 0
+                    }
+                  },
+                  "additionalProperties": false
+                },
+                "codPct": {
+                  "$ref": "common.json#/$defs/percent"
+                }
+              },
+              "additionalProperties": false
+            }
+          }
+        },
+        "additionalProperties": false
+      }
+    }
+  }
+}

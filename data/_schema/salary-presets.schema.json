@@ -1,0 +1,97 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://hisabkhata.app/schema/salary-presets.json",
+  "title": "Salary presets",
+  "description": "data/finance/salary-presets.json: @hisab/core SalaryStructure presets and deduction presets.",
+  "type": "object",
+  "required": [
+    "structures"
+  ],
+  "properties": {
+    "structures": {
+      "type": "object",
+      "$ref": "fact.json",
+      "properties": {
+        "value": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": [
+              "id",
+              "labelBn",
+              "basicPctOfGross",
+              "houseRentPctOfBasic",
+              "medicalPctOfBasic",
+              "conveyance"
+            ],
+            "properties": {
+              "id": {
+                "$ref": "common.json#/$defs/id"
+              },
+              "labelBn": {
+                "type": "string",
+                "minLength": 1
+              },
+              "basicPctOfGross": {
+                "type": "number",
+                "exclusiveMinimum": 0,
+                "maximum": 100
+              },
+              "houseRentPctOfBasic": {
+                "$ref": "common.json#/$defs/percent"
+              },
+              "medicalPctOfBasic": {
+                "$ref": "common.json#/$defs/percent"
+              },
+              "conveyance": {
+                "type": [
+                  "number",
+                  "null"
+                ],
+                "minimum": 0
+              }
+            },
+            "additionalProperties": false
+          },
+          "minItems": 1
+        }
+      }
+    },
+    "deductions": {
+      "type": "object",
+      "$ref": "fact.json",
+      "properties": {
+        "value": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": [
+              "label",
+              "kind",
+              "value"
+            ],
+            "properties": {
+              "label": {
+                "type": "string",
+                "minLength": 1
+              },
+              "kind": {
+                "enum": [
+                  "pctOfBasic",
+                  "pctOfGross",
+                  "amount"
+                ]
+              },
+              "value": {
+                "type": "number",
+                "minimum": 0
+              }
+            },
+            "additionalProperties": false
+          }
+        }
+      }
+    }
+  },
+  "additionalProperties": false
+}

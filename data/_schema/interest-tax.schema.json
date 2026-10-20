@@ -1,0 +1,25 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://hisabkhata.app/schema/interest-tax.json",
+  "title": "Tax on interest",
+  "description": "data/finance/interest-tax.json: tax at source on bank profit (DPS/FDR taxPct).",
+  "type": "object",
+  "$ref": "fact.json",
+  "properties": {
+    "value": {
+      "type": "object",
+      "required": [
+        "withTinPct"
+      ],
+      "properties": {
+        "withTinPct": {
+          "$ref": "common.json#/$defs/percent"
+        },
+        "withoutTinPct": {
+          "$ref": "common.json#/$defs/percent"
+        }
+      },
+      "additionalProperties": false
+    }
+  }
+}

@@ -1,0 +1,88 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://hisabkhata.app/schema/data-packs.json",
+  "title": "Mobile data packs",
+  "description": "data/data-packs.json: operators and one Fact per operator whose value is @hisab/core DataPack[].",
+  "type": "object",
+  "required": [
+    "operators",
+    "packs"
+  ],
+  "properties": {
+    "operators": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "id",
+          "bn",
+          "en"
+        ],
+        "properties": {
+          "id": {
+            "$ref": "common.json#/$defs/id"
+          },
+          "bn": {
+            "type": "string",
+            "minLength": 1
+          },
+          "en": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "additionalProperties": false
+      },
+      "minItems": 1
+    },
+    "packs": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "$ref": "fact.json",
+        "properties": {
+          "value": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "required": [
+                "id",
+                "operator",
+                "price",
+                "dataGb",
+                "validityDays"
+              ],
+              "properties": {
+                "id": {
+                  "$ref": "common.json#/$defs/id"
+                },
+                "operator": {
+                  "$ref": "common.json#/$defs/id"
+                },
+                "price": {
+                  "type": "number",
+                  "exclusiveMinimum": 0
+                },
+                "dataGb": {
+                  "type": "number",
+                  "exclusiveMinimum": 0
+                },
+                "validityDays": {
+                  "type": "integer",
+                  "minimum": 1
+                },
+                "name": {
+                  "type": "string",
+                  "minLength": 1
+                }
+              },
+              "additionalProperties": false
+            },
+            "minItems": 1
+          }
+        }
+      }
+    }
+  },
+  "additionalProperties": false
+}

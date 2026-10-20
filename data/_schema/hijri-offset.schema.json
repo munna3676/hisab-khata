@@ -1,0 +1,15 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://hisabkhata.app/schema/hijri-offset.json",
+  "title": "Hijri offset",
+  "description": "data/dates/hijri-offset.json: whole days Bangladesh differs from Umm al-Qura this month.",
+  "type": "object",
+  "$ref": "fact.json",
+  "properties": {
+    "value": {
+      "type": "integer",
+      "minimum": -3,
+      "maximum": 3
+    }
+  }
+}

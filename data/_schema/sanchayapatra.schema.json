@@ -1,0 +1,98 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://hisabkhata.app/schema/sanchayapatra.json",
+  "title": "Sanchayapatra schemes",
+  "description": "data/finance/sanchayapatra.json: @hisab/core SanchayapatraScheme[] plus the picker names.",
+  "type": "object",
+  "$ref": "fact.json",
+  "properties": {
+    "value": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "id",
+          "nameBn",
+          "years",
+          "payout",
+          "rateSlabs",
+          "taxSlabs"
+        ],
+        "properties": {
+          "id": {
+            "$ref": "common.json#/$defs/id"
+          },
+          "nameBn": {
+            "type": "string",
+            "minLength": 1
+          },
+          "detailBn": {
+            "type": "string",
+            "minLength": 1
+          },
+          "years": {
+            "type": "number",
+            "exclusiveMinimum": 0
+          },
+          "payout": {
+            "enum": [
+              "monthly",
+              "quarterly",
+              "maturity"
+            ]
+          },
+          "rateSlabs": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "required": [
+                "upTo",
+                "ratePct"
+              ],
+              "properties": {
+                "upTo": {
+                  "$ref": "common.json#/$defs/upTo"
+                },
+                "ratePct": {
+                  "$ref": "common.json#/$defs/percent"
+                }
+              },
+              "additionalProperties": false
+            },
+            "minItems": 1
+          },
+          "taxSlabs": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "required": [
+                "upTo",
+                "taxPct"
+              ],
+              "properties": {
+                "upTo": {
+                  "$ref": "common.json#/$defs/upTo"
+                },
+                "taxPct": {
+                  "$ref": "common.json#/$defs/percent"
+                }
+              },
+              "additionalProperties": false
+            },
+            "minItems": 1
+          },
+          "minInvestment": {
+            "type": "number",
+            "minimum": 0
+          },
+          "maxInvestment": {
+            "type": "number",
+            "minimum": 0
+          }
+        },
+        "additionalProperties": false
+      },
+      "minItems": 1
+    }
+  }
+}

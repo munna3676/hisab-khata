@@ -1,0 +1,53 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://hisabkhata.app/schema/fitra.json",
+  "title": "Fitra rates",
+  "description": "data/religion/fitra.json: the year's Islamic Foundation rates, @hisab/core FitraRates.",
+  "type": "object",
+  "$ref": "fact.json",
+  "properties": {
+    "value": {
+      "type": "object",
+      "required": [
+        "year",
+        "items"
+      ],
+      "properties": {
+        "year": {
+          "type": "integer",
+          "minimum": 2000,
+          "maximum": 2200
+        },
+        "announced": {
+          "$ref": "common.json#/$defs/date"
+        },
+        "items": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": [
+              "id",
+              "perPerson"
+            ],
+            "properties": {
+              "id": {
+                "$ref": "common.json#/$defs/id"
+              },
+              "perPerson": {
+                "type": "number",
+                "minimum": 0
+              },
+              "kgPerPerson": {
+                "type": "number",
+                "exclusiveMinimum": 0
+              }
+            },
+            "additionalProperties": false
+          },
+          "minItems": 1
+        }
+      },
+      "additionalProperties": false
+    }
+  }
+}

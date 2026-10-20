@@ -1,0 +1,134 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://hisabkhata.app/schema/remittance.json",
+  "title": "Remittance",
+  "description": "data/remittance.json: sending countries, delivery channels and the services compared on /remittance/compare.",
+  "type": "object",
+  "required": [
+    "countries",
+    "channels",
+    "services"
+  ],
+  "properties": {
+    "countries": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "id",
+          "name",
+          "currency",
+          "currencyName"
+        ],
+        "properties": {
+          "id": {
+            "type": "string",
+            "pattern": "^[a-z]{2}$"
+          },
+          "name": {
+            "type": "string",
+            "minLength": 1
+          },
+          "currency": {
+            "type": "string",
+            "pattern": "^[A-Z]{3}$"
+          },
+          "currencyName": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "additionalProperties": false
+      },
+      "minItems": 1
+    },
+    "channels": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "id",
+          "label"
+        ],
+        "properties": {
+          "id": {
+            "$ref": "common.json#/$defs/id"
+          },
+          "label": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "additionalProperties": false
+      },
+      "minItems": 1
+    },
+    "services": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "$ref": "fact.json",
+        "properties": {
+          "value": {
+            "type": "object",
+            "required": [
+              "id",
+              "name",
+              "channel",
+              "countries"
+            ],
+            "properties": {
+              "id": {
+                "$ref": "common.json#/$defs/id"
+              },
+              "name": {
+                "type": "string",
+                "minLength": 1
+              },
+              "channel": {
+                "$ref": "common.json#/$defs/id"
+              },
+              "countries": {
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "pattern": "^[a-z]{2}$"
+                },
+                "minItems": 1
+              },
+              "feeLocal": {
+                "type": "number",
+                "minimum": 0,
+                "description": "Sender fee in the sending currency."
+              },
+              "rateSpreadPct": {
+                "type": "number",
+                "minimum": -100,
+                "maximum": 100,
+                "description": "Percent below (+) or above (-) the reference bank rate."
+              },
+              "speed": {
+                "type": "string",
+                "minLength": 1
+              },
+              "url": {
+                "$ref": "common.json#/$defs/url"
+              }
+            },
+            "additionalProperties": false
+          }
+        }
+      }
+    },
+    "incentivePct": {
+      "type": "object",
+      "$ref": "fact.json",
+      "properties": {
+        "value": {
+          "$ref": "common.json#/$defs/percent"
+        }
+      }
+    }
+  },
+  "additionalProperties": false
+}

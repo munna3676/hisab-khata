@@ -1,0 +1,28 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://hisabkhata.app/schema/board-grading.json",
+  "title": "Board grading",
+  "description": "data/education/board-grading.json: SSC/HSC grade scale and the 4th-subject base.",
+  "type": "object",
+  "$ref": "fact.json",
+  "properties": {
+    "value": {
+      "type": "object",
+      "required": [
+        "scale",
+        "fourthSubjectBase"
+      ],
+      "properties": {
+        "scale": {
+          "$ref": "common.json#/$defs/gradeScale"
+        },
+        "fourthSubjectBase": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 5
+        }
+      },
+      "additionalProperties": false
+    }
+  }
+}

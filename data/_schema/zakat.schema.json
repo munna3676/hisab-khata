@@ -1,0 +1,32 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://hisabkhata.app/schema/zakat.json",
+  "title": "Zakat rules",
+  "description": "data/religion/zakat.json: nisab weights and the rate (the day's prices come from bajus-rates.json).",
+  "type": "object",
+  "$ref": "fact.json",
+  "properties": {
+    "value": {
+      "type": "object",
+      "required": [
+        "nisabGoldVori",
+        "nisabSilverVori",
+        "ratePct"
+      ],
+      "properties": {
+        "nisabGoldVori": {
+          "type": "number",
+          "exclusiveMinimum": 0
+        },
+        "nisabSilverVori": {
+          "type": "number",
+          "exclusiveMinimum": 0
+        },
+        "ratePct": {
+          "$ref": "common.json#/$defs/percent"
+        }
+      },
+      "additionalProperties": false
+    }
+  }
+}

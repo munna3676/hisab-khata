@@ -1,0 +1,39 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://hisabkhata.app/schema/sd-rates.json",
+  "title": "SD rates",
+  "description": "data/commerce/sd-rates.json: supplementary duty chips (SD depends on the HS code, so free entry also works).",
+  "type": "object",
+  "required": [
+    "rates"
+  ],
+  "properties": {
+    "rates": {
+      "type": "object",
+      "$ref": "fact.json",
+      "properties": {
+        "value": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": [
+              "pct"
+            ],
+            "properties": {
+              "pct": {
+                "$ref": "common.json#/$defs/percent"
+              },
+              "label": {
+                "type": "string",
+                "minLength": 1
+              }
+            },
+            "additionalProperties": false
+          },
+          "minItems": 1
+        }
+      }
+    }
+  },
+  "additionalProperties": false
+}

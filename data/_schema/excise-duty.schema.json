@@ -1,0 +1,31 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://hisabkhata.app/schema/excise-duty.json",
+  "title": "Excise duty",
+  "description": "data/finance/excise-duty.json: @hisab/core ExciseSlab[] by the year's highest balance.",
+  "type": "object",
+  "$ref": "fact.json",
+  "properties": {
+    "value": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "upTo",
+          "duty"
+        ],
+        "properties": {
+          "upTo": {
+            "$ref": "common.json#/$defs/upTo"
+          },
+          "duty": {
+            "type": "number",
+            "minimum": 0
+          }
+        },
+        "additionalProperties": false
+      },
+      "minItems": 1
+    }
+  }
+}

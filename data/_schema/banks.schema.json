@@ -1,0 +1,66 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://hisabkhata.app/schema/banks.json",
+  "title": "Banks",
+  "description": "data/banks.json: the bank directory; each bank's rates live in data/banks/<id>.json.",
+  "type": "object",
+  "required": [
+    "banks"
+  ],
+  "properties": {
+    "banks": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "id",
+          "name",
+          "kind",
+          "islamic",
+          "helpline"
+        ],
+        "properties": {
+          "id": {
+            "$ref": "common.json#/$defs/id"
+          },
+          "name": {
+            "$ref": "common.json#/$defs/localized"
+          },
+          "shortName": {
+            "type": "string",
+            "minLength": 1,
+            "description": "Bangla short label for tables and chips (ব্র্যাক)."
+          },
+          "kind": {
+            "enum": [
+              "state",
+              "private",
+              "foreign",
+              "specialised"
+            ]
+          },
+          "islamic": {
+            "type": "boolean"
+          },
+          "helpline": {
+            "type": "object",
+            "$ref": "fact.json",
+            "properties": {
+              "value": {
+                "type": "string",
+                "minLength": 1,
+                "pattern": "^[0-9]{5}$"
+              }
+            }
+          },
+          "website": {
+            "$ref": "common.json#/$defs/url"
+          }
+        },
+        "additionalProperties": false
+      },
+      "minItems": 1
+    }
+  },
+  "additionalProperties": false
+}

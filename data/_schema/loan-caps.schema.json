@@ -1,0 +1,20 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://hisabkhata.app/schema/loan-caps.json",
+  "title": "Loan caps",
+  "description": "data/finance/loan-caps.json: optional maxLoanCap by loan type, in taka.",
+  "type": "object",
+  "$ref": "fact.json",
+  "properties": {
+    "value": {
+      "type": "object",
+      "propertyNames": {
+        "$ref": "common.json#/$defs/id"
+      },
+      "additionalProperties": {
+        "type": "number",
+        "minimum": 0
+      }
+    }
+  }
+}

@@ -1,0 +1,20 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://hisabkhata.app/schema/loan-fees.json",
+  "title": "Loan fees",
+  "description": "data/finance/loan-fees.json: optional default processing-fee hint.",
+  "type": "object",
+  "$ref": "fact.json",
+  "properties": {
+    "value": {
+      "type": "object",
+      "required": [],
+      "properties": {
+        "processingFeePct": {
+          "$ref": "common.json#/$defs/percent"
+        }
+      },
+      "additionalProperties": false
+    }
+  }
+}

@@ -1,0 +1,282 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://hisabkhata.app/schema/guide.json",
+  "title": "Guide",
+  "description": "data/guides/<slug>.json: a government-task or money guide: documents, steps, fees, FAQ, sources and the optional \"আমার কী লাগবে?\" wizard.",
+  "type": "object",
+  "required": [
+    "id",
+    "title",
+    "summary",
+    "documents",
+    "steps",
+    "fees",
+    "faq",
+    "sources"
+  ],
+  "properties": {
+    "id": {
+      "$ref": "common.json#/$defs/id"
+    },
+    "title": {
+      "type": "string",
+      "minLength": 1
+    },
+    "summary": {
+      "type": "string",
+      "minLength": 1
+    },
+    "documents": {
+      "type": "object",
+      "$ref": "fact.json",
+      "properties": {
+        "value": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": [
+              "id",
+              "label"
+            ],
+            "properties": {
+              "id": {
+                "$ref": "common.json#/$defs/id"
+              },
+              "label": {
+                "type": "string",
+                "minLength": 1
+              },
+              "optional": {
+                "type": "boolean"
+              }
+            },
+            "additionalProperties": false
+          }
+        }
+      }
+    },
+    "steps": {
+      "type": "object",
+      "$ref": "fact.json",
+      "properties": {
+        "value": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": [
+              "title"
+            ],
+            "properties": {
+              "title": {
+                "type": "string",
+                "minLength": 1
+              },
+              "detail": {
+                "type": "string",
+                "minLength": 1
+              }
+            },
+            "additionalProperties": false
+          }
+        }
+      }
+    },
+    "fees": {
+      "type": "object",
+      "$ref": "fact.json",
+      "properties": {
+        "value": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": [
+              "id",
+              "label",
+              "amount"
+            ],
+            "properties": {
+              "id": {
+                "$ref": "common.json#/$defs/id"
+              },
+              "label": {
+                "type": "string",
+                "minLength": 1
+              },
+              "amount": {
+                "type": "number",
+                "minimum": 0
+              },
+              "note": {
+                "type": "string",
+                "minLength": 1
+              }
+            },
+            "additionalProperties": false
+          }
+        }
+      }
+    },
+    "tips": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "kind",
+          "text"
+        ],
+        "properties": {
+          "kind": {
+            "enum": [
+              "info",
+              "warn"
+            ]
+          },
+          "text": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "additionalProperties": false
+      }
+    },
+    "faq": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "q",
+          "a"
+        ],
+        "properties": {
+          "q": {
+            "type": "string",
+            "minLength": 1
+          },
+          "a": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "additionalProperties": false
+      }
+    },
+    "sources": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "label",
+          "url"
+        ],
+        "properties": {
+          "label": {
+            "type": "string",
+            "minLength": 1
+          },
+          "url": {
+            "$ref": "common.json#/$defs/url"
+          }
+        },
+        "additionalProperties": false
+      },
+      "minItems": 1
+    },
+    "wizard": {
+      "type": "object",
+      "required": [
+        "questions",
+        "results"
+      ],
+      "properties": {
+        "questions": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": [
+              "id",
+              "title",
+              "options"
+            ],
+            "properties": {
+              "id": {
+                "$ref": "common.json#/$defs/id"
+              },
+              "title": {
+                "type": "string",
+                "minLength": 1
+              },
+              "help": {
+                "type": "string",
+                "minLength": 1
+              },
+              "options": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "required": [
+                    "id",
+                    "label"
+                  ],
+                  "properties": {
+                    "id": {
+                      "$ref": "common.json#/$defs/id"
+                    },
+                    "label": {
+                      "type": "string",
+                      "minLength": 1
+                    }
+                  },
+                  "additionalProperties": false
+                },
+                "minItems": 2
+              }
+            },
+            "additionalProperties": false
+          },
+          "minItems": 1
+        },
+        "results": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": [
+              "when",
+              "title",
+              "documents"
+            ],
+            "properties": {
+              "when": {
+                "type": "object",
+                "minProperties": 1,
+                "propertyNames": {
+                  "$ref": "common.json#/$defs/id"
+                },
+                "additionalProperties": {
+                  "$ref": "common.json#/$defs/id"
+                }
+              },
+              "title": {
+                "type": "string",
+                "minLength": 1
+              },
+              "documents": {
+                "type": "array",
+                "items": {
+                  "$ref": "common.json#/$defs/id"
+                },
+                "minItems": 1
+              },
+              "tip": {
+                "type": "string",
+                "minLength": 1
+              }
+            },
+            "additionalProperties": false
+          }
+        }
+      },
+      "additionalProperties": false
+    }
+  },
+  "additionalProperties": false
+}

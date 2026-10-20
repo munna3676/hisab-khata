@@ -1,0 +1,20 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://hisabkhata.app/schema/weekend.json",
+  "title": "Weekend",
+  "description": "data/dates/weekend.json: weekly off days, 0 = Sunday.",
+  "type": "object",
+  "$ref": "fact.json",
+  "properties": {
+    "value": {
+      "type": "array",
+      "items": {
+        "type": "integer",
+        "minimum": 0,
+        "maximum": 6
+      },
+      "uniqueItems": true,
+      "maxItems": 6
+    }
+  }
+}

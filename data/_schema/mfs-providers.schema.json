@@ -1,0 +1,93 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://hisabkhata.app/schema/mfs-providers.json",
+  "title": "MFS providers",
+  "description": "data/mfs-providers.json: helpline, USSD code and bill-pay categories per provider.",
+  "type": "object",
+  "required": [
+    "providers"
+  ],
+  "properties": {
+    "providers": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "id",
+          "name",
+          "helpline",
+          "ussd",
+          "billers"
+        ],
+        "properties": {
+          "id": {
+            "$ref": "common.json#/$defs/id"
+          },
+          "name": {
+            "$ref": "common.json#/$defs/localized"
+          },
+          "operator": {
+            "$ref": "common.json#/$defs/localized",
+            "description": "The bank that runs the service (Rocket: Dutch-Bangla Bank)."
+          },
+          "helpline": {
+            "type": "object",
+            "$ref": "fact.json",
+            "properties": {
+              "value": {
+                "type": "string",
+                "minLength": 1,
+                "pattern": "^[0-9]{5}$"
+              }
+            }
+          },
+          "ussd": {
+            "type": "object",
+            "$ref": "fact.json",
+            "properties": {
+              "value": {
+                "type": "string",
+                "minLength": 1,
+                "pattern": "^\\*[0-9]+#$"
+              }
+            }
+          },
+          "billers": {
+            "type": "object",
+            "$ref": "fact.json",
+            "properties": {
+              "value": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "required": [
+                    "id",
+                    "label",
+                    "detail"
+                  ],
+                  "properties": {
+                    "id": {
+                      "$ref": "common.json#/$defs/id"
+                    },
+                    "label": {
+                      "type": "string",
+                      "minLength": 1
+                    },
+                    "detail": {
+                      "type": "string",
+                      "minLength": 1
+                    }
+                  },
+                  "additionalProperties": false
+                }
+              }
+            }
+          }
+        },
+        "additionalProperties": false
+      },
+      "minItems": 1
+    }
+  },
+  "additionalProperties": false
+}

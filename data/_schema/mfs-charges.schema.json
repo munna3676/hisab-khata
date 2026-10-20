@@ -1,0 +1,200 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://hisabkhata.app/schema/mfs-charges.json",
+  "title": "MFS charges",
+  "description": "data/mfs-charges.json: one Fact per channel; each value is exactly @hisab/core MfsChannel.",
+  "type": "object",
+  "required": [
+    "channels",
+    "referenceByService"
+  ],
+  "properties": {
+    "channels": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "$ref": "fact.json",
+        "properties": {
+          "value": {
+            "type": "object",
+            "required": [
+              "id",
+              "provider",
+              "service",
+              "channel",
+              "bands"
+            ],
+            "properties": {
+              "id": {
+                "$ref": "common.json#/$defs/id"
+              },
+              "provider": {
+                "$ref": "common.json#/$defs/id"
+              },
+              "service": {
+                "enum": [
+                  "cashOut",
+                  "sendMoney",
+                  "cashIn",
+                  "billPay",
+                  "payment"
+                ]
+              },
+              "channel": {
+                "enum": [
+                  "agent",
+                  "priyoAgent",
+                  "app",
+                  "ussd",
+                  "atm",
+                  "branch",
+                  "priyoNumber",
+                  "other"
+                ]
+              },
+              "bands": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "required": [
+                    "from"
+                  ],
+                  "properties": {
+                    "from": {
+                      "type": "number",
+                      "minimum": 0
+                    },
+                    "per1000": {
+                      "type": "number",
+                      "minimum": 0
+                    },
+                    "pct": {
+                      "$ref": "common.json#/$defs/percent"
+                    },
+                    "flat": {
+                      "type": "number",
+                      "minimum": 0
+                    },
+                    "min": {
+                      "type": "number",
+                      "minimum": 0
+                    },
+                    "max": {
+                      "type": "number",
+                      "minimum": 0
+                    }
+                  },
+                  "additionalProperties": false
+                },
+                "minItems": 1
+              },
+              "quota": {
+                "type": "object",
+                "required": [
+                  "monthlyAmount",
+                  "over"
+                ],
+                "properties": {
+                  "monthlyAmount": {
+                    "type": "number",
+                    "minimum": 0
+                  },
+                  "over": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "required": [
+                        "from"
+                      ],
+                      "properties": {
+                        "from": {
+                          "type": "number",
+                          "minimum": 0
+                        },
+                        "per1000": {
+                          "type": "number",
+                          "minimum": 0
+                        },
+                        "pct": {
+                          "$ref": "common.json#/$defs/percent"
+                        },
+                        "flat": {
+                          "type": "number",
+                          "minimum": 0
+                        },
+                        "min": {
+                          "type": "number",
+                          "minimum": 0
+                        },
+                        "max": {
+                          "type": "number",
+                          "minimum": 0
+                        }
+                      },
+                      "additionalProperties": false
+                    },
+                    "minItems": 1
+                  }
+                },
+                "additionalProperties": false
+              },
+              "limits": {
+                "type": "object",
+                "required": [],
+                "properties": {
+                  "minPerTxn": {
+                    "type": "number",
+                    "minimum": 0
+                  },
+                  "maxPerTxn": {
+                    "type": "number",
+                    "minimum": 0
+                  },
+                  "maxPerDay": {
+                    "type": "number",
+                    "minimum": 0
+                  },
+                  "maxPerMonth": {
+                    "type": "number",
+                    "minimum": 0
+                  }
+                },
+                "additionalProperties": false
+              },
+              "step": {
+                "type": "number",
+                "exclusiveMinimum": 0
+              }
+            },
+            "additionalProperties": false
+          }
+        }
+      },
+      "minItems": 1
+    },
+    "referenceByService": {
+      "type": "object",
+      "required": [],
+      "properties": {
+        "cashOut": {
+          "$ref": "common.json#/$defs/id"
+        },
+        "sendMoney": {
+          "$ref": "common.json#/$defs/id"
+        },
+        "cashIn": {
+          "$ref": "common.json#/$defs/id"
+        },
+        "billPay": {
+          "$ref": "common.json#/$defs/id"
+        },
+        "payment": {
+          "$ref": "common.json#/$defs/id"
+        }
+      },
+      "additionalProperties": false,
+      "description": "Channel id each service compares against (\"৳৪৭.৫০ কম বিকাশ এজেন্টের চেয়ে\")."
+    }
+  },
+  "additionalProperties": false
+}

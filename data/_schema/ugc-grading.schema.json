@@ -1,0 +1,13 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://hisabkhata.app/schema/ugc-grading.json",
+  "title": "UGC grading",
+  "description": "data/education/ugc-grading.json: the university grade scale (@hisab/core GradeBand[]).",
+  "type": "object",
+  "$ref": "fact.json",
+  "properties": {
+    "value": {
+      "$ref": "common.json#/$defs/gradeScale"
+    }
+  }
+}

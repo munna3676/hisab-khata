@@ -1,0 +1,42 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://hisabkhata.app/schema/sehri-iftar-method.json",
+  "title": "Sehri and iftar method",
+  "description": "data/religion/sehri-iftar-method.json: @hisab/core SehriIftarMethod.",
+  "type": "object",
+  "$ref": "fact.json",
+  "properties": {
+    "value": {
+      "type": "object",
+      "required": [
+        "fajrAngle",
+        "sehriPrecautionMin",
+        "iftarPrecautionMin",
+        "utcOffsetMinutes"
+      ],
+      "properties": {
+        "fajrAngle": {
+          "type": "number",
+          "exclusiveMinimum": 0,
+          "maximum": 30
+        },
+        "sehriPrecautionMin": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 30
+        },
+        "iftarPrecautionMin": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 30
+        },
+        "utcOffsetMinutes": {
+          "type": "integer",
+          "minimum": -720,
+          "maximum": 840
+        }
+      },
+      "additionalProperties": false
+    }
+  }
+}

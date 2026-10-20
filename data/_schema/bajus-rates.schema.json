@@ -1,0 +1,58 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://hisabkhata.app/schema/bajus-rates.json",
+  "title": "BAJUS rates",
+  "description": "data/gold/bajus-rates.json: the day's BAJUS selling rates, taka per ভরি (11.664 g).",
+  "type": "object",
+  "$ref": "fact.json",
+  "properties": {
+    "value": {
+      "type": "object",
+      "required": [
+        "date",
+        "gold",
+        "silver"
+      ],
+      "properties": {
+        "date": {
+          "$ref": "common.json#/$defs/date"
+        },
+        "gold": {
+          "type": "object",
+          "minProperties": 1,
+          "propertyNames": {
+            "enum": [
+              "24K",
+              "22K",
+              "21K",
+              "18K",
+              "traditional"
+            ]
+          },
+          "additionalProperties": {
+            "type": "number",
+            "exclusiveMinimum": 0
+          }
+        },
+        "silver": {
+          "type": "object",
+          "minProperties": 1,
+          "propertyNames": {
+            "enum": [
+              "24K",
+              "22K",
+              "21K",
+              "18K",
+              "traditional"
+            ]
+          },
+          "additionalProperties": {
+            "type": "number",
+            "exclusiveMinimum": 0
+          }
+        }
+      },
+      "additionalProperties": false
+    }
+  }
+}

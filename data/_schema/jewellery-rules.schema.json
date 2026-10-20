@@ -1,0 +1,49 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://hisabkhata.app/schema/jewellery-rules.json",
+  "title": "Jewellery rules",
+  "description": "data/gold/jewellery-rules.json: মজুরি minimum, VAT rule and old-gold cuts for the jewellery bill.",
+  "type": "object",
+  "$ref": "fact.json",
+  "properties": {
+    "value": {
+      "type": "object",
+      "required": [
+        "minMakingPct",
+        "vatPct",
+        "vatPerVori"
+      ],
+      "properties": {
+        "minMakingPct": {
+          "$ref": "common.json#/$defs/percent"
+        },
+        "vatPct": {
+          "type": [
+            "number",
+            "null"
+          ],
+          "minimum": 0,
+          "maximum": 100
+        },
+        "vatPerVori": {
+          "type": [
+            "number",
+            "null"
+          ],
+          "minimum": 0
+        },
+        "exchangeDeductionPct": {
+          "$ref": "common.json#/$defs/percent"
+        },
+        "buybackDeductionPct": {
+          "$ref": "common.json#/$defs/percent"
+        },
+        "pointsPerRoti": {
+          "type": "integer",
+          "minimum": 1
+        }
+      },
+      "additionalProperties": false
+    }
+  }
+}

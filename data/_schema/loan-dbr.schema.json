@@ -1,0 +1,20 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://hisabkhata.app/schema/loan-dbr.json",
+  "title": "Debt burden ratio",
+  "description": "data/finance/loan-dbr.json: the maxDebtBurdenPct chips of the loan eligibility tool.",
+  "type": "object",
+  "$ref": "fact.json",
+  "properties": {
+    "value": {
+      "type": "array",
+      "items": {
+        "type": "number",
+        "exclusiveMinimum": 0,
+        "maximum": 100
+      },
+      "minItems": 1,
+      "uniqueItems": true
+    }
+  }
+}

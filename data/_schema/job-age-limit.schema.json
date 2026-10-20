@@ -1,0 +1,74 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://hisabkhata.app/schema/job-age-limit.json",
+  "title": "Government job age limit",
+  "description": "data/jobs/govt-age-limit.json: the age rule (@hisab/core JobAgeLimit), chips and extensions.",
+  "type": "object",
+  "$ref": "fact.json",
+  "properties": {
+    "value": {
+      "type": "object",
+      "required": [
+        "maxYears",
+        "presets",
+        "limitDayIncluded",
+        "extensions"
+      ],
+      "properties": {
+        "minYears": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 100
+        },
+        "maxYears": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 100
+        },
+        "presets": {
+          "type": "array",
+          "items": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 100
+          },
+          "minItems": 1,
+          "uniqueItems": true
+        },
+        "limitDayIncluded": {
+          "type": "boolean"
+        },
+        "extensions": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": [
+              "id",
+              "label",
+              "years"
+            ],
+            "properties": {
+              "id": {
+                "$ref": "common.json#/$defs/id"
+              },
+              "label": {
+                "type": "string",
+                "minLength": 1
+              },
+              "years": {
+                "type": "integer",
+                "minimum": 0
+              },
+              "months": {
+                "type": "integer",
+                "minimum": 0
+              }
+            },
+            "additionalProperties": false
+          }
+        }
+      },
+      "additionalProperties": false
+    }
+  }
+}

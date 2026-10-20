@@ -1,0 +1,59 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://hisabkhata.app/schema/districts.json",
+  "title": "Districts",
+  "description": "data/districts.json: the 64 districts with headquarters coordinates (@hisab/core District[]).",
+  "type": "object",
+  "$ref": "fact.json",
+  "properties": {
+    "value": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "id",
+          "en",
+          "bn",
+          "division",
+          "divisionBn",
+          "lat",
+          "lng"
+        ],
+        "properties": {
+          "id": {
+            "$ref": "common.json#/$defs/id"
+          },
+          "en": {
+            "type": "string",
+            "minLength": 1
+          },
+          "bn": {
+            "type": "string",
+            "minLength": 1
+          },
+          "division": {
+            "type": "string",
+            "minLength": 1
+          },
+          "divisionBn": {
+            "type": "string",
+            "minLength": 1
+          },
+          "lat": {
+            "type": "number",
+            "minimum": 20,
+            "maximum": 27
+          },
+          "lng": {
+            "type": "number",
+            "minimum": 88,
+            "maximum": 93
+          }
+        },
+        "additionalProperties": false
+      },
+      "minItems": 64,
+      "maxItems": 64
+    }
+  }
+}

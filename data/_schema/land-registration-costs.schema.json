@@ -1,0 +1,61 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://hisabkhata.app/schema/land-registration-costs.json",
+  "title": "Land registration costs",
+  "description": "data/land/registration-costs.json: @hisab/core LandCostRule[] for a deed.",
+  "type": "object",
+  "$ref": "fact.json",
+  "properties": {
+    "value": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "id"
+        ],
+        "properties": {
+          "id": {
+            "$ref": "common.json#/$defs/id"
+          },
+          "pct": {
+            "$ref": "common.json#/$defs/percent"
+          },
+          "perUnit": {
+            "type": "number",
+            "minimum": 0
+          },
+          "perUnitOf": {
+            "enum": [
+              "decimal",
+              "katha",
+              "bigha",
+              "acre",
+              "sqft",
+              "sqm",
+              "chotak",
+              "kani",
+              "gonda",
+              "kora",
+              "kranti",
+              "link",
+              "hectare",
+              "sqyard"
+            ]
+          },
+          "fixed": {
+            "type": "number",
+            "minimum": 0
+          },
+          "combine": {
+            "enum": [
+              "sum",
+              "max"
+            ]
+          }
+        },
+        "additionalProperties": false
+      },
+      "minItems": 1
+    }
+  }
+}

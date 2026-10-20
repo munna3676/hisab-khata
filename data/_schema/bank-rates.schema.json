@@ -1,0 +1,101 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://hisabkhata.app/schema/bank-rates.json",
+  "title": "Bank rates",
+  "description": "data/banks/<id>.json: one bank's FDR, DPS and loan rates, each table a Fact with its own source.",
+  "type": "object",
+  "required": [
+    "bankId"
+  ],
+  "properties": {
+    "bankId": {
+      "$ref": "common.json#/$defs/id"
+    },
+    "fdr": {
+      "type": "object",
+      "$ref": "fact.json",
+      "properties": {
+        "value": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": [
+              "months",
+              "ratePct"
+            ],
+            "properties": {
+              "months": {
+                "type": "integer",
+                "minimum": 1
+              },
+              "ratePct": {
+                "$ref": "common.json#/$defs/percent"
+              }
+            },
+            "additionalProperties": false
+          },
+          "minItems": 1
+        }
+      }
+    },
+    "dps": {
+      "type": "object",
+      "$ref": "fact.json",
+      "properties": {
+        "value": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": [
+              "months",
+              "ratePct"
+            ],
+            "properties": {
+              "months": {
+                "type": "integer",
+                "minimum": 1
+              },
+              "ratePct": {
+                "$ref": "common.json#/$defs/percent"
+              }
+            },
+            "additionalProperties": false
+          },
+          "minItems": 1
+        }
+      }
+    },
+    "loans": {
+      "type": "object",
+      "$ref": "fact.json",
+      "properties": {
+        "value": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": [
+              "id",
+              "label",
+              "ratePct"
+            ],
+            "properties": {
+              "id": {
+                "$ref": "common.json#/$defs/id"
+              },
+              "label": {
+                "type": "string",
+                "minLength": 1
+              },
+              "ratePct": {
+                "$ref": "common.json#/$defs/percent"
+              }
+            },
+            "additionalProperties": false
+          },
+          "minItems": 1
+        }
+      }
+    }
+  },
+  "additionalProperties": false
+}

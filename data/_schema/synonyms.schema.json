@@ -1,0 +1,40 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://hisabkhata.app/schema/synonyms.json",
+  "title": "Search synonyms",
+  "description": "data/search/synonyms.json: Banglish, English and misspelt forms → the canonical search term. Editorial, not Facts.",
+  "type": "object",
+  "required": [
+    "terms"
+  ],
+  "properties": {
+    "terms": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "canonical",
+          "variants"
+        ],
+        "properties": {
+          "canonical": {
+            "type": "string",
+            "minLength": 1
+          },
+          "variants": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "minLength": 1
+            },
+            "minItems": 1,
+            "uniqueItems": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "minItems": 1
+    }
+  },
+  "additionalProperties": false
+}

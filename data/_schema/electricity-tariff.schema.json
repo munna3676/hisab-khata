@@ -1,0 +1,293 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://hisabkhata.app/schema/electricity-tariff.json",
+  "title": "Electricity tariff",
+  "description": "data/electricity-tariff.json: BERC retail tariffs (@hisab/core ElectricityTariffTable) plus the company picker list.",
+  "type": "object",
+  "$ref": "fact.json",
+  "properties": {
+    "value": {
+      "type": "object",
+      "required": [
+        "companies",
+        "tariffs"
+      ],
+      "properties": {
+        "companies": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": [
+              "id",
+              "bn",
+              "en",
+              "area"
+            ],
+            "properties": {
+              "id": {
+                "$ref": "common.json#/$defs/id"
+              },
+              "bn": {
+                "type": "string",
+                "minLength": 1
+              },
+              "en": {
+                "type": "string",
+                "minLength": 1
+              },
+              "area": {
+                "type": "string",
+                "minLength": 1
+              }
+            },
+            "additionalProperties": false
+          },
+          "minItems": 1
+        },
+        "tariffs": {
+          "type": "object",
+          "minProperties": 1,
+          "additionalProperties": {
+            "type": "object",
+            "required": [
+              "category",
+              "slabs",
+              "demandChargePerKw",
+              "vatPct",
+              "vatOn"
+            ],
+            "properties": {
+              "category": {
+                "type": "string",
+                "minLength": 1
+              },
+              "slabs": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "required": [
+                    "upTo",
+                    "rate"
+                  ],
+                  "properties": {
+                    "upTo": {
+                      "$ref": "common.json#/$defs/upTo"
+                    },
+                    "rate": {
+                      "type": "number",
+                      "minimum": 0
+                    }
+                  },
+                  "additionalProperties": false
+                },
+                "minItems": 1
+              },
+              "lifeline": {
+                "type": "object",
+                "required": [
+                  "maxUnits",
+                  "rate"
+                ],
+                "properties": {
+                  "maxUnits": {
+                    "type": "number",
+                    "minimum": 0
+                  },
+                  "rate": {
+                    "type": "number",
+                    "minimum": 0
+                  }
+                },
+                "additionalProperties": false
+              },
+              "todRates": {
+                "type": "object",
+                "additionalProperties": {
+                  "type": "number",
+                  "minimum": 0
+                }
+              },
+              "demandChargePerKw": {
+                "type": "number",
+                "minimum": 0
+              },
+              "meterRent": {
+                "type": "object",
+                "additionalProperties": {
+                  "type": "number",
+                  "minimum": 0
+                }
+              },
+              "vatPct": {
+                "$ref": "common.json#/$defs/percent"
+              },
+              "vatOn": {
+                "type": "array",
+                "items": {
+                  "enum": [
+                    "energy",
+                    "demand",
+                    "meterRent"
+                  ]
+                },
+                "uniqueItems": true
+              },
+              "rebate": {
+                "type": "object",
+                "required": [
+                  "pct",
+                  "on"
+                ],
+                "properties": {
+                  "pct": {
+                    "$ref": "common.json#/$defs/percent"
+                  },
+                  "on": {
+                    "type": "array",
+                    "items": {
+                      "enum": [
+                        "energy",
+                        "demand",
+                        "meterRent"
+                      ]
+                    },
+                    "uniqueItems": true
+                  },
+                  "prepaidOnly": {
+                    "type": "boolean"
+                  }
+                },
+                "additionalProperties": false
+              },
+              "minimumEnergyCharge": {
+                "type": "number",
+                "minimum": 0
+              }
+            },
+            "additionalProperties": false
+          }
+        },
+        "overrides": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "object",
+            "additionalProperties": {
+              "type": "object",
+              "required": [],
+              "properties": {
+                "category": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "slabs": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "required": [
+                      "upTo",
+                      "rate"
+                    ],
+                    "properties": {
+                      "upTo": {
+                        "$ref": "common.json#/$defs/upTo"
+                      },
+                      "rate": {
+                        "type": "number",
+                        "minimum": 0
+                      }
+                    },
+                    "additionalProperties": false
+                  },
+                  "minItems": 1
+                },
+                "lifeline": {
+                  "type": "object",
+                  "required": [
+                    "maxUnits",
+                    "rate"
+                  ],
+                  "properties": {
+                    "maxUnits": {
+                      "type": "number",
+                      "minimum": 0
+                    },
+                    "rate": {
+                      "type": "number",
+                      "minimum": 0
+                    }
+                  },
+                  "additionalProperties": false
+                },
+                "todRates": {
+                  "type": "object",
+                  "additionalProperties": {
+                    "type": "number",
+                    "minimum": 0
+                  }
+                },
+                "demandChargePerKw": {
+                  "type": "number",
+                  "minimum": 0
+                },
+                "meterRent": {
+                  "type": "object",
+                  "additionalProperties": {
+                    "type": "number",
+                    "minimum": 0
+                  }
+                },
+                "vatPct": {
+                  "$ref": "common.json#/$defs/percent"
+                },
+                "vatOn": {
+                  "type": "array",
+                  "items": {
+                    "enum": [
+                      "energy",
+                      "demand",
+                      "meterRent"
+                    ]
+                  },
+                  "uniqueItems": true
+                },
+                "rebate": {
+                  "type": "object",
+                  "required": [
+                    "pct",
+                    "on"
+                  ],
+                  "properties": {
+                    "pct": {
+                      "$ref": "common.json#/$defs/percent"
+                    },
+                    "on": {
+                      "type": "array",
+                      "items": {
+                        "enum": [
+                          "energy",
+                          "demand",
+                          "meterRent"
+                        ]
+                      },
+                      "uniqueItems": true
+                    },
+                    "prepaidOnly": {
+                      "type": "boolean"
+                    }
+                  },
+                  "additionalProperties": false
+                },
+                "minimumEnergyCharge": {
+                  "type": "number",
+                  "minimum": 0
+                }
+              },
+              "additionalProperties": false
+            }
+          }
+        }
+      },
+      "additionalProperties": false
+    }
+  }
+}

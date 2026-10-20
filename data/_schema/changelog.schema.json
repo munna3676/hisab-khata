@@ -1,0 +1,49 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://hisabkhata.app/schema/changelog.json",
+  "title": "Data change log",
+  "description": "data/changelog.json: one entry per changed Fact, written by scripts/changelog.mjs.",
+  "type": "object",
+  "required": [
+    "entries"
+  ],
+  "properties": {
+    "entries": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "key",
+          "old",
+          "new",
+          "source",
+          "date"
+        ],
+        "properties": {
+          "key": {
+            "type": "string",
+            "minLength": 1,
+            "description": "<file>#<path>, with array items named by id where they have one."
+          },
+          "old": {
+            "description": "Value before; null when the Fact is new."
+          },
+          "new": {
+            "description": "Value after; null when the Fact was removed."
+          },
+          "source": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "date": {
+            "$ref": "common.json#/$defs/date"
+          }
+        },
+        "additionalProperties": false
+      }
+    }
+  },
+  "additionalProperties": false
+}

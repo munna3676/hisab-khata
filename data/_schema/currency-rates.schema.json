@@ -1,0 +1,68 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://hisabkhata.app/schema/currency-rates.json",
+  "title": "Currency rates",
+  "description": "data/finance/currency-rates.json: one bank's rate sheet; rates are @hisab/core CurrencyRate plus a Bangla name.",
+  "type": "object",
+  "$ref": "fact.json",
+  "properties": {
+    "value": {
+      "type": "object",
+      "required": [
+        "bank",
+        "rateType",
+        "asOf",
+        "rates"
+      ],
+      "properties": {
+        "bank": {
+          "type": "string",
+          "minLength": 1
+        },
+        "rateType": {
+          "type": "string",
+          "minLength": 1
+        },
+        "asOf": {
+          "$ref": "common.json#/$defs/date"
+        },
+        "rates": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": [
+              "code",
+              "nameBn",
+              "buy"
+            ],
+            "properties": {
+              "code": {
+                "type": "string",
+                "pattern": "^[A-Z]{3}$"
+              },
+              "nameBn": {
+                "type": "string",
+                "minLength": 1
+              },
+              "buy": {
+                "type": "number",
+                "exclusiveMinimum": 0
+              },
+              "sell": {
+                "type": "number",
+                "exclusiveMinimum": 0
+              },
+              "unit": {
+                "type": "integer",
+                "minimum": 1
+              }
+            },
+            "additionalProperties": false
+          },
+          "minItems": 1
+        }
+      },
+      "additionalProperties": false
+    }
+  }
+}

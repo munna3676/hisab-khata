@@ -1,0 +1,49 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://hisabkhata.app/schema/vat-rates.json",
+  "title": "VAT rates",
+  "description": "data/commerce/vat-rates.json: VAT rate chips and the default rate.",
+  "type": "object",
+  "required": [
+    "rates",
+    "defaultPct"
+  ],
+  "properties": {
+    "rates": {
+      "type": "object",
+      "$ref": "fact.json",
+      "properties": {
+        "value": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": [
+              "pct"
+            ],
+            "properties": {
+              "pct": {
+                "$ref": "common.json#/$defs/percent"
+              },
+              "label": {
+                "type": "string",
+                "minLength": 1
+              }
+            },
+            "additionalProperties": false
+          },
+          "minItems": 1
+        }
+      }
+    },
+    "defaultPct": {
+      "type": "object",
+      "$ref": "fact.json",
+      "properties": {
+        "value": {
+          "$ref": "common.json#/$defs/percent"
+        }
+      }
+    }
+  },
+  "additionalProperties": false
+}

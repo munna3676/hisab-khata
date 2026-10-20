@@ -1,0 +1,46 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://hisabkhata.app/schema/land-conventions.json",
+  "title": "Land conventions",
+  "description": "data/land/conventions.json: the কাঠার মাপ (এলাকা) chips; each is @hisab/core LandConvention.",
+  "type": "object",
+  "$ref": "fact.json",
+  "properties": {
+    "value": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "id",
+          "label",
+          "kathaSqft",
+          "kathaPerBigha",
+          "kaniSqft"
+        ],
+        "properties": {
+          "id": {
+            "$ref": "common.json#/$defs/id"
+          },
+          "label": {
+            "type": "string",
+            "minLength": 1
+          },
+          "kathaSqft": {
+            "type": "number",
+            "exclusiveMinimum": 0
+          },
+          "kathaPerBigha": {
+            "type": "number",
+            "exclusiveMinimum": 0
+          },
+          "kaniSqft": {
+            "type": "number",
+            "exclusiveMinimum": 0
+          }
+        },
+        "additionalProperties": false
+      },
+      "minItems": 1
+    }
+  }
+}

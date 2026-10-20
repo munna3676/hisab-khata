@@ -1,0 +1,117 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://hisabkhata.app/schema/income-tax.json",
+  "title": "Income tax rules",
+  "description": "data/income-tax-<year>.json: one income year's rules, exactly @hisab/core IncomeTaxRules.",
+  "type": "object",
+  "$ref": "fact.json",
+  "properties": {
+    "value": {
+      "type": "object",
+      "required": [
+        "incomeYear",
+        "thresholds",
+        "slabs",
+        "rebate",
+        "minimumTax"
+      ],
+      "properties": {
+        "incomeYear": {
+          "type": "string",
+          "pattern": "^\\d{4}-\\d{2}$"
+        },
+        "thresholds": {
+          "type": "object",
+          "required": [
+            "general"
+          ],
+          "additionalProperties": {
+            "type": "number",
+            "minimum": 0
+          }
+        },
+        "disabledDependentExtra": {
+          "type": "number",
+          "minimum": 0
+        },
+        "slabs": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": [
+              "width",
+              "ratePct"
+            ],
+            "properties": {
+              "width": {
+                "type": [
+                  "number",
+                  "null"
+                ],
+                "exclusiveMinimum": 0
+              },
+              "ratePct": {
+                "$ref": "common.json#/$defs/percent"
+              }
+            },
+            "additionalProperties": false
+          },
+          "minItems": 1
+        },
+        "rebate": {
+          "type": "object",
+          "required": [
+            "incomePct",
+            "investmentPct",
+            "cap"
+          ],
+          "properties": {
+            "incomePct": {
+              "$ref": "common.json#/$defs/percent"
+            },
+            "investmentPct": {
+              "$ref": "common.json#/$defs/percent"
+            },
+            "cap": {
+              "type": "number",
+              "minimum": 0
+            }
+          },
+          "additionalProperties": false
+        },
+        "minimumTax": {
+          "type": "object",
+          "minProperties": 1,
+          "additionalProperties": {
+            "type": "number",
+            "minimum": 0
+          }
+        },
+        "freelance": {
+          "type": "object",
+          "required": [
+            "exemptPct",
+            "exemptCap"
+          ],
+          "properties": {
+            "exemptPct": {
+              "$ref": "common.json#/$defs/percent"
+            },
+            "exemptCap": {
+              "type": [
+                "number",
+                "null"
+              ],
+              "minimum": 0
+            },
+            "bankingChannelOnly": {
+              "type": "boolean"
+            }
+          },
+          "additionalProperties": false
+        }
+      },
+      "additionalProperties": false
+    }
+  }
+}
