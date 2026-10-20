@@ -2,3 +2,168 @@
    Only for what Tailwind classes cannot express (keyframes, ::part, :has() chains, scroll-snap tweaks).
    Put rules inside @layer components so Tailwind utilities can still override them.
    Use token variables only (var(--brand-accent), var(--duration-sheet), var(--ease-out)); no raw hex. */
+
+@layer components {
+  /* ---- numbers ----
+     Figma's Number styles are IBM Plex Mono with -1% tracking. Two shared-token gaps are
+     worked around locally (same as the base group, reported): --font-number has no Bengali
+     fallback, so Bangla digits and ৳ need the body face after it, and the generated
+     text-number-* tracking is -1px rather than -1%. text-number-* reads --tw-tracking first. */
+  .hkc-num {
+    --tw-tracking: -0.01em;
+    letter-spacing: -0.01em;
+    font-family: var(--font-number), var(--font-body);
+    font-variant-numeric: tabular-nums;
+  }
+
+  /* ---- checklist tick (Figma Checklist Item 9:266) ----
+     The tick draws with stroke-dashoffset over 240 ms when the box is ticked: the one
+     non-transform transition the stack doc allows. A transition (not an animation), so a
+     box that is already ticked when the page loads shows its tick without drawing it.
+     The path carries pathLength="1". */
+  .hkc-tick {
+    stroke-dasharray: 1;
+    stroke-dashoffset: 1;
+    transition: stroke-dashoffset var(--duration-page) var(--ease-out);
+  }
+  .hkc-check:has(input:checked) .hkc-tick {
+    stroke-dashoffset: 0;
+  }
+
+  /* ---- FAQ accordion (Figma FAQ Item 9:284) ----
+     The answer opens by transitioning grid-template-rows 0fr → 1fr (smooth height without
+     measuring), with an opacity fade. visibility flips at the end of a close, so a closed
+     answer leaves the tab order and the accessibility tree but stays in the HTML for search. */
+  .hkc-faq-panel {
+    display: grid;
+    grid-template-rows: 0fr;
+    opacity: 0;
+    visibility: hidden;
+    transition:
+      grid-template-rows var(--duration-sheet) var(--ease-out),
+      opacity var(--duration-sheet) var(--ease-out),
+      visibility 0s linear var(--duration-sheet);
+  }
+  .hkc-faq-panel[data-open] {
+    grid-template-rows: 1fr;
+    opacity: 1;
+    visibility: visible;
+    transition:
+      grid-template-rows var(--duration-sheet) var(--ease-out),
+      opacity var(--duration-sheet) var(--ease-out),
+      visibility 0s;
+  }
+  .hkc-faq-chevron {
+    transition: rotate var(--duration-sheet) var(--ease-out);
+  }
+  [aria-expanded="true"] > .hkc-faq-chevron {
+    rotate: 180deg;
+  }
+
+  /* ---- tab bar (Figma Tab Bar 46:849) ----
+     Scrolls sideways when five tabs do not fit (360 px phones); no scrollbar is drawn. */
+  .hkc-tabs {
+    scrollbar-width: none;
+    overscroll-behavior-x: contain;
+  }
+  .hkc-tabs::-webkit-scrollbar {
+    display: none;
+  }
+
+  /* ---- Bank Card: pressing the compare toggle must not press the whole (linked) card ---- */
+  .hkc-card:has(.hkc-compare:active) {
+    scale: 1;
+  }
+  .hkc-card:has(.hkc-compare:active)::after {
+    opacity: 0;
+  }
+
+  /* ---- links whose hit area is larger than the underlined text ----
+     The underline sits on an inner .link-underline span; hovering anywhere on the link
+     (a stretched link covers its card) or focusing it draws the underline. */
+  @media (hover: hover) and (pointer: fine) {
+    .hkc-link:hover .link-underline::after {
+      scale: 1 1;
+    }
+  }
+  .hkc-link:focus-visible .link-underline::after {
+    scale: 1 1;
+  }
+
+  /* ---- Breakdown table: sticky first column and header inside the scroll box ---- */
+  .hkc-table :is(thead th) {
+    background-color: var(--bg-sheet);
+  }
+  .hkc-table[data-sticky-head] thead th {
+    position: sticky;
+    top: 0;
+    z-index: 2;
+  }
+  .hkc-table :is(th[scope="row"], thead th:first-child, tfoot th) {
+    position: sticky;
+    left: 0;
+    z-index: 1;
+    background-color: var(--bg-sheet);
+  }
+  .hkc-table[data-sticky-head] thead th:first-child {
+    z-index: 3;
+  }
+
+  /* ---- Static previews of interaction states for the gallery and visual tests ----
+     data-content-preview="hover|pressed|focus" on a content component (or on the element
+     inside it that reacts). They reuse the motion variables, so lite/reduced motion apply. */
+  .lift[data-content-preview="hover"] {
+    translate: 0 var(--lift-y);
+  }
+  .lift[data-content-preview="hover"]::before {
+    opacity: 1;
+  }
+  .pressable[data-content-preview="hover"]::after {
+    opacity: var(--hover-tint-opacity);
+  }
+  [data-content-preview="hover"] .link-underline::after,
+  .link-underline[data-content-preview="hover"]::after {
+    scale: 1 1;
+  }
+  .pressable[data-content-preview="pressed"] {
+    scale: var(--press-scale);
+  }
+  .pressable[data-content-preview="pressed"]::after {
+    opacity: var(--press-tint-opacity);
+  }
+  [data-content-preview="focus"] {
+    outline: 2px solid var(--brand-accent);
+    outline-offset: 2px;
+  }
+}
+
+/* Reduced motion: no drawn tick, no turning chevron and no height animation; the answer
+   only fades (--duration-sheet is 100 ms there). Unlayered so it beats the rules above. */
+html[data-motion="reduce"] :is(.hkc-tick, .hkc-faq-chevron) {
+  transition: none;
+}
+html[data-motion="reduce"] .hkc-faq-panel {
+  transition:
+    opacity var(--duration-sheet) var(--ease-out),
+    visibility 0s linear var(--duration-sheet);
+}
+html[data-motion="reduce"] .hkc-faq-panel[data-open] {
+  transition:
+    opacity var(--duration-sheet) var(--ease-out),
+    visibility 0s;
+}
+@media (prefers-reduced-motion: reduce) {
+  html:not([data-motion="full"]) :is(.hkc-tick, .hkc-faq-chevron) {
+    transition: none;
+  }
+  html:not([data-motion="full"]) .hkc-faq-panel {
+    transition:
+      opacity var(--duration-sheet) var(--ease-out),
+      visibility 0s linear var(--duration-sheet);
+  }
+  html:not([data-motion="full"]) .hkc-faq-panel[data-open] {
+    transition:
+      opacity var(--duration-sheet) var(--ease-out),
+      visibility 0s;
+  }
+}

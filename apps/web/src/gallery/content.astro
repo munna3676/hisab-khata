@@ -1,16 +1,284 @@
 ---
 // Gallery section "Content" — owned by the content component builder.
 // Rendered by src/pages/dev/gallery.astro inside <section id="content"> with an <h2>.
-// Show every variant and state, using Group (one per component) and Specimen
-// (one per variant). Interactive demos: put islands in src/gallery/content/*.tsx
-// and use them here with client:visible (or client:load).
+// Every component of @hisab/ui/content with its Figma variants and interaction states.
+// Most specimens are zero-JS HTML (checkboxes and radios are native, so they still work);
+// the live demos are islands from ./content/. Hover / pressed / focus states are frozen
+// with data-content-preview, which content.css maps onto the same motion variables.
+// Rates and amounts are Figma's layout samples or engine output for sample inputs, not data.
+import { calculateDps } from '@hisab/core/dps'
+import { calculateEmi, type EmiRow } from '@hisab/core/emi'
+import {
+  ActionBar,
+  AtAGlance,
+  BankCard,
+  BreakdownTable,
+  ChecklistItem,
+  FaqItem,
+  RemittanceCard,
+  StepItem,
+  StepList,
+  TabBar,
+  WizardOption,
+  type BreakdownColumn,
+} from '@hisab/ui/content'
+import Grid from '../components/gallery/Grid.astro'
 import Group from '../components/gallery/Group.astro'
+import Specimen from '../components/gallery/Specimen.astro'
+import ActionBarDemo from './content/ActionBarDemo'
+import ChecklistDemo from './content/ChecklistDemo'
+import FaqDemo from './content/FaqDemo'
+import TabsDemo from './content/TabsDemo'
+import WizardDemo from './content/WizardDemo'
 
 export const title = 'Content'
 export const order = 30
-export const description = 'Card, ToolCard, ResultCard, BreakdownTable, Verified badge, Banner, EmptyState, Skeleton, FAQ, Checklist, ShareBar, AdSlot.'
+export const description =
+  'Bank Card, Remittance Card, Step Item, Checklist, FAQ, At a Glance, Tab Bar, Action Bar, Wizard Option and the Breakdown Table for EMI/DPS schedules.'
+
+const unverified = [
+  { label: 'সর্বোচ্চ FDR', value: '—%' },
+  { label: 'DPS', value: '—%' },
+  { label: 'পার্সোনাল লোন', value: '—%' },
+]
+const sampleRates = [
+  { label: 'সর্বোচ্চ FDR', value: '৯.০০%' },
+  { label: 'DPS', value: '৮.৫০%' },
+  { label: 'পার্সোনাল লোন', value: '১২.৫০%' },
+]
+
+const steps = [
+  { title: 'পোর্টালে লগইন করো', description: 'services.nidw.gov.bd তে NID নম্বর ও মোবাইলের OTP দিয়ে।' },
+  { title: '"সংশোধন" বেছে তথ্য দাও', description: 'কোন ঘর ভুল আর সঠিক তথ্য কী, দুটোই লিখতে হবে।' },
+  { title: 'কাগজ আপলোড করো', description: 'উপরের তালিকার কাগজের পরিষ্কার স্ক্যান।' },
+  { title: 'অনলাইনে ফি জমা দাও', description: 'ফি সংশোধনের ধরন অনুযায়ী আলাদা।' },
+  { title: 'স্ট্যাটাস দেখো', description: 'দরকার হলে উপজেলা নির্বাচন অফিস যাচাইয়ের জন্য ডাকবে।' },
+]
+
+const glance = [
+  { label: 'ফি', value: 'যাচাই করে বসাও' },
+  { label: 'সময় লাগে', value: 'যাচাই করে বসাও' },
+  { label: 'ধরন', value: 'অনলাইন + অফিস' },
+  { label: 'অফিসিয়াল সাইট', value: 'nidw.gov.bd' },
+]
+
+const mfsTabs = [
+  { value: 'cashout', label: 'ক্যাশ আউট' },
+  { value: 'send', label: 'সেন্ড মানি' },
+  { value: 'cashin', label: 'ক্যাশ ইন' },
+  { value: 'billpay', label: 'বিল পে' },
+  { value: 'limit', label: 'লিমিট' },
+]
+const bankTabs = [
+  { value: 'fdr', label: 'FDR', href: '#content-tab-bar' },
+  { value: 'dps', label: 'DPS', href: '#content-tab-bar' },
+  { value: 'loan', label: 'লোন', href: '#content-tab-bar' },
+  { value: 'account', label: 'অ্যাকাউন্ট', href: '#content-tab-bar' },
+  { value: 'card', label: 'কার্ড', href: '#content-tab-bar' },
+]
+
+// Schedules from @hisab/core for sample inputs.
+const emi = calculateEmi({ principal: 500000, annualRatePct: 12, months: 12 })
+const emiLong = calculateEmi({ principal: 500000, annualRatePct: 12, months: 36 })
+const emiColumns: BreakdownColumn<EmiRow>[] = [
+  { key: 'month', label: 'মাস', format: 'number' },
+  { key: 'emi', label: 'কিস্তি', decimals: 2 },
+  { key: 'interest', label: 'সুদ', decimals: 2 },
+  { key: 'principal', label: 'আসল', decimals: 2 },
+  { key: 'balance', label: 'বাকি', decimals: 2 },
+]
+const emiTotal = (r: ReturnType<typeof calculateEmi>) =>
+  ({ month: 0, emi: r.totalPayment, interest: r.totalInterest, principal: 500000, balance: undefined }) as unknown as EmiRow
+
+const dps = calculateDps({ monthlyDeposit: 2000, annualRatePct: 9, months: 60, compounding: 'monthly', taxPct: 10 })
+type DpsRow = (typeof dps.years)[number]
+const dpsColumns: BreakdownColumn<DpsRow>[] = [
+  { key: 'year', label: 'বছর', format: 'number' },
+  { key: 'deposit', label: 'জমা', decimals: 2 },
+  { key: 'interest', label: 'মুনাফা', decimals: 2 },
+  { key: 'balance', label: 'বছর শেষে', decimals: 2 },
+]
 ---
 
-<Group title="Content" id="content-placeholder" description="No components yet.">
-  <p class="type-body-small text-soft">Components from @hisab/ui/content appear here.</p>
+<Group title="Bank Card" id="content-bank-card" description="Figma 9:170. Bank list card: rates come from banks/*.json and show “—%” until verified. With href the whole card is the link (lift on hover, press .97); the compare checkbox is native and stays its own target.">
+  <Grid cols={2}>
+    <Specimen label="Default (Figma): unverified rates">
+      <BankCard name="ব্র্যাক ব্যাংক" type="প্রাইভেট · BRAC Bank PLC" initials="BB" rates={unverified} href="#content-bank-card" compareLabel="তুলনায় যোগ করো" titleAs="h4" />
+    </Specimen>
+    <Specimen label="Added to compare / sample rates">
+      <BankCard name="সোনালী ব্যাংক" type="রাষ্ট্রায়ত্ত · Sonali Bank PLC" initials="SB" rates={sampleRates} href="#content-bank-card" compareLabel="তুলনায় যোগ করো" defaultCompared titleAs="h4" />
+    </Specimen>
+    <Specimen label="Hover (pointer devices): lift + link underline">
+      <BankCard name="ব্র্যাক ব্যাংক" type="প্রাইভেট · BRAC Bank PLC" initials="BB" rates={unverified} href="#content-bank-card" compareLabel="তুলনায় যোগ করো" titleAs="h4" data-content-preview="hover" />
+    </Specimen>
+    <Specimen label="Pressed: scale .97">
+      <BankCard name="ব্র্যাক ব্যাংক" type="প্রাইভেট · BRAC Bank PLC" initials="BB" rates={unverified} href="#content-bank-card" compareLabel="তুলনায় যোগ করো" titleAs="h4" data-content-preview="pressed" />
+    </Specimen>
+    <Specimen label="Static (no link, no compare)">
+      <BankCard name="ডাচ্-বাংলা ব্যাংক" type="প্রাইভেট · Dutch-Bangla Bank PLC" initials="DBBL" rates={unverified} titleAs="h4" />
+    </Specimen>
+  </Grid>
+</Group>
+
+<Group title="Remittance Card" id="content-remittance-card" description="Figma 9:247, State Default | Best. The best service gets a 2px green border, a green amount, the “সেরা” badge (fades and scales in) and the primary button. Numbers are Figma's layout samples, not rates.">
+  <Grid cols={2}>
+    <Specimen label="State=Default">
+      <RemittanceCard service="সার্ভিস B" amount="৳৩২,১১০" fee="৫ SAR" rate="৩২.৪৮" time="১ দিন" href="#content-remittance-card" note="indicative rate · শেষ আপডেট আজ ১০:০০" titleAs="h4" />
+    </Specimen>
+    <Specimen label="State=Best">
+      <RemittanceCard service="সার্ভিস A" amount="৳৩২,৪৮০" fee="০" rate="৩২.৪৮" time="মিনিটে" best href="#content-remittance-card" note="indicative rate · শেষ আপডেট আজ ১০:০০" titleAs="h4" />
+    </Specimen>
+  </Grid>
+</Group>
+
+<Group title="Step Item" id="content-step-item" description="Figma 9:249. Numbered step (Bangla digits) with title and description; StepList is the ordered list on a guide's “ধাপে ধাপে”.">
+  <Grid cols={2}>
+    <Specimen label="Step Item (Figma)">
+      <StepItem as="div" number={1} title="অনলাইনে আবেদন করো" description='services.nidw.gov.bd তে লগইন করে "সংশোধন" অপশন বেছে নাও।' titleAs="h4" />
+    </Specimen>
+    <Specimen label="StepList: five steps (Guide 17:1577)">
+      <StepList steps={steps} titleAs="h4" />
+    </Specimen>
+  </Grid>
+</Group>
+
+<Group title="Checklist Item" id="content-checklist" description="Figma 9:266, Checked false | true. Native checkbox: the box turns green and the tick draws with stroke-dashoffset over 240 ms (none with reduced motion). Checklist adds the heading, a live “২/৫ রেডি” badge and saved progress.">
+  <Grid cols={2}>
+    <Specimen label="Checked=false / Checked=true">
+      <div>
+        <ChecklistItem label="জন্ম নিবন্ধন সনদের কপি" />
+        <ChecklistItem label="জন্ম নিবন্ধন সনদের কপি" defaultChecked />
+      </div>
+    </Specimen>
+    <Specimen label="Hover · pressed · keyboard focus · disabled">
+      <div>
+        <ChecklistItem label="হোভার: হালকা আভা" class="pressable" data-content-preview="hover" />
+        <ChecklistItem label="চাপা: .97 স্কেল" data-content-preview="pressed" />
+        <ChecklistItem label="কিবোর্ড ফোকাস" data-content-preview="focus" />
+        <ChecklistItem label="বন্ধ (disabled)" disabled />
+      </div>
+    </Specimen>
+    <Specimen label="Checklist, live (island): tick boxes, progress saves in this browser" wide>
+      <div class="max-w-form">
+        <ChecklistDemo client:visible />
+      </div>
+    </Specimen>
+  </Grid>
+</Group>
+
+<Group title="FAQ Item" id="content-faq" description="Figma 9:284, Open false | true. A heading-wrapped button with aria-expanded/aria-controls; the answer opens via grid-template-rows 0fr → 1fr with a fade, the chevron turns. FaqList can emit FAQPage JSON-LD (faqJsonLd) or microdata.">
+  <Grid cols={2}>
+    <Specimen label="Open=false / Open=true (static)">
+      <div>
+        <FaqItem question="বিকাশে ১০০০ টাকা ক্যাশ আউটে কত চার্জ?" answer="প্রিয় এজেন্টে ১৩.৯৫ টাকা, অন্য এজেন্টে ১৮.৫০ টাকা, ATM এ ১৪.৯০ টাকা।" headingLevel={4} />
+        <FaqItem question="বিকাশে ১০০০ টাকা ক্যাশ আউটে কত চার্জ?" answer="প্রিয় এজেন্টে ১৩.৯৫ টাকা, অন্য এজেন্টে ১৮.৫০ টাকা, ATM এ ১৪.৯০ টাকা।" headingLevel={4} defaultOpen />
+      </div>
+    </Specimen>
+    <Specimen label="FaqList, live (island): one answer open at a time, with JSON-LD">
+      <FaqDemo single client:visible />
+    </Specimen>
+  </Grid>
+</Group>
+
+<Group title="At a Glance" id="content-at-a-glance" description="Figma 9:286. Guide summary box; fee and time must be filled from the official source before publishing. Two columns, four once the box is wider than 576px (container query).">
+  <Grid cols={2}>
+    <Specimen label="Default (Figma)">
+      <AtAGlance facts={glance} titleAs="h4" />
+    </Specimen>
+    <Specimen label="Official site as a link">
+      <AtAGlance facts={[...glance.slice(0, 3), { label: 'অফিসিয়াল সাইট', value: 'services.nidw.gov.bd', href: '#content-at-a-glance' }]} titleAs="h4" />
+    </Specimen>
+    <Specimen label="Wide container: four columns" wide>
+      <AtAGlance facts={glance} titleAs="h4" />
+    </Specimen>
+  </Grid>
+</Group>
+
+<Group title="Tab Bar" id="content-tab-bar" description="Figma 46:849, Active 1-5. ARIA tabs with a roving tabindex (Left/Right/Home/End); the 2.5px indicator slides to the new tab over 220 ms. With hrefs it becomes a nav of links (aria-current=page), as on Bank Detail. Scrolls sideways when tabs do not fit.">
+  <Grid cols={1}>
+    {
+      [1, 2, 3, 4, 5].map((n) => (
+        <Specimen label={`Active=${n}`} frame={false}>
+          <TabBar label={`চার্জের ধরন (Active ${n})`} items={mfsTabs} defaultValue={mfsTabs[n - 1]!.value} />
+        </Specimen>
+      ))
+    }
+    <Specimen label="Live (island): click or use arrow keys; panels switch">
+      <TabsDemo id="content-tabs-live" client:visible />
+    </Specimen>
+    <Specimen label="Fewer tabs: 1, 2, 3 and 4">
+      <div class="grid gap-3">
+        <TabBar label="এক ট্যাব" items={mfsTabs.slice(0, 1)} />
+        <TabBar label="দুই ট্যাব" items={mfsTabs.slice(0, 2)} defaultValue="send" />
+        <TabBar label="তিন ট্যাব" items={mfsTabs.slice(0, 3)} />
+        <TabBar label="চার ট্যাব" items={mfsTabs.slice(0, 4)} defaultValue="billpay" />
+      </div>
+    </Specimen>
+    <Specimen label="Links (Bank Detail 15:1233): nav with aria-current=page · hover · pressed · focus">
+      <div class="grid gap-3">
+        <TabBar label="ব্যাংকের তথ্য" items={bankTabs} value="fdr" />
+        <div class="grid gap-1 sm:grid-cols-3" data-tap-exempt>
+          <p class="type-body-small text-soft sm:col-span-3">Frozen states on single tabs:</p>
+        </div>
+      </div>
+    </Specimen>
+  </Grid>
+</Group>
+
+<Group title="Action Bar" id="content-action-bar" description="Figma 9:314. Share (primary), PDF (secondary), “ভুল পেলেন?” (ghost); every button 44px and pressable. Natural widths once the bar is wider than 512px.">
+  <Grid cols={2}>
+    <Specimen label="Default (Figma)">
+      <ActionBar />
+    </Specimen>
+    <Specimen label="Live (island): presses announced">
+      <ActionBarDemo client:visible />
+    </Specimen>
+    <Specimen label="Without PDF · report as a link">
+      <ActionBar hide={['pdf']} reportHref="#content-action-bar" />
+    </Specimen>
+    <Specimen label="Wide container: natural widths" wide>
+      <ActionBar />
+    </Specimen>
+  </Grid>
+</Group>
+
+<Group title="Wizard Option" id="content-wizard-option" description="Figma 9:361, State Default | Selected. A native radio drawn as a card; selected turns accent-tint with a 2px accent border. Arrow keys move the choice inside a WizardOptionGroup.">
+  <Grid cols={2}>
+    <Specimen label="State=Default / State=Selected">
+      <div class="grid gap-3">
+        <WizardOption name="content-wiz-static" value="a" label="বাবা-মায়ের নাম" />
+        <WizardOption name="content-wiz-static-2" value="b" label="বাবা-মায়ের নাম" defaultChecked />
+      </div>
+    </Specimen>
+    <Specimen label="Hover · pressed · keyboard focus · disabled">
+      <div class="grid gap-3">
+        <WizardOption name="content-wiz-hover" value="h" label="হোভার" class="pressable" data-content-preview="hover" />
+        <WizardOption name="content-wiz-pressed" value="p" label="চাপা" data-content-preview="pressed" />
+        <WizardOption name="content-wiz-focus" value="f" label="কিবোর্ড ফোকাস" data-content-preview="focus" />
+        <WizardOption name="content-wiz-off" value="d" label="বন্ধ (disabled)" disabled />
+      </div>
+    </Specimen>
+    <Specimen label="WizardOptionGroup, live (island): Guide Wizard step 1" wide>
+      <div class="max-w-form">
+        <WizardDemo client:visible />
+      </div>
+    </Specimen>
+  </Grid>
+</Group>
+
+<Group title="Breakdown Table" id="content-breakdown-table" description="Schedules (no Figma node; styled from the KV rows and the Bank Detail rate table). On phones the table scrolls sideways inside its focusable region with a sticky first column; with maxHeight the header sticks too. The page itself never scrolls sideways.">
+  <Grid cols={1}>
+    <Specimen label="EMI: ৳৫,০০,০০০ at 12% for 12 months (@hisab/core calculateEmi), with total">
+      <BreakdownTable title="মাসিক কিস্তির তালিকা" titleAs="h4" columns={emiColumns} rows={emi.schedule} total={emiTotal(emi)} note="শেষ কিস্তিতে পয়সার হিসাব মিলিয়ে নেওয়া হয়েছে।" />
+    </Specimen>
+    <Specimen label="DPS: ৳২,০০০ a month at 9% for 5 years (calculateDps), year by year">
+      <BreakdownTable title="বছরভিত্তিক DPS হিসাব" titleAs="h4" columns={dpsColumns} rows={dps.years} total={{ year: 0, deposit: dps.totalDeposit, interest: dps.totalInterest, balance: undefined, exciseDuty: 0 } as unknown as DpsRow} />
+    </Specimen>
+    <Specimen label="36 months with maxHeight=20rem: header and first column stick">
+      <BreakdownTable title="৩৬ মাসের কিস্তি" titleAs="h4" columns={emiColumns} rows={emiLong.schedule} total={emiTotal(emiLong)} maxHeight="20rem" />
+    </Specimen>
+    <Specimen label="English digits">
+      <BreakdownTable title="EMI schedule (first 3 months)" titleAs="h4" columns={emiColumns.map((c, i) => ({ ...c, label: ['Month', 'EMI', 'Interest', 'Principal', 'Balance'][i] }))} rows={emi.schedule.slice(0, 3)} digits="en" totalLabel="Total" />
+    </Specimen>
+  </Grid>
 </Group>

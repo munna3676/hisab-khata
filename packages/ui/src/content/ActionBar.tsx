@@ -1,0 +1,79 @@
+import type { JSX } from 'preact'
+import { Button } from '../base/Button'
+import { Download, Flag, Share } from '../icons/base'
+import { cx } from '../lib/cx'
+
+export type ActionBarAction = 'share' | 'pdf' | 'report'
+
+export interface ActionBarLabels {
+  /** Default "শেয়ার". */
+  share: string
+  /** Default "PDF". */
+  pdf: string
+  /** Default "ভুল পেলেন?". */
+  report: string
+  /** Name of the button group for screen readers. */
+  group: string
+}
+
+const DEFAULT_LABELS: ActionBarLabels = {
+  share: 'শেয়ার',
+  pdf: 'PDF',
+  report: 'ভুল পেলেন?',
+  group: 'ফলাফল শেয়ার, সেভ বা ভুল জানানো',
+}
+
+type Handler = (event: JSX.TargetedMouseEvent<HTMLElement>) => void
+
+export interface ActionBarProps {
+  /** Share the result image or link (platform share()). */
+  onShare?: Handler
+  /** Save as PDF (print()). */
+  onPdf?: Handler
+  /** Report a wrong number: a handler (opens the report sheet) or a link to the report form. */
+  onReport?: Handler
+  reportHref?: string
+  /** Actions to leave out, e.g. ['pdf'] on a page with nothing to print. */
+  hide?: readonly ActionBarAction[]
+  labels?: Partial<ActionBarLabels>
+  class?: string
+}
+
+/**
+ * Action Bar (Figma 9:314): share (primary), PDF (secondary) and "ভুল পেলেন?" (ghost),
+ * 44px tall. On a phone share and PDF split the row and the ghost action takes its own
+ * width; once the bar is wider than 512px (container query) the buttons keep their
+ * natural widths, left-aligned.
+ */
+export function ActionBar({ onShare, onPdf, onReport, reportHref, hide = [], labels, class: className }: ActionBarProps) {
+  const l = { ...DEFAULT_LABELS, ...labels }
+  const show = (a: ActionBarAction) => !hide.includes(a)
+  const columns = [show('share') && '1fr', show('pdf') && '1fr', show('report') && 'auto'].filter(Boolean).join(' ')
+
+  return (
+    <div class={cx('@container min-w-0', className)} data-action-bar>
+      <div role="group" aria-label={l.group} class="grid gap-2 @lg:flex @lg:flex-wrap" style={{ gridTemplateColumns: columns }}>
+        {show('share') && (
+          <Button variant="primary" icon={<Share />} onClick={onShare} class="min-w-0 px-3!">
+            {l.share}
+          </Button>
+        )}
+        {show('pdf') && (
+          <Button variant="secondary" icon={<Download />} onClick={onPdf} class="min-w-0 px-3!">
+            {l.pdf}
+          </Button>
+        )}
+        {show('report') &&
+          (typeof reportHref === 'string' ? (
+            <Button variant="ghost" icon={<Flag />} href={reportHref} onClick={onReport} class="px-2!">
+              {l.report}
+            </Button>
+          ) : (
+            <Button variant="ghost" icon={<Flag />} onClick={onReport} class="px-2!">
+              {l.report}
+            </Button>
+          ))}
+      </div>
+    </div>
+  )
+}
