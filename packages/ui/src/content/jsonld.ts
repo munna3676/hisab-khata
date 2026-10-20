@@ -57,5 +57,5 @@ export function howToJsonLd(name: string, steps: readonly HowToStepEntry[]): How
  * an answer containing "</script>" cannot end the script element early.
  */
 export function jsonLdScript(data: unknown): string {
-  return JSON.stringify(data).replace(/</g, '\\u003c').replace(/ /g, '\\u2028').replace(/ /g, '\\u2029')
+  return JSON.stringify(data).replace(/</g, '\\u003c').replace(/\u2028/g, '\\u2028').replace(/\u2029/g, '\\u2029')
 }

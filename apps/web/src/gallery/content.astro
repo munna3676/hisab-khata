@@ -111,8 +111,8 @@ const dpsColumns: BreakdownColumn<DpsRow>[] = [
     <Specimen label="Hover (pointer devices): lift + link underline">
       <BankCard name="ব্র্যাক ব্যাংক" type="প্রাইভেট · BRAC Bank PLC" initials="BB" rates={unverified} href="#content-bank-card" compareLabel="তুলনায় যোগ করো" titleAs="h4" data-content-preview="hover" />
     </Specimen>
-    <Specimen label="Pressed: scale .97">
-      <BankCard name="ব্র্যাক ব্যাংক" type="প্রাইভেট · BRAC Bank PLC" initials="BB" rates={unverified} href="#content-bank-card" compareLabel="তুলনায় যোগ করো" titleAs="h4" data-content-preview="pressed" />
+    <Specimen label="Pressed: scale .97 (frozen, so exempt from the 44px check)">
+      <div data-tap-exempt><BankCard name="ব্র্যাক ব্যাংক" type="প্রাইভেট · BRAC Bank PLC" initials="BB" rates={unverified} href="#content-bank-card" compareLabel="তুলনায় যোগ করো" titleAs="h4" data-content-preview="pressed" /></div>
     </Specimen>
     <Specimen label="Static (no link, no compare)">
       <BankCard name="ডাচ্-বাংলা ব্যাংক" type="প্রাইভেট · Dutch-Bangla Bank PLC" initials="DBBL" rates={unverified} titleAs="h4" />
@@ -153,7 +153,7 @@ const dpsColumns: BreakdownColumn<DpsRow>[] = [
     <Specimen label="Hover · pressed · keyboard focus · disabled">
       <div>
         <ChecklistItem label="হোভার: হালকা আভা" class="pressable" data-content-preview="hover" />
-        <ChecklistItem label="চাপা: .97 স্কেল" data-content-preview="pressed" />
+        <div data-tap-exempt><ChecklistItem label="চাপা: .97 স্কেল" data-content-preview="pressed" /></div>
         <ChecklistItem label="কিবোর্ড ফোকাস" data-content-preview="focus" />
         <ChecklistItem label="বন্ধ (disabled)" disabled />
       </div>
@@ -253,7 +253,7 @@ const dpsColumns: BreakdownColumn<DpsRow>[] = [
     <Specimen label="Hover · pressed · keyboard focus · disabled">
       <div class="grid gap-3">
         <WizardOption name="content-wiz-hover" value="h" label="হোভার" class="pressable" data-content-preview="hover" />
-        <WizardOption name="content-wiz-pressed" value="p" label="চাপা" data-content-preview="pressed" />
+        <div data-tap-exempt><WizardOption name="content-wiz-pressed" value="p" label="চাপা" data-content-preview="pressed" /></div>
         <WizardOption name="content-wiz-focus" value="f" label="কিবোর্ড ফোকাস" data-content-preview="focus" />
         <WizardOption name="content-wiz-off" value="d" label="বন্ধ (disabled)" disabled />
       </div>
