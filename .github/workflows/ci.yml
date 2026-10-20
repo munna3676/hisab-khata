@@ -46,7 +46,7 @@ jobs:
         run: pnpm --filter @hisab/core test
 
       - name: Package tests
-        run: pnpm --filter @hisab/ui --filter @hisab/tokens --filter @hisab/data --filter @hisab/search --filter @hisab/platform --filter @hisab/i18n test
+        run: pnpm --filter @hisab/ui --filter @hisab/tokens --filter @hisab/data --filter @hisab/search --filter @hisab/platform --filter @hisab/i18n --filter @hisab/pages test
 
       - name: Check data
         # Seed values are marked unverified until the owner checks them at the source.

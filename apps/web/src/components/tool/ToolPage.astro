@@ -1,0 +1,61 @@
+---
+// The calculator page template on the website (docs/adding-a-tool.md). The page body is
+// @hisab/pages' ToolPage (shared with the app); this shell adds what only the web needs: the
+// document head (title, description, JSON-LD), hydration of the FAQ, and the recents record.
+// Put the tool's calculator island in the default slot:
+//   <ToolPage content={content}><CashOutCalculator client:load ... /></ToolPage>
+import { getEntry } from '@hisab/data/registry'
+import { ToolPage as ToolBody, type ToolPageContent } from '@hisab/pages/tool'
+import { FaqList, faqJsonLd, jsonLdScript } from '@hisab/ui/content'
+import Shell from '../../layouts/Shell.astro'
+
+interface Props {
+  content: ToolPageContent
+}
+
+const { content } = Astro.props
+const { lang } = content
+const entry = getEntry(content.id)!
+const abs = (path: string) => (Astro.site ? new URL(path, Astro.site).href : path)
+const url = abs(entry.route[lang])
+
+const breadcrumbLd = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: content.crumbs.map((crumb, i) => ({
+    '@type': 'ListItem',
+    position: i + 1,
+    name: crumb.label,
+    ...(crumb.href ? { item: abs(crumb.href) } : { item: url }),
+  })),
+}
+const appLd = {
+  '@context': 'https://schema.org',
+  '@type': 'WebApplication',
+  name: content.title,
+  description: entry.description[lang],
+  url,
+  inLanguage: lang === 'bn' ? 'bn-BD' : 'en',
+  applicationCategory: 'FinanceApplication',
+  operatingSystem: 'Any',
+  isAccessibleForFree: true,
+  offers: { '@type': 'Offer', price: '0', priceCurrency: 'BDT' },
+}
+const ld = [breadcrumbLd, appLd, ...(content.faq ? [faqJsonLd(content.faq.items)] : [])]
+---
+
+<Shell title={content.title} description={entry.description[lang]}>
+  {ld.map((data) => <script slot="head" type="application/ld+json" set:html={jsonLdScript(data)} />)}
+  <ToolBody content={content}>
+    <slot />
+    {content.faq && <FaqList slot="faq" client:visible items={content.faq.items} defaultOpen={[0]} />}
+  </ToolBody>
+</Shell>
+
+<script>
+  import { collectionsFor, getPlatform } from '@hisab/platform/index'
+
+  // Remember the opened tool for the home page's "তোমার টুল" row.
+  const id = document.querySelector<HTMLElement>('main[data-entry]')?.dataset.entry
+  if (id) void collectionsFor(getPlatform().store).recents.push(id).catch(() => undefined)
+</script>

@@ -1,0 +1,73 @@
+/*
+ * @hisab/pages stylesheet: `@import "@hisab/pages/styles.css";` after @hisab/ui/styles.css.
+ * Tailwind scans this package for classes, and the calculator template's print layout lives here.
+ */
+@source "./";
+
+/*
+ * Print / "PDF" (docs/decisions/0001-stack.md, Share, print and PDF): A4 portrait, the page head,
+ * the inputs as filled in, the result, the comparison and the notes. The shell (bars, footer),
+ * the action bar, ads and related tools are left out; nothing is cut across a page break.
+ */
+@page {
+  size: A4 portrait;
+  margin: 14mm 12mm;
+}
+
+@media print {
+  :root {
+    color-scheme: light;
+  }
+  html,
+  body {
+    background: #fff !important;
+  }
+  [data-top-bar],
+  [data-desktop-header],
+  [data-bottom-nav],
+  [data-footer],
+  [data-print-hide],
+  [data-ad-slot],
+  [data-toast-viewport] {
+    display: none !important;
+  }
+  [data-shell] {
+    padding-bottom: 0 !important;
+    min-height: 0 !important;
+  }
+  [data-tool-page] {
+    max-width: none !important;
+    padding: 0 !important;
+  }
+  /* Inputs and results side by side, as on the desktop, so a result fits on page one. */
+  [data-calculator] > div {
+    max-width: none !important;
+    display: grid !important;
+    grid-template-columns: 62mm minmax(0, 1fr) !important;
+    gap: 6mm !important;
+    align-items: start;
+  }
+  [data-result-card],
+  [data-compare-row],
+  [data-result-error],
+  [data-tool-steps] li,
+  [data-faq-item],
+  [role="note"] {
+    break-inside: avoid;
+  }
+  /* FAQ answers print open. */
+  .hkc-faq-panel[hidden] {
+    display: block !important;
+  }
+  [data-print-only] {
+    display: block !important;
+  }
+  * {
+    animation: none !important;
+    transition: none !important;
+  }
+}
+
+[data-print-only] {
+  display: none;
+}

@@ -39,6 +39,7 @@ const name = t(lang, 'app.name')
 ---
 
 <Base title={title} fullTitle={fullTitle} description={description} noindex={noindex}>
+  <slot name="head" slot="head" />
   <script is:inline slot="head">
     // Cross-document view transitions: mark going back in history so the slide reverses
     // (CSS in styles/global.css). Must run before the first frame, hence inline in <head>.

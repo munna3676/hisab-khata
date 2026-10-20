@@ -94,7 +94,9 @@ export function ReportErrorForm({
         placeholder={correctPlaceholder}
         class={cx(BOX, 'h-24 resize-none p-3.5 type-body placeholder:text-soft')}
       />
-      <TextField label={sourceLabel} name="source" type="url" inputMode="url" prefix="URL" defaultValue="https://" autoComplete="url" />
+      {/* type="text" (url keyboard): a type="url" field holding the prefilled "https://" fails the
+          browser's own validation and would block sending a report that has no source. */}
+      <TextField label={sourceLabel} name="source" type="text" inputMode="url" prefix="URL" defaultValue="https://" autoComplete="url" spellcheck={false} />
       <Button type="submit" block loading={submitting}>
         {submitLabel}
       </Button>

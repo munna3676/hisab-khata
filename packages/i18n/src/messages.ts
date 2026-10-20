@@ -43,6 +43,12 @@ export const DRAFT_BN_KEYS: readonly MessageKey[] = [
   'home.banglaMainNote',
   'state.comingSoonTitle',
   'state.comingSoonBody',
+  'verified.pending',
+  'verified.pendingNote',
+  'result.emptyHint',
+  'toast.reportFailed',
+  'toast.shareFailed',
+  'content.printedOn',
 ]
 
 // {name} inserts a value; {count:bank|banks} picks the first word when count is 1, else the second.

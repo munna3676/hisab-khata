@@ -1,0 +1,10 @@
+// @hisab/pages/tool — the calculator page template (docs/adding-a-tool.md).
+export * from './url-state.ts'
+export * from './validation.ts'
+export * from './verification.ts'
+export * from './content.ts'
+export * from './hooks.ts'
+export type * from './types.ts'
+export { ToolHeader } from './ToolHeader.tsx'
+export { ToolActions, REPORT_ENDPOINT, type ToolActionsProps } from './ToolActions.tsx'
+export { CalculatorFrame, CompareList, InputCard, RelatedTools, ResultEmpty, ResultError, ToolCallout, ToolPage, ToolSteps } from './parts.tsx'

@@ -1,0 +1,29 @@
+---
+// Cash Out calculator (registry "cash-out", Figma 13:404 / D2 19:360 and the C1 frames) in one
+// language. Data comes from data/mfs-charges.json, validated at build time; the calculator island
+// server-renders the default inputs (৳৫,০০০) so the page has a full result without JS.
+import { cashOutChannels, cashOutContent } from '@hisab/pages/cash-out'
+import { CashOutCalculator } from '@hisab/pages/islands/cash-out'
+import ToolPage from '../tool/ToolPage.astro'
+import { dataFile } from '../../lib/data'
+import type { Lang } from '../../lib/site'
+
+interface Props {
+  lang: Lang
+}
+
+const { lang } = Astro.props
+const file = dataFile('mfs-charges.json')
+const content = cashOutContent(lang, file)
+---
+
+<ToolPage content={content}>
+  <CashOutCalculator
+    client:load
+    lang={lang}
+    channels={cashOutChannels(file)}
+    referenceId={file.referenceByService.cashOut}
+    title={content.title}
+    subtitle={content.subtitle}
+  />
+</ToolPage>

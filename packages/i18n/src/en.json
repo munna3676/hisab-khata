@@ -163,7 +163,8 @@
     "charge": "Charge",
     "details": "Details",
     "bestGreen": "The best rate is shown in green.",
-    "inWords": "In words"
+    "inWords": "In words",
+    "emptyHint": "Type a number and the result shows here right away."
   },
   "verified": {
     "checked": "Verified",
@@ -175,7 +176,9 @@
     "rateMayChange": "Rates may change…",
     "lastUpdated": "Last updated: {date}",
     "sourceMismatch": "* The published sources disagree; see below.",
-    "limitNote": "Limits can change under Bangladesh Bank directives."
+    "limitNote": "Limits can change under Bangladesh Bank directives.",
+    "pending": "Not yet verified",
+    "pendingNote": "These rates have not been checked at the official source yet. Confirm them before a transaction."
   },
   "content": {
     "faq": "Common questions",
@@ -195,7 +198,9 @@
     "comingSoon": "Coming soon",
     "checklistHint": "Ticks are saved on your phone; you can print it or save it as a PDF.",
     "checklistProgress": "{done}/{total} ready",
-    "advertisement": "Advertisement"
+    "advertisement": "Advertisement",
+    "printedOn": "Printed: {date} · {site}",
+    "stepNumber": "{n}."
   },
   "wizard": {
     "step": "Step {step} of {total}",
@@ -305,7 +310,9 @@
     "appInstalled": "Hisab Khata was added to your home screen. It works offline too.",
     "saved": "Added to your saved list.",
     "open": "Open",
-    "view": "View"
+    "view": "View",
+    "reportFailed": "The report could not be sent. Check your connection and try again.",
+    "shareFailed": "Could not share. Copy the link from the address bar and send it."
   },
   "state": {
     "offlineBanner": "No internet. Calculators still work; rates are shown as last saved.",

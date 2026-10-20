@@ -1,0 +1,34 @@
+{
+  "name": "@hisab/pages",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "হিসাব খাতা page bodies: the calculator page template and each tool's island, shared by the website and the app shell",
+  "sideEffects": [
+    "*.css"
+  ],
+  "exports": {
+    "./tool": "./src/tool/index.ts",
+    "./cash-out": "./src/cash-out/index.ts",
+    "./islands/*": "./src/islands/*.ts",
+    "./styles.css": "./src/styles.css"
+  },
+  "scripts": {
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run"
+  },
+  "dependencies": {
+    "@hisab/core": "workspace:*",
+    "@hisab/data": "workspace:*",
+    "@hisab/i18n": "workspace:*",
+    "@hisab/platform": "workspace:*",
+    "@hisab/ui": "workspace:*",
+    "preact": "10.29.8"
+  },
+  "devDependencies": {
+    "@testing-library/preact": "3.2.4",
+    "happy-dom": "21.0.3",
+    "typescript": "7.0.2",
+    "vitest": "5.0.5"
+  }
+}

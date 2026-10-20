@@ -75,3 +75,30 @@ follow-up for a later phase. Re-check this list in the final audit.
 - View transitions: forward/back typing uses the Navigation API (Chromium); Safari gets the
   forward slide in both directions.
 - The date line is built at build time and recomputed on load for today in Asia/Dhaka.
+
+## Phase 3b (calculator template, Cash Out), 2026-10-20
+
+- Cash Out deviations from Figma: the desktop title is the registry name without "ক্যালকুলেটর"
+  (D2 has it; the D · C1 frames do not). Desktop follows the D · C1 frames, not D2: callout and
+  action bar run the full results width with the mobile callout copy, and the rail shows Tool Cards
+  instead of D2's text links. "আরও টুল" lists the registry's four `related` pages (Figma shows two,
+  send money and VAT, which is not in the registry list). While the MFS Facts are unverified the
+  page head shows "যাচাই বাকি" + a note instead of the Verified Line. The C1-c result card also
+  shows the saving line. Tablet (768) caps the calculator at 640px; the article spans the column.
+- The page compares the seven Figma ways only; data/mfs-charges.json also has Nagad ATM (৭/হাজার,
+  no limits) and Upay agent/ATM. Decide whether they join the list ("৭টা উপায়" copy would change).
+- Draft copy (Cash Out, in packages/pages/src/cash-out/copy.ts and content.ts): answers to FAQ 2
+  and 3 (closed in Figma), the share text, the per-transaction/monthly limit messages, the
+  "এই ব্যালেন্স থেকে তোলা যাবে না" state, and all English. New draft i18n keys: verified.pending,
+  verified.pendingNote, result.emptyHint, toast.reportFailed, toast.shareFailed, content.printedOn.
+- Ties: Priyo-over-limit and the ordinary agent both cost ৳১৮৫ in C1-c; the page orders ties in
+  Figma's channel order (CASH_OUT_CHANNELS), not data order.
+- "ভুল পেলেন?" posts JSON to /api/report, which does not exist until the phase 8 Worker; until then
+  sending shows the "could not be sent" toast. The report sheet's source field is now type="text"
+  (inputmode url): the prefilled "https://" in a type="url" field blocked sending (bug in @hisab/ui).
+- Share sends the link (navigator.share or copy); the 1080×1080 share card (Figma S1 sheet with the
+  card preview and targets) is phase 5.
+- The Cash Out island is about 61 KB gz of JS with its lazy motion chunk (both languages' i18n
+  messages are bundled); the stack's 12–20 KB calculator budget needs per-language message
+  bundles and a lighter ui barrel import before phase 7's Lighthouse budgets.
+- Without JS the inputs are inert (the default result and the full comparison are in the HTML).

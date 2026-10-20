@@ -3,6 +3,7 @@
 @import "@hisab/tokens/tokens.css";
 @import "@hisab/tokens/theme.css";
 @import "@hisab/ui/styles.css";
+@import "@hisab/pages/styles.css";
 
 /*
  * Page transitions (docs/decisions/0001-stack.md, Animation → Page transitions, web):

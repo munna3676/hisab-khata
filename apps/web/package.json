@@ -19,6 +19,7 @@
     "@hisab/core": "workspace:*",
     "@hisab/data": "workspace:*",
     "@hisab/i18n": "workspace:*",
+    "@hisab/pages": "workspace:*",
     "@hisab/platform": "workspace:*",
     "@hisab/search": "workspace:*",
     "@hisab/tokens": "workspace:*",

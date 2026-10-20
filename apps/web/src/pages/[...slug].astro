@@ -12,12 +12,13 @@ import { NotFound } from '@hisab/ui/overlay'
 import { SearchResults } from '../components/search/SearchResults'
 import Shell from '../layouts/Shell.astro'
 import { allRoutes, routeOf, sectionChain, type Lang } from '../lib/site'
+import { BUILT_PAGES } from '../lib/tools'
 
 export function getStaticPaths() {
   // Pages with their own .astro file (getStaticPaths runs on its own, so this lives inside it).
   const OWN_PAGE = new Set(['/', '/en/', '/404'])
   return allRoutes()
-    .filter((r) => !OWN_PAGE.has(r.path))
+    .filter((r) => !OWN_PAGE.has(r.path) && !BUILT_PAGES.includes(r.entry.id))
     .map((r) => ({ params: { slug: r.path.replace(/^\/|\/$/g, '') }, props: { id: r.entry.id, lang: r.lang } }))
 }
 
