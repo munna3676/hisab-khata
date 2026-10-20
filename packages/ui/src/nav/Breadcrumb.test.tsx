@@ -35,7 +35,11 @@ describe('Breadcrumb', () => {
   it('earlier steps get a 44px-tall hit area without moving the line, and the hover colour', () => {
     render(<Breadcrumb items={items} />)
     for (const link of screen.getAllByRole('link')) {
-      expect(link.className).toContain('before:-inset-y-2.75') // 22px line + 2 x 11px
+      // 44px tall and centred on the text whatever the font's ascent/descent; 6px wider each side.
+      expect(link.className).toContain('before:h-touch')
+      expect(link.className).toContain('before:top-1/2')
+      expect(link.className).toContain('before:-translate-y-1/2')
+      expect(link.className).toContain('before:-inset-x-1.5')
       expect(link.className).toContain('link-underline')
       expect(link.className).toContain('hover:text-ink')
     }

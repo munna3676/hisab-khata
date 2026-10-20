@@ -166,7 +166,7 @@ const dpsColumns: BreakdownColumn<DpsRow>[] = [
   </Grid>
 </Group>
 
-<Group title="FAQ Item" id="content-faq" description="Figma 9:284, Open false | true. A heading-wrapped button with aria-expanded/aria-controls; the answer opens via grid-template-rows 0fr → 1fr with a fade, the chevron turns. FaqList can emit FAQPage JSON-LD (faqJsonLd) or microdata.">
+<Group title="FAQ Item" id="content-faq" description="Figma 9:284, Open false | true. A heading-wrapped button with aria-expanded/aria-controls. A closed answer is hidden=until-found (find-in-page opens it); an opened answer fades in and settles 4px (opacity + translate only), the chevron turns. FaqList can emit FAQPage JSON-LD (faqJsonLd) or microdata.">
   <Grid cols={2}>
     <Specimen label="Open=false / Open=true (static)">
       <div>
@@ -198,8 +198,8 @@ const dpsColumns: BreakdownColumn<DpsRow>[] = [
   <Grid cols={1}>
     {
       [1, 2, 3, 4, 5].map((n) => (
-        <Specimen label={`Active=${n}`} frame={false}>
-          <TabBar label={`চার্জের ধরন (Active ${n})`} items={mfsTabs} defaultValue={mfsTabs[n - 1]!.value} />
+        <Specimen label={`Active=${n} (island: the selected tab scrolls into view on narrow screens)`} frame={false}>
+          <TabBar label={`চার্জের ধরন (Active ${n})`} items={mfsTabs} defaultValue={mfsTabs[n - 1]!.value} client:load />
         </Specimen>
       ))
     }
@@ -217,15 +217,16 @@ const dpsColumns: BreakdownColumn<DpsRow>[] = [
     <Specimen label="Links (Bank Detail 15:1233): nav with aria-current=page · hover · pressed · focus">
       <div class="grid gap-3">
         <TabBar label="ব্যাংকের তথ্য" items={bankTabs} value="fdr" />
-        <div class="grid gap-1 sm:grid-cols-3" data-tap-exempt>
-          <p class="type-body-small text-soft sm:col-span-3">Frozen states on single tabs:</p>
-        </div>
+        <p class="type-body-small text-soft">Frozen states on the second tab (DPS): hover, keyboard focus, pressed.</p>
+        <div data-tab-preview="hover"><TabBar label="ব্যাংকের তথ্য (হোভার)" items={bankTabs} value="fdr" /></div>
+        <div data-tab-preview="focus"><TabBar label="ব্যাংকের তথ্য (ফোকাস)" items={bankTabs} value="fdr" /></div>
+        <div data-tab-preview="pressed" data-tap-exempt><TabBar label="ব্যাংকের তথ্য (চাপা)" items={bankTabs} value="fdr" /></div>
       </div>
     </Specimen>
   </Grid>
 </Group>
 
-<Group title="Action Bar" id="content-action-bar" description="Figma 9:314. Share (primary), PDF (secondary), “ভুল পেলেন?” (ghost); every button 44px and pressable. Natural widths once the bar is wider than 512px.">
+<Group title="Action Bar" id="content-action-bar" description="Figma 9:314. Share (primary), PDF (secondary), “ভুল পেলেন?” (ghost); every button 44px and pressable. Equal thirds at every width, as in Figma; the ghost column never gets narrower than its label.">
   <Grid cols={2}>
     <Specimen label="Default (Figma)">
       <ActionBar />
@@ -236,7 +237,7 @@ const dpsColumns: BreakdownColumn<DpsRow>[] = [
     <Specimen label="Without PDF · report as a link">
       <ActionBar hide={['pdf']} reportHref="#content-action-bar" />
     </Specimen>
-    <Specimen label="Wide container: natural widths" wide>
+    <Specimen label="Wide container: still equal thirds" wide>
       <ActionBar />
     </Specimen>
   </Grid>

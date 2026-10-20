@@ -89,7 +89,8 @@ export function BreakdownTable<R>({
   const numeric = columns.map((c) => isNumeric(c, sample))
   const cell = (i: number) =>
     cx(
-      'py-2 whitespace-nowrap',
+      // Baseline, so Bangla labels (body face) and Plex Mono numbers sit on one line.
+      'py-2 whitespace-nowrap align-baseline',
       i === 0 ? 'pr-3 pl-4' : i === columns.length - 1 ? 'pr-4 pl-3' : 'px-3',
       numeric[i] ? 'text-end' : 'text-start',
     )
@@ -117,7 +118,7 @@ export function BreakdownTable<R>({
                 <th
                   key={i}
                   scope="col"
-                  class={cx(cell(i), 'border-b border-line align-bottom font-body text-[0.75rem]/4 font-semibold text-soft')}
+                  class={cx(cell(i), 'border-b border-line align-bottom! font-body text-[0.75rem]/4 font-semibold text-soft')}
                 >
                   {column.label}
                 </th>

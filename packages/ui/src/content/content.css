@@ -135,6 +135,24 @@
   .pressable:has(> input[data-content-preview="pressed"])::after {
     opacity: var(--press-tint-opacity);
   }
+  /* Tab Bar: TabBar does not pass attributes to its tabs, so the gallery sets
+     data-tab-preview on a wrapper and the state is drawn on the bar's second tab. */
+  [data-tab-preview="hover"] [data-tab-bar] .pressable:nth-child(2) {
+    color: var(--text-ink);
+  }
+  [data-tab-preview="hover"] [data-tab-bar] .pressable:nth-child(2)::after {
+    opacity: var(--hover-tint-opacity);
+  }
+  [data-tab-preview="pressed"] [data-tab-bar] .pressable:nth-child(2) {
+    scale: var(--press-scale);
+  }
+  [data-tab-preview="pressed"] [data-tab-bar] .pressable:nth-child(2)::after {
+    opacity: var(--press-tint-opacity);
+  }
+  [data-tab-preview="focus"] [data-tab-bar] .pressable:nth-child(2) {
+    outline: 2px solid var(--brand-accent);
+    outline-offset: -2px;
+  }
   input[data-content-preview="focus"] {
     outline: none;
   }

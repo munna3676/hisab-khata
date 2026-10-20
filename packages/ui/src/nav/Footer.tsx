@@ -73,11 +73,13 @@ export function Footer({
             <ul class="flex flex-wrap gap-x-4 gap-y-2 type-body-small text-blue">
               {links.map((link, i) => (
                 <li key={`${i}-${link.label}`}>
-                  {/* Inline link in a list item: the ::before widens the hit area by 4px above and below. */}
+                  {/* Inline link in a list item. Figma packs the links 30px apart (22px lines, 8px gap) and 16px
+                      apart across, so the ::before hit area fills exactly that: 30px tall, centred on the text,
+                      and half the 16px gap on each side. Neighbouring targets meet but never overlap. */}
                   <a
                     href={link.href}
                     aria-current={link.current ? 'page' : undefined}
-                    class="link-underline whitespace-nowrap before:absolute before:inset-x-0 before:-inset-y-1 before:content-['']"
+                    class="link-underline whitespace-nowrap before:absolute before:-inset-x-2 before:top-1/2 before:h-7.5 before:-translate-y-1/2 before:content-['']"
                   >
                     {link.label}
                   </a>

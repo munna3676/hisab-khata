@@ -1,6 +1,7 @@
 import type { ComponentChildren, InputHTMLAttributes, JSX } from 'preact'
 import { useState } from 'preact/hooks'
 import { cx } from '../lib/cx'
+import { useResync } from './controlled'
 import { useContentUid } from './uid'
 
 export interface WizardOptionProps
@@ -25,6 +26,7 @@ export interface WizardOptionProps
  * choice. Styles follow :checked through :has(), so it also works as zero-JS HTML.
  */
 export function WizardOption({ label, value, name, checked, onChange, disabled, class: className, ...input }: WizardOptionProps) {
+  const resync = useResync()
   return (
     <label
       class={cx(
@@ -44,7 +46,10 @@ export function WizardOption({ label, value, name, checked, onChange, disabled, 
         value={value}
         checked={checked}
         disabled={disabled}
-        onChange={(event: JSX.TargetedEvent<HTMLInputElement>) => onChange?.(event.currentTarget.value, event)}
+        onChange={(event: JSX.TargetedEvent<HTMLInputElement>) => {
+          onChange?.(event.currentTarget.value, event)
+          if (checked !== undefined) resync()
+        }}
       />
       <span
         aria-hidden="true"
@@ -87,6 +92,8 @@ export function WizardOptionGroup({
   class: className,
 }: WizardOptionGroupProps) {
   const groupName = useContentUid(name, 'hkc-wiz')
+  // The radio the browser just unchecked is another option: resync the whole group.
+  const resync = useResync()
   const [inner, setInner] = useState<string | undefined>(defaultValue)
   const current = value !== undefined ? value : inner
 
@@ -105,6 +112,7 @@ export function WizardOptionGroup({
             onChange={(next) => {
               if (value === undefined) setInner(next)
               onChange?.(next)
+              resync()
             }}
           />
         ))}

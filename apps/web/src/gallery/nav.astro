@@ -39,13 +39,14 @@ export const description =
 const tile = (Glyph: typeof Wallet, size = 22) => h(Glyph, { size })
 const SearchIcon = ICON_SET.search
 
+// Titles and subtitles as on the Figma desktop home (19:118), where all six fit one 132px row.
 const sections = [
   { title: 'মোবাইল ব্যাংকিং', subtitle: 'বিকাশ, নগদ, রকেট, উপায়', icon: Wallet },
-  { title: 'ব্যাংক', subtitle: 'লোন, DPS, FDR, তুলনা', icon: Bank },
-  { title: 'রেমিট্যান্স', subtitle: 'বিদেশ থেকে কোনটায় বেশি', icon: Send },
+  { title: 'ব্যাংক', subtitle: 'লোন, DPS, FDR', icon: Bank },
+  { title: 'রেমিট্যান্স', subtitle: 'কোনটায় বেশি পাবে', icon: Send },
   { title: 'ক্যালকুলেটর', subtitle: 'VAT, ট্যাক্স, GPA, মেস', icon: Calculator },
-  { title: 'তারিখ, জমি, সোনা', subtitle: 'বয়স, কাঠা-বিঘা, ভরি', icon: Land },
-  { title: 'সরকারি কাজ', subtitle: 'NID, পাসপোর্ট, জন্ম নিবন্ধন', icon: Guide },
+  { title: 'তারিখ, জমি, সোনা', subtitle: 'বয়স, কাঠা, ভরি', icon: Land },
+  { title: 'সরকারি কাজ', subtitle: 'NID, পাসপোর্ট', icon: Guide },
 ]
 
 const tools = [
@@ -287,6 +288,7 @@ const phone = 'mx-auto w-full max-w-frame-mobile overflow-hidden rounded-card bo
   description="Figma 7:280. 12px radius. Two per row on phones, three on tablets, six on the desktop home. Lifts on hover, presses to .97."
 >
   <Specimen label="Home: সব বিভাগ" wide frame={false}>
+    {/* The gallery column is 1048px, not the home's 1080: a 12px gap keeps Figma's 165px cards (the home uses 18px). */}
     <div class="grid grid-cols-2 gap-3 md:grid-cols-3 xl:grid-cols-6">
       {sections.map((s) => <SectionCard href="#nav-section-card" title={s.title} subtitle={s.subtitle} icon={tile(s.icon)} titleAs="h4" />)}
     </div>

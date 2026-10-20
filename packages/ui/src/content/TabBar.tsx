@@ -80,7 +80,8 @@ export function TabBar<V extends string = string>({
     const to = items.findIndex((item) => item.value === current)
     const toTab = tabRefs.current[to]
     if (!list || !toTab) return
-    keepInView(list, toTab)
+    // First render jumps (no smooth scroll on page load); later changes glide.
+    keepInView(list, toTab, prev !== undefined && prev !== current)
     if (prev === undefined || prev === current) return
     const from = items.findIndex((item) => item.value === prev)
     const fromTab = tabRefs.current[from]
@@ -203,7 +204,7 @@ export function TabBar<V extends string = string>({
 }
 
 /** Scrolls the tab row (not the page) so the tab is fully visible, with a little air. */
-function keepInView(list: HTMLElement, tab: HTMLElement) {
+function keepInView(list: HTMLElement, tab: HTMLElement, animate: boolean) {
   if (list.scrollWidth <= list.clientWidth) return
   const air = 16
   const left = tab.offsetLeft - air
@@ -212,7 +213,7 @@ function keepInView(list: HTMLElement, tab: HTMLElement) {
   if (left < list.scrollLeft) target = left
   else if (right > list.scrollLeft + list.clientWidth) target = right - list.clientWidth
   if (target === undefined) return
-  const smooth = motionMode() === 'full'
+  const smooth = animate && motionMode() === 'full'
   if (typeof list.scrollTo === 'function') list.scrollTo({ left: Math.max(0, target), behavior: smooth ? 'smooth' : 'auto' })
   else list.scrollLeft = Math.max(0, target)
 }

@@ -175,6 +175,13 @@ describe('Logo and Footer', () => {
     expect(screen.getByRole('link', { name: 'হিসাব খাতা' }).className).toContain('-my-1.5')
     expect(screen.getByRole('link', { name: 'আমাদের কথা' }).getAttribute('aria-current')).toBe('page')
     expect(screen.getByRole('link', { name: 'প্রাইভেসি' }).getAttribute('aria-current')).toBeNull()
+    // Hit area fills Figma's 30px row pitch and half of the 16px gap: neighbouring links meet, never overlap.
+    for (const name of ['আমাদের কথা', 'প্রাইভেসি']) {
+      const cls = screen.getByRole('link', { name }).className
+      expect(cls).toContain('before:h-7.5')
+      expect(cls).toContain('before:-inset-x-2')
+      expect(cls).toContain('before:-translate-y-1/2')
+    }
   })
 
   it('the footer layout is a container query by default and can be forced', () => {

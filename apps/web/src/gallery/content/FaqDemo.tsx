@@ -1,5 +1,5 @@
-// Gallery island: an FAQ block, live. Answers open with a grid-template-rows height
-// transition plus a fade; the chevron turns. `single` keeps one answer open. The list
+// Gallery island: an FAQ block, live. An opened answer fades in and settles 4px
+// (opacity + translate only); the chevron turns. `single` keeps one answer open. The list
 // also emits FAQPage JSON-LD with the same questions and plain-text answers.
 // The charges in the first answer are Figma's layout sample, not data.
 import { FaqList } from '@hisab/ui/content'

@@ -35,10 +35,11 @@ export function Breadcrumb({ items, label = 'আপনি এখানে আছ
               </span>
             )}
             {item.href && i !== last ? (
-              // Inline link in a list item; ::before widens the hit area to 44px tall without moving the line.
+              // Inline link in a list item: ::before is a 44px-tall hit area centred on the text (independent of
+              // the font's ascent/descent) and 6px wider on each side, short of the neighbour across the separator.
               <a
                 href={item.href}
-                class="hk-crumb link-underline hover:text-ink before:absolute before:inset-x-0 before:-inset-y-2.75 before:content-['']"
+                class="hk-crumb link-underline hover:text-ink before:absolute before:-inset-x-1.5 before:top-1/2 before:h-touch before:-translate-y-1/2 before:content-['']"
               >
                 {item.label}
               </a>

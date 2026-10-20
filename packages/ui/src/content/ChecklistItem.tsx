@@ -1,6 +1,7 @@
 import type { ComponentChildren, InputHTMLAttributes, JSX } from 'preact'
 import { Icon } from '../icons/Icon'
 import { cx } from '../lib/cx'
+import { useResync } from './controlled'
 
 export interface ChecklistItemProps
   extends Omit<InputHTMLAttributes<HTMLInputElement>, 'class' | 'className' | 'type' | 'label' | 'onChange' | 'checked' | 'defaultChecked'> {
@@ -31,6 +32,7 @@ export function ChecklistItem({
   class: className,
   ...input
 }: ChecklistItemProps) {
+  const resync = useResync()
   return (
     <label
       class={cx(
@@ -47,7 +49,10 @@ export function ChecklistItem({
         checked={checked}
         defaultChecked={defaultChecked}
         disabled={disabled}
-        onChange={(event: JSX.TargetedEvent<HTMLInputElement>) => onChange?.(event.currentTarget.checked, event)}
+        onChange={(event: JSX.TargetedEvent<HTMLInputElement>) => {
+          onChange?.(event.currentTarget.checked, event)
+          if (checked !== undefined) resync()
+        }}
       />
       <span
         aria-hidden="true"

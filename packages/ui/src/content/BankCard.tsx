@@ -1,6 +1,7 @@
 import type { ComponentChildren, HTMLAttributes, JSX } from 'preact'
 import { Check } from '../icons/common'
 import { cx } from '../lib/cx'
+import { useResync } from './controlled'
 
 export interface BankCardRate {
   /** e.g. "সর্বোচ্চ FDR", "DPS", "পার্সোনাল লোন". */
@@ -86,8 +87,9 @@ export function BankCard({
       {rates.length > 0 && (
         <dl class="flex min-w-0 gap-2">
           {rates.slice(0, 3).map((rate, i) => (
-            <div key={i} class="flex min-w-0 flex-1 flex-col gap-0.5 rounded-input bg-paper px-2.5 py-2">
-              <dt class="truncate font-body text-[0.75rem]/4 text-soft">{rate.label}</dt>
+            <div key={i} class="flex min-w-0 flex-1 flex-col justify-between gap-0.5 rounded-input bg-paper px-2.5 py-2">
+              {/* Labels wrap rather than clip: "পার্সোনাল লোন" needs two lines in a 320-340px card. */}
+              <dt class="font-body text-[0.75rem]/4 break-words text-soft">{rate.label}</dt>
               <dd class="hkc-num truncate text-number-m font-semibold text-ink">{rate.value}</dd>
             </div>
           ))}
@@ -141,6 +143,7 @@ interface CompareToggleProps {
 }
 
 function CompareToggle({ label, checked, defaultChecked, onChange, name, value }: CompareToggleProps) {
+  const resync = useResync()
   return (
     <label class="hkc-compare pressable relative z-10 -my-2.75 flex min-h-touch min-w-0 flex-1 items-center gap-2 rounded-input pr-2 [--hover-tint-opacity:0]">
       <input
@@ -150,7 +153,10 @@ function CompareToggle({ label, checked, defaultChecked, onChange, name, value }
         value={value}
         checked={checked}
         defaultChecked={defaultChecked}
-        onChange={(event: JSX.TargetedEvent<HTMLInputElement>) => onChange?.(event.currentTarget.checked)}
+        onChange={(event: JSX.TargetedEvent<HTMLInputElement>) => {
+          onChange?.(event.currentTarget.checked)
+          if (checked !== undefined) resync()
+        }}
       />
       <span
         aria-hidden="true"
