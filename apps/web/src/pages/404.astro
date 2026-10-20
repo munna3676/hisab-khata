@@ -1,0 +1,12 @@
+---
+// The site's 404 (Figma 14 States, "৪০৪ পেজ"). Hosts serve it for any unknown URL.
+import { t } from '@hisab/i18n/messages'
+import { NotFound } from '@hisab/ui/overlay'
+import Shell from '../layouts/Shell.astro'
+---
+
+<Shell title={t('bn', 'state.notFoundTitle')} noindex>
+  <div class="mx-auto w-full max-w-[calc(var(--container-content)+3rem)] px-6 pt-10 pb-10">
+    <NotFound lang="bn" homeHref="/" />
+  </div>
+</Shell>

@@ -2,7 +2,7 @@
 // Also: every interactive element in the gallery has a hit area of at least 44x44 px.
 import AxeBuilder from '@axe-core/playwright'
 import { expect, test } from '@playwright/test'
-import { SECTION, THEMES, prepare, settle } from './helpers'
+import { SECTION, THEMES, prepare, settle, smallTapTargets } from './helpers'
 
 const scope = SECTION ? `section#${SECTION}` : '[data-gallery]'
 
@@ -29,22 +29,6 @@ test(`touch targets: gallery ${SECTION ?? 'all'} at least 44px`, async ({ page }
   await prepare(page, 'light')
   await page.goto('/dev/gallery')
   await settle(page)
-  // Inline links inside running text are exempt (WCAG 2.5.8); mark others with data-tap-exempt.
-  const small = await page.locator(scope).evaluate((root) => {
-    const sel = 'a[href], button, input:not([type=hidden]), select, textarea, summary, [role=button], [role=tab], [role=switch], [role=option], [role=menuitem], [role=checkbox], [role=radio]'
-    const out: string[] = []
-    for (const el of root.querySelectorAll<HTMLElement>(sel)) {
-      if (el.closest('[data-tap-exempt]')) continue
-      // A visually hidden input is hit through its <label>; measure that instead.
-      const target = el.matches('input') && el.getBoundingClientRect().width <= 1 ? el.closest('label') : el
-      if (!target) continue
-      const r = target.getBoundingClientRect()
-      if (r.width === 0 && r.height === 0) continue // not rendered (closed sheet, hidden variant)
-      const inlineInText = target.matches('a') && getComputedStyle(target).display === 'inline' && !!target.closest('p, li, td')
-      if (inlineInText) continue
-      if (r.width < 44 || r.height < 44) out.push(`${target.tagName.toLowerCase()} "${(target.textContent ?? '').trim().slice(0, 40)}" ${Math.round(r.width)}x${Math.round(r.height)}`)
-    }
-    return out
-  })
+  const small = await smallTapTargets(page.locator(scope))
   expect(small, `targets under 44x44:\n${small.join('\n')}`).toEqual([])
 })

@@ -1,6 +1,7 @@
 ---
-// Every page's shell: language, meta, hreflang, fonts, global CSS and the
-// pre-paint script that sets <html data-theme data-motion> before first paint.
+// Every page's document: language, <head> (title, description, canonical, hreflang, Open Graph,
+// theme-color, manifest, icons), fonts, global CSS, and the pre-paint script that sets
+// <html data-theme data-motion> before first paint. The visible shell is layouts/Shell.astro.
 import '@fontsource/noto-sans-bengali/400.css'
 import '@fontsource/noto-sans-bengali/500.css'
 import '@fontsource/noto-sans-bengali/600.css'
@@ -12,23 +13,31 @@ import '@fontsource/ibm-plex-mono/600.css'
 import '@fontsource/ibm-plex-mono/700.css'
 import '../styles/global.css'
 
+import { t } from '@hisab/i18n/messages'
 import tokens from '@hisab/tokens/tokens.json'
 import { PRE_PAINT_SCRIPT } from '@hisab/ui/lib'
-import { LANGS, langOf, localePath, strings } from '../i18n'
+import { alternates, langOfPath, pagePath } from '../lib/site'
 
 interface Props {
+  /** Page name; the document title becomes "<title> · হিসাব খাতা". */
   title?: string
+  /** Replaces the whole document title (the home page). */
+  fullTitle?: string
   description?: string
-  /** Keep the page out of search (dev pages, previews). */
+  /** Keep the page out of search (dev pages, placeholders). */
   noindex?: boolean
+  ogType?: 'website' | 'article'
 }
 
-const lang = langOf(Astro.currentLocale)
-const t = strings[lang]
-const { title, description = t.tagline, noindex = false } = Astro.props
-const fullTitle = title ? `${title} · ${t.siteName}` : t.siteName
+const path = pagePath(Astro.url.pathname)
+const lang = langOfPath(path)
+const siteName = t(lang, 'app.name')
+const { title, description = t(lang, 'app.intro'), noindex = false, ogType = 'website' } = Astro.props
+const fullTitle = Astro.props.fullTitle ?? (title ? `${title} · ${siteName}` : `${siteName} · ${t(lang, 'app.tagline')}`)
 const abs = (path: string) => (Astro.site ? new URL(path, Astro.site).href : path)
-const canonical = abs(localePath(lang, Astro.url.pathname))
+const pair = alternates(path)
+const canonical = abs(pair[lang])
+const ogImage = abs('/icons/icon-512.png')
 ---
 
 <!doctype html>
@@ -39,14 +48,28 @@ const canonical = abs(localePath(lang, Astro.url.pathname))
     <script is:inline set:html={PRE_PAINT_SCRIPT} />
     <title>{fullTitle}</title>
     <meta name="description" content={description} />
-    {noindex && <meta name="robots" content="noindex, nofollow" />}
+    {noindex && <meta name="robots" content="noindex, follow" />}
     <link rel="canonical" href={canonical} />
-    {LANGS.map((l) => <link rel="alternate" hreflang={l} href={abs(localePath(l, Astro.url.pathname))} />)}
-    <link rel="alternate" hreflang="x-default" href={abs(localePath('bn', Astro.url.pathname))} />
+    <link rel="alternate" hreflang="bn" href={abs(pair.bn)} />
+    <link rel="alternate" hreflang="en" href={abs(pair.en)} />
+    <link rel="alternate" hreflang="x-default" href={abs(pair.bn)} />
+    <meta property="og:site_name" content={siteName} />
+    <meta property="og:type" content={ogType} />
+    <meta property="og:title" content={fullTitle} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:locale" content={lang === 'bn' ? 'bn_BD' : 'en_US'} />
+    <meta property="og:locale:alternate" content={lang === 'bn' ? 'en_US' : 'bn_BD'} />
+    <!-- Placeholder until the 1200x630 share image exists: the app icon. -->
+    <meta property="og:image" content={ogImage} />
+    <meta name="twitter:card" content="summary" />
     <meta name="color-scheme" content="light dark" />
-    <meta name="theme-color" content={tokens.color.light['bg/paper']} media="(prefers-color-scheme: light)" />
-    <meta name="theme-color" content={tokens.color.dark['bg/paper']} media="(prefers-color-scheme: dark)" />
-    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <!-- The bar colour follows the top bar (sheet); Shell.astro keeps it in step with the theme toggle. -->
+    <meta name="theme-color" content={tokens.color.light['bg/sheet']} media="(prefers-color-scheme: light)" data-theme-color="light" />
+    <meta name="theme-color" content={tokens.color.dark['bg/sheet']} media="(prefers-color-scheme: dark)" data-theme-color="dark" />
+    <link rel="manifest" href="/manifest.webmanifest" />
+    <link rel="icon" href="/icons/icon-32.png" type="image/png" sizes="32x32" />
+    <link rel="apple-touch-icon" href="/icons/apple-touch-icon.png" />
     <slot name="head" />
   </head>
   <body class="min-h-dvh bg-paper text-ink antialiased">

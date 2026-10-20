@@ -1,0 +1,91 @@
+---
+// Every registry page that is not built yet, in both languages: title, breadcrumb, description and
+// a "শীঘ্রই আসছে" note (hubs also list their pages), so every link from the home page and the shell
+// resolves. Generated from data/registry/tools.json; [param] routes get one page per value in data/.
+// They are noindex until the real page replaces them.
+import type { RegistryEntry } from '@hisab/data/registry'
+import { getEntry, hubItems } from '@hisab/data/registry'
+import { t } from '@hisab/i18n/messages'
+import { Callout } from '@hisab/ui/base'
+import { Breadcrumb, ListRow } from '@hisab/ui/nav'
+import { NotFound } from '@hisab/ui/overlay'
+import { SearchResults } from '../components/search/SearchResults'
+import Shell from '../layouts/Shell.astro'
+import { allRoutes, routeOf, sectionChain, type Lang } from '../lib/site'
+
+export function getStaticPaths() {
+  // Pages with their own .astro file (getStaticPaths runs on its own, so this lives inside it).
+  const OWN_PAGE = new Set(['/', '/en/', '/404'])
+  return allRoutes()
+    .filter((r) => !OWN_PAGE.has(r.path))
+    .map((r) => ({ params: { slug: r.path.replace(/^\/|\/$/g, '') }, props: { id: r.entry.id, lang: r.lang } }))
+}
+
+interface Props {
+  id: string
+  lang: Lang
+}
+
+const { id, lang } = Astro.props
+const entry = getEntry(id)!
+const name = entry.name[lang]
+const crumbs = [
+  { label: t(lang, 'nav.home'), href: routeOf('home', lang) },
+  ...sectionChain(entry).map((hub) => ({ label: (hub.shortName ?? hub.name)[lang], href: routeOf(hub.id, lang) })),
+  { label: (entry.shortName ?? entry.name)[lang] },
+]
+const linkable = (e: RegistryEntry) => !e.route.bn.includes('[')
+const items = (entry.kind === 'hub' ? hubItems(entry) : []).filter(linkable)
+const notFound = entry.id === 'not-found'
+const isSearch = entry.id === 'search'
+---
+
+<Shell title={name} description={entry.description[lang]} noindex>
+  <div class="mx-auto w-full max-w-[calc(var(--container-content)+3rem)] px-6 pt-6 pb-10 lg:pt-10" data-placeholder={entry.id}>
+    {
+      notFound ? (
+        <NotFound lang={lang} homeHref={routeOf('home', lang)} />
+      ) : (
+        <>
+          <Breadcrumb items={crumbs} label={t(lang, 'nav.breadcrumb')} />
+          <h1 class="mt-3 type-h1 text-ink lg:type-display-desktop-h1">{name}</h1>
+          <p class="mt-2.5 max-w-160 type-body text-soft">{entry.description[lang]}</p>
+          {isSearch ? (
+            <div class="mt-6 max-w-160">
+              <SearchResults client:load lang={lang} />
+            </div>
+          ) : (
+            <Callout class="mt-6 max-w-160" title={t(lang, 'state.comingSoonTitle')} data-coming-soon>
+              {t(lang, 'state.comingSoonBody')}
+            </Callout>
+          )}
+          {items.length > 0 && (
+            <ul class="mt-6 max-w-160">
+              {items.map((item, i) => (
+                <li>
+                  <ListRow
+                    href={routeOf(item.id, lang)}
+                    title={(item.shortName ?? item.name)[lang]}
+                    subtitle={item.description[lang]}
+                    last={i === items.length - 1}
+                  />
+                </li>
+              ))}
+            </ul>
+          )}
+        </>
+      )
+    }
+  </div>
+</Shell>
+
+<script>
+  import { collectionsFor, getPlatform } from '@hisab/platform/index'
+
+  // Remember opened tools and guides for the home page's "তোমার টুল" row.
+  const main = document.querySelector<HTMLElement>('main[data-entry]')
+  const kind = main?.dataset.kind
+  if (main?.dataset.entry && kind && ['tool', 'mfs', 'guide', 'bank', 'remittance'].includes(kind)) {
+    void collectionsFor(getPlatform().store).recents.push(main.dataset.entry).catch(() => undefined)
+  }
+</script>

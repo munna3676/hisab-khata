@@ -36,6 +36,13 @@ export const DRAFT_BN_KEYS: readonly MessageKey[] = [
   'nav.back',
   'state.staleBanner',
   'shareCard.shareText',
+  'home.yourTools',
+  'home.perThousand',
+  'home.unverified',
+  'home.unverifiedNote',
+  'home.banglaMainNote',
+  'state.comingSoonTitle',
+  'state.comingSoonBody',
 ]
 
 // {name} inserts a value; {count:bank|banks} picks the first word when count is 1, else the second.

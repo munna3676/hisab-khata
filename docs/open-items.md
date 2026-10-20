@@ -18,7 +18,9 @@ follow-up for a later phase. Re-check this list in the final audit.
 
 ## Follow-ups for page building (phase 3+)
 
-- SearchBar needs more sizes: Figma pages use 342×44, 560×60 and 1080×44.
+- ~~SearchBar needs more sizes~~: done in phase 3a (`hero` 560×60, `medium` 44px bordered
+  field without a button for the 342×44 / 1080×44 search fields; check `medium` against the
+  search screens when they are built).
 - AnswerCard has a new `question` field; Priyo Agent leads bKash cash-out cards.
 - mfs-compare ranks can tie (1, 1, 3); name-spelling has new validation results
   for more than 40 name parts or 10 documents.
@@ -50,3 +52,26 @@ follow-up for a later phase. Re-check this list in the final audit.
 - name-spelling: sound matching is heuristic (Hasan vs Hossain reads as a
   spelling difference); a 2–2 split with an English reference goes to the
   reference's script.
+
+## Phase 3a (site shell and Home), 2026-10-20
+
+- Home deviations from Figma: while the MFS Facts are unverified, আজকের খাতা shows a
+  "যাচাই বাকি" badge and a one-line note instead of the green Verified Line, so the card is
+  taller than in 01 Home / D1. The tool cards use the longer mobile descriptions on desktop too.
+  English (A10 is an abbreviated frame) gets the full home with English copy; its chips,
+  section subtitles, today rows and tool texts are translations (not in Figma). Desktop
+  section links are at least 44px wide, so they sit 4px further apart than in D1.
+- New draft Bangla copy (in DRAFT_BN_KEYS): home.yourTools, home.perThousand,
+  home.unverified, home.unverifiedNote, home.banglaMainNote, state.comingSoonTitle/Body.
+- The "তোমার টুল" row (favourites, then recents from @hisab/platform) has no Figma frame; it is
+  hidden when empty, so a first visit matches Figma. Placeholder tool pages record recents.
+- Every non-home registry route is a noindex placeholder (title, breadcrumb, "শীঘ্রই আসছে");
+  hubs list their pages. /search already runs the offline index, but its island bundles the
+  registry and synonyms (about 200 KB raw); trim it when the real search screen is built.
+- og:image is the 512px app icon until a 1200×630 share image exists. The site origin is
+  https://hisabkhata.com (override with SITE=…); confirm the production domain.
+- Build output uses `build.format: 'preserve'` so URLs match the registry (`/tools/emi`, `/en/`);
+  check Cloudflare Pages serves `/tools/emi` from `tools/emi.html` without a redirect.
+- View transitions: forward/back typing uses the Navigation API (Chromium); Safari gets the
+  forward slide in both directions.
+- The date line is built at build time and recomputed on load for today in Asia/Dhaka.

@@ -62,7 +62,13 @@
     "allSections": "All sections",
     "todayLedger": "Today's ledger",
     "seeAll": "See all",
-    "seeAllTools": "See all 50+ tools →"
+    "seeAllTools": "See all 50+ tools →",
+    "searchPlaceholder": "e.g. bKash cash out 5000",
+    "yourTools": "Your tools",
+    "perThousand": "{amount} per 1,000",
+    "unverified": "Not yet verified",
+    "unverifiedNote": "These rates have not been checked at the official source yet. Confirm them before a transaction.",
+    "banglaMainNote": "Bangla is the main language. Tap the globe icon to switch back."
   },
   "allTools": {
     "title": "All tools",
@@ -312,7 +318,9 @@
     "notFoundBody": "The link may be old. Try searching from the home page.",
     "notFoundBodyLong": "The link may be old or wrong. Try the home page or search.",
     "notFoundPopular": "Popular pages",
-    "loading": "Loading…"
+    "loading": "Loading…",
+    "comingSoonTitle": "Coming soon",
+    "comingSoonBody": "This page is being built. Meanwhile, find another tool from the home page."
   },
   "contact": {
     "intro": "Write to report a wrong rate, suggest a new tool or ask about advertising.",

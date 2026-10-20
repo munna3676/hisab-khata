@@ -1,6 +1,6 @@
 import { join } from 'node:path'
 import { fileURLToPath } from 'node:url'
-import type { Page } from '@playwright/test'
+import type { Locator, Page } from '@playwright/test'
 
 export type Theme = 'light' | 'dark'
 export const THEMES: Theme[] = ['light', 'dark']
@@ -35,4 +35,27 @@ export async function settle(page: Page) {
       (el) => !el.hasAttribute('ssr') || el.getAttribute('client') === 'visible' || el.getAttribute('client') === 'only',
     ),
   )
+}
+
+/**
+ * Interactive elements under `root` whose hit area is smaller than 44x44 px (padding included).
+ * Inline links inside running text are exempt (WCAG 2.5.8); mark others with data-tap-exempt.
+ */
+export async function smallTapTargets(root: Locator): Promise<string[]> {
+  return root.evaluate((el) => {
+    const sel = 'a[href], button, input:not([type=hidden]), select, textarea, summary, [role=button], [role=tab], [role=switch], [role=option], [role=menuitem], [role=checkbox], [role=radio]'
+    const out: string[] = []
+    for (const node of el.querySelectorAll<HTMLElement>(sel)) {
+      if (node.closest('[data-tap-exempt]')) continue
+      // A visually hidden input is hit through its <label>; measure that instead.
+      const target = node.matches('input') && node.getBoundingClientRect().width <= 1 ? node.closest('label') : node
+      if (!target) continue
+      const r = target.getBoundingClientRect()
+      if (r.width === 0 && r.height === 0) continue // not rendered (closed sheet, hidden variant)
+      const inlineInText = target.matches('a') && getComputedStyle(target).display === 'inline' && !!target.closest('p, li, td')
+      if (inlineInText) continue
+      if (r.width < 44 || r.height < 44) out.push(`${target.tagName.toLowerCase()} "${(target.textContent ?? '').trim().slice(0, 40)}" ${Math.round(r.width)}x${Math.round(r.height)}`)
+    }
+    return out
+  })
 }

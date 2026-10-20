@@ -38,6 +38,18 @@ importers:
       '@hisab/core':
         specifier: workspace:*
         version: link:../../packages/core
+      '@hisab/data':
+        specifier: workspace:*
+        version: link:../../packages/data
+      '@hisab/i18n':
+        specifier: workspace:*
+        version: link:../../packages/i18n
+      '@hisab/platform':
+        specifier: workspace:*
+        version: link:../../packages/platform
+      '@hisab/search':
+        specifier: workspace:*
+        version: link:../../packages/search
       '@hisab/tokens':
         specifier: workspace:*
         version: link:../../packages/tokens

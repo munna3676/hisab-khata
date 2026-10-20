@@ -3,3 +3,85 @@
 @import "@hisab/tokens/tokens.css";
 @import "@hisab/tokens/theme.css";
 @import "@hisab/ui/styles.css";
+
+/*
+ * Page transitions (docs/decisions/0001-stack.md, Animation → Page transitions, web):
+ * cross-document View Transitions. The page crossfades with a 16px slide (from the right going
+ * forward, from the left going back: Shell.astro adds the 'back' type). The top bar, desktop
+ * header and bottom nav have their own names and simply stay put. Lite and reduced motion get a
+ * plain crossfade at --duration-page (150ms / 100ms); browsers without support just navigate.
+ */
+@view-transition {
+  navigation: auto;
+}
+
+@keyframes hk-vt-fade-out {
+  to {
+    opacity: 0;
+  }
+}
+@keyframes hk-vt-fade-in {
+  from {
+    opacity: 0;
+  }
+}
+@keyframes hk-vt-slide-from-end {
+  from {
+    translate: 16px 0;
+  }
+}
+@keyframes hk-vt-slide-to-start {
+  to {
+    translate: -16px 0;
+  }
+}
+@keyframes hk-vt-slide-from-start {
+  from {
+    translate: -16px 0;
+  }
+}
+@keyframes hk-vt-slide-to-end {
+  to {
+    translate: 16px 0;
+  }
+}
+
+::view-transition-old(root) {
+  animation:
+    var(--duration-page) var(--ease-in) both hk-vt-fade-out,
+    var(--duration-page) var(--ease-in) both hk-vt-slide-to-start;
+}
+::view-transition-new(root) {
+  animation:
+    var(--duration-page) var(--ease-out) both hk-vt-fade-in,
+    var(--duration-page) var(--ease-out) both hk-vt-slide-from-end;
+}
+html:active-view-transition-type(back)::view-transition-old(root) {
+  animation-name: hk-vt-fade-out, hk-vt-slide-to-end;
+}
+html:active-view-transition-type(back)::view-transition-new(root) {
+  animation-name: hk-vt-fade-in, hk-vt-slide-from-start;
+}
+
+/* Lite and reduced motion: opacity only. */
+html:not([data-motion="full"])::view-transition-old(root) {
+  animation: var(--duration-page) linear both hk-vt-fade-out;
+}
+html:not([data-motion="full"])::view-transition-new(root) {
+  animation: var(--duration-page) linear both hk-vt-fade-in;
+}
+
+/* The bars stay still: no group morph, the new bar replaces the old one at once. */
+::view-transition-group(hk-top-bar),
+::view-transition-group(hk-desktop-header),
+::view-transition-group(hk-bottom-nav),
+::view-transition-new(hk-top-bar),
+::view-transition-new(hk-desktop-header),
+::view-transition-new(hk-bottom-nav) {
+  animation: none;
+}
+::view-transition-old(hk-top-bar),
+::view-transition-old(hk-desktop-header),
+::view-transition-old(hk-bottom-nav) {
+  display: none;
+}

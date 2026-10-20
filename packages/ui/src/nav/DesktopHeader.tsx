@@ -94,7 +94,7 @@ export function DesktopHeader({
               key={`${i}-${link.label}`}
               href={link.href}
               aria-current={link.current ? 'page' : undefined}
-              class="hk-nav-link pressable [--hover-tint-opacity:0] inline-flex min-h-touch shrink-0 items-center rounded-input font-body text-[0.9375rem] leading-6 font-medium whitespace-nowrap text-soft hover:text-ink aria-[current=page]:text-accent"
+              class="hk-nav-link pressable [--hover-tint-opacity:0] inline-flex min-h-touch min-w-touch shrink-0 items-center justify-center rounded-input font-body text-[0.9375rem] leading-6 font-medium whitespace-nowrap text-soft hover:text-ink aria-[current=page]:text-accent"
             >
               <span class="link-underline">{link.label}</span>
             </a>

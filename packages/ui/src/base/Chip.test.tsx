@@ -16,6 +16,21 @@ describe('Chip', () => {
     expect(chip.hasAttribute('aria-pressed')).toBe(false)
   })
 
+  it('href renders a link chip with the same 44px hit area and no pressed state', () => {
+    render(
+      <Chip href="/search?q=EMI" numeric={false} selected>
+        লোন EMI
+      </Chip>,
+    )
+    const link = screen.getByRole('link', { name: 'লোন EMI' })
+    expect(link.getAttribute('href')).toBe('/search?q=EMI')
+    expect(link.className).toContain('min-h-touch')
+    expect(link.className).toContain('type-label')
+    expect(link.className).toContain('before:bg-sheet')
+    expect(link.hasAttribute('aria-pressed')).toBe(false)
+    expect(screen.queryByRole('button')).toBeNull()
+  })
+
   it('selected sets aria-pressed and the accent colours', () => {
     render(<Chip selected>৫,০০০</Chip>)
     const chip = screen.getByRole('button', { name: '৫,০০০' })

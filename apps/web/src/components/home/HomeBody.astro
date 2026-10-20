@@ -1,0 +1,153 @@
+---
+// The home page body, Bangla at / and English at /en/ (Figma 01 Home 11:2 below lg,
+// D1 Home — Desktop 19:2 from lg, 15 Home — Dark mode 18:1959, A10 Home — English 25:4022).
+import { getEntry, registry } from '@hisab/data/registry'
+import { t } from '@hisab/i18n/messages'
+import { routeOf } from '@hisab/i18n/routes'
+import { AdSlot, Chip, SearchBar } from '@hisab/ui/base'
+import { Callout } from '@hisab/ui/base'
+import { POPULAR, SECTIONS, SECTION_TITLE_KEY, dateLine, popularTools, searchHref, todayInDhaka } from '../../lib/home'
+import type { Lang } from '../../lib/site'
+import TodayBox from './TodayBox.astro'
+import { HomeSectionCard, HomeToolCard } from './HomeParts'
+import { YourTools } from './YourTools'
+
+interface Props {
+  lang: Lang
+}
+
+const { lang } = Astro.props
+const today = todayInDhaka()
+const home = getEntry('home')!
+const tools = popularTools(lang)
+const allTools = routeOf('all-tools', lang)
+
+// Pages the "your tools" row may show (no [param] routes): id → name and route in this language.
+const pages = Object.fromEntries(
+  registry.entries
+    .filter((e) => ['tool', 'mfs', 'guide', 'bank', 'remittance', 'hub'].includes(e.kind) && !e.route.bn.includes('['))
+    .map((e) => [e.id, { name: (e.shortName ?? e.name)[lang], href: routeOf(e.id, lang) }]),
+)
+---
+
+<div class="mx-auto w-full max-w-[calc(var(--container-content)+3rem)] px-6 pt-6 pb-8 lg:pt-14 lg:pb-14" data-home>
+  <!-- Hero: date, title, intro, search and popular searches; the desktop card sits to the right. -->
+  <div class="lg:flex lg:items-start lg:justify-between lg:gap-14">
+    <div class="min-w-0 lg:w-156">
+      <p class="type-body-small text-soft" data-date-line data-lang={lang}>{dateLine(lang, today)}</p>
+      <h1 class="mt-2.5 type-h1 text-ink lg:mt-4 lg:type-display-desktop-h1">{home.name[lang]}</h1>
+      <p class="mt-2.5 type-body text-soft lg:mt-4">
+        <span class="lg:hidden">{t(lang, 'app.intro')}</span>
+        <span class="hidden lg:inline">{t(lang, 'app.introDesktop')}</span>
+      </p>
+      <SearchBar
+        class="mt-6 lg:hidden"
+        size="large"
+        action={routeOf('search', lang)}
+        placeholder={t(lang, 'home.searchPlaceholder')}
+        label={t(lang, 'search.label')}
+        buttonLabel={t(lang, 'nav.search')}
+        id="home-search-mobile"
+      />
+      <SearchBar
+        class="mt-4 hidden w-140 max-w-full lg:flex"
+        size="hero"
+        action={routeOf('search', lang)}
+        placeholder={t(lang, 'home.searchPlaceholder')}
+        label={t(lang, 'search.label')}
+        buttonLabel={t(lang, 'nav.search')}
+        id="home-search-desktop"
+      />
+      <section aria-labelledby="popular-title" class="mt-6 lg:mt-2 lg:flex lg:items-center lg:gap-2">
+        <h2 id="popular-title" class="type-label font-medium text-soft lg:shrink-0 lg:font-body lg:text-[0.875rem]">
+          <span class="lg:hidden">{t(lang, 'search.popular')}</span>
+          <span class="hidden lg:inline">{t(lang, 'search.popularInline')}</span>
+        </h2>
+        <ul class="mt-1.5 flex flex-wrap gap-x-2 lg:mt-0">
+          {POPULAR[lang].map((query, i) => (
+            <li class:list={[i >= 4 && 'lg:hidden']}>
+              <Chip href={searchHref(lang, query)} numeric={false} class="font-medium">
+                {query}
+              </Chip>
+            </li>
+          ))}
+        </ul>
+      </section>
+    </div>
+    <TodayBox lang={lang} today={today} variant="desktop" class="mt-1 hidden w-100 shrink-0 lg:block" />
+  </div>
+
+  <div class="mt-6 empty:hidden lg:mt-8">
+    <YourTools client:idle title={t(lang, 'home.yourTools')} pages={pages} />
+  </div>
+
+  <!-- সব বিভাগ: two per row on phones, three on tablets, six on the desktop. -->
+  <section aria-labelledby="sections-title" class="mt-6 lg:mt-12">
+    <h2 id="sections-title" class="type-h3 text-ink lg:type-h2">{t(lang, 'home.allSections')}</h2>
+    <ul class="mt-6 grid grid-cols-2 gap-3 md:grid-cols-3 lg:mt-4 lg:grid-cols-6 lg:gap-4.5">
+      {
+        SECTIONS.map((s) => {
+          const key = SECTION_TITLE_KEY[s.id as keyof typeof SECTION_TITLE_KEY]
+          return (
+            <li class="flex">
+              <HomeSectionCard
+                href={routeOf(s.id, lang)}
+                title={key ? t(lang, key) : getEntry(s.id)!.name[lang]}
+                icon={s.icon}
+                mobile={s.subtitle[lang].mobile}
+                desktop={s.subtitle[lang].desktop}
+              />
+            </li>
+          )
+        })
+      }
+    </ul>
+  </section>
+
+  <TodayBox lang={lang} today={today} variant="mobile" class="mt-6 lg:hidden" />
+
+  <!-- জনপ্রিয় টুল: four cards on phones, six in two columns on the desktop. -->
+  <section aria-labelledby="tools-title" class="mt-6 lg:mt-12">
+    <div class="flex items-baseline justify-between gap-4">
+      <h2 id="tools-title" class="type-h3 text-ink lg:type-h2">{t(lang, 'home.popularTools')}</h2>
+      <a href={allTools} class="pressable -my-3 inline-flex min-h-touch shrink-0 items-center rounded-input type-label text-blue">
+        <span class="link-underline lg:hidden">{t(lang, 'home.seeAll')}</span>
+        <span class="link-underline hidden lg:inline">{t(lang, 'home.seeAllTools')}</span>
+      </a>
+    </div>
+    <ul class="mt-6 grid gap-2.5 md:grid-cols-2 md:gap-4 lg:mt-4">
+      {
+        tools.map((tool, i) => (
+          <li class:list={['flex', i >= 4 && 'hidden md:flex']}>
+            <HomeToolCard tool={tool} href={routeOf(tool.id, lang)} />
+          </li>
+        ))
+      }
+    </ul>
+  </section>
+
+  {
+    lang === 'en' && (
+      <Callout class="mt-6" tone="info">
+        {t(lang, 'home.banglaMainNote')}
+      </Callout>
+    )
+  }
+
+  <div class="mt-6 flex justify-center lg:mt-12">
+    <AdSlot size="responsive" label={t(lang, 'content.advertisement')} />
+  </div>
+</div>
+
+<script>
+  import { dateLine, todayInDhaka } from '../../lib/dates'
+  import { banglaDateText } from '../../lib/dates'
+
+  // The page is static: refresh the date line and the Bangla date to today (Asia/Dhaka) on load.
+  const today = todayInDhaka()
+  for (const el of document.querySelectorAll<HTMLElement>('[data-date-line]')) {
+    const lang = el.dataset.lang === 'en' ? 'en' : 'bn'
+    el.textContent = dateLine(lang, today)
+    for (const cell of document.querySelectorAll('[data-bangla-date]')) cell.textContent = banglaDateText(lang, today)
+  }
+</script>

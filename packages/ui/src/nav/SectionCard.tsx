@@ -6,8 +6,8 @@ import { IconTile } from './IconTile'
 export interface SectionCardProps extends Omit<AnchorHTMLAttributes<HTMLAnchorElement>, 'class' | 'title' | 'icon'> {
   href: string
   title: string
-  /** One line of what is inside, e.g. "বিকাশ, নগদ, রকেট, উপায়". */
-  subtitle?: string
+  /** One line of what is inside, e.g. "বিকাশ, নগদ, রকেট, উপায়" (or markup, e.g. a shorter desktop line). */
+  subtitle?: ComponentChildren
   /** 22px icon for the tile; defaults to the wallet. */
   icon?: ComponentChildren
   titleAs?: 'h2' | 'h3' | 'h4' | 'span'
@@ -32,7 +32,7 @@ export function SectionCard({ href, title, subtitle, icon, titleAs: Title = 'h3'
     >
       <IconTile>{icon ?? <Wallet size={22} />}</IconTile>
       <Title class="font-body text-[0.9375rem] leading-5.25 font-semibold text-ink">{title}</Title>
-      {subtitle && <span class="font-body text-[0.75rem] leading-4.25 text-soft">{subtitle}</span>}
+      {subtitle != null && subtitle !== '' && <span class="font-body text-[0.75rem] leading-4.25 text-soft">{subtitle}</span>}
     </a>
   )
 }

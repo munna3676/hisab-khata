@@ -1,8 +1,9 @@
 ---
-import TokenShowcase from '../../components/TokenShowcase.astro'
-import Base from '../../layouts/Base.astro'
+import HomeBody from '../../components/home/HomeBody.astro'
+import Shell from '../../layouts/Shell.astro'
+import { t } from '@hisab/i18n/messages'
 ---
 
-<Base>
-  <TokenShowcase />
-</Base>
+<Shell fullTitle={`${t('en', 'app.name')} · ${t('en', 'app.tagline')}`} description={t('en', 'app.intro')}>
+  <HomeBody lang="en" />
+</Shell>

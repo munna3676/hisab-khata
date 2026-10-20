@@ -23,6 +23,28 @@ describe('SearchBar', () => {
     expect(screen.queryByRole('button')).toBeNull()
   })
 
+  it('hero: the 60px desktop home bar with the button', () => {
+    render(<SearchBar size="hero" />)
+    const form = screen.getByRole('search')
+    expect(form.className).toContain('h-15')
+    expect(form.className).toContain('border-[1.5px]')
+    expect(form.className).not.toContain('h-14')
+    expect(screen.getByRole('button', { name: 'খোঁজো' })).toBeTruthy()
+    expect((screen.getByRole('searchbox') as HTMLInputElement).className).toContain('type-body')
+  })
+
+  it('medium: a bordered 44px field without a button, input still 44px', () => {
+    render(<SearchBar size="medium" />)
+    const form = screen.getByRole('search')
+    expect(form.className).toContain('h-11')
+    expect(form.className).toContain('border-line')
+    expect(form.className).not.toContain('bg-subtle')
+    expect(screen.queryByRole('button')).toBeNull()
+    const input = screen.getByRole('searchbox') as HTMLInputElement
+    expect(input.className).toContain('h-11')
+    expect(input.className).toContain('type-body-small')
+  })
+
   it('onSearch replaces navigation with the trimmed query', () => {
     const onSearch = vi.fn()
     render(<SearchBar onSearch={onSearch} />)

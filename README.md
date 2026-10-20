@@ -7,11 +7,11 @@ Android apps.
 
 | Path | What it holds |
 |---|---|
-| `apps/web` | Astro 7 static site, Preact islands, Tailwind 4 (Bangla at `/`, English at `/en/`, component gallery at `/dev/gallery`) |
+| `apps/web` | Astro 7 static site, Preact islands, Tailwind 4: the site shell (`src/layouts/Shell.astro`), the Home page (Bangla at `/`, English at `/en/`), a noindex placeholder for every other registry route, component gallery at `/dev/gallery`, token showcase at `/dev/tokens` |
 | `packages/core` | Calculation engines for every tool (pure TypeScript, tested) |
 | `packages/tokens` | Design tokens from the Figma file (light + dark + motion) → `dist/tokens.css` and the Tailwind `dist/theme.css` |
 | `packages/ui` | Preact components, icons and the motion utilities, shared by the website and the app (see its README) |
-| `tests/visual` | Playwright: gallery screenshots at 390/1440 px in light and dark, axe, touch targets, token checks |
+| `tests/visual` | Playwright: gallery screenshots at 390/1440 px and Home at 360/390/768/1024/1440 px in light and dark, axe, touch targets, no sideways scroll, registry routes, Home links, hreflang pairs, view transitions, token checks |
 | `data/` | Every rate, charge and slab as a Fact with its source and checked date |
 | `docs/decisions/0001-stack.md` | Chosen stack and the phased build plan |
 | `docs/engine-review.md` | Open questions and data to confirm for each engine |
@@ -27,6 +27,8 @@ SECTION=base PORT=4401 pnpm shots   # screenshots of /dev/gallery#base only
 pnpm check:data             # every Fact has a source; warns when one is over 60 days old
 ```
 
-Screenshots land in `test-results/gallery/<section|all>/<theme>-<width>.png`.
+Screenshots land in `test-results/gallery/<section|all>/<theme>-<width>.png` and
+`test-results/home/<bn|en>-<theme>-<width>.png`. Web icons (favicon, apple-touch-icon,
+manifest icons) are made from `design/launch/app-icon-1024.png` by `node scripts/make-icons.mjs`.
 In this container Playwright uses the preinstalled Chromium at
 `/opt/pw-browsers/chromium` automatically; never run `playwright install` here.

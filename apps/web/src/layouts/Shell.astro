@@ -1,0 +1,126 @@
+---
+// The site shell around every real page (docs/decisions/0001-stack.md, Responsive layout).
+//   below lg (1024px): Top Bar, content, Footer (stacked), fixed Bottom Nav with safe-area padding
+//   from lg:           Desktop Header (section links, compact search, language, theme), content, Footer
+// The header and the bottom nav carry view-transition names so they stay still across pages;
+// the theme toggle works without hydrating the bars (the script below), so the shell ships no framework JS.
+import { t } from '@hisab/i18n/messages'
+import { BottomNav, DesktopHeader, Footer, TopBar } from '@hisab/ui/nav'
+import {
+  activeTab,
+  alternates,
+  bottomNavItems,
+  copyright,
+  entryForPath,
+  footerLinks,
+  langOfPath,
+  pagePath,
+  routeOf,
+  sectionLinks,
+} from '../lib/site'
+import Base from './Base.astro'
+
+interface Props {
+  title?: string
+  fullTitle?: string
+  description?: string
+  noindex?: boolean
+}
+
+const { title, fullTitle, description, noindex } = Astro.props
+const path = pagePath(Astro.url.pathname)
+const lang = langOfPath(path)
+const other = lang === 'bn' ? 'en' : 'bn'
+const entry = entryForPath(path)
+const languageHref = alternates(path)[other]
+const home = routeOf('home', lang)
+const search = routeOf('search', lang)
+const name = t(lang, 'app.name')
+---
+
+<Base title={title} fullTitle={fullTitle} description={description} noindex={noindex}>
+  <script is:inline slot="head">
+    // Cross-document view transitions: mark going back in history so the slide reverses
+    // (CSS in styles/global.css). Must run before the first frame, hence inline in <head>.
+    ;(function () {
+      function isBack(a) {
+        return !!(a && a.navigationType === 'traverse' && a.from && a.entry && a.entry.index < a.from.index)
+      }
+      addEventListener('pageswap', function (e) {
+        if (e.viewTransition) e.viewTransition.types.add(isBack(e.activation) ? 'back' : 'forward')
+      })
+      addEventListener('pagereveal', function (e) {
+        if (e.viewTransition && window.navigation) e.viewTransition.types.add(isBack(navigation.activation) ? 'back' : 'forward')
+      })
+    })()
+  </script>
+  <!-- Visually hidden until focused (so exempt from the 44px check); focused it is a 44px button. -->
+  <a
+    href="#main"
+    data-tap-exempt
+    class="sr-only z-50 items-center rounded-input bg-accent type-label text-on-accent focus-visible:not-sr-only focus-visible:fixed focus-visible:top-2 focus-visible:left-2 focus-visible:inline-flex focus-visible:min-h-touch focus-visible:px-4"
+  >
+    {t(lang, 'nav.skipToContent')}
+  </a>
+  <div class="flex min-h-dvh flex-col pb-[calc(var(--spacing)*16+max(var(--space-2),env(safe-area-inset-bottom)))] lg:pb-0" data-shell>
+    <TopBar
+      class="lg:hidden"
+      name={name}
+      homeHref={home}
+      searchHref={search}
+      languageHref={languageHref}
+      languageCode={other}
+      labels={{ search: t(lang, 'search.label'), language: t(lang, 'nav.switchLanguage'), theme: t(lang, 'nav.darkMode') }}
+      transitionName="hk-top-bar"
+    />
+    <DesktopHeader
+      class="hidden lg:block"
+      name={name}
+      homeHref={home}
+      links={sectionLinks(lang, entry)}
+      searchAction={search}
+      languageHref={languageHref}
+      languageCode={other}
+      labels={{
+        nav: t(lang, 'nav.mainSections'),
+        search: t(lang, 'search.label'),
+        searchPlaceholder: t(lang, 'search.placeholderExample'),
+        language: t(lang, 'nav.switchLanguage'),
+        theme: t(lang, 'nav.darkMode'),
+      }}
+      transitionName="hk-desktop-header"
+    />
+    <main id="main" tabindex="-1" class="flex-1 focus-visible:outline-none" data-entry={entry?.id} data-kind={entry?.kind}>
+      <slot />
+    </main>
+    <Footer
+      name={name}
+      homeHref={home}
+      description={t(lang, 'footer.blurb')}
+      links={footerLinks(lang)}
+      linksLabel={t(lang, 'footer.label')}
+      copyright={copyright(lang)}
+    />
+  </div>
+  <BottomNav items={bottomNavItems(lang)} active={activeTab(entry)} label={t(lang, 'nav.mainMenu')} transitionName="hk-bottom-nav" />
+</Base>
+
+<script>
+  import { currentTheme, setThemeSetting } from '@hisab/ui/lib'
+
+  // The bars are server-rendered without hydration: wire their theme toggles here.
+  const sync = () => {
+    const theme = currentTheme()
+    for (const button of document.querySelectorAll('[data-theme-toggle]')) button.setAttribute('aria-pressed', String(theme === 'dark'))
+    // Browser chrome follows the chosen theme, not just the system one.
+    const color = getComputedStyle(document.documentElement).getPropertyValue('--bg-sheet').trim()
+    if (color) for (const meta of document.querySelectorAll('meta[data-theme-color]')) meta.setAttribute('content', color)
+  }
+  document.addEventListener('click', (event) => {
+    const button = (event.target as Element | null)?.closest('[data-theme-toggle]')
+    if (!button) return
+    setThemeSetting(currentTheme() === 'dark' ? 'light' : 'dark')
+  })
+  new MutationObserver(sync).observe(document.documentElement, { attributes: true, attributeFilter: ['data-theme'] })
+  sync()
+</script>

@@ -1,0 +1,58 @@
+---
+// আজকের খাতা (Figma 01 Home "today" 11:160, D1 "card" 19:87): today's Bangla date and cash-out
+// prices per 1,000 from data/mfs-charges.json. While those Facts are unverified the card says so
+// (badge + note) instead of showing the green Verified Line.
+import { Badge, formatCheckedDate } from '@hisab/ui/base'
+import { Verified } from '@hisab/ui/icons'
+import { t } from '@hisab/i18n/messages'
+import type { CalendarDate } from '@hisab/core/lib/dates-calendar'
+import { todayLedger } from '../../lib/home'
+import { TodayRows } from './HomeParts'
+import type { Lang } from '../../lib/site'
+
+interface Props {
+  lang: Lang
+  today: CalendarDate
+  variant: 'mobile' | 'desktop'
+  class?: string
+}
+
+const { lang, today, variant, class: className } = Astro.props
+const ledger = todayLedger(lang, today)
+const rows = ledger.rows.filter((row) => variant === 'desktop' || !row.desktopOnly)
+const headingId = `today-${variant}`
+const checkedShort = formatCheckedDate(ledger.checked, lang).replace(/\s\S+$/, '')
+---
+
+<section
+  aria-labelledby={headingId}
+  class:list={[
+    'rounded-[12px] border border-line bg-sheet',
+    variant === 'mobile' ? 'px-5 pt-4 pb-3' : 'px-6 pt-6 pb-6',
+    className,
+  ]}
+  data-today={variant}
+>
+  <div class:list={['flex items-start justify-between gap-3', variant === 'desktop' && 'pb-1']}>
+    <h2 id={headingId} class="type-h3 text-ink">{t(lang, 'home.todayLedger')}</h2>
+    {
+      ledger.verified ? (
+        <p class="mt-0.5 flex items-center gap-1.5 font-body text-[0.8125rem]/[1.375rem] text-soft">
+          <span class="text-good">
+            <Verified size={20} />
+          </span>
+          <span>
+            <span class="sr-only">{t(lang, 'verified.checked')}: </span>
+            <time datetime={ledger.checked}>{checkedShort}</time>
+          </span>
+        </p>
+      ) : (
+        <Badge tone="warn" class="mt-0.5" data-unverified>
+          {t(lang, 'home.unverified')}
+        </Badge>
+      )
+    }
+  </div>
+  <TodayRows rows={rows} />
+  {!ledger.verified && <p class="mt-2 font-body text-[0.8125rem]/[1.375rem] text-soft">{t(lang, 'home.unverifiedNote')}</p>}
+</section>

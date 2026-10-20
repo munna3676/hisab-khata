@@ -6,8 +6,13 @@ import { useUid } from './uid'
 const SearchIcon = ICON_SET.search
 
 export interface SearchBarProps {
-  /** Large = home hero bar with the খোঁজো button (56px); Compact = header pill (40px). */
-  size?: 'large' | 'compact'
+  /**
+   * hero = desktop home bar with the খোঁজো button (Figma D1 Home, 560x60);
+   * large = mobile home bar with the button (56px, Figma 342x56);
+   * medium = bordered 44px field without a button (Figma 342x44 and 1080x44 on the search pages);
+   * compact = header pill (40px).
+   */
+  size?: 'hero' | 'large' | 'medium' | 'compact'
   placeholder?: string
   /** Accessible name of the input (the placeholder is not a label). */
   label?: string
@@ -51,7 +56,9 @@ export function SearchBar({
   class: className,
 }: SearchBarProps) {
   const inputId = useUid(id, 'search')
-  const large = size === 'large'
+  // hero and large share the bordered sheet look and the submit button; medium is bordered without one.
+  const large = size === 'large' || size === 'hero'
+  const bordered = large || size === 'medium'
 
   const submit = (event: JSX.TargetedSubmitEvent<HTMLFormElement>) => {
     if (!onSearch) return
@@ -69,11 +76,14 @@ export function SearchBar({
       onSubmit={submit}
       class={cx(
         'relative isolate flex min-w-0 items-center gap-2.5 pl-4',
-        large
-          ? // Figma: 56px, sheet, 1.5px line border, 12px corners, 0 4 16 shadow at 6%.
-            "h-14 rounded-[12px] border-[1.5px] border-line bg-sheet pr-2 before:pointer-events-none before:absolute before:-inset-[1.5px] before:-z-10 before:rounded-[inherit] before:opacity-50 before:shadow-[0_4px_16px_var(--overlay-shadow)] before:content-['']"
-          : 'h-10 rounded-full bg-subtle pr-3',
-        large ? 'after:-inset-[1.5px]' : 'after:inset-0',
+        large &&
+          // Figma: 56px (60 on the desktop home), sheet, 1.5px line border, 12px corners, 0 4 16 shadow at 6%.
+          "rounded-[12px] border-[1.5px] border-line bg-sheet pr-2 before:pointer-events-none before:absolute before:-inset-[1.5px] before:-z-10 before:rounded-[inherit] before:opacity-50 before:shadow-[0_4px_16px_var(--overlay-shadow)] before:content-['']",
+        size === 'hero' && 'h-15',
+        size === 'large' && 'h-14',
+        size === 'medium' && 'h-11 rounded-card border-[1.5px] border-line bg-sheet pr-3',
+        size === 'compact' && 'h-10 rounded-full bg-subtle pr-3',
+        bordered ? 'after:-inset-[1.5px]' : 'after:inset-0',
         // The 2px blue ring shows while the input has focus (not the button, which has its own ring).
         "after:pointer-events-none after:absolute after:rounded-[inherit] after:border-2 after:border-blue after:opacity-0 after:transition-opacity after:duration-hover after:ease-out after:content-[''] has-[input:focus]:after:opacity-100",
         className,
@@ -95,6 +105,7 @@ export function SearchBar({
         onInput={(event: JSX.TargetedEvent<HTMLInputElement>) => onInput?.(event.currentTarget.value)}
         onFocus={onFocus}
         class={cx(
+          // 44px everywhere; inside the 44px medium field it overhangs the 1.5px border, centred.
           'hk-search-input h-11 min-w-0 flex-1 truncate bg-transparent text-ink outline-hidden placeholder:text-soft',
           large ? 'type-body' : 'type-body-small',
         )}

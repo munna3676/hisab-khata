@@ -6,9 +6,16 @@ import { defineConfig } from 'astro/config'
 // Each port gets its own Vite cache so parallel servers never race on dependency optimisation.
 const port = Number(process.env.PORT) || 4321
 
+// Canonical, hreflang and Open Graph URLs are absolute on this origin (SITE overrides it for previews).
+const site = process.env.SITE || 'https://hisabkhata.com'
+
 export default defineConfig({
+  site,
   output: 'static',
   trailingSlash: 'ignore',
+  // 'preserve' keeps the registry's URL shapes: index pages are folders ('/', '/en/'), every other
+  // page is '<route>.html', served at the registry route without a trailing slash ('/tools/emi').
+  build: { format: 'preserve' },
   i18n: {
     locales: ['bn', 'en'],
     defaultLocale: 'bn',
