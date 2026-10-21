@@ -38,7 +38,11 @@ export const EMI_PARAMS = defineParams({
 
 - Keys are short ASCII query names; defaults are the Figma example values (the server renders
   them, so the page has a full result without JS, and the default link is the clean canonical URL).
-- `min`/`max` are only sanity bounds for links. Business limits (daily limits, slabs) belong to the
+- `min`/`max` are only sanity bounds for links: a value outside them is dropped and the default
+  is used. Make them wider than the model's limits (e.g. a discount link allows up to 1000 while
+  the model accepts 100), or a link like `?off=120` cannot show the field error.
+- An enum whose values come from data (scheme ids, operators, taxpayer categories) is still a
+  literal list here; the unit test asserts it matches the data file. Business limits (daily limits, slabs) belong to the
   model, so the person sees the C1-d style error with a fix button.
 - Quick-value chips and other fixed UI lists go here too (`QUICK_AMOUNTS`, `TERM_CHIPS`).
 - Next to the params, an `XXX_LIMITS` object with what the engine's `validateXxx` accepts
@@ -79,8 +83,9 @@ export function emiOutcome(input: { lang: Lang; copy: EmiCopy; … }): ToolOutco
 - Use the engine's `validateXxx` before `calculateXxx`, or check the inputs first with
   `fieldIssues(values, XXX_LIMITS, rangeSay(lang, copy.wholeMonths))` from `tool/validation.ts`
   and return `{ kind: 'empty', fields }` when it finds something (the field shows the message).
-- Numbers via `taka(lang, v)` (whole taka, as the finance frames show), `num`, `plain` (rates as
-  typed: ১০, ৯.৫) and `fill(lang, text, vars)` from `tool/say.ts`, or `formatTakaIn` /
+- Numbers via `taka(lang, v)` (whole taka, as the finance frames show), `money` (paisa only when
+  there are some: VAT, prices), `num`, `plain` (rates as typed: ১০, ৯.৫), `decimal` (as few
+  decimals as needed, up to 4: ১.০৭৫) and `fill(lang, text, vars)` from `tool/say.ts`, or `formatTakaIn` /
   `formatNumberIn` from `@hisab/i18n/format` (Bangla digits on bn pages).
 - The result carries what the island shows: result card `label`/`value`/`decimals`/`sub`, the
   comparison or breakdown rows, callout text and a one-line `shareText`.
@@ -116,7 +121,9 @@ Copy `CashOutCalculator.tsx`. The pieces:
   `error={fields.x}`, `messages={fieldMessages(lang)}`, `lang`, `prefix="৳"` / `"%"` / the unit
   word, `formatOnBlur={false}` for rates), `FieldPair` (two fields on one row), `ModeSwitch`
   (a labelled SegmentedControl for modes), `ChoiceChips` (chips with labels: "৩ বছর", "৫০%"),
-  `QuickValues` (amount chips), `Select`/`Picker` as Figma shows. Keep a ৳ amount of 6+ digits on
+  `QuickValues` (amount chips), `LabeledChips` (chips under a visible label: "VAT হার", "মেয়াদ"),
+  `PickerField` from `tool/PickerField.tsx` for a Figma "select" that opens a picker sheet (P7, P8;
+  the sheet loads on the first tap; pass `search` for a search box). Keep a ৳ amount of 6+ digits on
   a full-width row: half a 390px card cannot show ৫,০০,০০০.
 - Results: `<ResultEmpty>` / `<ResultError onFix>` / `<ResultCard>` (`decimals={0}` for whole
   taka, `suffix` for "লাখ" or "কম") + `<SummaryCard title rows>` (Figma "মোট হিসাব" KV card),
@@ -158,13 +165,16 @@ report endpoint (`/api/report`, see docs/open-items.md).
   against the Figma example values (each mode and error state), the content numbers, data-backed
   defaults, and one island test (link restores inputs, typing updates the URL). Where Figma and
   the engine disagree, assert the engine's number and say so in the test name.
-- Add the island to `CASES` in `packages/pages/test/island-text.test.tsx` with links for every
-  state: it renders the island with only its own strings and fails on a missing message key.
+- Add the island to `CASES` in `packages/pages/test/island-text.test.tsx` (import its data file
+  there if it takes data props) with links for every state: it renders the island with only its own strings and fails on a missing message key.
 - `tests/visual/<id>.spec.ts`: call `toolSuite({ id, path, h1, enH1, modes, expectMode, value,
   enValue, share, ldTypes, schedule? })` from `tests/visual/tool-suite.ts` (see `emi.spec.ts`).
   It covers 390/1440 × light/dark × each mode (screenshots in `test-results/<id>/`), axe, 44px
   targets at 360/390/1440, no sideways scroll, no console errors, the English page, share link
-  restore, the no-JS result, JSON-LD, the report sheet and print (a schedule prints every row).
+  restore, the no-JS result (the result card and a `[data-summary]`, `[data-offer-table]` or
+  `[data-breakdown-table]`), JSON-LD, the report sheet and print (a schedule prints every row).
+  A mode's `expectMode` may also open a picker sheet, so the sheet gets screenshots and axe too.
+  `ldTypes` has `FAQPage` only when the tool has a FAQ.
   `tests/visual/budget.spec.ts` picks the page up from `BUILT_PAGES` by itself.
 
 ## 8. Before committing

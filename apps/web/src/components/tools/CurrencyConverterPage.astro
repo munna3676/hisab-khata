@@ -1,0 +1,22 @@
+---
+// Currency converter (registry "currency-converter", Figma F11 27:6940, P8 59:17540, D · F11
+// 66:30468) in one language. The rate sheet comes from data/finance/currency-rates.json.
+import { CURRENCY_COPY, CURRENCY_MESSAGE_KEYS, currencyContent } from '@hisab/pages/currency-converter'
+import { CurrencyCalculator } from '@hisab/pages/islands/currency-converter'
+import { islandText } from '@hisab/pages/tool'
+import ToolPage from '../tool/ToolPage.astro'
+import { dataFile } from '../../lib/data'
+import type { Lang } from '../../lib/site'
+
+interface Props {
+  lang: Lang
+}
+
+const { lang } = Astro.props
+const file = dataFile('finance/currency-rates.json')
+const content = currencyContent(lang, file)
+---
+
+<ToolPage content={content}>
+  <CurrencyCalculator client:load lang={lang} text={islandText(lang, CURRENCY_COPY, CURRENCY_MESSAGE_KEYS)} sheet={file.value} title={content.title} />
+</ToolPage>

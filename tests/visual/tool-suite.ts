@@ -133,7 +133,7 @@ export function toolSuite(s: ToolSuite) {
       await page.goto(s.path)
       await expect(page.locator('h1')).toHaveText(s.h1)
       await expect(resultValue(page)).toHaveText(s.value)
-      await expect(page.locator('[data-summary], [data-offer-table]').first()).toBeVisible()
+      await expect(page.locator('[data-summary], [data-offer-table], [data-breakdown-table]').first()).toBeVisible()
       await context.close()
     })
 

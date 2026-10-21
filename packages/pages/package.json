@@ -20,6 +20,10 @@
     "./discount-percentage": "./src/discount-percentage/index.ts",
     "./profit-margin": "./src/profit-margin/index.ts",
     "./salary": "./src/salary/index.ts",
+    "./income-tax": "./src/income-tax/index.ts",
+    "./sanchayapatra": "./src/sanchayapatra/index.ts",
+    "./currency-converter": "./src/currency-converter/index.ts",
+    "./data-pack": "./src/data-pack/index.ts",
     "./islands/*": "./src/islands/*.ts",
     "./styles.css": "./src/styles.css"
   },

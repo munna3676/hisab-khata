@@ -7,7 +7,7 @@ Android apps.
 
 | Path | What it holds |
 |---|---|
-| `apps/web` | Astro 7 static site, Preact islands, Tailwind 4: the site shell (`src/layouts/Shell.astro`), the Home page (Bangla at `/`, English at `/en/`), the calculator template and the Cash Out, EMI, DPS, FDR, loan eligibility, loan comparison, savings goal, VAT, discount and percentage, profit margin and salary pages (`/tools/<id>`, `/en/tools/<id>`), a noindex placeholder for every other registry route, component gallery at `/dev/gallery`, token showcase at `/dev/tokens` |
+| `apps/web` | Astro 7 static site, Preact islands, Tailwind 4: the site shell (`src/layouts/Shell.astro`), the Home page (Bangla at `/`, English at `/en/`), the calculator template and the Cash Out, EMI, DPS, FDR, loan eligibility, loan comparison, savings goal, VAT, discount and percentage, profit margin, salary, income tax, Sanchayapatra, currency converter and data pack pages (`/tools/<id>`, `/en/tools/<id>`), a noindex placeholder for every other registry route, component gallery at `/dev/gallery`, token showcase at `/dev/tokens` |
 | `packages/pages` | Page bodies shared with the app: the calculator page template and each tool's island (see its README and `docs/adding-a-tool.md`) |
 | `packages/core` | Calculation engines for every tool (pure TypeScript, tested) |
 | `packages/tokens` | Design tokens from the Figma file (light + dark + motion) → `dist/tokens.css` and the Tailwind `dist/theme.css` |

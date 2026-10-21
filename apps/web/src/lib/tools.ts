@@ -12,4 +12,8 @@ export const BUILT_PAGES: readonly string[] = [
   'discount-percentage',
   'profit-margin',
   'salary',
+  'income-tax',
+  'sanchayapatra',
+  'currency-converter',
+  'data-pack',
 ]

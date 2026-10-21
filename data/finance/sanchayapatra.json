@@ -86,6 +86,35 @@
       ],
       "minInvestment": 10000,
       "maxInvestment": 4500000
+    },
+    {
+      "id": "pensioner",
+      "nameBn": "পেনশনার সঞ্চয়পত্র",
+      "detailBn": "৫ বছর · অবসরপ্রাপ্তদের জন্য",
+      "years": 5,
+      "payout": "quarterly",
+      "rateSlabs": [
+        {
+          "upTo": 750000,
+          "ratePct": 11.93
+        },
+        {
+          "upTo": null,
+          "ratePct": 11.8
+        }
+      ],
+      "taxSlabs": [
+        {
+          "upTo": 500000,
+          "taxPct": 0
+        },
+        {
+          "upTo": null,
+          "taxPct": 10
+        }
+      ],
+      "minInvestment": 10000,
+      "maxInvestment": 4500000
     }
   ],
   "unit": "percent per year; BDT",

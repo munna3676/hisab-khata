@@ -163,6 +163,36 @@ follow-up for a later phase. Re-check this list in the final audit.
   data/finance/salary-presets.json; the preset's deductions (provident fund, welfare fund) are not
   shown (no Figma frame). Parts over the gross give an error with a "বাড়িভাড়া N% দিয়ে হিসাব করো"
   fix (draft copy). The page head shows "যাচাই বাকি" (Figma C5 has no verified line).
+- Income tax: the minimum-tax area is fixed to Dhaka/Chattogram city (৳৫,০০০; C6 has no area
+  field), so people elsewhere see a higher minimum than theirs; add an area choice. C6-b follows
+  Figma: the main number is the ordinary-slab tax and the sub line is the engine's freelancer result
+  with the data's 100% exemption ("পাস হলে ৳০"). Taxpayer chips are the three Figma ones (data also
+  has freedomFighter). No FAQ (none in Figma). The Figma verified line "স্ল্যাব: FY ২০২৬-২৭ ·
+  করমুক্ত সীমা ৪,০০,০০০" is the "যাচাই বাকি" state while the file is unverified.
+- Sanchayapatra, Figma vs engine/data: Figma C7 takes a flat 10% tax (হাতে ৳৪,৪৭৪); the data's
+  NBR slab is 5% up to ৳৫ লাখ, so the page shows হাতে ৳৪,৭২২ (৳৪,৯৭১ profit matches). The callout
+  still quotes the Finance Bill's 10% proposal (Figma copy). The rate table is built from data:
+  the chosen scheme's slabs plus the other schemes' range (১১.৮% – ১১.৯৩%); Figma's
+  "১১.৭৭% – ১১.৯৮%" is not in data. data/finance/sanchayapatra.json gained a "pensioner" scheme
+  (Figma P7 name/detail; rates, quarterly payout and the 0%/10% tax slabs from the engine test
+  fixture), unverified. Labels for quarterly/maturity results, the "… এর বেশি" row and the
+  purchase-limit error/fix are draft.
+- Currency: the page head shows "যাচাই বাকি" (F11 mobile has no verified line; P8 has one at the
+  bottom, here a draft "ব্যাংক · তারিখ এর হার" line). The "অন্য মুদ্রায়" table lists every other
+  currency on the sheet (Figma shows AED, USD, GBP; the sheet also has EUR). MYR is a Figma chip
+  without a rate: picking it shows the P8 "ব্যাংকের তালিকায় নেই" text as an error; it is disabled in
+  the sheet. Picker search label/placeholder and the no-rate title are draft. Converting taka to a
+  foreign currency (engine `fromBdt`) has no Figma frame.
+- Data pack: only Grameenphone has packs in data/data-packs.json, so Robi, Banglalink and Teletalk
+  show "শীঘ্রই" (as in Figma). The Figma callout's second sentence is a note for the data team
+  ("packs.json আপডেট করতে হবে"); the page uses a draft sentence instead. No packs in budget is an
+  error with the cheapest matching pack as the fix (draft). "৩০ GB": the unit uses the result
+  card's smaller suffix style.
+- Picker sheets (P7, P8): new shared `PickerField` (tool/PickerField.tsx) loads `ChoiceSheet` on the
+  first tap (BottomSheet + Picker, ~5 KB lazy). P7 lists options without a search box, as in Figma.
 - Draft copy (marked `// draft` in each copy.ts): every share text, report-sheet items not in
   Figma, the discount chip-row name, "ক্ষতি", the no-markup sub line, "মার্জিন ১০০% এর কম লেখো",
-  the salary structure error/fix and "অন্যান্য ভাতা", and all English.
+  the salary structure error/fix and "অন্যান্য ভাতা", the items above, and all English.
+- JS before any tap (pnpm check:js): VAT 20.8, discount 20.7, profit margin 20.9, salary 21.1,
+  income tax 22.9, Sanchayapatra 23.8, currency 23.5, data pack 22.5 KB gz (budget 25). The two
+  picker pages are closest to the budget.

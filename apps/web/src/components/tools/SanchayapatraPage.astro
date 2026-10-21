@@ -1,0 +1,22 @@
+---
+// Sanchayapatra profit (registry "sanchayapatra", Figma C7 29:7661, P7 59:17386, D · C7 68:6269)
+// in one language. Schemes, rates and tax slabs come from data/finance/sanchayapatra.json.
+import { SANCHAYAPATRA_COPY, SANCHAYAPATRA_MESSAGE_KEYS, sanchayapatraContent } from '@hisab/pages/sanchayapatra'
+import { SanchayapatraCalculator } from '@hisab/pages/islands/sanchayapatra'
+import { islandText } from '@hisab/pages/tool'
+import ToolPage from '../tool/ToolPage.astro'
+import { dataFile } from '../../lib/data'
+import type { Lang } from '../../lib/site'
+
+interface Props {
+  lang: Lang
+}
+
+const { lang } = Astro.props
+const file = dataFile('finance/sanchayapatra.json')
+const content = sanchayapatraContent(lang, file)
+---
+
+<ToolPage content={content}>
+  <SanchayapatraCalculator client:load lang={lang} text={islandText(lang, SANCHAYAPATRA_COPY, SANCHAYAPATRA_MESSAGE_KEYS)} schemes={file.value} title={content.title} />
+</ToolPage>

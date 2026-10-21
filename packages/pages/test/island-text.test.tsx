@@ -20,6 +20,14 @@ import { COPY as VAT_COPY } from '../src/vat/copy.ts'
 import { COPY as DISCOUNT_COPY } from '../src/discount-percentage/copy.ts'
 import { COPY as PROFIT_COPY } from '../src/profit-margin/copy.ts'
 import { COPY as SALARY_COPY } from '../src/salary/copy.ts'
+import { COPY as TAX_COPY } from '../src/income-tax/copy.ts'
+import { COPY as SP_COPY } from '../src/sanchayapatra/copy.ts'
+import { COPY as CUR_COPY } from '../src/currency-converter/copy.ts'
+import { COPY as PACK_COPY } from '../src/data-pack/copy.ts'
+import taxJson from '../../../data/income-tax-2026-27.json' with { type: 'json' }
+import spJson from '../../../data/finance/sanchayapatra.json' with { type: 'json' }
+import curJson from '../../../data/finance/currency-rates.json' with { type: 'json' }
+import packJson from '../../../data/data-packs.json' with { type: 'json' }
 
 type Lang = 'bn' | 'en'
 
@@ -108,6 +116,30 @@ export const CASES: IslandCase[] = [
     props: (lang) => ({ lang, text: islandText(lang, SALARY_COPY), preset: { medicalPctOfBasic: 10, conveyance: null }, title: 't' }),
     load: () => import('../src/islands/salary.ts'),
     urls: ['', '?rent=70', '?basic=0', '?gross=80000&basic=50'],
+  },
+  {
+    id: 'income-tax',
+    props: (lang) => ({ lang, text: islandText(lang, TAX_COPY), rules: taxJson.value, title: 't' }),
+    load: () => import('../src/islands/income-tax.ts'),
+    urls: ['', '?mode=freelancer', '?income=300000&cat=disabled', '?income=abc'],
+  },
+  {
+    id: 'sanchayapatra',
+    props: (lang) => ({ lang, text: islandText(lang, SP_COPY), schemes: spJson.value, title: 't' }),
+    load: () => import('../src/islands/sanchayapatra.ts'),
+    urls: ['', '?scheme=bangladesh-5y', '?scheme=pensioner&amount=300000', '?amount=5000'],
+  },
+  {
+    id: 'currency-converter',
+    props: (lang) => ({ lang, text: islandText(lang, CUR_COPY), sheet: curJson.value, title: 't' }),
+    load: () => import('../src/islands/currency-converter.ts'),
+    urls: ['', '?cur=USD&amount=250.5', '?cur=MYR', '?amount=0'],
+  },
+  {
+    id: 'data-pack',
+    props: (lang) => ({ lang, text: islandText(lang, PACK_COPY), operators: packJson.operators, packs: packJson.packs.flatMap((p) => p.value), title: 't' }),
+    load: () => import('../src/islands/data-pack.ts'),
+    urls: ['', '?days=7', '?budget=50', '?op=robi', '?days=2.5'],
   },
 ]
 

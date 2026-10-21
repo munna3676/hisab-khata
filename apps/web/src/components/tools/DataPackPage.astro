@@ -1,0 +1,22 @@
+---
+// Mobile data pack comparison (registry "data-pack", Figma C8 29:7863, D · C8 68:6553) in one
+// language. Operators and packs come from data/data-packs.json.
+import { DATA_PACK_COPY, DATA_PACK_MESSAGE_KEYS, allPacks, dataPackContent } from '@hisab/pages/data-pack'
+import { DataPackCalculator } from '@hisab/pages/islands/data-pack'
+import { islandText } from '@hisab/pages/tool'
+import ToolPage from '../tool/ToolPage.astro'
+import { dataFile } from '../../lib/data'
+import type { Lang } from '../../lib/site'
+
+interface Props {
+  lang: Lang
+}
+
+const { lang } = Astro.props
+const file = dataFile('data-packs.json')
+const content = dataPackContent(lang, file)
+---
+
+<ToolPage content={content}>
+  <DataPackCalculator client:load lang={lang} text={islandText(lang, DATA_PACK_COPY, DATA_PACK_MESSAGE_KEYS)} operators={file.operators} packs={allPacks(file)} title={content.title} />
+</ToolPage>

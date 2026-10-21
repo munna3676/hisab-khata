@@ -1,0 +1,23 @@
+---
+// Income tax (registry "income-tax", Figma C6 28:7708, C6-b 64:21554, D · C6 68:6010, D · C6-b
+// 69:39942) in one language. Slabs, limits, rebate and minimum tax come from
+// data/income-tax-2026-27.json, validated at build time.
+import { INCOME_TAX_COPY, INCOME_TAX_FILE, INCOME_TAX_MESSAGE_KEYS, incomeTaxContent } from '@hisab/pages/income-tax'
+import { IncomeTaxCalculator } from '@hisab/pages/islands/income-tax'
+import { islandText } from '@hisab/pages/tool'
+import ToolPage from '../tool/ToolPage.astro'
+import { dataFile } from '../../lib/data'
+import type { Lang } from '../../lib/site'
+
+interface Props {
+  lang: Lang
+}
+
+const { lang } = Astro.props
+const file = dataFile(INCOME_TAX_FILE)
+const content = incomeTaxContent(lang, file)
+---
+
+<ToolPage content={content}>
+  <IncomeTaxCalculator client:load lang={lang} text={islandText(lang, INCOME_TAX_COPY, INCOME_TAX_MESSAGE_KEYS)} rules={file.value} title={content.title} />
+</ToolPage>
