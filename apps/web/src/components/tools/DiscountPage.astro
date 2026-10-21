@@ -1,0 +1,20 @@
+---
+// Discount and percentage (registry "discount-percentage", Figma C2 28:6970 / D · C2 68:4983) in
+// one language. A formula tool: no data file, so no verified line.
+import { DISCOUNT_COPY, DISCOUNT_MESSAGE_KEYS, discountContent } from '@hisab/pages/discount-percentage'
+import { DiscountCalculator } from '@hisab/pages/islands/discount-percentage'
+import { islandText } from '@hisab/pages/tool'
+import ToolPage from '../tool/ToolPage.astro'
+import type { Lang } from '../../lib/site'
+
+interface Props {
+  lang: Lang
+}
+
+const { lang } = Astro.props
+const content = discountContent(lang)
+---
+
+<ToolPage content={content}>
+  <DiscountCalculator client:load lang={lang} text={islandText(lang, DISCOUNT_COPY, DISCOUNT_MESSAGE_KEYS)} title={content.title} />
+</ToolPage>

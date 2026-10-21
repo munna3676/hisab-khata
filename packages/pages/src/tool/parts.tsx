@@ -153,6 +153,18 @@ export function ChoiceChips<V extends string | number>({
   )
 }
 
+/** ChoiceChips under a visible label (Figma "VAT হার", "মেয়াদ", "অপারেটর", "করদাতার ধরন"). */
+export function LabeledChips<V extends string | number>({ title, ...chips }: Parameters<typeof ChoiceChips<V>>[0] & { title: string }) {
+  return (
+    <div class="flex flex-col gap-2">
+      <p class="type-label text-ink" aria-hidden="true">
+        {title}
+      </p>
+      <ChoiceChips {...chips} />
+    </div>
+  )
+}
+
 /** A labelled Segmented Control (Figma: the label above a two-option switch). */
 export function ModeSwitch<V extends string>({
   label,

@@ -16,6 +16,10 @@
     "./loan-eligibility": "./src/loan-eligibility/index.ts",
     "./loan-compare": "./src/loan-compare/index.ts",
     "./savings-goal": "./src/savings-goal/index.ts",
+    "./vat": "./src/vat/index.ts",
+    "./discount-percentage": "./src/discount-percentage/index.ts",
+    "./profit-margin": "./src/profit-margin/index.ts",
+    "./salary": "./src/salary/index.ts",
     "./islands/*": "./src/islands/*.ts",
     "./styles.css": "./src/styles.css"
   },

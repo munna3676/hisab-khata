@@ -8,4 +8,8 @@ export const BUILT_PAGES: readonly string[] = [
   'loan-eligibility',
   'loan-compare',
   'savings-goal',
+  'vat',
+  'discount-percentage',
+  'profit-margin',
+  'salary',
 ]

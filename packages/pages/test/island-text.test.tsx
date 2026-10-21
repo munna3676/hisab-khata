@@ -16,6 +16,10 @@ import { COPY as FDR_COPY } from '../src/fdr/copy.ts'
 import { COPY as CMP_COPY } from '../src/loan-compare/copy.ts'
 import { COPY as ELIG_COPY } from '../src/loan-eligibility/copy.ts'
 import { COPY as GOAL_COPY } from '../src/savings-goal/copy.ts'
+import { COPY as VAT_COPY } from '../src/vat/copy.ts'
+import { COPY as DISCOUNT_COPY } from '../src/discount-percentage/copy.ts'
+import { COPY as PROFIT_COPY } from '../src/profit-margin/copy.ts'
+import { COPY as SALARY_COPY } from '../src/salary/copy.ts'
 
 type Lang = 'bn' | 'en'
 
@@ -80,6 +84,30 @@ export const CASES: IslandCase[] = [
     props: (lang) => ({ lang, text: islandText(lang, GOAL_COPY), purposes: ['wedding', 'bike', 'study-abroad', 'emergency-fund'], title: 't' }),
     load: () => import('../src/islands/savings-goal.ts'),
     urls: ['', '?goal=bike', '?rate=0', '?months=0'],
+  },
+  {
+    id: 'vat',
+    props: (lang) => ({ lang, text: islandText(lang, VAT_COPY), rates: [5, 7.5, 10, 15], title: 't' }),
+    load: () => import('../src/islands/vat.ts'),
+    urls: ['', '?mode=remove&amount=1150', '?amount=999&rate=7.5', '?rate=101', '?amount=abc'],
+  },
+  {
+    id: 'discount-percentage',
+    props: (lang) => ({ lang, text: islandText(lang, DISCOUNT_COPY), title: 't' }),
+    load: () => import('../src/islands/discount-percentage.ts'),
+    urls: ['', '?off=50', '?off=120', '?n=abc'],
+  },
+  {
+    id: 'profit-margin',
+    props: (lang) => ({ lang, text: islandText(lang, PROFIT_COPY), title: 't' }),
+    load: () => import('../src/islands/profit-margin.ts'),
+    urls: ['', '?cost=1000&price=800', '?price=0', '?target=100'],
+  },
+  {
+    id: 'salary',
+    props: (lang) => ({ lang, text: islandText(lang, SALARY_COPY), preset: { medicalPctOfBasic: 10, conveyance: null }, title: 't' }),
+    load: () => import('../src/islands/salary.ts'),
+    urls: ['', '?rent=70', '?basic=0', '?gross=80000&basic=50'],
   },
 ]
 

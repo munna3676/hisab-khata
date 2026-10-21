@@ -16,3 +16,16 @@ export const plain = (lang: Lang, value: number) =>
 
 /** Fills {name} placeholders in one language's copy. */
 export const fill = (lang: Lang, text: string, vars?: Record<string, string>) => interpolate(lang, text, vars)
+
+/** ৳ amount with paisa only when it has some ("৳১৫০", "৳১৪৯.৮৫"): VAT, discounts and prices. */
+export const money = (lang: Lang, value: number) => formatTakaIn(lang, value, { decimals: hasPaisa(value) ? 2 : 0 })
+
+/** True when a taka amount has paisa after rounding to the paisa. */
+export const hasPaisa = (value: number) => Math.round(Math.abs(value) * 100) % 100 !== 0
+
+/** A number with as few decimals as it needs, up to `max` ("১.১৫", "১.০৭৫", "১২"). */
+export function decimal(lang: Lang, value: number, max = 4): string {
+  let d = 0
+  while (d < max && Math.abs(Math.round(value * 10 ** d) - value * 10 ** d) > 1e-6) d++
+  return formatNumberIn(lang, value, { decimals: d })
+}

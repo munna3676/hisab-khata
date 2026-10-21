@@ -48,7 +48,7 @@ follow-up for a later phase. Re-check this list in the final audit.
 
 ## Engines
 
-- core currency `isValidRate` accepts Infinity (guarded in search; fix in core).
+- ~~core currency `isValidRate` accepts Infinity~~: fixed in phase 3d (rejects non-finite rates).
 - name-spelling: sound matching is heuristic (Hasan vs Hossain reads as a
   spelling difference); a 2–2 split with an English reference goes to the
   reference's script.
@@ -145,3 +145,24 @@ follow-up for a later phase. Re-check this list in the final audit.
 - Restored links write fractions with two decimals in the field ("১০.৫০" for rate 10.5); a
   NumberField option to keep "১০.৫" would read better.
 - Loan eligibility shows "৳১১.২ লাখ" with one decimal (rounded); below one lakh it shows whole taka.
+
+## Phase 3d (money calculators: VAT, discount, profit margin, salary, income tax, Sanchayapatra, currency, data pack)
+
+- Engines unchanged except core currency `isValidRate`, which now rejects non-finite rates
+  (Infinity, NaN) in validation and in the "অন্য মুদ্রায়" table (test in currency.test.ts); the
+  item under "Engines" above is done.
+- VAT: SD (data/commerce/sd-rates.json, listed in the registry entry) has no field in C1/C4-b, so
+  the page leaves SD out; add an SD picker if a later frame shows one. The rate is the four data
+  chips only (no free rate field, as in Figma; any 0–100 rate works from a link). Amounts with paisa
+  show two decimals (Figma examples are whole taka). Mobile C1 hides the first "হিসাব" row under
+  the bottom nav; the page follows D · C1 (মূল দাম / VAT (১৫%) / মোট).
+- Discount: a discount over 100% is a field error with the empty result (no C1-d style frame for
+  this tool). Profit margin: "বেচতে হবে" shows whole taka (engine 1,142.86 → ৳১,১৪৩ as in Figma);
+  a loss is labelled "ক্ষতি" with the amount positive (draft); cost 0 shows "—" for markup.
+- Salary: medical % and conveyance (rest of gross) come from the "common" preset in
+  data/finance/salary-presets.json; the preset's deductions (provident fund, welfare fund) are not
+  shown (no Figma frame). Parts over the gross give an error with a "বাড়িভাড়া N% দিয়ে হিসাব করো"
+  fix (draft copy). The page head shows "যাচাই বাকি" (Figma C5 has no verified line).
+- Draft copy (marked `// draft` in each copy.ts): every share text, report-sheet items not in
+  Figma, the discount chip-row name, "ক্ষতি", the no-markup sub line, "মার্জিন ১০০% এর কম লেখো",
+  the salary structure error/fix and "অন্যান্য ভাতা", and all English.

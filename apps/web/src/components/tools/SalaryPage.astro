@@ -1,0 +1,22 @@
+---
+// Salary breakdown (registry "salary", Figma C5 28:7512 / D · C5 68:5723) in one language. The
+// structure (medical %, conveyance) comes from data/finance/salary-presets.json.
+import { SALARY_COPY, SALARY_MESSAGE_KEYS, salaryContent, salaryRest } from '@hisab/pages/salary'
+import { SalaryCalculator } from '@hisab/pages/islands/salary'
+import { islandText } from '@hisab/pages/tool'
+import ToolPage from '../tool/ToolPage.astro'
+import { dataFile } from '../../lib/data'
+import type { Lang } from '../../lib/site'
+
+interface Props {
+  lang: Lang
+}
+
+const { lang } = Astro.props
+const file = dataFile('finance/salary-presets.json')
+const content = salaryContent(lang, file)
+---
+
+<ToolPage content={content}>
+  <SalaryCalculator client:load lang={lang} text={islandText(lang, SALARY_COPY, SALARY_MESSAGE_KEYS)} preset={salaryRest(file)} title={content.title} />
+</ToolPage>

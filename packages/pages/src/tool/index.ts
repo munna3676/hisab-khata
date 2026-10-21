@@ -13,6 +13,7 @@ export {
   CompareList,
   FieldPair,
   InputCard,
+  LabeledChips,
   ModeSwitch,
   RelatedTools,
   ResultEmpty,

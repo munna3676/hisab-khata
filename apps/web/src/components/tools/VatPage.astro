@@ -1,0 +1,23 @@
+---
+// VAT calculator (registry "vat", Figma C1 28:6772, C4-b 60:17985, D · C1 68:4691, D · C4-b
+// 69:37970) in one language. Rate chips and the default rate come from data/commerce/vat-rates.json,
+// validated at build time; the island server-renders the Figma example (৳১,০০০ + 15%).
+import { VAT_COPY, VAT_MESSAGE_KEYS, vatContent, vatRateChips } from '@hisab/pages/vat'
+import { VatCalculator } from '@hisab/pages/islands/vat'
+import { islandText } from '@hisab/pages/tool'
+import ToolPage from '../tool/ToolPage.astro'
+import { dataFile } from '../../lib/data'
+import type { Lang } from '../../lib/site'
+
+interface Props {
+  lang: Lang
+}
+
+const { lang } = Astro.props
+const file = dataFile('commerce/vat-rates.json')
+const content = vatContent(lang, file)
+---
+
+<ToolPage content={content}>
+  <VatCalculator client:load lang={lang} text={islandText(lang, VAT_COPY, VAT_MESSAGE_KEYS)} rates={vatRateChips(file)} title={content.title} />
+</ToolPage>

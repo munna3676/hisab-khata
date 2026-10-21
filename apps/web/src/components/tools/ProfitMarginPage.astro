@@ -1,0 +1,20 @@
+---
+// Profit margin (registry "profit-margin", Figma C3 28:7145 / D · C3 68:5225) in one language. A
+// formula tool: no data file, so no verified line.
+import { PROFIT_COPY, PROFIT_MESSAGE_KEYS, profitContent } from '@hisab/pages/profit-margin'
+import { ProfitMarginCalculator } from '@hisab/pages/islands/profit-margin'
+import { islandText } from '@hisab/pages/tool'
+import ToolPage from '../tool/ToolPage.astro'
+import type { Lang } from '../../lib/site'
+
+interface Props {
+  lang: Lang
+}
+
+const { lang } = Astro.props
+const content = profitContent(lang)
+---
+
+<ToolPage content={content}>
+  <ProfitMarginCalculator client:load lang={lang} text={islandText(lang, PROFIT_COPY, PROFIT_MESSAGE_KEYS)} title={content.title} />
+</ToolPage>
