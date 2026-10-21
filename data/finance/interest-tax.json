@@ -1,6 +1,7 @@
 {
   "value": {
-    "withTinPct": 10
+    "withTinPct": 10,
+    "withoutTinPct": 15
   },
   "unit": "percent",
   "source": "https://nbr.gov.bd/",

@@ -19,7 +19,7 @@ const site = process.env.SITE || 'https://hisabkhata.com'
 // stay separate and load on demand.
 const TOOL_TEMPLATE = [
   /packages\/pages\/src\/tool\/(url-state|hooks|parts|ToolActions|text|validation)\.tsx?$/,
-  /packages\/ui\/src\/base\/(Badge|Button|Callout|Chip|CompareRow|NumberField|QuickValues|SegmentedControl|TextField|uid)\.tsx?$/,
+  /packages\/ui\/src\/base\/(Badge|Button|Callout|Chip|CompareRow|KVRow|NumberField|QuickValues|SegmentedControl|TextField|uid)\.tsx?$/,
   /packages\/ui\/src\/(nav\/ResultCard|content\/ActionBar)\.tsx$/,
   /packages\/ui\/src\/lib\/(cx|motion)\.ts$/,
   /packages\/ui\/src\/icons\/(Icon|common|glyphs\/(Share|Download|Flag|FigmaAlert|FigmaInfo))\.tsx$/,

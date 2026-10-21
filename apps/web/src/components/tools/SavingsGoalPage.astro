@@ -1,0 +1,28 @@
+---
+// "সঞ্চয় লক্ষ্য" (registry "savings-goal", Figma C4 28:7332, D · C4 68:5478) in one language. The
+// purpose chips come from data/finance/savings-goal-presets.json.
+import { SavingsGoalCalculator } from '@hisab/pages/islands/savings-goal'
+import { SAVINGS_GOAL_COPY, SAVINGS_GOAL_MESSAGE_KEYS, savingsGoalContent, savingsGoalPurposes } from '@hisab/pages/savings-goal'
+import { islandText } from '@hisab/pages/tool'
+import ToolPage from '../tool/ToolPage.astro'
+import { dataFile } from '../../lib/data'
+import type { Lang } from '../../lib/site'
+
+interface Props {
+  lang: Lang
+}
+
+const { lang } = Astro.props
+const presets = dataFile('finance/savings-goal-presets.json')
+const content = savingsGoalContent(lang)
+---
+
+<ToolPage content={content}>
+  <SavingsGoalCalculator
+    client:load
+    lang={lang}
+    text={islandText(lang, SAVINGS_GOAL_COPY, SAVINGS_GOAL_MESSAGE_KEYS)}
+    purposes={savingsGoalPurposes(presets)}
+    title={content.title}
+  />
+</ToolPage>

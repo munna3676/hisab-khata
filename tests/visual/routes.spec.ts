@@ -80,7 +80,7 @@ test('bn/en hreflang pairs and canonicals are correct and reciprocal', async ({ 
 
 test('placeholder pages are noindex, the home pages are indexable', async ({ request }) => {
   for (const path of ['/', '/en/']) expect(await html(request, path)).not.toContain('name="robots"')
-  for (const path of ['/mfs', '/en/tools/emi', '/bank/brac/fdr']) {
+  for (const path of ['/mfs', '/en/tools/sanchayapatra', '/bank/brac/fdr']) {
     const doc = await html(request, path)
     expect(doc).toMatch(/<meta name="robots" content="noindex/)
     expect(doc).toMatch(/data-coming-soon|data-placeholder/)

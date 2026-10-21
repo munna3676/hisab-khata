@@ -10,6 +10,12 @@
   "exports": {
     "./tool": "./src/tool/index.ts",
     "./cash-out": "./src/cash-out/index.ts",
+    "./emi": "./src/emi/index.ts",
+    "./dps": "./src/dps/index.ts",
+    "./fdr": "./src/fdr/index.ts",
+    "./loan-eligibility": "./src/loan-eligibility/index.ts",
+    "./loan-compare": "./src/loan-compare/index.ts",
+    "./savings-goal": "./src/savings-goal/index.ts",
     "./islands/*": "./src/islands/*.ts",
     "./styles.css": "./src/styles.css"
   },

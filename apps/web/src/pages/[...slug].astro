@@ -81,12 +81,13 @@ const isSearch = entry.id === 'search'
 </Shell>
 
 <script>
-  import { deviceLists } from '../lib/device-lists'
+  import { recordRecentPage } from '@hisab/platform/recent-page'
+  import { safeLocalStorage } from '../lib/storage'
 
   // Remember opened tools and guides for the home page's "তোমার টুল" row.
   const main = document.querySelector<HTMLElement>('main[data-entry]')
   const kind = main?.dataset.kind
   if (main?.dataset.entry && kind && ['tool', 'mfs', 'guide', 'bank', 'remittance'].includes(kind)) {
-    void deviceLists().recents.push(main.dataset.entry).catch(() => undefined)
+    recordRecentPage(safeLocalStorage(), main.dataset.entry)
   }
 </script>

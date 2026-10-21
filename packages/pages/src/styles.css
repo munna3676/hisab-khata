@@ -55,6 +55,14 @@
   [role="note"] {
     break-inside: avoid;
   }
+  /* Schedules (EMI month by month, DPS year by year) print in full, not in their scroll box. */
+  [data-breakdown-table] [role="region"] {
+    max-height: none !important;
+    overflow: visible !important;
+  }
+  [data-breakdown-table] tr {
+    break-inside: avoid;
+  }
   /* FAQ answers print open. */
   .hkc-faq-panel[hidden] {
     display: block !important;

@@ -1,0 +1,31 @@
+---
+// DPS profit calculator (registry "dps", Figma F7 27:6030, F7-b 64:21115, D · F7 66:29288,
+// D · F7-b 69:39346) in one language. Tax and excise duty come from data/finance, validated at
+// build time; the island server-renders the Figma example (৳৫,০০০ a month, 9%, 5 years).
+import { DPS_COPY, DPS_MESSAGE_KEYS, dpsContent, taxHelperText } from '@hisab/pages/dps'
+import { DpsCalculator } from '@hisab/pages/islands/dps'
+import { islandText } from '@hisab/pages/tool'
+import ToolPage from '../tool/ToolPage.astro'
+import { dataFile } from '../../lib/data'
+import type { Lang } from '../../lib/site'
+
+interface Props {
+  lang: Lang
+}
+
+const { lang } = Astro.props
+const tax = dataFile('finance/interest-tax.json')
+const excise = dataFile('finance/excise-duty.json')
+const content = dpsContent(lang, tax, excise)
+---
+
+<ToolPage content={content}>
+  <DpsCalculator
+    client:load
+    lang={lang}
+    text={islandText(lang, DPS_COPY, DPS_MESSAGE_KEYS)}
+    exciseSlabs={excise.value}
+    taxHelper={taxHelperText(lang, tax)}
+    title={content.title}
+  />
+</ToolPage>

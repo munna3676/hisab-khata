@@ -1,0 +1,24 @@
+---
+// FDR profit calculator (registry "fdr", Figma F8 27:6253, F8-b 64:21334, D · F8 66:29578,
+// D · F8-b 69:39636) in one language. Tax and excise duty come from data/finance; the island
+// server-renders the Figma example (৳১,০০,০০০ at 10% for 12 months).
+import { FDR_COPY, FDR_MESSAGE_KEYS, fdrContent } from '@hisab/pages/fdr'
+import { FdrCalculator } from '@hisab/pages/islands/fdr'
+import { islandText } from '@hisab/pages/tool'
+import ToolPage from '../tool/ToolPage.astro'
+import { dataFile } from '../../lib/data'
+import type { Lang } from '../../lib/site'
+
+interface Props {
+  lang: Lang
+}
+
+const { lang } = Astro.props
+const tax = dataFile('finance/interest-tax.json')
+const excise = dataFile('finance/excise-duty.json')
+const content = fdrContent(lang, tax, excise)
+---
+
+<ToolPage content={content}>
+  <FdrCalculator client:load lang={lang} text={islandText(lang, FDR_COPY, FDR_MESSAGE_KEYS)} exciseSlabs={excise.value} title={content.title} />
+</ToolPage>

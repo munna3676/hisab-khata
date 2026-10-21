@@ -1,11 +1,11 @@
+import { STORAGE_PREFIX } from './keys.ts'
 import { jsonStore, memoryBackend, type KeyValueStore, type TextBackend } from './store.ts'
 
 // The web platform's storage (localStorage, IndexedDB), apart from the rest of src/web.ts so a page
 // can read and write the on-device lists (recents, favorites) without the share, print and notify
 // code. src/web.ts re-exports everything here.
 
-/** Every key the site writes to localStorage starts with this, so keys() never sees other data. */
-export const STORAGE_PREFIX = 'hk:'
+export { STORAGE_PREFIX }
 
 /** localStorage under STORAGE_PREFIX. */
 export function localStorageBackend(storage: Storage, prefix = STORAGE_PREFIX): TextBackend {

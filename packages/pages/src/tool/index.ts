@@ -7,6 +7,23 @@ export * from './hooks.ts'
 export type * from './types.ts'
 export { ToolHeader } from './ToolHeader.tsx'
 export { ToolActions, REPORT_ENDPOINT, type ToolActionsProps } from './ToolActions.tsx'
-export { CalculatorFrame, CompareList, InputCard, RelatedTools, ResultEmpty, ResultError, ToolCallout, ToolPage, ToolSteps } from './parts.tsx'
+export {
+  CalculatorFrame,
+  ChoiceChips,
+  CompareList,
+  FieldPair,
+  InputCard,
+  ModeSwitch,
+  RelatedTools,
+  ResultEmpty,
+  ResultError,
+  SummaryCard,
+  ToolCallout,
+  ToolPage,
+  ToolSteps,
+  fieldMessages,
+  type SummaryRow,
+} from './parts.tsx'
+export * from './say.ts'
 export * from './text.ts'
 export { islandText } from './island-text.ts'

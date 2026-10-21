@@ -7,7 +7,7 @@ Android apps.
 
 | Path | What it holds |
 |---|---|
-| `apps/web` | Astro 7 static site, Preact islands, Tailwind 4: the site shell (`src/layouts/Shell.astro`), the Home page (Bangla at `/`, English at `/en/`), the calculator template on the Cash Out page (`/tools/cash-out`, `/en/tools/cash-out`), a noindex placeholder for every other registry route, component gallery at `/dev/gallery`, token showcase at `/dev/tokens` |
+| `apps/web` | Astro 7 static site, Preact islands, Tailwind 4: the site shell (`src/layouts/Shell.astro`), the Home page (Bangla at `/`, English at `/en/`), the calculator template and the Cash Out, EMI, DPS, FDR, loan eligibility, loan comparison and savings goal pages (`/tools/<id>`, `/en/tools/<id>`), a noindex placeholder for every other registry route, component gallery at `/dev/gallery`, token showcase at `/dev/tokens` |
 | `packages/pages` | Page bodies shared with the app: the calculator page template and each tool's island (see its README and `docs/adding-a-tool.md`) |
 | `packages/core` | Calculation engines for every tool (pure TypeScript, tested) |
 | `packages/tokens` | Design tokens from the Figma file (light + dark + motion) → `dist/tokens.css` and the Tailwind `dist/theme.css` |
@@ -26,11 +26,12 @@ pnpm typecheck              # tsc / astro check everywhere
 pnpm test:visual            # Playwright; starts a dev server on $PORT (default 4400)
 SECTION=base PORT=4401 pnpm shots   # screenshots of /dev/gallery#base only
 pnpm check:data             # every Fact has a source; warns when one is over 60 days old
+pnpm check:js               # after build: JS per page, fails tool pages over 25 KB gz, Home over 10 KB
 ```
 
 Screenshots land in `test-results/gallery/<section|all>/<theme>-<width>.png` and
-`test-results/home/<bn|en>-<theme>-<width>.png`; the Cash Out page in
-`test-results/cash-out/<lang>-<mode>-<theme>-<width>.png` (plus `print-a4.pdf`). Web icons (favicon, apple-touch-icon,
+`test-results/home/<bn|en>-<theme>-<width>.png`; each calculator page in
+`test-results/<id>/<lang>-<mode>-<theme>-<width>.png` (plus `print-a4.pdf`). Web icons (favicon, apple-touch-icon,
 manifest icons) are made from `design/launch/app-icon-1024.png` by `node scripts/make-icons.mjs`.
 In this container Playwright uses the preinstalled Chromium at
 `/opt/pw-browsers/chromium` automatically; never run `playwright install` here.

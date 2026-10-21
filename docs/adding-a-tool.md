@@ -4,8 +4,10 @@ Every calculator page is the same template (phase 3b): breadcrumb, H1, subtitle,
 line (or "যাচাই বাকি"), the calculator island (input card, live result card with count-up,
 comparison/breakdown, callout, action bar with share link, PDF/print and the "ভুল পেলেন?" report
 sheet), numbered tips or steps, FAQ (with FAQPage JSON-LD), related tools from the registry and
-the ad slot. Cash Out (`packages/pages/src/cash-out/`, `/tools/cash-out`) is the reference
-implementation: copy its files and change the parts below.
+the ad slot. Cash Out (`packages/pages/src/cash-out/`, `/tools/cash-out`) is the reference for a
+comparison tool with data; EMI (`packages/pages/src/emi/`) for a formula tool with a schedule,
+DPS/FDR for data-backed modes, Loan Comparison for a custom table. Copy the closest one and change
+the parts below.
 
 In the steps, `<id>` is the registry id (e.g. `emi`) and `<Tool>` its PascalCase name (`Emi`).
 
@@ -38,7 +40,11 @@ export const EMI_PARAMS = defineParams({
   them, so the page has a full result without JS, and the default link is the clean canonical URL).
 - `min`/`max` are only sanity bounds for links. Business limits (daily limits, slabs) belong to the
   model, so the person sees the C1-d style error with a fix button.
-- Quick-value chips and other fixed UI lists go here too (`QUICK_AMOUNTS`).
+- Quick-value chips and other fixed UI lists go here too (`QUICK_AMOUNTS`, `TERM_CHIPS`).
+- Next to the params, an `XXX_LIMITS` object with what the engine's `validateXxx` accepts
+  (`{ months: { min: 1, max: 600, integer: true } }`); the model turns it into field messages.
+- A default that must equal a data value (e.g. the 10% tax from finance/interest-tax.json) stays a
+  literal here; the unit test asserts it matches the data file.
 
 ## 2. Copy — `packages/pages/src/<id>/copy.ts`
 
@@ -70,7 +76,11 @@ export function emiOutcome(input: { lang: Lang; copy: EmiCopy; … }): ToolOutco
   `null` for those), `{ kind: 'error', error: { title, body, fix? }, fields? }` for a fixable input
   error (C1-d), or `{ kind: 'result', result, fields? }`.
 - `fields` maps a param key to a message shown under that field (red), e.g. the C1-c warning.
-- Use the engine's `validateXxx` before `calculateXxx`. All numbers via `formatTakaIn` /
+- Use the engine's `validateXxx` before `calculateXxx`, or check the inputs first with
+  `fieldIssues(values, XXX_LIMITS, rangeSay(lang, copy.wholeMonths))` from `tool/validation.ts`
+  and return `{ kind: 'empty', fields }` when it finds something (the field shows the message).
+- Numbers via `taka(lang, v)` (whole taka, as the finance frames show), `num`, `plain` (rates as
+  typed: ১০, ৯.৫) and `fill(lang, text, vars)` from `tool/say.ts`, or `formatTakaIn` /
   `formatNumberIn` from `@hisab/i18n/format` (Bangla digits on bn pages).
 - The result carries what the island shows: result card `label`/`value`/`decimals`/`sub`, the
   comparison or breakdown rows, callout text and a one-line `shareText`.
@@ -102,12 +112,17 @@ Copy `CashOutCalculator.tsx`. The pieces:
 - `const { values, set } = useUrlState(PARAMS)` — inputs ⇄ URL (`history.replaceState`).
 - `useSubtitle(text)` only if a mode changes the page subtitle (C1-b).
 - `useMemo(() => xxxOutcome({...}), [deps])`.
-- Inputs inside `<InputCard>`: `SegmentedControl` (modes), `NumberField` (`value={values.x}`,
-  `onValueChange={(v) => set('x', v)}`, `error={fields.x}`, `lang`, `prefix="৳"`/`suffix`),
-  `QuickValues`, `Select`/`Picker` as Figma shows.
-- Results: `<ResultEmpty>` / `<ResultError onFix>` / `<ResultCard>` + `<CompareList>` (comparisons)
-  or `BreakdownTable` from `@hisab/ui/content` (schedules), `<ToolCallout>`, then
-  `<ToolActions lang toolId title shareText reportItems>`.
+- Inputs inside `<InputCard>`: `NumberField` (`value={values.x}`, `onValueChange={(v) => set('x', v)}`,
+  `error={fields.x}`, `messages={fieldMessages(lang)}`, `lang`, `prefix="৳"` / `"%"` / the unit
+  word, `formatOnBlur={false}` for rates), `FieldPair` (two fields on one row), `ModeSwitch`
+  (a labelled SegmentedControl for modes), `ChoiceChips` (chips with labels: "৩ বছর", "৫০%"),
+  `QuickValues` (amount chips), `Select`/`Picker` as Figma shows. Keep a ৳ amount of 6+ digits on
+  a full-width row: half a 390px card cannot show ৫,০০,০০০.
+- Results: `<ResultEmpty>` / `<ResultError onFix>` / `<ResultCard>` (`decimals={0}` for whole
+  taka, `suffix` for "লাখ" or "কম") + `<SummaryCard title rows>` (Figma "মোট হিসাব" KV card),
+  `<CompareList>` (comparisons) or `BreakdownTable` from `@hisab/ui/content/BreakdownTable`
+  (schedules: give it `maxHeight`; the print stylesheet prints every row), `<ToolCallout>`
+  (`tone="info"` for the blue Figma callouts), then `<ToolActions lang toolId title shareText reportItems>`.
 - Wrap in `<CalculatorFrame inputs={…} results={…} />` (stacked on phones/tablets, 380px input
   card + results side by side from an 840px container).
 - Add an island entry `packages/pages/src/islands/<id>.ts` that re-exports only the island, so the
@@ -115,17 +130,23 @@ Copy `CashOutCalculator.tsx`. The pieces:
   `export { EmiCalculator } from '../emi/EmiCalculator.tsx'`.
 - Export the rest from `packages/pages/src/<id>/index.ts` and add `"./<id>": "./src/<id>/index.ts"`
   to `packages/pages/package.json` `exports`.
+- A new shared ui component the template uses on every page (like KVRow) goes into the
+  `TOOL_TEMPLATE` chunk group in `apps/web/astro.config.ts`; a tool-only one does not.
 
 ## 6. Web page — `apps/web`
 
-1. `src/components/tools/<Tool>Page.astro` (copy `CashOutPage.astro`): read data with
+1. `src/components/tools/<Tool>Page.astro` (copy `EmiPage.astro`, or `DpsPage.astro` for a tool
+   with data): read data with
    `dataFile('<file>.json')` from `src/lib/data.ts` (validated with `checkDataFile`; a bad file
    fails the build), build `content`, render
    `<ToolPage content={content}><XxxCalculator client:load lang={lang} text={islandText(lang, XXX_COPY, XXX_MESSAGE_KEYS)} … /></ToolPage>`.
 2. `src/pages/<route>.astro` and `src/pages/en/<route>.astro` (the registry routes, e.g.
    `src/pages/tools/emi.astro`): `<EmiPage lang="bn" />` / `lang="en"`.
 3. Add the id to `BUILT_PAGES` in `src/lib/tools.ts` so `[...slug].astro` stops making the
-   placeholder (the page becomes indexable, with FAQPage/BreadcrumbList/WebApplication JSON-LD).
+   placeholder (the page becomes indexable, with FAQPage/BreadcrumbList/WebApplication JSON-LD;
+   FAQPage only when the tool has a FAQ). The JS budget check and test read this list too.
+4. Formula tools (no data file, e.g. EMI) leave `data` out of the content, so there is no
+   verified line; "আরও টুল" skips registry `related` pages with a `[param]` route.
 
 The template (`src/components/tool/ToolPage.astro`) already does the head, JSON-LD, the FAQ
 (server-rendered FaqList plus a few lines of script in `src/lib/faq.ts`, no island), recents (on idle), the print stylesheet (`@hisab/pages/styles.css`, A4) and the
@@ -133,12 +154,18 @@ report endpoint (`/api/report`, see docs/open-items.md).
 
 ## 7. Tests
 
-- `packages/pages/test/<id>.test.tsx`: the model against the Figma example values (each mode and
-  error state), the content numbers, and one island test (link restores inputs, typing updates
-  the URL). Copy `test/cash-out.test.tsx`.
-- `tests/visual/<id>.spec.ts`: copy `tests/visual/cash-out.spec.ts`, change `MODES`, `expectMode`
-  and the texts. It covers 360/390/768/1024/1440 × light/dark, each mode, axe, 44px targets, no
-  sideways scroll, share link restore, no-JS result, JSON-LD, report sheet and print.
+- `packages/pages/test/<id>.test.tsx` (or a `describe` in `test/finance.test.tsx`): the model
+  against the Figma example values (each mode and error state), the content numbers, data-backed
+  defaults, and one island test (link restores inputs, typing updates the URL). Where Figma and
+  the engine disagree, assert the engine's number and say so in the test name.
+- Add the island to `CASES` in `packages/pages/test/island-text.test.tsx` with links for every
+  state: it renders the island with only its own strings and fails on a missing message key.
+- `tests/visual/<id>.spec.ts`: call `toolSuite({ id, path, h1, enH1, modes, expectMode, value,
+  enValue, share, ldTypes, schedule? })` from `tests/visual/tool-suite.ts` (see `emi.spec.ts`).
+  It covers 390/1440 × light/dark × each mode (screenshots in `test-results/<id>/`), axe, 44px
+  targets at 360/390/1440, no sideways scroll, no console errors, the English page, share link
+  restore, the no-JS result, JSON-LD, the report sheet and print (a schedule prints every row).
+  `tests/visual/budget.spec.ts` picks the page up from `BUILT_PAGES` by itself.
 
 ## 8. Before committing
 

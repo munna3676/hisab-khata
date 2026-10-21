@@ -1,0 +1,21 @@
+---
+// Loan EMI calculator (registry "emi", Figma F6 27:5771 / D · F6 66:29012) in one language. A
+// formula tool: no data file, so no verified line. The island server-renders the Figma example
+// (৳৫,০০,০০০ at 12% for 36 months), so the page has the full result and schedule without JS.
+import { EMI_COPY, EMI_MESSAGE_KEYS, emiContent } from '@hisab/pages/emi'
+import { EmiCalculator } from '@hisab/pages/islands/emi'
+import { islandText } from '@hisab/pages/tool'
+import ToolPage from '../tool/ToolPage.astro'
+import type { Lang } from '../../lib/site'
+
+interface Props {
+  lang: Lang
+}
+
+const { lang } = Astro.props
+const content = emiContent(lang)
+---
+
+<ToolPage content={content}>
+  <EmiCalculator client:load lang={lang} text={islandText(lang, EMI_COPY, EMI_MESSAGE_KEYS)} title={content.title} />
+</ToolPage>

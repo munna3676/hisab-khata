@@ -1,0 +1,20 @@
+---
+// "দুটো লোন অফার তুলনা" (registry "loan-compare", Figma F10 27:6681, D · F10 66:30163) in one
+// language. Every figure is typed by the person: no data file, no verified line.
+import { LoanCompareCalculator } from '@hisab/pages/islands/loan-compare'
+import { LOAN_COMPARE_COPY, LOAN_COMPARE_MESSAGE_KEYS, loanCompareContent } from '@hisab/pages/loan-compare'
+import { islandText } from '@hisab/pages/tool'
+import ToolPage from '../tool/ToolPage.astro'
+import type { Lang } from '../../lib/site'
+
+interface Props {
+  lang: Lang
+}
+
+const { lang } = Astro.props
+const content = loanCompareContent(lang)
+---
+
+<ToolPage content={content}>
+  <LoanCompareCalculator client:load lang={lang} text={islandText(lang, LOAN_COMPARE_COPY, LOAN_COMPARE_MESSAGE_KEYS)} title={content.title} />
+</ToolPage>

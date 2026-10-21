@@ -6,6 +6,9 @@ import { t } from '@hisab/i18n/t'
 import { AdSlot } from '@hisab/ui/base/AdSlot'
 import { Button } from '@hisab/ui/base/Button'
 import { Callout } from '@hisab/ui/base/Callout'
+import { Chip } from '@hisab/ui/base/Chip'
+import { KVList, KVRow } from '@hisab/ui/base/KVRow'
+import { SegmentedControl } from '@hisab/ui/base/SegmentedControl'
 import { CompareRow, type CompareRowProps } from '@hisab/ui/base/CompareRow'
 import { Calculator, Guide, Send, Wallet } from '@hisab/ui/icons/base'
 import { cx } from '@hisab/ui/lib/cx'
@@ -101,6 +104,91 @@ export function ToolCallout({ children, tone = 'warn', ...rest }: { children: Co
       <p>{children}</p>
     </Callout>
   )
+}
+
+/** One line of a SummaryCard: label left, amount right; `total` draws the ink rule above it. */
+export interface SummaryRow {
+  key: string
+  label: string
+  value: string
+  total?: boolean
+}
+
+/** Figma "card" with a title and KV Rows ("মোট হিসাব", "হিসাব", "কিভাবে হিসাব হলো"). */
+export function SummaryCard({ title, rows, ...rest }: { title: string; rows: readonly SummaryRow[]; [key: `data-${string}`]: string }) {
+  return (
+    <section class="rounded-card border border-line bg-sheet px-4 pt-3.5 pb-2" aria-label={title} data-summary {...rest}>
+      <h2 class="type-h3 text-ink">{title}</h2>
+      <KVList class="mt-1.5">
+        {rows.map((row) => (
+          <KVRow key={row.key} label={row.label} value={row.value} total={row.total} />
+        ))}
+      </KVList>
+    </section>
+  )
+}
+
+/** Chips that pick one of a few values ("৩ বছর", "৫০%", "বিয়ে"): Figma Chip, selected = the current value. */
+export function ChoiceChips<V extends string | number>({
+  label,
+  options,
+  value,
+  onPick,
+  class: className,
+}: {
+  label: string
+  options: readonly { value: V; label: string }[]
+  value: V | null
+  onPick: (value: V) => void
+  class?: string
+}) {
+  return (
+    <div role="group" aria-label={label} class={cx('flex flex-wrap gap-x-2', className)} data-choice-chips>
+      {options.map((option) => (
+        <Chip key={String(option.value)} numeric={false} selected={value === option.value} onClick={() => onPick(option.value)}>
+          {option.label}
+        </Chip>
+      ))}
+    </div>
+  )
+}
+
+/** A labelled Segmented Control (Figma: the label above a two-option switch). */
+export function ModeSwitch<V extends string>({
+  label,
+  name,
+  value,
+  options,
+  onChange,
+}: {
+  label: string
+  name: string
+  value: V
+  options: readonly { value: V; label: string }[]
+  onChange: (value: V) => void
+}) {
+  return (
+    <div class="flex flex-col gap-2">
+      <p class="type-label text-ink" aria-hidden="true">
+        {label}
+      </p>
+      <SegmentedControl label={label} name={name} value={value} options={options} onChange={onChange} />
+    </div>
+  )
+}
+
+/** Two fields side by side (Figma: rate and term on one row). */
+export function FieldPair({ children }: { children: ComponentChildren }) {
+  return <div class="grid grid-cols-2 gap-3 [&>*]:min-w-0">{children}</div>
+}
+
+/** The number field messages in the page language (validation.* keys, in TOOL_MESSAGE_KEYS). */
+export function fieldMessages(lang: Lang) {
+  return {
+    invalid: t(lang, 'validation.numbersOnly'),
+    min: (min: string) => t(lang, 'validation.min', { min }),
+    max: (max: string) => t(lang, 'validation.max', { max }),
+  }
 }
 
 /** Numbered tips or steps (Figma "article": "চার্জ কমানোর ৪টা উপায়"). */

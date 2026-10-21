@@ -54,20 +54,14 @@ const ld = [breadcrumbLd, appLd, ...(content.faq ? [faqJsonLd(content.faq.items)
 </Shell>
 
 <script>
+  import { recordRecentPage } from '@hisab/platform/recent-page'
   import { enhanceFaq } from '../../lib/faq'
+  import { safeLocalStorage } from '../../lib/storage'
 
   // The FAQ is server-rendered FaqList markup; a few lines open and close it (no Preact island).
   enhanceFaq(document)
 
-  // Remember the opened tool for the home page's "তোমার টুল" row, once the page is idle (the
-  // platform store is not needed for the first interaction).
+  // Remember the opened tool for the home page's "তোমার টুল" row (a few lines, not the whole store).
   const id = document.querySelector<HTMLElement>('main[data-entry]')?.dataset.entry
-  const idle = window.requestIdleCallback ?? ((fn: () => void) => setTimeout(fn, 200))
-  if (id) {
-    idle(() => {
-      void import('../../lib/device-lists')
-        .then(({ deviceLists }) => deviceLists().recents.push(id))
-        .catch(() => undefined)
-    })
-  }
+  if (id) recordRecentPage(safeLocalStorage(), id)
 </script>

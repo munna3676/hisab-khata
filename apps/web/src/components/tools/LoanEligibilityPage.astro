@@ -1,0 +1,28 @@
+---
+// "কত টাকা লোন পাবো?" (registry "loan-eligibility", Figma F9 27:6477, D · F9 66:29859) in one
+// language. The 40%/50% chips come from data/finance/loan-dbr.json.
+import { LoanEligibilityCalculator } from '@hisab/pages/islands/loan-eligibility'
+import { LOAN_ELIGIBILITY_COPY, LOAN_ELIGIBILITY_MESSAGE_KEYS, loanEligibilityContent } from '@hisab/pages/loan-eligibility'
+import { islandText } from '@hisab/pages/tool'
+import ToolPage from '../tool/ToolPage.astro'
+import { dataFile } from '../../lib/data'
+import type { Lang } from '../../lib/site'
+
+interface Props {
+  lang: Lang
+}
+
+const { lang } = Astro.props
+const dbr = dataFile('finance/loan-dbr.json')
+const content = loanEligibilityContent(lang, dbr)
+---
+
+<ToolPage content={content}>
+  <LoanEligibilityCalculator
+    client:load
+    lang={lang}
+    text={islandText(lang, LOAN_ELIGIBILITY_COPY, LOAN_ELIGIBILITY_MESSAGE_KEYS)}
+    dbrChips={dbr.value}
+    title={content.title}
+  />
+</ToolPage>

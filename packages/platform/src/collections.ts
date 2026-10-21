@@ -1,3 +1,4 @@
+import { RECENTS_KEY, RECENTS_LIMIT } from './keys.ts'
 import type { KeyValueStore } from './store.ts'
 
 // The user's own lists, kept on the device through Platform.store (no login, nothing leaves the
@@ -94,7 +95,7 @@ export interface RecentsOptions {
 }
 
 export function createRecents(store: KeyValueStore, options: RecentsOptions = {}): Recents {
-  const { key = 'recents', limit = 10, identity = (item) => item, clean = (item) => item } = options
+  const { key = RECENTS_KEY, limit = RECENTS_LIMIT, identity = (item) => item, clean = (item) => item } = options
   const list = storedList(store, key)
   return {
     list: list.read,

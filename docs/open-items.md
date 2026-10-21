@@ -115,3 +115,33 @@ follow-up for a later phase. Re-check this list in the final audit.
   `motion` is no longer used by any page; keep it for springs/FLIP or drop the dependency.
 - The first toast mounts its live region, then adds the message ~60 ms later so screen readers
   announce it; check with VoiceOver/TalkBack.
+
+## Phase 3c (finance calculators: EMI, DPS, FDR, loan eligibility, loan comparison, savings goal)
+
+- Figma numbers the engine does not match (the pages show the engine): F8-b FDR renew every 3
+  months shows ৳১,০৯,৩৪৩ (profit ৳১০,৩৮১, tax ৳১,০৩৮); the engine, which renews with the
+  after-tax amount, gives ৳১,০৯,৩০৮ (৳১০,৩৪৩ / ৳১,০৩৪). F10 offer B: ৳৮৯,২৯৭ interest,
+  ৳৯৯,২৯৭ total and ৳৩,৫৬১ saving (Figma ৳৮৯,২৮৪ / ৳৯৯,২৮৪ / ৳৩,৫৭৪). C4: ৳২০,৮৩৩ without
+  return (Figma ৳২০,৮৩৪). Update the Figma frames.
+- Layout deviations: the EMI table lists every month in a scroll box titled "মাসভিত্তিক পরিশোধ"
+  (Figma: the first 3 months, "(প্রথম ৩ মাস)"), and prints all of them. DPS has a year-by-year
+  table that Figma does not show (the task asks for a printable DPS schedule). Loan Comparison puts
+  each offer's loan on its own row (Figma pairs it with the rate; ৫,০০,০০০ does not fit half a
+  390px card). "লাখ"/"কম" after the result number use the card's smaller suffix style (Figma: same
+  size). FDR F8-b, DPS F7-b and the D · frames are modes of the same page (?mode=renew,
+  ?comp=quarterly). Related tools come from the registry (`bank-detail-*` pages have [param] routes,
+  so EMI/DPS/FDR list fewer cards than Figma's two/three rows).
+- Draft copy (marked `// draft` in each `copy.ts`): the closed FAQ answers (EMI "প্রথম দিকে সুদ
+  বেশি কেন?", DPS excise duty, FDR auto-renew), the DPS year table and its note, the EMI schedule
+  note, the FDR renew-term error, the loan-eligibility "no room" error, the loan-compare tie and
+  "কম" screen-reader word, savings-goal 0% line, all share texts, report-sheet items, chip-row
+  names, "পূর্ণ সংখ্যায় লেখো", and all English.
+- Data: data/finance/interest-tax.json now also has withoutTinPct 15 (seeded from the F7 helper
+  text, unverified). Excise duty is taken in DPS/FDR from data/finance/excise-duty.json; the Figma
+  examples are under the ৳৪ লাখ free limit, so they show none (the row appears when it applies).
+  savings-goal-presets.json has no target/months, so the purpose chips only name the plan (share
+  text) and change no numbers; it has no English labels (they are in the page copy). loan-caps.json
+  and loan-fees.json are empty and unused; Loan Comparison and Savings Goal have no verified line.
+- Restored links write fractions with two decimals in the field ("১০.৫০" for rate 10.5); a
+  NumberField option to keep "১০.৫" would read better.
+- Loan eligibility shows "৳১১.২ লাখ" with one decimal (rounded); below one lakh it shows whole taka.
