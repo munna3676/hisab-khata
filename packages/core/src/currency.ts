@@ -47,8 +47,11 @@ export interface CurrencyTableRow {
 
 export type CurrencyError = 'amount' | 'direction' | 'code' | 'rates' | 'spread' | 'fee'
 
+/** A usable rate row: finite and above zero (Infinity or NaN would give Infinity or NaN taka). */
+const positive = (n: number | undefined) => typeof n === 'number' && Number.isFinite(n) && n > 0
+
 function isValidRate(rate: CurrencyRate): boolean {
-  return rate.buy > 0 && (rate.sell === undefined || rate.sell > 0) && (rate.unit === undefined || rate.unit > 0)
+  return positive(rate.buy) && (rate.sell === undefined || positive(rate.sell)) && (rate.unit === undefined || positive(rate.unit))
 }
 
 /** Taka per 1 unit, after the spread, for the side of the deal the bank is on. */

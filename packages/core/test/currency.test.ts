@@ -79,4 +79,10 @@ describe('currency', () => {
     expect(validateCurrency({ ...figma, rates: [] })).toBe('code')
     expect(validateCurrency({ ...figma, rates: [{ code: 'SAR', buy: 32.6, unit: 0 }] })).toBe('rates')
   })
+  it('rejects non-finite rates (Infinity, NaN) in validation and in the table', () => {
+    for (const bad of [{ buy: Infinity }, { buy: NaN }, { buy: 32.6, sell: Infinity }, { buy: 32.6, unit: Infinity }, { buy: 32.6, sell: NaN }]) {
+      expect(validateCurrency({ ...figma, rates: [{ code: 'SAR', ...bad }] })).toBe('rates')
+      expect(calculateCurrencyTable(1000, [{ code: 'SAR', ...bad }])).toEqual([])
+    }
+  })
 })
