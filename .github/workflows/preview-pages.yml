@@ -1,0 +1,54 @@
+name: Preview (GitHub Pages)
+
+# A temporary preview of the website for the owner, served at
+# https://munna3676.github.io/hisab-khata/ until the Cloudflare deploy exists.
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+jobs:
+  build:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    env:
+      ASTRO_TELEMETRY_DISABLED: 1
+      SITE: https://munna3676.github.io
+    steps:
+      - uses: actions/checkout@v5
+      - uses: pnpm/action-setup@v4
+      - uses: actions/setup-node@v5
+        with:
+          node-version-file: .nvmrc
+          cache: pnpm
+      - name: Install
+        run: pnpm install --frozen-lockfile
+      - name: Build
+        run: pnpm build
+      - name: Serve under /hisab-khata/
+        run: |
+          node scripts/rebase-paths.mjs apps/web/dist /hisab-khata/
+          printf 'User-agent: *\nDisallow: /\n' > apps/web/dist/robots.txt
+      - uses: actions/upload-pages-artifact@v4
+        with:
+          path: apps/web/dist
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-24.04
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4
