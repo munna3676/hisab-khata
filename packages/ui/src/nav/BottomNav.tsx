@@ -1,7 +1,10 @@
 import type { ComponentType, HTMLAttributes } from 'preact'
-import { Bookmark, Grid, Home, ICON_SET } from '../icons/base'
+import { Bookmark } from '../icons/glyphs/Bookmark'
+import { Grid } from '../icons/glyphs/Grid'
+import { Home } from '../icons/glyphs/Home'
 import type { IconProps } from '../icons/Icon'
 import { cx } from '../lib/cx'
+import { FigmaSearch } from '../icons/glyphs/FigmaSearch'
 
 export type BottomNavId = 'home' | 'search' | 'tools' | 'saved' | (string & {})
 
@@ -36,7 +39,7 @@ export interface BottomNavProps extends Omit<HTMLAttributes<HTMLElement>, 'class
 
 export const DEFAULT_BOTTOM_NAV_ITEMS: BottomNavItem[] = [
   { id: 'home', href: '/', label: 'হোম', icon: Home },
-  { id: 'search', href: '/search/', label: 'খোঁজো', icon: ICON_SET.search },
+  { id: 'search', href: '/search/', label: 'খোঁজো', icon: FigmaSearch },
   { id: 'tools', href: '/tools/', label: 'সব টুল', icon: Grid },
   { id: 'saved', href: '/saved/', label: 'সেভ', icon: Bookmark },
 ]

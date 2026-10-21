@@ -2,7 +2,7 @@ import type { JSX } from 'preact'
 import { Button } from '../base/Button'
 import { TextField } from '../base/TextField'
 import { ChecklistItem } from '../content/ChecklistItem'
-import { Message } from '../icons/base'
+import { Message } from '../icons/glyphs/Message'
 import { cx } from '../lib/cx'
 
 export interface RateAlertTopic {

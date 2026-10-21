@@ -1,5 +1,7 @@
 import type { ComponentChildren } from 'preact'
-import { Download, Message, Share } from '../icons/base'
+import { Download } from '../icons/glyphs/Download'
+import { Message } from '../icons/glyphs/Message'
+import { Share } from '../icons/glyphs/Share'
 import { cx } from '../lib/cx'
 import { Logo } from '../nav/Logo'
 

@@ -11,7 +11,7 @@ import type {
 } from './capacitor.ts'
 
 // The real plugin loaders, for the app build only (apps/app imports this file and passes it to
-// usePlugins() in src/index.ts). The website never imports it, so its bundle never references
+// usePlugins() in src/native.ts). The website never imports it, so its bundle never references
 // @capacitor/*. Each plugin is a separate dynamic import, so Vite splits it into its own chunk.
 // Assigning to the local interface type checks the installed plugin's API against what
 // src/capacitor.ts expects.

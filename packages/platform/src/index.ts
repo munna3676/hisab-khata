@@ -1,16 +1,18 @@
-import { createCapacitorPlatform, type CapacitorGlobal, type CapacitorPlugins } from './capacitor.ts'
+import type { CapacitorGlobal } from './capacitor.ts'
 import type { Platform } from './types.ts'
 import { createWebPlatform } from './web.ts'
 
 // @hisab/platform: share, haptic, print, notify, store, openExternal, network and appInfo behind
 // one API, with a web implementation (src/web.ts) and a Capacitor one (src/capacitor.ts).
-// Components call getPlatform(); the app's entry calls usePlugins(capacitorPlugins) first.
+// Components call getPlatform(); the app's entry calls usePlugins(capacitorPlugins) from
+// src/native.ts first. This module never imports the Capacitor code, so the website's bundle
+// carries only the web implementation.
 
 export type * from './types.ts'
 export type { KeyValueStore } from './store.ts'
 export { collectionsFor } from './collections.ts'
 
-let plugins: CapacitorPlugins | undefined
+let createNative: (() => Platform) | undefined
 let current: Platform | undefined
 
 /** True inside the iOS/Android app (Capacitor's runtime says so), false in a browser. */
@@ -20,11 +22,11 @@ export function isNativePlatform(): boolean {
 }
 
 /**
- * Registers the Capacitor plugin loaders (from src/capacitor-plugins.ts). The app calls this once
- * at start-up, before anything calls getPlatform(); the website never does.
+ * Registers how to build the native platform (src/native.ts usePlugins does this with the
+ * Capacitor plugin loaders); undefined removes it.
  */
-export function usePlugins(loaders: CapacitorPlugins): void {
-  plugins = loaders
+export function useNativePlatform(create: (() => Platform) | undefined): void {
+  createNative = create
   current = undefined
 }
 
@@ -35,9 +37,9 @@ export function usePlugins(loaders: CapacitorPlugins): void {
  */
 export function getPlatform(): Platform {
   if (!current) {
-    if (isNativePlatform() && plugins) current = createCapacitorPlatform(plugins)
+    if (isNativePlatform() && createNative) current = createNative()
     else {
-      if (isNativePlatform()) console.warn('@hisab/platform: usePlugins() was not called; using the web platform')
+      if (isNativePlatform()) console.warn('@hisab/platform: usePlugins() (src/native.ts) was not called; using the web platform')
       current = createWebPlatform()
     }
   }

@@ -1,10 +1,11 @@
 import type { HTMLAttributes } from 'preact'
-import { Globe, ICON_SET } from '../icons/base'
+import { Globe } from '../icons/glyphs/Globe'
 import { cx } from '../lib/cx'
 import { HeaderIconButton } from './HeaderIconButton'
 import { HeaderSearch } from './HeaderSearch'
 import { Logo } from './Logo'
 import { ThemeToggle } from './ThemeToggle'
+import { FigmaSearch } from '../icons/glyphs/FigmaSearch'
 
 export interface NavLink {
   href: string
@@ -102,7 +103,7 @@ export function DesktopHeader({
         </nav>
         <HeaderSearch action={searchAction} label={t.search} placeholder={t.searchPlaceholder} class="hidden w-50 shrink-0 @3xl:flex" />
         <HeaderIconButton href={searchAction} label={t.search} class={cx(ICON_FIT, 'ml-auto @xl:ml-0 @3xl:hidden')}>
-          <ICON_SET.search />
+          <FigmaSearch />
         </HeaderIconButton>
         {languageHref && (
           <HeaderIconButton href={languageHref} label={t.language} hreflang={languageCode} lang={languageCode} class={ICON_FIT}>

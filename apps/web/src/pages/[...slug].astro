@@ -81,12 +81,12 @@ const isSearch = entry.id === 'search'
 </Shell>
 
 <script>
-  import { collectionsFor, getPlatform } from '@hisab/platform/index'
+  import { deviceLists } from '../lib/device-lists'
 
   // Remember opened tools and guides for the home page's "তোমার টুল" row.
   const main = document.querySelector<HTMLElement>('main[data-entry]')
   const kind = main?.dataset.kind
   if (main?.dataset.entry && kind && ['tool', 'mfs', 'guide', 'bank', 'remittance'].includes(kind)) {
-    void collectionsFor(getPlatform().store).recents.push(main.dataset.entry).catch(() => undefined)
+    void deviceLists().recents.push(main.dataset.entry).catch(() => undefined)
   }
 </script>

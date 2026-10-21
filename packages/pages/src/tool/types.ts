@@ -1,6 +1,6 @@
 import type { Lang } from '@hisab/i18n/locale'
-import type { FaqEntry } from '@hisab/ui/content'
-import type { BreadcrumbItem } from '@hisab/ui/nav'
+import type { FaqEntry } from '@hisab/ui/content/jsonld'
+import type { BreadcrumbItem } from '@hisab/ui/nav/Breadcrumb'
 import type { DataStatus } from './verification.ts'
 
 export type { Lang }

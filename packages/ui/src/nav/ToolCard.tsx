@@ -1,9 +1,10 @@
 import type { AnchorHTMLAttributes, ComponentChildren } from 'preact'
-import { Calculator, ICON_SET } from '../icons/base'
+import { Calculator } from '../icons/glyphs/Calculator'
 import { cx } from '../lib/cx'
 import { IconTile } from './IconTile'
+import { FigmaChevronRight } from '../icons/glyphs/FigmaChevronRight'
 
-const ChevronRight = ICON_SET['chevron-right']
+const ChevronRight = FigmaChevronRight
 
 export interface ToolCardProps extends Omit<AnchorHTMLAttributes<HTMLAnchorElement>, 'class' | 'title' | 'icon'> {
   href: string

@@ -1,9 +1,9 @@
 import { useEffect, useState } from 'preact/hooks'
-import { ICON_SET } from '../icons/base'
 import { Sun } from '../icons/common'
 import { cx } from '../lib/cx'
 import { currentTheme, setThemeSetting, type Theme } from '../lib/settings'
 import { HeaderIconButton } from './HeaderIconButton'
+import { FigmaMoon } from '../icons/glyphs/FigmaMoon'
 
 export interface ThemeToggleProps {
   /** Accessible name of the toggle; aria-pressed says whether dark mode is on. */
@@ -36,7 +36,7 @@ export function ThemeToggle({ label = 'ডার্ক মোড', class: classN
       data-theme-toggle
       onClick={() => setThemeSetting(currentTheme() === 'dark' ? 'light' : 'dark')}
     >
-      <ICON_SET.moon class="dark:hidden" />
+      <FigmaMoon class="dark:hidden" />
       <Sun class="hidden dark:block" />
     </HeaderIconButton>
   )

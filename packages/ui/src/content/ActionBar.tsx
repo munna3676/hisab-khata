@@ -1,6 +1,8 @@
 import type { JSX } from 'preact'
 import { Button } from '../base/Button'
-import { Download, Flag, Share } from '../icons/base'
+import { Download } from '../icons/glyphs/Download'
+import { Flag } from '../icons/glyphs/Flag'
+import { Share } from '../icons/glyphs/Share'
 import { cx } from '../lib/cx'
 
 export type ActionBarAction = 'share' | 'pdf' | 'report'

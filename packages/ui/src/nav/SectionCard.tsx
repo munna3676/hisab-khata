@@ -1,5 +1,5 @@
 import type { AnchorHTMLAttributes, ComponentChildren } from 'preact'
-import { Wallet } from '../icons/base'
+import { Wallet } from '../icons/glyphs/Wallet'
 import { cx } from '../lib/cx'
 import { IconTile } from './IconTile'
 

@@ -1,6 +1,7 @@
-import { t } from '@hisab/i18n/messages'
-import { Badge, VerifiedLine } from '@hisab/ui/base'
-import { Breadcrumb } from '@hisab/ui/nav'
+import { t } from '@hisab/i18n/t'
+import { Badge } from '@hisab/ui/base/Badge'
+import { VerifiedLine } from '@hisab/ui/base/VerifiedLine'
+import { Breadcrumb } from '@hisab/ui/nav/Breadcrumb'
 import type { ToolPageContent } from './types.ts'
 
 /**

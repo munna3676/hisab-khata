@@ -1,11 +1,9 @@
 // Cash Out page copy (Figma 03 Calculator — Cash Out 13:404 and the C1-b/c/d frames). Bangla is
 // verbatim from Figma except where marked "draft"; English is a faithful translation. Numbers in
 // the copy come from data/mfs-charges.json through the functions below, never typed in.
-import type { Lang } from '@hisab/i18n/locale'
+import type { CopyTable, Localized } from '../tool/text.ts'
 
-type L = Record<Lang, string>
-
-export const PROVIDER_NAME: Record<string, L> = {
+const PROVIDER_NAME = {
   bkash: { bn: 'বিকাশ', en: 'bKash' },
   nagad: { bn: 'নগদ', en: 'Nagad' },
   rocket: { bn: 'রকেট', en: 'Rocket' },
@@ -13,7 +11,7 @@ export const PROVIDER_NAME: Record<string, L> = {
 }
 
 /** How each channel is described in a compare row and, shorter, in the result label. */
-export const CHANNEL_TEXT: Record<string, { method: L; short: L }> = {
+const CHANNEL_TEXT = {
   'bkash-agent': { method: { bn: 'যেকোনো এজেন্ট', en: 'Any agent' }, short: { bn: 'যেকোনো এজেন্ট', en: 'any agent' } },
   'bkash-priyo-agent': { method: { bn: 'প্রিয় এজেন্ট', en: 'Priyo agent' }, short: { bn: 'প্রিয় এজেন্ট', en: 'Priyo agent' } },
   'bkash-atm': { method: { bn: 'ATM (BRAC, City, Q-Cash)', en: 'ATM (BRAC, City, Q-Cash)' }, short: { bn: 'ATM', en: 'ATM' } },
@@ -93,8 +91,15 @@ export const COPY = {
   shareTextMax: { bn: '{amount} ব্যালেন্স থেকে সবচেয়ে বেশি তোলা যায় {best} ({name})।', en: 'From a {amount} balance you can take at most {best} ({name}).' },
   reportItem: { bn: '{provider} · {method} · {rate}', en: '{provider} · {method} · {rate}' },
   stepsTitle: { bn: 'চার্জ কমানোর ৪টা উপায়', en: '4 ways to pay less' },
-} as const
+  providers: PROVIDER_NAME,
+  channels: CHANNEL_TEXT,
+  /** The channel the saving is measured against, as the "less than" line names it. */
+  references: {
+    'bkash-agent': { bn: 'সাধারণ বিকাশ এজেন্টের', en: 'an ordinary bKash agent' },
+  },
+} as const satisfies CopyTable
 
-export const REFERENCE_PHRASE: Record<string, L> = {
-  'bkash-agent': { bn: 'সাধারণ বিকাশ এজেন্টের', en: 'an ordinary bKash agent' },
-}
+/** The Cash Out copy in one language (what the island gets). */
+export type CashOutCopy = Localized<typeof COPY>
+
+

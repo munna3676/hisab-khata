@@ -1,0 +1,81 @@
+---
+// "তোমার টুল": starred pages, then recently opened ones, from the on-device store
+// (@hisab/platform). Not a Preact island: the server renders the markup as <template>s and a small
+// script fills the row, so Home ships no UI framework (budget: 10 KB gz, scripts/check-js-budget.mjs).
+// The row stays empty (and hidden) until the store answers and when both lists are empty, so a
+// first visit looks exactly like Figma.
+import { Chip } from '@hisab/ui/base/Chip'
+import { Star } from '@hisab/ui/icons/base'
+
+interface Props {
+  title: string
+  /** Pages that can appear in the row: registry id → name and route in this language. */
+  pages: Record<string, { name: string; href: string }>
+  /** Most chips shown. */
+  limit?: number
+  class?: string
+}
+
+const { title, pages, limit = 8, class: className } = Astro.props
+---
+
+<div class:list={['empty:hidden', className]} data-your-tools-slot data-limit={limit}></div>
+<script type="application/json" data-your-tools-pages set:html={JSON.stringify(pages).replace(/</g, '\\u003c')} />
+<template data-your-tools-template>
+  <section aria-labelledby="your-tools-title" class="flex flex-col gap-2.5" data-your-tools>
+    <h2 id="your-tools-title" class="type-label text-soft">{title}</h2>
+    <ul class="-mx-1 flex flex-wrap gap-x-2 px-1"></ul>
+  </section>
+</template>
+<template data-your-tools-chip><li><Chip href="#" numeric={false}>{''}</Chip></li></template>
+<template data-your-tools-star><Star size={16} class="text-accent" /></template>
+
+<script>
+  import { deviceLists } from '../../lib/device-lists'
+
+  const slot = document.querySelector<HTMLElement>('[data-your-tools-slot]')
+  const pagesEl = document.querySelector('[data-your-tools-pages]')
+  const tpl = (name: string) => document.querySelector<HTMLTemplateElement>(`template[data-your-tools-${name}]`)!.content
+
+  if (slot && pagesEl) {
+    const pages = JSON.parse(pagesEl.textContent || '{}') as Record<string, { name: string; href: string }>
+    const limit = Number(slot.dataset.limit) || 8
+    const { favorites, recents } = deviceLists()
+
+    const render = (items: { id: string; starred: boolean }[]) => {
+      slot.replaceChildren()
+      if (items.length === 0) return
+      const section = tpl('template').cloneNode(true) as DocumentFragment
+      const list = section.querySelector('ul')!
+      for (const { id, starred } of items) {
+        const li = tpl('chip').cloneNode(true) as DocumentFragment
+        const a = li.querySelector('a')!
+        a.href = pages[id]!.href
+        if (starred) a.append(tpl('star').cloneNode(true))
+        a.append(pages[id]!.name)
+        list.append(li)
+      }
+      slot.append(section)
+    }
+
+    const load = async () => {
+      const [stars, recent] = await Promise.all([favorites.list(), recents.list()])
+      const seen = new Set<string>()
+      const next: { id: string; starred: boolean }[] = []
+      for (const [ids, starred] of [
+        [stars, true],
+        [recent, false],
+      ] as const) {
+        for (const id of ids) {
+          if (seen.has(id) || !pages[id]) continue
+          seen.add(id)
+          next.push({ id, starred })
+        }
+      }
+      render(next.slice(0, limit))
+    }
+    void load().catch(() => undefined)
+    favorites.subscribe(() => void load().catch(() => undefined))
+    recents.subscribe(() => void load().catch(() => undefined))
+  }
+</script>

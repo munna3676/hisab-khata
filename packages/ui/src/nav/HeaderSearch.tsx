@@ -1,6 +1,6 @@
 import type { FormHTMLAttributes } from 'preact'
-import { ICON_SET } from '../icons/base'
 import { cx } from '../lib/cx'
+import { FigmaSearch } from '../icons/glyphs/FigmaSearch'
 
 export interface HeaderSearchProps extends Omit<FormHTMLAttributes<HTMLFormElement>, 'class' | 'role'> {
   /** Where the query goes (GET ?q=…). */
@@ -40,7 +40,7 @@ export function HeaderSearch({
       )}
       {...rest}
     >
-      <ICON_SET.search class="shrink-0" />
+      <FigmaSearch class="shrink-0" />
       <input
         type="search"
         name={name}

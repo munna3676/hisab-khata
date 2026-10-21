@@ -98,7 +98,20 @@ follow-up for a later phase. Re-check this list in the final audit.
   (inputmode url): the prefilled "https://" in a type="url" field blocked sending (bug in @hisab/ui).
 - Share sends the link (navigator.share or copy); the 1080×1080 share card (Figma S1 sheet with the
   card preview and targets) is phase 5.
-- The Cash Out island is about 61 KB gz of JS with its lazy motion chunk (both languages' i18n
-  messages are bundled); the stack's 12–20 KB calculator budget needs per-language message
-  bundles and a lighter ui barrel import before phase 7's Lighthouse budgets.
+- ~~The Cash Out island is about 61 KB gz of JS~~: done in phase 3c (see below).
 - Without JS the inputs are inert (the default result and the full comparison are in the HTML).
+
+## Phase 3c (JavaScript weight), 2026-10-21
+
+- Cash Out loads 22.4 KB gz before any tap plus 2.3 KB at idle (recents), was 61.8 KB plus a
+  22 KB lazy motion chunk; Home 5.7 KB, was 17.7 KB (`pnpm check:js`, CI and
+  tests/visual/budget.spec.ts enforce 25 / 10 KB). Done: one language's strings per page
+  (islandText / `@hisab/i18n/t`), deep ui imports and per-glyph icon modules, a requestAnimationFrame
+  count-up instead of `motion`, report sheet, toasts and the platform adapter on first tap,
+  Capacitor out of the web bundle (`@hisab/platform/native`), the FAQ and Home's "তোমার টুল" without
+  Preact, and two chunk groups (`apps/web/astro.config.ts`).
+- Still in the budget: Vite's preload helper (~0.8 KB; Astro keeps build.modulePreload on) and the
+  recents record's store (~2.3 KB at idle, `@hisab/platform/collections` keeps all four lists).
+  `motion` is no longer used by any page; keep it for springs/FLIP or drop the dependency.
+- The first toast mounts its live region, then adds the message ~60 ms later so screen readers
+  announce it; check with VoiceOver/TalkBack.

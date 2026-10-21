@@ -13,7 +13,8 @@
     "test:visual": "playwright test -c tests/visual/playwright.config.ts",
     "shots": "playwright test -c tests/visual/playwright.config.ts gallery.shots",
     "tokens": "pnpm --filter @hisab/tokens build",
-    "check:data": "node scripts/check-data.mjs"
+    "check:data": "node scripts/check-data.mjs",
+    "check:js": "node scripts/check-js-budget.mjs"
   },
   "devDependencies": {
     "@axe-core/playwright": "4.14.0",

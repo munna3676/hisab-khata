@@ -6,7 +6,8 @@
 //   <ToolPage content={content}><CashOutCalculator client:load ... /></ToolPage>
 import { getEntry } from '@hisab/data/registry'
 import { ToolPage as ToolBody, type ToolPageContent } from '@hisab/pages/tool'
-import { FaqList, faqJsonLd, jsonLdScript } from '@hisab/ui/content'
+import { faqJsonLd, jsonLdScript } from '@hisab/ui/content/jsonld'
+import { FaqList } from '@hisab/ui/content/FaqList'
 import Shell from '../../layouts/Shell.astro'
 
 interface Props {
@@ -48,14 +49,25 @@ const ld = [breadcrumbLd, appLd, ...(content.faq ? [faqJsonLd(content.faq.items)
   {ld.map((data) => <script slot="head" type="application/ld+json" set:html={jsonLdScript(data)} />)}
   <ToolBody content={content}>
     <slot />
-    {content.faq && <FaqList slot="faq" client:visible items={content.faq.items} defaultOpen={[0]} />}
+    {content.faq && <FaqList slot="faq" items={content.faq.items} defaultOpen={[0]} />}
   </ToolBody>
 </Shell>
 
 <script>
-  import { collectionsFor, getPlatform } from '@hisab/platform/index'
+  import { enhanceFaq } from '../../lib/faq'
 
-  // Remember the opened tool for the home page's "তোমার টুল" row.
+  // The FAQ is server-rendered FaqList markup; a few lines open and close it (no Preact island).
+  enhanceFaq(document)
+
+  // Remember the opened tool for the home page's "তোমার টুল" row, once the page is idle (the
+  // platform store is not needed for the first interaction).
   const id = document.querySelector<HTMLElement>('main[data-entry]')?.dataset.entry
-  if (id) void collectionsFor(getPlatform().store).recents.push(id).catch(() => undefined)
+  const idle = window.requestIdleCallback ?? ((fn: () => void) => setTimeout(fn, 200))
+  if (id) {
+    idle(() => {
+      void import('../../lib/device-lists')
+        .then(({ deviceLists }) => deviceLists().recents.push(id))
+        .catch(() => undefined)
+    })
+  }
 </script>

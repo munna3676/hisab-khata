@@ -1,19 +1,24 @@
 import type { MfsChannel } from '@hisab/core/mfs-charge'
 import type { Lang } from '@hisab/i18n/locale'
-import { interpolate, t } from '@hisab/i18n/messages'
+import { interpolate, t } from '@hisab/i18n/t'
 import { formatNumberIn } from '@hisab/i18n/format'
-import { NumberField, QuickValues, SegmentedControl } from '@hisab/ui/base'
-import { ResultCard } from '@hisab/ui/nav'
+import { NumberField } from '@hisab/ui/base/NumberField'
+import { QuickValues } from '@hisab/ui/base/QuickValues'
+import { SegmentedControl } from '@hisab/ui/base/SegmentedControl'
+import { ResultCard } from '@hisab/ui/nav/ResultCard'
 import { useMemo } from 'preact/hooks'
 import { useSubtitle, useUrlState } from '../tool/hooks.ts'
 import { CalculatorFrame, CompareList, InputCard, ResultEmpty, ResultError, ToolCallout } from '../tool/parts.tsx'
 import { ToolActions } from '../tool/ToolActions.tsx'
-import { COPY } from './copy.ts'
+import { useIslandText, type IslandText } from '../tool/text.ts'
+import type { COPY } from './copy.ts'
 import { cashOutOutcome, reportItems } from './model.ts'
 import { CASH_OUT_PARAMS, QUICK_AMOUNTS, QUOTA_CHANNEL, type CashOutMode } from './params.ts'
 
 export interface CashOutCalculatorProps {
   lang: Lang
+  /** The page copy and messages in `lang`: islandText(lang, COPY, CASH_OUT_MESSAGE_KEYS) on the server. */
+  text: IslandText<typeof COPY>
   /** The compared channels, from the validated data/mfs-charges.json (cashOutChannels). */
   channels: MfsChannel[]
   /** referenceByService.cashOut: the saving is measured against it. */
@@ -29,18 +34,19 @@ export interface CashOutCalculatorProps {
  * 58:15542, C1-d 58:15873; desktop D2 19:360 and the D · C1 frames). Every keystroke updates the
  * result, the comparison and the URL (?mode=max&amount=5000&used=45000).
  */
-export function CashOutCalculator({ lang, channels, referenceId, title, subtitle }: CashOutCalculatorProps) {
+export function CashOutCalculator({ lang, text, channels, referenceId, title, subtitle }: CashOutCalculatorProps) {
+  const COPY = useIslandText(lang, text)
   const { values, set } = useUrlState(CASH_OUT_PARAMS)
   const mode = values.mode as CashOutMode
-  const say = (text: Record<Lang, string>, vars?: Record<string, string>) => interpolate(lang, text[lang], vars)
+  const say = (text: string, vars?: Record<string, string>) => interpolate(lang, text, vars)
   useSubtitle(mode === 'max' ? say(COPY.subtitleMax) : subtitle)
 
   const outcome = useMemo(
-    () => cashOutOutcome({ lang, mode, amount: values.amount, used: values.used, channels, referenceId }),
-    [lang, mode, values.amount, values.used, channels, referenceId],
+    () => cashOutOutcome({ lang, copy: COPY, mode, amount: values.amount, used: values.used, channels, referenceId }),
+    [lang, COPY, mode, values.amount, values.used, channels, referenceId],
   )
   const fields = outcome.kind === 'empty' ? {} : (outcome.fields ?? {})
-  const items = useMemo(() => reportItems(lang, channels), [lang, channels])
+  const items = useMemo(() => reportItems(lang, COPY, channels), [lang, COPY, channels])
   const quota = channels.find((c) => c.id === QUOTA_CHANNEL)?.quota?.monthlyAmount ?? 0
   const amountLabel = say(mode === 'max' ? COPY.balanceLabel : COPY.amountLabel)
   const amountMessages = {

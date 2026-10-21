@@ -9,10 +9,14 @@ import { toolPageContent } from '../tool/content.ts'
 import type { ToolPageContent } from '../tool/types.ts'
 import { dataStatus } from '../tool/verification.ts'
 import { COPY } from './copy.ts'
+import { localize } from '../tool/text.ts'
 import { channelName, per1000 } from './model.ts'
 import { CASH_OUT_CHANNELS, QUOTA_CHANNEL } from './params.ts'
 
 export const CASH_OUT_ID = 'cash-out'
+
+/** The @hisab/i18n keys the Cash Out island uses besides the template's (for islandText). */
+export const CASH_OUT_MESSAGE_KEYS = ['result.cheapestIs', 'validation.dailyLimitTitle', 'validation.dailyLimitHint'] as const
 
 /** The channels this page compares, in CASH_OUT_CHANNELS order, from the validated data file. */
 export function cashOutChannels(file: MfsChargesFile): MfsChannel[] {
@@ -49,6 +53,7 @@ export function cashOutContent(lang: Lang, file: MfsChargesFile): ToolPageConten
   const appWhole = Math.floor(appSaving)
   const dayLimit = priyo.limits?.maxPerDay
   const bn = lang === 'bn'
+  const copy = localize(COPY, lang)
   const fill = (text: string, vars: Record<string, string>) => interpolate(lang, text, vars)
 
   const steps = [
@@ -62,7 +67,7 @@ export function cashOutContent(lang: Lang, file: MfsChargesFile): ToolPageConten
     {
       title: bn ? 'বড় অঙ্ক ATM থেকে তোলো।' : 'Take large amounts from an ATM.',
       body: fill(bn ? '{name} সবচেয়ে সস্তা, প্রতি হাজারে {rate} টাকা।' : '{name} is the cheapest, {rate} taka per thousand.', {
-        name: channelName(lang, first).replace(', ', bn ? 'ের ' : "'s "),
+        name: channelName(copy, first).replace(', ', bn ? 'ের ' : "'s "),
         rate: rate(lang, per1000(first)),
       }),
     },
@@ -118,9 +123,9 @@ export function cashOutContent(lang: Lang, file: MfsChargesFile): ToolPageConten
           : 'Of the {count} ways here, {first} is the cheapest at {firstRate} taka per thousand, then {second} at {secondRate} taka.',
         {
           count: formatNumberIn(lang, channels.length),
-          first: channelName(lang, first).replace(', ', ' '),
+          first: channelName(copy, first).replace(', ', ' '),
           firstRate: rate(lang, per1000(first)),
-          second: channelName(lang, second).replace(', ', ' '),
+          second: channelName(copy, second).replace(', ', ' '),
           secondRate: rate(lang, per1000(second)),
         },
       ),
@@ -129,7 +134,7 @@ export function cashOutContent(lang: Lang, file: MfsChargesFile): ToolPageConten
 
   return toolPageContent(CASH_OUT_ID, lang, {
     data: dataStatus(facts),
-    steps: { title: COPY.stepsTitle[lang], items: steps },
+    steps: { title: copy.stepsTitle, items: steps },
     faq: { title: t(lang, 'content.faq'), items: faq },
   })
 }

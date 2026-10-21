@@ -10,7 +10,7 @@ import { POPULAR, SECTIONS, SECTION_TITLE_KEY, dateLine, popularTools, searchHre
 import type { Lang } from '../../lib/site'
 import TodayBox from './TodayBox.astro'
 import { HomeSectionCard, HomeToolCard } from './HomeParts'
-import { YourTools } from './YourTools'
+import YourTools from './YourTools.astro'
 
 interface Props {
   lang: Lang
@@ -77,9 +77,7 @@ const pages = Object.fromEntries(
     <TodayBox lang={lang} today={today} variant="desktop" class="mt-1 hidden w-100 shrink-0 lg:block" />
   </div>
 
-  <div class="mt-6 empty:hidden lg:mt-8">
-    <YourTools client:idle title={t(lang, 'home.yourTools')} pages={pages} />
-  </div>
+  <YourTools class="mt-6 lg:mt-8" title={t(lang, 'home.yourTools')} pages={pages} />
 
   <!-- সব বিভাগ: two per row on phones, three on tablets, six on the desktop. -->
   <section aria-labelledby="sections-title" class="mt-6 lg:mt-12">

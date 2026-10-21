@@ -185,6 +185,19 @@ test('cash out: head has FAQPage, BreadcrumbList and WebApplication JSON-LD and 
   ])
 })
 
+test('cash out: the FAQ opens and closes without a Preact island', async ({ page }) => {
+  await open(page, '/tools/cash-out', 390)
+  const questions = page.locator('[data-tool-faq] [data-faq-item] button')
+  await expect(questions.first()).toHaveAttribute('aria-expanded', 'true')
+  await expect(questions.nth(1)).toHaveAttribute('aria-expanded', 'false')
+  await questions.nth(1).click()
+  await expect(questions.nth(1)).toHaveAttribute('aria-expanded', 'true')
+  await expect(page.locator('[data-tool-faq] [data-faq-item]').nth(1)).toContainText('মাসে')
+  await questions.first().click()
+  await expect(questions.first()).toHaveAttribute('aria-expanded', 'false')
+  expect(await page.locator('astro-island[component-url*="FaqList"]').count()).toBe(0)
+})
+
 test('cash out: the unverified data shows "যাচাই বাকি" instead of the green line', async ({ page }) => {
   await page.goto('/tools/cash-out')
   await expect(page.locator('[data-tool-header] [data-unverified]')).toContainText('যাচাই বাকি')

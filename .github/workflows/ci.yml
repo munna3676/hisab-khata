@@ -55,6 +55,9 @@ jobs:
       - name: Build web
         run: pnpm --filter @hisab/web build
 
+      - name: JavaScript budget (tool pages 25 KB gz, Home 10 KB gz)
+        run: pnpm check:js
+
       - name: Upload web build
         uses: actions/upload-artifact@v4
         with:

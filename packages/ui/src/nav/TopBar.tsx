@@ -1,9 +1,10 @@
 import type { HTMLAttributes } from 'preact'
-import { Globe, ICON_SET } from '../icons/base'
+import { Globe } from '../icons/glyphs/Globe'
 import { cx } from '../lib/cx'
 import { HeaderIconButton } from './HeaderIconButton'
 import { Logo } from './Logo'
 import { ThemeToggle } from './ThemeToggle'
+import { FigmaSearch } from '../icons/glyphs/FigmaSearch'
 
 export interface TopBarLabels {
   search: string
@@ -65,7 +66,7 @@ export function TopBar({
         <Logo name={name} href={homeHref} />
         <span class="min-w-0 flex-1" />
         <HeaderIconButton href={searchHref} label={t.search}>
-          <ICON_SET.search />
+          <FigmaSearch />
         </HeaderIconButton>
         {languageHref && (
           <HeaderIconButton href={languageHref} label={t.language} hreflang={languageCode} lang={languageCode}>

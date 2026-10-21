@@ -1,6 +1,7 @@
 import type { ComponentChildren, HTMLAttributes } from 'preact'
-import { ICON_SET } from '../icons/base'
 import { cx } from '../lib/cx'
+import { FigmaAlert } from '../icons/glyphs/FigmaAlert'
+import { FigmaInfo } from '../icons/glyphs/FigmaInfo'
 
 export type CalloutTone = 'info' | 'warn'
 
@@ -27,7 +28,7 @@ const TONE: Record<CalloutTone, { box: string; icon: string }> = {
  * slot below reproduces that (the 24px icon overflows it), so the text starts 30px in.
  */
 export function Callout({ tone = 'info', title, icon, class: className, children, ...rest }: CalloutProps) {
-  const Glyph = tone === 'warn' ? ICON_SET.alert : ICON_SET.info
+  const Glyph = tone === 'warn' ? FigmaAlert : FigmaInfo
   return (
     <div {...rest} role={rest.role ?? 'note'} class={cx('flex items-start gap-2.5 rounded-card px-3.5 py-3 text-ink', TONE[tone].box, className)}>
       <span class={cx('flex size-5 shrink-0 items-start', TONE[tone].icon)} data-callout-icon>

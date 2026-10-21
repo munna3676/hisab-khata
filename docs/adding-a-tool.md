@@ -42,17 +42,29 @@ export const EMI_PARAMS = defineParams({
 
 ## 2. Copy — `packages/pages/src/<id>/copy.ts`
 
-`COPY = { key: { bn: '…', en: '…' } }`. Bangla verbatim from Figma; mark anything you wrote
-yourself with a `// draft` comment (and list it in docs/open-items.md). Placeholders are `{name}`
-and are filled with `interpolate(lang, text, vars)`. Generic strings (validation, toasts, sheet,
+`COPY = { key: { bn: '…', en: '…' } } as const satisfies CopyTable` (nested tables are fine, e.g.
+`providers: { bkash: { bn, en } }`), plus `export type XxxCopy = Localized<typeof COPY>`. Bangla
+verbatim from Figma; mark anything you wrote yourself with a `// draft` comment (and list it in
+docs/open-items.md). Placeholders are `{name}` and are filled with `interpolate(lang, text, vars)`.
+
+The island never imports `COPY` or the @hisab/i18n message files (that put both languages into
+every page's JavaScript). The server passes `text={islandText(lang, COPY, XXX_MESSAGE_KEYS)}`: the
+copy in one language plus the @hisab/i18n keys the island calls `t()` with. Keys the template
+uses (ToolActions, ResultEmpty, number field messages, quick values) are added by `islandText`
+(`TOOL_MESSAGE_KEYS`); list the tool's own in `XXX_MESSAGE_KEYS` in content.ts.
+`test/island-text.test.tsx` renders every island with only those strings and fails on a missing key. Generic strings (validation, toasts, sheet,
 "সাধারণ প্রশ্ন", "আরও টুল", "যাচাই বাকি") are already in `@hisab/i18n` (`t(lang, 'validation.min')`…);
 add a new generic key to both `bn.json` and `en.json` and, if not from Figma, to `DRAFT_BN_KEYS`.
 
 ## 3. Model — `packages/pages/src/<id>/model.ts` (pure, unit-tested)
 
 ```ts
-export function emiOutcome(input: EmiInput & { lang: Lang }): ToolOutcome<EmiResult>
+export function emiOutcome(input: { lang: Lang; copy: EmiCopy; … }): ToolOutcome<EmiResult>
 ```
+
+- Take the copy as `copy` (one language, `localize(COPY, lang)` in tests and content.ts), never
+  import `COPY` in model.ts or the island. Import `t`/`interpolate` from `@hisab/i18n/t` (the
+  runtime without the message files), not `@hisab/i18n/messages`.
 
 - Return `{ kind: 'empty' }` while a required field is empty or not a number (the island passes
   `null` for those), `{ kind: 'error', error: { title, body, fix? }, fields? }` for a fixable input
@@ -83,6 +95,10 @@ Numbers in tips and FAQ answers are computed from the data/engine, never typed i
 
 Copy `CashOutCalculator.tsx`. The pieces:
 
+- Props `lang` and `text: IslandText<typeof COPY>`; the first line is
+  `const COPY = useIslandText(lang, text)` (registers the messages, returns the copy).
+- Import ui components from their own modules (`@hisab/ui/base/NumberField`,
+  `@hisab/ui/nav/ResultCard`, `@hisab/ui/content/BreakdownTable`), not the group barrels.
 - `const { values, set } = useUrlState(PARAMS)` — inputs ⇄ URL (`history.replaceState`).
 - `useSubtitle(text)` only if a mode changes the page subtitle (C1-b).
 - `useMemo(() => xxxOutcome({...}), [deps])`.
@@ -105,14 +121,14 @@ Copy `CashOutCalculator.tsx`. The pieces:
 1. `src/components/tools/<Tool>Page.astro` (copy `CashOutPage.astro`): read data with
    `dataFile('<file>.json')` from `src/lib/data.ts` (validated with `checkDataFile`; a bad file
    fails the build), build `content`, render
-   `<ToolPage content={content}><XxxCalculator client:load lang={lang} … /></ToolPage>`.
+   `<ToolPage content={content}><XxxCalculator client:load lang={lang} text={islandText(lang, XXX_COPY, XXX_MESSAGE_KEYS)} … /></ToolPage>`.
 2. `src/pages/<route>.astro` and `src/pages/en/<route>.astro` (the registry routes, e.g.
    `src/pages/tools/emi.astro`): `<EmiPage lang="bn" />` / `lang="en"`.
 3. Add the id to `BUILT_PAGES` in `src/lib/tools.ts` so `[...slug].astro` stops making the
    placeholder (the page becomes indexable, with FAQPage/BreadcrumbList/WebApplication JSON-LD).
 
-The template (`src/components/tool/ToolPage.astro`) already does the head, JSON-LD, the hydrated
-FAQ (`client:visible`), recents, the print stylesheet (`@hisab/pages/styles.css`, A4) and the
+The template (`src/components/tool/ToolPage.astro`) already does the head, JSON-LD, the FAQ
+(server-rendered FaqList plus a few lines of script in `src/lib/faq.ts`, no island), recents (on idle), the print stylesheet (`@hisab/pages/styles.css`, A4) and the
 report endpoint (`/api/report`, see docs/open-items.md).
 
 ## 7. Tests
@@ -129,8 +145,14 @@ report endpoint (`/api/report`, see docs/open-items.md).
 ```sh
 pnpm install --frozen-lockfile && pnpm typecheck && pnpm test
 node scripts/check-data.mjs --allow-unverified
-pnpm build && PW_SERVER=preview PORT=4410 pnpm test:visual
+pnpm build && pnpm check:js && PW_SERVER=preview PORT=4410 pnpm test:visual
 ```
+
+`pnpm check:js` (scripts/check-js-budget.mjs, also in CI) fails when a built tool page loads more
+than 25 KB gz of JavaScript before any tap (Home: 10 KB); `tests/visual/budget.spec.ts` checks
+the same in the browser. If a new page goes over, look at `node scripts/check-js-budget.mjs
+--verbose` (and `SOURCEMAP=1 pnpm build` to see what is inside a chunk). Things that only a tap
+needs (sheets, a long schedule, share/print) belong behind `import()`.
 
 Look at `test-results/<id>/*.png` against the Figma frames and note every deviation in
 docs/open-items.md.

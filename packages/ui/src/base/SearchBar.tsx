@@ -1,9 +1,9 @@
 import type { JSX } from 'preact'
-import { ICON_SET } from '../icons/base'
 import { cx } from '../lib/cx'
 import { useUid } from './uid'
+import { FigmaSearch } from '../icons/glyphs/FigmaSearch'
 
-const SearchIcon = ICON_SET.search
+const SearchIcon = FigmaSearch
 
 export interface SearchBarProps {
   /**

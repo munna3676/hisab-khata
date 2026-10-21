@@ -1,6 +1,6 @@
 import { toBanglaDigits } from '@hisab/core/lib/digits'
 import { GREGORIAN_MONTHS_BN, GREGORIAN_MONTHS_EN, parseIsoDate } from '@hisab/core/lib/dates-calendar'
-import { Verified } from '../icons/base'
+import { Verified } from '../icons/glyphs/Verified'
 import { cx } from '../lib/cx'
 
 export interface VerifiedLineProps {

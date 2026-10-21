@@ -12,15 +12,17 @@ import {
 } from '@hisab/core/mfs-charge'
 import { formatNumberIn, formatTakaIn } from '@hisab/i18n/format'
 import type { Lang } from '@hisab/i18n/locale'
-import { interpolate, t } from '@hisab/i18n/messages'
-import type { CompareBrand, CompareRowState } from '@hisab/ui/base'
-import type { ReportErrorItem } from '@hisab/ui/overlay'
+import { interpolate, t } from '@hisab/i18n/t'
+import type { CompareBrand, CompareRowState } from '@hisab/ui/base/CompareRow'
+import type { ReportErrorItem } from '@hisab/ui/overlay/ReportErrorForm'
 import type { ToolError, ToolOutcome } from '../tool/validation.ts'
-import { CHANNEL_TEXT, COPY, PROVIDER_NAME, REFERENCE_PHRASE } from './copy.ts'
+import type { CashOutCopy } from './copy.ts'
 import { QUOTA_CHANNEL, type CashOutMode } from './params.ts'
 
 export interface CashOutInput {
   lang: Lang
+  /** The page copy in `lang` (localize(COPY, lang); the island gets it from the server). */
+  copy: CashOutCopy
   mode: CashOutMode
   /** Amount to cash out (charge mode) or the wallet balance (max mode); null while the field is empty or not a number. */
   amount: number | null
@@ -65,20 +67,23 @@ export interface CashOutResult {
 
 const tk = (lang: Lang, value: number, decimals?: number) => formatTakaIn(lang, value, decimals === undefined ? {} : { decimals })
 const num = (lang: Lang, value: number, decimals?: number) => formatNumberIn(lang, value, decimals === undefined ? {} : { decimals })
-const say = (lang: Lang, text: Record<Lang, string>, vars?: Record<string, string>) => interpolate(lang, text[lang], vars)
+const say = (lang: Lang, text: string, vars?: Record<string, string>) => interpolate(lang, text, vars)
 
-export function providerName(lang: Lang, channel: MfsChannel): string {
-  return PROVIDER_NAME[channel.provider]?.[lang] ?? channel.provider
+export function providerName(c: CashOutCopy, channel: MfsChannel): string {
+  return (c.providers as Record<string, string | undefined>)[channel.provider] ?? channel.provider
 }
 
-export function methodName(lang: Lang, channel: MfsChannel): string {
-  return CHANNEL_TEXT[channel.id]?.method[lang] ?? channel.channel
+const channelText = (c: CashOutCopy, channel: MfsChannel) =>
+  (c.channels as Record<string, { method: string; short: string } | undefined>)[channel.id]
+
+export function methodName(c: CashOutCopy, channel: MfsChannel): string {
+  return channelText(c, channel)?.method ?? channel.channel
 }
 
 /** "রকেট, DBBL ATM": the name the result card and share text use. */
-export function channelName(lang: Lang, channel: MfsChannel): string {
-  const short = CHANNEL_TEXT[channel.id]?.short[lang] ?? channel.channel
-  return `${providerName(lang, channel)}, ${short}`
+export function channelName(c: CashOutCopy, channel: MfsChannel): string {
+  const short = channelText(c, channel)?.short ?? channel.channel
+  return `${providerName(c, channel)}, ${short}`
 }
 
 const BRANDS: readonly string[] = ['bkash', 'nagad', 'rocket']
@@ -93,7 +98,7 @@ function usageFor(used: number | null): Record<string, MfsUsage> {
   return used && used > 0 ? { [QUOTA_CHANNEL]: { quotaUsed: used } } : {}
 }
 
-function limitError(lang: Lang, kind: MfsLimitKind, allowed: number | null): { error: ToolError; field: string } {
+function limitError(lang: Lang, COPY: CashOutCopy, kind: MfsLimitKind, allowed: number | null): { error: ToolError; field: string } {
   const max = allowed === null ? '' : tk(lang, allowed)
   if (kind === 'minPerTxn') {
     const message = t(lang, 'validation.min', { min: max })
@@ -115,7 +120,7 @@ export function cashOutOutcome(input: CashOutInput): ToolOutcome<CashOutResult> 
   return input.mode === 'max' ? maxOutcome(input) : chargeOutcome(input)
 }
 
-function chargeOutcome({ lang, amount, used, channels, referenceId }: CashOutInput): ToolOutcome<CashOutResult> {
+function chargeOutcome({ lang, copy: COPY, amount, used, channels, referenceId }: CashOutInput): ToolOutcome<CashOutResult> {
   if (amount === null) return { kind: 'empty' }
   const usage = usageFor(used)
   const compareInput = { amount, channels: [...channels], usage, referenceId }
@@ -124,7 +129,7 @@ function chargeOutcome({ lang, amount, used, channels, referenceId }: CashOutInp
 
   if (r.allOverLimit || !r.cheapest) {
     const first = r.rows.find((row) => row.limit)
-    const { error, field } = limitError(lang, first?.limit?.kind ?? 'maxPerDay', r.maxAllowed)
+    const { error, field } = limitError(lang, COPY, first?.limit?.kind ?? 'maxPerDay', r.maxAllowed)
     return { kind: 'error', error, fields: { amount: field } }
   }
 
@@ -147,7 +152,7 @@ function chargeOutcome({ lang, amount, used, channels, referenceId }: CashOutInp
   }
 
   const sub = [say(lang, COPY.youGet, { amount: tk(lang, amount) }), say(lang, COPY.keepInWallet, { amount: tk(lang, cheapest.total) })]
-  const reference = REFERENCE_PHRASE[referenceId ?? '']?.[lang]
+  const reference = (COPY.references as Record<string, string | undefined>)[referenceId ?? '']
   if (r.savingVsReference !== null && r.savingVsReference > 0 && reference) {
     sub.push(say(lang, COPY.lessThan, { reference, amount: tk(lang, r.savingVsReference) }))
   }
@@ -158,9 +163,9 @@ function chargeOutcome({ lang, amount, used, channels, referenceId }: CashOutInp
     const state: CompareRowState = row === cheapest ? 'best' : row.limit || overQuota ? 'warning' : 'default'
     return {
       id: row.channel.id,
-      provider: providerName(lang, row.channel),
+      provider: providerName(COPY, row.channel),
       brand: brandOf(row.channel),
-      method: `${methodName(lang, row.channel)} · ${say(lang, overQuota ? COPY.overQuota : COPY.perThousand, { rate })}`,
+      method: `${methodName(COPY, row.channel)} · ${say(lang, overQuota ? COPY.overQuota : COPY.perThousand, { rate })}`,
       value: tk(lang, row.charge, 2),
       sub: say(lang, COPY.total, { amount: tk(lang, row.total, 2) }),
       state,
@@ -168,7 +173,7 @@ function chargeOutcome({ lang, amount, used, channels, referenceId }: CashOutInp
     }
   })
 
-  const name = channelName(lang, cheapest.channel)
+  const name = channelName(COPY, cheapest.channel)
   return {
     kind: 'result',
     fields,
@@ -188,7 +193,7 @@ function chargeOutcome({ lang, amount, used, channels, referenceId }: CashOutInp
   }
 }
 
-function maxOutcome({ lang, amount: balance, used, channels }: CashOutInput): ToolOutcome<CashOutResult> {
+function maxOutcome({ lang, copy: COPY, amount: balance, used, channels }: CashOutInput): ToolOutcome<CashOutResult> {
   if (balance === null) return { kind: 'empty' }
   const usage = usageFor(used)
   const input = { balance, channels: [...channels], usage }
@@ -201,7 +206,7 @@ function maxOutcome({ lang, amount: balance, used, channels }: CashOutInput): To
   const sub = [say(lang, COPY.charge, { amount: tk(lang, best.charge, 2) }), say(lang, COPY.leftInWallet, { amount: tk(lang, best.leftover, 2) })]
   // A limit, not the balance, capped it: say which (an info line, not a field error).
   if (best.limitedBy === 'maxPerDay' || best.limitedBy === 'maxPerTxn' || best.limitedBy === 'maxPerMonth') {
-    sub.push(limitError(lang, best.limitedBy, best.amount).field)
+    sub.push(limitError(lang, COPY, best.limitedBy, best.amount).field)
   }
 
   const rows: CashOutRow[] = r.rows.map((row) => {
@@ -212,9 +217,9 @@ function maxOutcome({ lang, amount: balance, used, channels }: CashOutInput): To
     const state: CompareRowState = row === best ? 'best' : row.amount === 0 ? 'warning' : 'default'
     return {
       id: row.channel.id,
-      provider: providerName(lang, row.channel),
+      provider: providerName(COPY, row.channel),
       brand: brandOf(row.channel),
-      method: `${methodName(lang, row.channel)} · ${say(lang, overQuota ? COPY.overQuota : COPY.perThousand, { rate })}`,
+      method: `${methodName(COPY, row.channel)} · ${say(lang, overQuota ? COPY.overQuota : COPY.perThousand, { rate })}`,
       value: tk(lang, row.amount),
       sub: say(lang, COPY.charge, { amount: tk(lang, row.charge, 2) }),
       state,
@@ -222,7 +227,7 @@ function maxOutcome({ lang, amount: balance, used, channels }: CashOutInput): To
     }
   })
 
-  const name = channelName(lang, best.channel)
+  const name = channelName(COPY, best.channel)
   return {
     kind: 'result',
     result: {
@@ -240,12 +245,12 @@ function maxOutcome({ lang, amount: balance, used, channels }: CashOutInput): To
 }
 
 /** The "ভুল পেলেন?" list: one entry per channel with its price per 1,000. */
-export function reportItems(lang: Lang, channels: readonly MfsChannel[]): ReportErrorItem[] {
+export function reportItems(lang: Lang, COPY: CashOutCopy, channels: readonly MfsChannel[]): ReportErrorItem[] {
   return channels.map((channel) => ({
     value: channel.id,
     label: say(lang, COPY.reportItem, {
-      provider: providerName(lang, channel),
-      method: methodName(lang, channel),
+      provider: providerName(COPY, channel),
+      method: methodName(COPY, channel),
       rate: tk(lang, per1000(channel), 2),
     }),
   }))

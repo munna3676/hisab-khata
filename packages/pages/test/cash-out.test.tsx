@@ -4,14 +4,17 @@ import { cleanup, fireEvent, render, screen, waitFor } from '@testing-library/pr
 import mfsJson from '../../../data/mfs-charges.json' with { type: 'json' }
 import { afterEach, describe, expect, it } from 'vitest'
 import { CashOutCalculator } from '../src/cash-out/CashOutCalculator.tsx'
-import { cashOutChannels, cashOutContent } from '../src/cash-out/content.ts'
+import { CASH_OUT_MESSAGE_KEYS, cashOutChannels, cashOutContent } from '../src/cash-out/content.ts'
+import { COPY } from '../src/cash-out/copy.ts'
+import { islandText } from '../src/tool/island-text.ts'
+import { localize } from '../src/tool/text.ts'
 import { cashOutOutcome } from '../src/cash-out/model.ts'
 
 const file = mfsJson as unknown as MfsChargesFile
 const channels = cashOutChannels(file)
 const referenceId = file.referenceByService.cashOut
 const outcome = (mode: 'charge' | 'max', amount: number | null, used = 0, lang: 'bn' | 'en' = 'bn') =>
-  cashOutOutcome({ lang, mode, amount, used, channels, referenceId })
+  cashOutOutcome({ lang, copy: localize(COPY, lang), mode, amount, used, channels, referenceId })
 
 describe('cash out model (Figma example values, seed data)', () => {
   it('uses valid data', () => {
@@ -99,7 +102,7 @@ describe('CashOutCalculator island', () => {
   })
 
   const mount = () =>
-    render(<CashOutCalculator lang="bn" channels={channels} referenceId={referenceId} title="t" subtitle="s" />)
+    render(<CashOutCalculator lang="bn" text={islandText('bn', COPY, CASH_OUT_MESSAGE_KEYS)} channels={channels} referenceId={referenceId} title="t" subtitle="s" />)
 
   it('restores the inputs from a shared link', async () => {
     window.history.replaceState(null, '', '/tools/cash-out?amount=10000&used=45000')

@@ -1,6 +1,6 @@
 import { cleanup, fireEvent, render, screen } from '@testing-library/preact'
 import { afterEach, describe, expect, it, vi } from 'vitest'
-import { Share } from '../icons/base'
+import { Share } from '../icons/glyphs/Share'
 import { Button } from './Button'
 import { IconButton } from './IconButton'
 import { Spinner } from './Spinner'

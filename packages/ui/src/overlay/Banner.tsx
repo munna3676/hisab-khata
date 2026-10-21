@@ -1,6 +1,6 @@
 import type { ComponentChildren } from 'preact'
 import { Callout } from '../base/Callout'
-import { WifiOff } from '../icons/base'
+import { WifiOff } from '../icons/glyphs/WifiOff'
 import { cx } from '../lib/cx'
 
 export type BannerTone = 'offline' | 'stale'

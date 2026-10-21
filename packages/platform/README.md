@@ -22,7 +22,8 @@ await collectionsFor(platform.store).favorites.toggle('emi')
 | `src/capacitor-plugins.ts` | The real `import('@capacitor/…')` loaders, for the app build only |
 | `src/capacitor-modules.d.ts` | Stand-in module declarations until the plugins are installed; delete it then |
 | `src/collections.ts` | Favorites (☆), recent pages, recent searches and saved calculations/checklists on any `KeyValueStore`; `collectionsFor(store)` shares one instance per store |
-| `src/index.ts` | `getPlatform()` (Capacitor when `window.Capacitor.isNativePlatform()` and plugins are registered, else web), `usePlugins()`, `setPlatform()`, `isNativePlatform()` |
+| `src/index.ts` | `getPlatform()` (Capacitor when `window.Capacitor.isNativePlatform()` and plugins are registered, else web), `setPlatform()`, `isNativePlatform()`; it never imports the Capacitor code |
+| `src/native.ts` | `usePlugins()`: the app registers the Capacitor implementation here, so the website bundle leaves it out |
 
 ## In the app (apps/app)
 
@@ -30,7 +31,7 @@ Install the plugins listed in docs/decisions/0001-stack.md, delete
 `src/capacitor-modules.d.ts`, then at start-up:
 
 ```ts
-import { usePlugins } from '@hisab/platform/index'
+import { usePlugins } from '@hisab/platform/native'
 import { capacitorPlugins } from '@hisab/platform/capacitor-plugins'
 usePlugins(capacitorPlugins)
 ```

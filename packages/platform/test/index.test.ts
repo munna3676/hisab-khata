@@ -1,5 +1,6 @@
 import { afterEach, describe, expect, it, vi } from 'vitest'
-import { getPlatform, isNativePlatform, setPlatform, usePlugins } from '../src/index.ts'
+import { getPlatform, isNativePlatform, setPlatform } from '../src/index.ts'
+import { usePlugins } from '../src/native.ts'
 import type { CapacitorPlugins } from '../src/capacitor.ts'
 
 const g = globalThis as { Capacitor?: unknown }

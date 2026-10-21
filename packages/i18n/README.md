@@ -6,7 +6,8 @@ Bangla is served at `/` and English under `/en/`.
 | File | What it holds |
 |---|---|
 | `src/bn.json`, `src/en.json` | Interface copy by area: `app`, `nav`, `brand`, `search`, `home`, `allTools`, `saved`, `action`, `field`, `validation`, `result`, `verified`, `content`, `wizard`, `sheet.*` (share, reportError, rateAlert, installApp, externalLink, bankSort, bankAdd, remittanceSort, messMember), `picker`, `toast`, `state` (offline, stale, 404, loading), `contact`, `footer`, `disclaimer`, `shareCard` |
-| `src/messages.ts` | `t(lang, key, vars)`, `translator(lang)`, `MessageKey` (every dotted key, checked at compile time), `DRAFT_BN_KEYS` |
+| `src/messages.ts` | Loads both message files; `t(lang, key, vars)`, `translator(lang)`, `MessageKey` (every dotted key, checked at compile time), `DRAFT_BN_KEYS`, `pickMessages` |
+| `src/t.ts` | The same `t()` without the message files, for islands: they get their few keys in one language as a prop (`pickMessages` on the server, `provideMessages` in the island) |
 | `src/format.ts` | `formatNumberIn`, `formatTakaIn`, `formatPercentIn`, `plainDigits`, `formatDateIn`, `formatLongDateIn` over `@hisab/core/lib/format` |
 | `src/routes.ts` | `routeOf(id, lang, params)`, `matchRoute(path)`, `switchLanguage(href, lang)`, `alternates(href)` from `data/registry/tools.json` |
 | `src/locale.ts` | `localePath`, `neutralPath`, `langOfPath`: the `/en` prefix rule |

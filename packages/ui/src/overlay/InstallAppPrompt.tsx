@@ -1,6 +1,6 @@
 import type { ComponentChildren } from 'preact'
 import { Button } from '../base/Button'
-import { Download } from '../icons/base'
+import { Download } from '../icons/glyphs/Download'
 import { Check } from '../icons/common'
 import { cx } from '../lib/cx'
 import { LogoMark } from '../nav/Logo'
