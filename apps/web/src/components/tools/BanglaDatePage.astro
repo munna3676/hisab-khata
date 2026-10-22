@@ -1,0 +1,33 @@
+---
+// Bangla date converter (registry "bangla-date", Figma D3 29:8406, D5-b 60:18179, D · D3 68:7265,
+// D · D5-b 69:38230) in one language. Special days come from data/dates/special-days.json; the
+// Hijri row uses the Bangladesh offset in data/dates/hijri-offset.json.
+import { BANGLA_DATE_COPY, BANGLA_DATE_MESSAGE_KEYS, banglaDateContent } from '@hisab/pages/bangla-date'
+import { BanglaDateCalculator } from '@hisab/pages/islands/bangla-date'
+import { islandText } from '@hisab/pages/tool'
+import ToolPage from '../tool/ToolPage.astro'
+import { dataFile } from '../../lib/data'
+import { buildDay } from '../../lib/dates'
+import type { Lang } from '../../lib/site'
+
+interface Props {
+  lang: Lang
+}
+
+const { lang } = Astro.props
+const special = dataFile('dates/special-days.json')
+const offset = dataFile('dates/hijri-offset.json')
+const content = banglaDateContent(lang, special, offset)
+---
+
+<ToolPage content={content}>
+  <BanglaDateCalculator
+    client:load
+    lang={lang}
+    text={islandText(lang, BANGLA_DATE_COPY, BANGLA_DATE_MESSAGE_KEYS)}
+    specialDays={special.value}
+    hijriOffset={offset.value}
+    today={buildDay()}
+    title={content.title}
+  />
+</ToolPage>

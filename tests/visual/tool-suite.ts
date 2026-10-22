@@ -27,6 +27,14 @@ export interface ToolSuite {
   ldTypes: string[]
   /** The page has a schedule (BreakdownTable) that must print in full. */
   schedule?: { rows: number }
+  /**
+   * Freeze the browser clock at this instant (ISO) for pages whose result depends on "today" (the
+   * date tools: Figma's today is 19 Oct 2026). The HTML is built on the build day, so the no-JS
+   * result is checked with `noJsValue` instead of `value`.
+   */
+  clock?: string
+  /** The server-rendered result when it differs from the hydrated one (a "today" default). */
+  noJsValue?: string | RegExp
 }
 
 export const resultValue = (page: Page) => page.locator('[data-result-card] [data-result-value]')
@@ -40,8 +48,9 @@ const errorsOf = (page: Page) => {
   return errors
 }
 
-async function open(page: Page, path: string, width: number, theme: 'light' | 'dark' = 'light') {
+async function openAt(page: Page, path: string, width: number, theme: 'light' | 'dark' = 'light', clock?: string) {
   await page.setViewportSize({ width, height: heightFor(width) })
+  if (clock) await page.clock.setFixedTime(new Date(clock))
   await prepare(page, theme)
   await page.goto(path)
   await settle(page)
@@ -53,6 +62,7 @@ async function noSidewaysScroll(page: Page) {
 }
 
 export function toolSuite(s: ToolSuite) {
+  const open = (page: Page, path: string, width: number, theme: 'light' | 'dark' = 'light') => openAt(page, path, width, theme, s.clock)
   const shot = (name: string) => join(ROOT, 'test-results', s.id, name)
   const en = `/en${s.path}`
 
@@ -121,6 +131,7 @@ export function toolSuite(s: ToolSuite) {
       const link = await page.evaluate(() => navigator.clipboard.readText())
       expect(link).toMatch(s.share.query)
       const other = await browser.newPage()
+      if (s.clock) await other.clock.setFixedTime(new Date(s.clock))
       await other.goto(link)
       await settle(other)
       await s.share.restored(other)
@@ -132,8 +143,8 @@ export function toolSuite(s: ToolSuite) {
       const page = await context.newPage()
       await page.goto(s.path)
       await expect(page.locator('h1')).toHaveText(s.h1)
-      await expect(resultValue(page)).toHaveText(s.value)
-      await expect(page.locator('[data-summary], [data-offer-table], [data-breakdown-table]').first()).toBeVisible()
+      await expect(resultValue(page)).toHaveText(s.noJsValue ?? s.value)
+      await expect(page.locator('[data-summary], [data-offer-table], [data-breakdown-table], [data-unit-table]').first()).toBeVisible()
       await context.close()
     })
 

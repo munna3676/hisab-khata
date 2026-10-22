@@ -1,0 +1,22 @@
+---
+// Day count (registry "day-count", Figma D5 31:8462 / D · D5 68:7759) in one language. A formula
+// tool: no verified line. The শেষ তারিখ defaults to today: the build day in the HTML, the real day
+// in Bangladesh once the island runs.
+import { DAY_COUNT_COPY, DAY_COUNT_MESSAGE_KEYS, dayCountContent } from '@hisab/pages/day-count'
+import { DayCountCalculator } from '@hisab/pages/islands/day-count'
+import { islandText } from '@hisab/pages/tool'
+import ToolPage from '../tool/ToolPage.astro'
+import { buildDay } from '../../lib/dates'
+import type { Lang } from '../../lib/site'
+
+interface Props {
+  lang: Lang
+}
+
+const { lang } = Astro.props
+const content = dayCountContent(lang)
+---
+
+<ToolPage content={content}>
+  <DayCountCalculator client:load lang={lang} text={islandText(lang, DAY_COUNT_COPY, DAY_COUNT_MESSAGE_KEYS)} today={buildDay()} title={content.title} />
+</ToolPage>

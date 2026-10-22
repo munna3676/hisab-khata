@@ -23,3 +23,9 @@ export function banglaDateText(lang: Lang, day: CalendarDate): string {
 /** Today in Bangladesh (UTC+6). */
 export const todayInDhaka = (now = new Date()) => calendarDateAt(now, 360)
 
+
+/** The build day in Bangladesh as YYYY-MM-DD: the date tools' "today" until the browser knows the real day. */
+export const buildDay = () => {
+  const d = todayInDhaka()
+  return `${String(d.year).padStart(4, '0')}-${String(d.month).padStart(2, '0')}-${String(d.day).padStart(2, '0')}`
+}

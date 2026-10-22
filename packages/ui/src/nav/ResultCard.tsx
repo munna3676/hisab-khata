@@ -9,6 +9,11 @@ export interface ResultCardProps extends Omit<HTMLAttributes<HTMLDivElement>, 'c
   label: ComponentChildren
   /** The one answer the user came for. */
   value: number
+  /**
+   * A worded answer instead of the number ("২৬ বছর ৭ মাস ৪ দিন", "১ পৌষ ১৪৩৩", "যোগ্য ✓"):
+   * shown as given in the number's place, without count-up; `value` is then ignored.
+   */
+  text?: string
   /** taka: "৳৬৪.৯৫"; number: "৬৪.৯৫". */
   format?: 'taka' | 'number'
   /** Bangla (default) or English digits. */
@@ -54,6 +59,7 @@ export function formatResult(value: number, { format = 'taka', digits = 'bn', de
 export function ResultCard({
   label,
   value,
+  text,
   format = 'taka',
   digits = 'bn',
   decimals,
@@ -75,14 +81,14 @@ export function ResultCard({
       shownRef.current = n
       setShown(n)
     }
-    if (!countUp) {
+    if (!countUp || text !== undefined) {
       update(value)
       return
     }
     const ctrl = new AbortController()
     void runCountUp(value, update, { from, signal: ctrl.signal })
     return () => ctrl.abort()
-  }, [value, countUp])
+  }, [value, countUp, text])
 
   return (
     <div
@@ -97,14 +103,15 @@ export function ResultCard({
       <p class={cx(RULED, 'font-body text-[0.875rem] leading-7 text-soft')}>{label}</p>
       <p
         aria-hidden="true"
-        class={cx(RULED, 'hk-nav-num text-[1.75rem] leading-14 font-bold text-accent @xs:text-[2.25rem]')}
+        // A worded answer is longer than a number: smaller on phones so "২৬ বছর ৭ মাস ৪ দিন" fits a line.
+        class={cx(RULED, 'hk-nav-num leading-14 font-bold text-accent', text === undefined ? 'text-[1.75rem] @xs:text-[2.25rem]' : 'text-[1.5rem] @md:text-[2.25rem]')}
         data-result-value
       >
-        {fmt(shown)}
+        {text ?? fmt(shown)}
         {suffix && <span class="font-body text-[1.125rem] font-semibold tracking-normal">{suffix}</span>}
       </p>
       <p class="sr-only" aria-live="polite" aria-atomic="true">
-        {fmt(value) + (suffix ?? '')}
+        {(text ?? fmt(value)) + (suffix ?? '')}
       </p>
       {sub && <div class="pr-5 pl-8.5 font-body text-[0.875rem] leading-7 text-ink">{sub}</div>}
       {/* Red margin line, 19px from the left edge (Figma), drawn over the rules like the design's layer order. */}

@@ -1,0 +1,32 @@
+---
+// Government job age limit (registry "job-age-limit", Figma D2 29:8239 / D · D2 68:7039) in one
+// language. The limit chips and the rule come from data/jobs/govt-age-limit.json.
+import { JOB_AGE_COPY, JOB_AGE_MESSAGE_KEYS, jobAgeContent } from '@hisab/pages/job-age-limit'
+import { JobAgeLimitCalculator } from '@hisab/pages/islands/job-age-limit'
+import { islandText } from '@hisab/pages/tool'
+import ToolPage from '../tool/ToolPage.astro'
+import { dataFile } from '../../lib/data'
+import { buildDay } from '../../lib/dates'
+import type { Lang } from '../../lib/site'
+
+interface Props {
+  lang: Lang
+}
+
+const { lang } = Astro.props
+const file = dataFile('jobs/govt-age-limit.json')
+const content = jobAgeContent(lang, file)
+const rule = { minYears: file.value.minYears, limitDayIncluded: file.value.limitDayIncluded }
+---
+
+<ToolPage content={content}>
+  <JobAgeLimitCalculator
+    client:load
+    lang={lang}
+    text={islandText(lang, JOB_AGE_COPY, JOB_AGE_MESSAGE_KEYS)}
+    presets={file.value.presets}
+    rule={rule}
+    today={buildDay()}
+    title={content.title}
+  />
+</ToolPage>

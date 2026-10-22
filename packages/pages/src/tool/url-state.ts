@@ -20,14 +20,30 @@ export interface EnumParam<V extends string = string> {
   values: readonly V[]
 }
 
-export type ParamSpec = NumberParam | EnumParam
+/**
+ * A calendar date as 'YYYY-MM-DD' (?birth=2000-03-15). `today: true` also accepts the word
+ * 'today', which the page resolves to today's date in Bangladesh when it renders (the age
+ * calculator's "আজ" chip), so a link without a date keeps meaning today.
+ * `calendar: 'bangla'` (বঙ্গাব্দ, month 1 = বৈশাখ) only checks the shape and the ranges;
+ * the engine decides whether the day exists in that month.
+ */
+export interface DateParam {
+  kind: 'date'
+  default: string
+  today?: boolean
+  calendar?: 'gregorian' | 'bangla'
+  minYear?: number
+  maxYear?: number
+}
+
+export type ParamSpec = NumberParam | EnumParam | DateParam
 
 /** Input name → how it is stored in the URL. The key is the query parameter name (short, ASCII). */
 export type ParamSchema = Record<string, ParamSpec>
 
 /** The typed values a schema describes: numbers for number params, the union of values for enums. */
 export type ParamValues<S extends ParamSchema> = {
-  -readonly [K in keyof S]: S[K] extends EnumParam<infer V> ? V : number
+  -readonly [K in keyof S]: S[K] extends EnumParam<infer V> ? V : S[K] extends DateParam ? string : number
 }
 
 /** A query parameter that was present but could not be used (it falls back to the default). */
@@ -57,6 +73,23 @@ function readNumber(spec: NumberParam, raw: string): number | ParamIssue['reason
   return value
 }
 
+/** The word a `today: true` date param stores for "today". */
+export const TODAY = 'today'
+
+function readDate(spec: DateParam, raw: string): string | ParamIssue['reason'] {
+  if (raw === TODAY) return spec.today ? raw : 'invalid'
+  const match = /^(\d{4})-(\d{2})-(\d{2})$/.exec(raw)
+  if (!match) return 'invalid'
+  const [year, month, day] = [Number(match[1]), Number(match[2]), Number(match[3])]
+  if (month < 1 || month > 12 || day < 1 || day > (spec.calendar === 'bangla' ? 31 : gregorianDays(year, month))) return 'invalid'
+  if (spec.minYear !== undefined && year < spec.minYear) return 'min'
+  if (spec.maxYear !== undefined && year > spec.maxYear) return 'max'
+  return raw
+}
+
+const isLeap = (y: number) => (y % 4 === 0 && y % 100 !== 0) || y % 400 === 0
+const gregorianDays = (y: number, m: number) => (m === 2 ? (isLeap(y) ? 29 : 28) : [4, 6, 9, 11].includes(m) ? 30 : 31)
+
 /**
  * The values in a query string ('?amount=5000&mode=max' or URLSearchParams). Missing keys get the
  * default; unusable ones get the default and are listed in `issues`. Unknown keys are ignored
@@ -78,6 +111,15 @@ export function readParams<S extends ParamSchema>(
         values[key] = raw
         present.push(key)
       } else issues.push({ key, value: raw, reason: 'unknown-value' })
+      continue
+    }
+    if (spec.kind === 'date') {
+      const date = readDate(spec, raw.trim())
+      if (date === 'invalid' || date === 'min' || date === 'max') issues.push({ key, value: raw, reason: date })
+      else {
+        values[key] = date
+        present.push(key)
+      }
       continue
     }
     const value = readNumber(spec, raw)
@@ -102,6 +144,8 @@ export function writeParams<S extends ParamSchema>(schema: S, values: Partial<Pa
     if (spec.kind === 'number') {
       if (typeof value !== 'number' || !Number.isFinite(value)) continue
       params.set(key, String(value))
+    } else if (spec.kind === 'date') {
+      if (typeof value === 'string' && readDate(spec, value) === value) params.set(key, value)
     } else if ((spec.values as readonly string[]).includes(String(value))) {
       params.set(key, String(value))
     }

@@ -28,6 +28,12 @@ import taxJson from '../../../data/income-tax-2026-27.json' with { type: 'json' 
 import spJson from '../../../data/finance/sanchayapatra.json' with { type: 'json' }
 import curJson from '../../../data/finance/currency-rates.json' with { type: 'json' }
 import packJson from '../../../data/data-packs.json' with { type: 'json' }
+import { COPY as AGE_COPY } from '../src/age/copy.ts'
+import { COPY as JOB_COPY } from '../src/job-age-limit/copy.ts'
+import { COPY as BD_COPY } from '../src/bangla-date/copy.ts'
+import { COPY as HIJRI_COPY } from '../src/hijri-date/copy.ts'
+import { COPY as DC_COPY } from '../src/day-count/copy.ts'
+import specialJson from '../../../data/dates/special-days.json' with { type: 'json' }
 
 type Lang = 'bn' | 'en'
 
@@ -140,6 +146,36 @@ export const CASES: IslandCase[] = [
     props: (lang) => ({ lang, text: islandText(lang, PACK_COPY), operators: packJson.operators, packs: packJson.packs.flatMap((p) => p.value), title: 't' }),
     load: () => import('../src/islands/data-pack.ts'),
     urls: ['', '?days=7', '?budget=50', '?op=robi', '?days=2.5'],
+  },
+  {
+    id: 'age',
+    props: (lang) => ({ lang, text: islandText(lang, AGE_COPY), today: '2026-10-19', title: 't' }),
+    load: () => import('../src/islands/age.ts'),
+    urls: ['', '?on=2027-03-15', '?on=1990-01-01', '?birth=bad'],
+  },
+  {
+    id: 'job-age-limit',
+    props: (lang) => ({ lang, text: islandText(lang, JOB_COPY), presets: [30, 32, 35], rule: { limitDayIncluded: false }, today: '2026-10-19', title: 't' }),
+    load: () => import('../src/islands/job-age-limit.ts'),
+    urls: ['', '?max=29', '?ref=1990-01-01'],
+  },
+  {
+    id: 'bangla-date',
+    props: (lang) => ({ lang, text: islandText(lang, BD_COPY), specialDays: specialJson.value, hijriOffset: -1, today: '2026-10-19', title: 't' }),
+    load: () => import('../src/islands/bangla-date.ts'),
+    urls: ['', '?dir=to-en', '?dir=to-en&bdate=1433-07-31', '?date=1952-02-21'],
+  },
+  {
+    id: 'hijri-date',
+    props: (lang) => ({ lang, text: islandText(lang, HIJRI_COPY), offset: -1, today: '2026-10-19', title: 't' }),
+    load: () => import('../src/islands/hijri-date.ts'),
+    urls: ['', '?adj=1', '?date=2027-03-10&adj=-1'],
+  },
+  {
+    id: 'day-count',
+    props: (lang) => ({ lang, text: islandText(lang, DC_COPY), today: '2026-10-19', title: 't' }),
+    load: () => import('../src/islands/day-count.ts'),
+    urls: ['', '?inc=yes', '?start=2027-01-01'],
   },
 ]
 

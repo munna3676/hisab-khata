@@ -10,7 +10,6 @@ export { ToolActions, REPORT_ENDPOINT, type ToolActionsProps } from './ToolActio
 export {
   CalculatorFrame,
   ChoiceChips,
-  CompareList,
   FieldPair,
   InputCard,
   LabeledChips,
@@ -28,4 +27,5 @@ export {
 export * from './say.ts'
 export * from './text.ts'
 export { islandText } from './island-text.ts'
+export { CompareList } from './CompareList.tsx'
 export { PickerField, type PickerFieldProps, type ChoiceOption } from './PickerField.tsx'

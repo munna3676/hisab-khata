@@ -1,0 +1,22 @@
+---
+// Age calculator (registry "age", Figma D1 29:8051 / D · D1 68:6790, P5 59:16939) in one language.
+// A formula tool: no data file, so no verified line. "আজ" is the build day in the HTML (the no-JS
+// result) and the real day in Bangladesh once the island runs.
+import { AGE_COPY, AGE_MESSAGE_KEYS, ageContent } from '@hisab/pages/age'
+import { AgeCalculator } from '@hisab/pages/islands/age'
+import { islandText } from '@hisab/pages/tool'
+import ToolPage from '../tool/ToolPage.astro'
+import { buildDay } from '../../lib/dates'
+import type { Lang } from '../../lib/site'
+
+interface Props {
+  lang: Lang
+}
+
+const { lang } = Astro.props
+const content = ageContent(lang)
+---
+
+<ToolPage content={content}>
+  <AgeCalculator client:load lang={lang} text={islandText(lang, AGE_COPY, AGE_MESSAGE_KEYS)} today={buildDay()} title={content.title} />
+</ToolPage>

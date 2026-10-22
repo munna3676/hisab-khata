@@ -42,10 +42,21 @@ export function relatedTools(entry: RegistryEntry, lang: Lang, limit = 4): Relat
 export function toolPageContent(
   id: string,
   lang: Lang,
-  extra: Pick<ToolPageContent, 'data' | 'steps' | 'faq'> & { subtitle?: string; relatedLimit?: number } = {},
+  extra: Pick<ToolPageContent, 'data' | 'steps' | 'faq'> & {
+    subtitle?: string
+    relatedLimit?: number
+    /**
+     * Name the hub crumbs with the entry's own `breadcrumb` labels (Figma D1–L4: "তারিখ ও বয়স",
+     * "জমি ও সোনা") instead of the hub pages' names ("তারিখ, জমি, সোনা"); the links stay the hubs.
+     */
+    registryCrumbs?: boolean
+  } = {},
 ): ToolPageContent {
   const entry = getEntry(id)
   if (!entry) throw new Error(`toolPageContent: no registry entry '${id}'`)
+  const hubs = sectionChain(entry)
+  const named = extra.registryCrumbs ? entry.breadcrumb?.[lang] : undefined
+  const hubLabel = (hub: RegistryEntry, i: number) => (named && named.length === hubs.length + 1 ? named[i]! : (hub.shortName ?? hub.name)[lang])
   return {
     lang,
     id,
@@ -53,7 +64,7 @@ export function toolPageContent(
     subtitle: extra.subtitle ?? entry.description[lang],
     crumbs: [
       { label: t(lang, 'nav.home'), href: routeOf('home', lang) },
-      ...sectionChain(entry).map((hub) => ({ label: (hub.shortName ?? hub.name)[lang], href: routeOf(hub.id, lang) })),
+      ...hubs.map((hub, i) => ({ label: hubLabel(hub, i), href: routeOf(hub.id, lang) })),
       { label: (entry.shortName ?? entry.name)[lang] },
     ],
     data: extra.data,

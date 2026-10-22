@@ -1264,7 +1264,7 @@
       ],
       "related": ["hijri-date", "day-count"],
       "engine": "bangla-date.ts",
-      "dataFiles": ["dates/special-days.json"],
+      "dataFiles": ["dates/special-days.json", "dates/hijri-offset.json"],
       "figma": {"mobile": ["29:8406", "60:18179"], "desktop": ["68:7265", "69:38230"]}
     },
     {

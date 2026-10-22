@@ -24,6 +24,11 @@
     "./sanchayapatra": "./src/sanchayapatra/index.ts",
     "./currency-converter": "./src/currency-converter/index.ts",
     "./data-pack": "./src/data-pack/index.ts",
+    "./age": "./src/age/index.ts",
+    "./job-age-limit": "./src/job-age-limit/index.ts",
+    "./bangla-date": "./src/bangla-date/index.ts",
+    "./hijri-date": "./src/hijri-date/index.ts",
+    "./day-count": "./src/day-count/index.ts",
     "./islands/*": "./src/islands/*.ts",
     "./styles.css": "./src/styles.css"
   },

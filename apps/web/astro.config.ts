@@ -18,8 +18,8 @@ const site = process.env.SITE || 'https://hisabkhata.com'
 // imports up front belong here: the report sheet, toasts, the platform adapter and preact/compat
 // stay separate and load on demand.
 const TOOL_TEMPLATE = [
-  /packages\/pages\/src\/tool\/(url-state|hooks|parts|ToolActions|text|validation)\.tsx?$/,
-  /packages\/ui\/src\/base\/(Badge|Button|Callout|Chip|CompareRow|KVRow|NumberField|QuickValues|SegmentedControl|TextField|uid)\.tsx?$/,
+  /packages\/pages\/src\/tool\/(url-state|hooks|parts|ToolActions|text|validation|say)\.tsx?$/,
+  /packages\/ui\/src\/base\/(Button|Callout|Chip|KVRow|NumberField|QuickValues|SegmentedControl|TextField|uid)\.tsx?$/,
   /packages\/ui\/src\/(nav\/ResultCard|content\/ActionBar)\.tsx$/,
   /packages\/ui\/src\/lib\/(cx|motion)\.ts$/,
   /packages\/ui\/src\/icons\/(Icon|common|glyphs\/(Share|Download|Flag|FigmaAlert|FigmaInfo))\.tsx$/,

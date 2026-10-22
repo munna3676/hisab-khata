@@ -16,4 +16,9 @@ export const BUILT_PAGES: readonly string[] = [
   'sanchayapatra',
   'currency-converter',
   'data-pack',
+  'age',
+  'job-age-limit',
+  'bangla-date',
+  'hijri-date',
+  'day-count',
 ]

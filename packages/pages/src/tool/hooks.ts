@@ -1,9 +1,9 @@
 import { useEffect, useState } from 'preact/hooks'
-import { defaultValues, readParams, writeParams, type EnumParam, type ParamSchema } from './url-state.ts'
+import { defaultValues, readParams, writeParams, type DateParam, type EnumParam, type ParamSchema } from './url-state.ts'
 
-/** Live input values: numbers may be null while a field is empty or not a number (left out of the URL). */
+/** Live input values: numbers may be null while a field is empty or not a number (left out of the URL); dates are 'YYYY-MM-DD' or 'today'. */
 export type InputValues<S extends ParamSchema> = {
-  -readonly [K in keyof S]: S[K] extends EnumParam<infer V> ? V : number | null
+  -readonly [K in keyof S]: S[K] extends EnumParam<infer V> ? V : S[K] extends DateParam ? string : number | null
 }
 
 /**

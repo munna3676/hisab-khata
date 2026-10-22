@@ -1,0 +1,24 @@
+---
+// Hijri date (registry "hijri-date", Figma D4 29:8587 / D · D4 68:7511) in one language. The
+// Bangladesh moon-sighting offset (-1 against Umm al-Qura) comes from data/dates/hijri-offset.json;
+// "today" is the build day in the HTML and the real day once the island runs.
+import { HIJRI_COPY, HIJRI_MESSAGE_KEYS, hijriContent } from '@hisab/pages/hijri-date'
+import { HijriDateCalculator } from '@hisab/pages/islands/hijri-date'
+import { islandText } from '@hisab/pages/tool'
+import ToolPage from '../tool/ToolPage.astro'
+import { dataFile } from '../../lib/data'
+import { buildDay } from '../../lib/dates'
+import type { Lang } from '../../lib/site'
+
+interface Props {
+  lang: Lang
+}
+
+const { lang } = Astro.props
+const offset = dataFile('dates/hijri-offset.json')
+const content = hijriContent(lang, offset)
+---
+
+<ToolPage content={content}>
+  <HijriDateCalculator client:load lang={lang} text={islandText(lang, HIJRI_COPY, HIJRI_MESSAGE_KEYS)} offset={offset.value} today={buildDay()} title={content.title} />
+</ToolPage>
