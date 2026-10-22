@@ -33,7 +33,13 @@ import { COPY as JOB_COPY } from '../src/job-age-limit/copy.ts'
 import { COPY as BD_COPY } from '../src/bangla-date/copy.ts'
 import { COPY as HIJRI_COPY } from '../src/hijri-date/copy.ts'
 import { COPY as DC_COPY } from '../src/day-count/copy.ts'
+import { COPY as LAND_COPY } from '../src/land-converter/copy.ts'
+import { COPY as LP_COPY } from '../src/land-price/copy.ts'
+import { COPY as GOLD_COPY } from '../src/gold-converter/copy.ts'
+import { COPY as JB_COPY } from '../src/jewelry-bill/copy.ts'
 import specialJson from '../../../data/dates/special-days.json' with { type: 'json' }
+import conventionsJson from '../../../data/land/conventions.json' with { type: 'json' }
+import ratesJson from '../../../data/gold/bajus-rates.json' with { type: 'json' }
 
 type Lang = 'bn' | 'en'
 
@@ -176,6 +182,30 @@ export const CASES: IslandCase[] = [
     props: (lang) => ({ lang, text: islandText(lang, DC_COPY), today: '2026-10-19', title: 't' }),
     load: () => import('../src/islands/day-count.ts'),
     urls: ['', '?inc=yes', '?start=2027-01-01'],
+  },
+  {
+    id: 'land-converter',
+    props: (lang) => ({ lang, text: islandText(lang, LAND_COPY), conventions: conventionsJson.value, title: 't' }),
+    load: () => import('../src/islands/land-converter.ts'),
+    urls: ['', '?unit=sqft&n=1000', '?area=custom&ks=0', '?area=chattogram&unit=gonda', '?n=abc'],
+  },
+  {
+    id: 'land-price',
+    props: (lang) => ({ lang, text: islandText(lang, LP_COPY), title: 't' }),
+    load: () => import('../src/islands/land-price.ts'),
+    urls: ['', '?unit=decimal&area=10', '?area=0', '?unit=hectare'],
+  },
+  {
+    id: 'gold-converter',
+    props: (lang) => ({ lang, text: islandText(lang, GOLD_COPY), rates: ratesJson.value, title: 't' }),
+    load: () => import('../src/islands/gold-converter.ts'),
+    urls: ['', '?k=18', '?p=200000&r=3', '?v=abc'],
+  },
+  {
+    id: 'jewelry-bill',
+    props: (lang) => ({ lang, text: islandText(lang, JB_COPY), rates: ratesJson.value, title: 't' }),
+    load: () => import('../src/islands/jewelry-bill.ts'),
+    urls: ['', '?v=0', '?mk=120', '?p=200000&vat=0'],
   },
 ]
 

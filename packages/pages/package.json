@@ -29,6 +29,10 @@
     "./bangla-date": "./src/bangla-date/index.ts",
     "./hijri-date": "./src/hijri-date/index.ts",
     "./day-count": "./src/day-count/index.ts",
+    "./land-converter": "./src/land-converter/index.ts",
+    "./land-price": "./src/land-price/index.ts",
+    "./gold-converter": "./src/gold-converter/index.ts",
+    "./jewelry-bill": "./src/jewelry-bill/index.ts",
     "./islands/*": "./src/islands/*.ts",
     "./styles.css": "./src/styles.css"
   },

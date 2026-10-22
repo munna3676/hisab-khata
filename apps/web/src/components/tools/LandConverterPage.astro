@@ -1,0 +1,22 @@
+---
+// Land measurement converter (registry "land-converter", Figma L1 31:8623, P3 59:16558, D · L1
+// 68:8014) in one language. The কাঠা sizes of the area chips come from data/land/conventions.json.
+import { LAND_COPY, LAND_MESSAGE_KEYS, landContent } from '@hisab/pages/land-converter'
+import { LandConverterCalculator } from '@hisab/pages/islands/land-converter'
+import { islandText } from '@hisab/pages/tool'
+import ToolPage from '../tool/ToolPage.astro'
+import { dataFile } from '../../lib/data'
+import type { Lang } from '../../lib/site'
+
+interface Props {
+  lang: Lang
+}
+
+const { lang } = Astro.props
+const file = dataFile('land/conventions.json')
+const content = landContent(lang, file)
+---
+
+<ToolPage content={content}>
+  <LandConverterCalculator client:load lang={lang} text={islandText(lang, LAND_COPY, LAND_MESSAGE_KEYS)} conventions={file.value} title={content.title} />
+</ToolPage>

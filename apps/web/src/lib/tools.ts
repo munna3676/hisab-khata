@@ -21,4 +21,8 @@ export const BUILT_PAGES: readonly string[] = [
   'bangla-date',
   'hijri-date',
   'day-count',
+  'land-converter',
+  'land-price',
+  'gold-converter',
+  'jewelry-bill',
 ]

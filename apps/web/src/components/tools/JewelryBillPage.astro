@@ -1,0 +1,24 @@
+---
+// Jewellery bill (registry "jewelry-bill", Figma L4 31:9216 / D · L4 68:8774) in one language. The
+// day's 22K rate comes from data/gold/bajus-rates.json; the মজুরি and VAT defaults from
+// data/gold/jewellery-rules.json (the link defaults equal them; a unit test checks it).
+import { JEWELRY_COPY, JEWELRY_MESSAGE_KEYS, jewelryContent } from '@hisab/pages/jewelry-bill'
+import { JewelryBillCalculator } from '@hisab/pages/islands/jewelry-bill'
+import { islandText } from '@hisab/pages/tool'
+import ToolPage from '../tool/ToolPage.astro'
+import { dataFile } from '../../lib/data'
+import type { Lang } from '../../lib/site'
+
+interface Props {
+  lang: Lang
+}
+
+const { lang } = Astro.props
+const rules = dataFile('gold/jewellery-rules.json')
+const rates = dataFile('gold/bajus-rates.json')
+const content = jewelryContent(lang, rules, rates)
+---
+
+<ToolPage content={content}>
+  <JewelryBillCalculator client:load lang={lang} text={islandText(lang, JEWELRY_COPY, JEWELRY_MESSAGE_KEYS)} rates={rates.value} title={content.title} />
+</ToolPage>

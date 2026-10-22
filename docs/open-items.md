@@ -196,3 +196,63 @@ follow-up for a later phase. Re-check this list in the final audit.
 - JS before any tap (pnpm check:js): VAT 20.8, discount 20.7, profit margin 20.9, salary 21.1,
   income tax 22.9, Sanchayapatra 23.8, currency 23.5, data pack 22.5 KB gz (budget 25). The two
   picker pages are closest to the budget.
+
+## Phase 3e (date, land and gold tools: age, job age limit, Bangla date, Hijri date, day count, land converter, land price, gold converter, jewellery bill), 2026-10-22
+
+- Engines unchanged. Figma numbers the engine does not match (the pages show the engine):
+  - L2 per শতাংশ: ৳১৫,১২,৫০০ (exact at 1 কাঠা = 720 বর্গফুট); Figma ৳১৫,১৫,১৫২ divides by a rounded
+    1.65. Per বর্গফুট ৳৩,৪৭২ and the total match. Update the frame, or decide on a 1.65-শতাংশ কাঠা.
+  - Hijri offset: the pages use data/dates/hijri-offset.json (-1, Bangladesh moon sighting; real 2026
+    dates match it). D4 then shows ৭ জমাদিউল আউয়াল for 19 Oct 2026 (Figma ৮, raw Umm al-Qura) and D3
+    shows ৬ রজব for 16 Dec 2026 (Figma ৭); D5-b's ৬ জিলকদ matches. "যেমন আছে" means the Bangladesh
+    default; "+১ দিন" gives the raw Umm al-Qura date. Product should confirm, and the frames be updated.
+    Bangla date now also reads hijri-offset.json (added to its registry dataFiles).
+- "Today": age (কোন তারিখে, আজ chip), Hijri date and day count (শেষ তারিখ) default to today
+  (`?on=today` style param, not written to the link). The HTML is computed on the build day (no-JS
+  fallback; a page built days ago shows the build day until JS runs) and the island switches to the
+  day in Bangladesh on load. Tests freeze the clock at Figma's today, 19 Oct 2026. Bangla date keeps
+  Figma's fixed example (16 Dec 2026), job age limit its circular date (31 Oct 2026).
+- New shared parts: `tool/DateField.tsx` (date boxes; P5 DatePicker sheet loaded on the first tap),
+  `tool/BanglaDateSelect.tsx` (D5-b: three native selects, as Figma has no Bangla calendar sheet),
+  `tool/today.ts`, `tool/date-say.ts`, `tool/UnitTable.tsx` ("সব এককে"), the `date` param kind in
+  url-state, `ResultCard text` for worded answers (smaller type on phones so "২৬ বছর ৭ মাস ৪ দিন"
+  fits a line; Figma's 36px overflows the card), `toolPageContent({ registryCrumbs })`,
+  `land/units.ts` (P3 picker, unit names), `gold/` (weight boxes, day's rate). `CompareList` moved
+  to its own module and Badge/CompareRow out of the template chunk (every other page loads ~0.6 KB
+  less); `tool/say.ts` joined the template chunk.
+- Layout deviations: breadcrumb hubs use the registry `breadcrumb` labels ("তারিখ ও বয়স", "জমি ও
+  সোনা") as Figma does; their links go to the date-land-gold hub. Related tools use the generic
+  calculator icon (Figma: calendar/clock/map/coin icons) and the registry's related list (age:
+  job age limit + day count, as Figma). Date boxes all use the resting field style (Figma shows the
+  first date input with the focused border). Units after a number ("বর্গফুট", "গ্রাম", "দিন") use
+  the result card's smaller suffix style. The weight boxes stack on cards narrower than 304px
+  (360px phones) so each input stays 44px wide. Dark mode and English have no Figma frames.
+- Land converter: Figma shows two area chips ("ঢাকা · ৭২০ বর্গফুট", "অন্য এলাকা") without saying what
+  the second does. It opens the other data/land/conventions.json areas (চট্টগ্রাম, কুমিল্লা-নোয়াখালী
+  কানি) plus a typed কাঠা size (`?area=custom&ks=726`); copy for those is draft. The result is in
+  বর্গফুট (শতাংশ when বর্গফুট is typed); the table has Figma's six rows plus the typed unit if it is
+  another one. Regional কানি values are still unconfirmed (engine-review).
+- Land price: registration costs (data/land/registration-costs.json, in the registry entry) are
+  not shown; Figma L2 only says they are extra. The price unit follows the area unit. The FAQ-less
+  formula page has no verified line.
+- Day count: data/dates/weekend.json and holidays-2026.json (registry dataFiles) are not used;
+  Figma D5 has no working-day count, and holidays-2026.json is empty. Add a "কর্মদিবস" row when
+  a frame shows one. An end date before the start counts backwards (draft note).
+- Job age limit: data has no minimum age or extensions (quota, COVID relaxation), so neither has UI.
+  Too old / too young states, labels and sub lines are draft (no Figma frame).
+- Gold: data/gold/bajus-rates.json has only 22K and 21K gold rates; the ১৮ and ২৪ chips show "রেট
+  নেই, দাম নিজে লেখো" (draft) and the weight alone until a price is typed. Nothing was seeded (Figma
+  shows no 18K/24K rate). Silver (title "সোনা-রুপা") has no UI. The price link param defaults to
+  "the day's rate" (`p` absent), so links follow new rates; a typed price is kept.
+- Jewellery bill: always 22K (Figma); old-gold exchange and VAT per ভরি (engine supports both,
+  data vatPerVori is null) have no UI. মজুরি below the BAJUS minimum (6%) is accepted silently.
+- Draft copy (marked `// draft` in each copy.ts): every share text and report item, the error
+  states (age before birth, circular before birth, a Bangla day that does not exist, katha size,
+  zero area, weight, over-100% rates), the non-today Hijri card title "এই দিন", the custom-area
+  chip and field, the closed "১ বিঘা সমান কত কাঠা?" answer, the date boxes' screen-reader names, and
+  all English (season names, special days, unit names).
+- JS before any tap (pnpm check:js): age 22.0, job age limit 22.5, Bangla date 25.0 (25,577 of
+  25,600 bytes: 23 bytes of room), Hijri 24.1, day count 22.3, land converter 23.6, land price 23.1,
+  gold 22.6, jewellery bill 22.4 KB gz. The date picker sheet (~9 KB) loads on the first tap. Bangla
+  date carries both calendar engines and both date inputs; anything added there must be paid for
+  (e.g. load the Hijri row's engine on demand, or share one chunk for the two calendar engines).

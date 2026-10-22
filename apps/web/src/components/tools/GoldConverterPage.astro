@@ -1,0 +1,22 @@
+---
+// Gold and silver converter (registry "gold-converter", Figma L3 31:9006 / D · L3 68:8527) in one
+// language. The day's karat rates come from data/gold/bajus-rates.json.
+import { GOLD_COPY, GOLD_MESSAGE_KEYS, goldContent } from '@hisab/pages/gold-converter'
+import { GoldConverterCalculator } from '@hisab/pages/islands/gold-converter'
+import { islandText } from '@hisab/pages/tool'
+import ToolPage from '../tool/ToolPage.astro'
+import { dataFile } from '../../lib/data'
+import type { Lang } from '../../lib/site'
+
+interface Props {
+  lang: Lang
+}
+
+const { lang } = Astro.props
+const rates = dataFile('gold/bajus-rates.json')
+const content = goldContent(lang, rates)
+---
+
+<ToolPage content={content}>
+  <GoldConverterCalculator client:load lang={lang} text={islandText(lang, GOLD_COPY, GOLD_MESSAGE_KEYS)} rates={rates.value} title={content.title} />
+</ToolPage>

@@ -45,12 +45,26 @@ export const EMI_PARAMS = defineParams({
   literal list here; the unit test asserts it matches the data file. Business limits (daily limits, slabs) belong to the
   model, so the person sees the C1-d style error with a fix button.
 - Quick-value chips and other fixed UI lists go here too (`QUICK_AMOUNTS`, `TERM_CHIPS`).
+- Dates are `{ kind: 'date', default: '2000-03-15', minYear, maxYear }` ('YYYY-MM-DD' in the link).
+  A date that means "today" (the age calculator's আজ chip, a day count's শেষ তারিখ) takes
+  `today: true` and `default: 'today'` (`TODAY` from `tool/url-state.ts`), so the clean link keeps
+  meaning today. A Bangla date (বঙ্গাব্দ, month 1 = বৈশাখ) adds `calendar: 'bangla'`: the link only
+  checks the shape, the engine checks the month length.
+- A default that follows a data value that changes often (the day's BAJUS rate) is a sentinel
+  (`PRICE_FROM_RATES = -1` in `gold/shared.ts`) that the model resolves from data, so the link
+  stores only a price the person typed.
 - Next to the params, an `XXX_LIMITS` object with what the engine's `validateXxx` accepts
   (`{ months: { min: 1, max: 600, integer: true } }`); the model turns it into field messages.
 - A default that must equal a data value (e.g. the 10% tax from finance/interest-tax.json) stays a
   literal here; the unit test asserts it matches the data file.
 
 ## 2. Copy — `packages/pages/src/<id>/copy.ts`
+
+Date tools spread `DATE_COPY` from `tool/date-say.ts` (বছর/মাস/দিন/সপ্তাহ templates, the date
+boxes' names) and format with `periodText`, `weeksText`, `dateText`, `banglaDateText`; land tools
+spread `LAND_UNIT_COPY` (`land/units.ts`), gold tools `GOLD_WEIGHT_COPY` (`gold/shared.ts`). A
+spread table's keys are shared: do not reuse one of them for something else in the tool's own
+copy (a `weeks` label would overwrite the `{n} সপ্তাহ` template).
 
 `COPY = { key: { bn: '…', en: '…' } } as const satisfies CopyTable` (nested tables are fine, e.g.
 `providers: { bkash: { bn, en } }`), plus `export type XxxCopy = Localized<typeof COPY>`. Bangla
@@ -94,6 +108,9 @@ export function emiOutcome(input: { lang: Lang; copy: EmiCopy; … }): ToolOutco
 
 ## 4. Page content — `packages/pages/src/<id>/content.ts`
 
+Pass `registryCrumbs: true` when the Figma breadcrumb names the registry entry's own
+`breadcrumb` group ("তারিখ ও বয়স", "জমি ও সোনা") rather than the hub page ("তারিখ, জমি, সোনা").
+
 ```ts
 export function emiContent(lang: Lang, file?: SomeFile): ToolPageContent {
   return toolPageContent('emi', lang, {
@@ -122,13 +139,20 @@ Copy `CashOutCalculator.tsx`. The pieces:
   word, `formatOnBlur={false}` for rates), `FieldPair` (two fields on one row), `ModeSwitch`
   (a labelled SegmentedControl for modes), `ChoiceChips` (chips with labels: "৩ বছর", "৫০%"),
   `QuickValues` (amount chips), `LabeledChips` (chips under a visible label: "VAT হার", "মেয়াদ"),
-  `PickerField` from `tool/PickerField.tsx` for a Figma "select" that opens a picker sheet (P7, P8;
+  `DateField` from `tool/DateField.tsx` for a Figma "date input" (day | month | year boxes): a
+  Gregorian date opens the P5 date picker sheet on the first tap, `calendar="bangla"` gives three
+  native selects; "today" comes from `useToday(built)` (`tool/today.ts`: the build day passed by
+  the page as `today={buildDay()}`, then the real day in Bangladesh after hydration) and
+  `resolveDate(value, today)`,
+  `PickerField` from `tool/PickerField.tsx` for a Figma "select" that opens a picker sheet (P3, P7, P8;
   the sheet loads on the first tap; pass `search` for a search box). Keep a ৳ amount of 6+ digits on
   a full-width row: half a 390px card cannot show ৫,০০,০০০.
 - Results: `<ResultEmpty>` / `<ResultError onFix>` / `<ResultCard>` (`decimals={0}` for whole
   taka, `suffix` for "লাখ" or "কম") + `<SummaryCard title rows>` (Figma "মোট হিসাব" KV card),
   `<CompareList>` (comparisons) or `BreakdownTable` from `@hisab/ui/content/BreakdownTable`
-  (schedules: give it `maxHeight`; the print stylesheet prints every row), `<ToolCallout>`
+  (schedules: give it `maxHeight`; the print stylesheet prints every row), `UnitTable` from
+  `tool/UnitTable.tsx` (Figma "সব এককে": one quantity in every unit, one row tinted),
+  `ResultCard text="…"` for a worded answer ("২৬ বছর ৭ মাস ৪ দিন", "যোগ্য ✓"), `<ToolCallout>`
   (`tone="info"` for the blue Figma callouts), then `<ToolActions lang toolId title shareText reportItems>`.
 - Wrap in `<CalculatorFrame inputs={…} results={…} />` (stacked on phones/tablets, 380px input
   card + results side by side from an 840px container).
@@ -147,6 +171,9 @@ Copy `CashOutCalculator.tsx`. The pieces:
    `dataFile('<file>.json')` from `src/lib/data.ts` (validated with `checkDataFile`; a bad file
    fails the build), build `content`, render
    `<ToolPage content={content}><XxxCalculator client:load lang={lang} text={islandText(lang, XXX_COPY, XXX_MESSAGE_KEYS)} … /></ToolPage>`.
+   A tool that needs "today" also passes `today={buildDay()}` (`src/lib/dates.ts`): the HTML is
+   computed for the build day and the island moves to the real day on load.
+   If the page reads a data file the registry entry does not list in `dataFiles`, add it there.
 2. `src/pages/<route>.astro` and `src/pages/en/<route>.astro` (the registry routes, e.g.
    `src/pages/tools/emi.astro`): `<EmiPage lang="bn" />` / `lang="en"`.
 3. Add the id to `BUILT_PAGES` in `src/lib/tools.ts` so `[...slug].astro` stops making the
@@ -172,7 +199,11 @@ report endpoint (`/api/report`, see docs/open-items.md).
   It covers 390/1440 × light/dark × each mode (screenshots in `test-results/<id>/`), axe, 44px
   targets at 360/390/1440, no sideways scroll, no console errors, the English page, share link
   restore, the no-JS result (the result card and a `[data-summary]`, `[data-offer-table]` or
-  `[data-breakdown-table]`), JSON-LD, the report sheet and print (a schedule prints every row).
+  `[data-breakdown-table]` or `[data-unit-table]`), JSON-LD, the report sheet and print (a schedule prints every row).
+  A page whose result depends on today passes `clock` (an ISO instant, e.g. `FIGMA_TODAY` from
+  `tests/visual/dates.ts`: Playwright freezes the browser clock, so the hydrated page shows the
+  Figma numbers) and `noJsValue` (a pattern for the build-day HTML). `pickDate` in the same file
+  picks a date in the P5 sheet. Unit tests freeze it with `vi.setSystemTime`.
   A mode's `expectMode` may also open a picker sheet, so the sheet gets screenshots and axe too.
   `ldTypes` has `FAQPage` only when the tool has a FAQ.
   `tests/visual/budget.spec.ts` picks the page up from `BUILT_PAGES` by itself.

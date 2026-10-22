@@ -1,0 +1,20 @@
+---
+// Land price (registry "land-price", Figma L2 31:8835 / D · L2 68:8251, P3 59:16558) in one
+// language. A formula tool: no verified line.
+import { LAND_PRICE_COPY, LAND_PRICE_MESSAGE_KEYS, landPriceContent } from '@hisab/pages/land-price'
+import { LandPriceCalculator } from '@hisab/pages/islands/land-price'
+import { islandText } from '@hisab/pages/tool'
+import ToolPage from '../tool/ToolPage.astro'
+import type { Lang } from '../../lib/site'
+
+interface Props {
+  lang: Lang
+}
+
+const { lang } = Astro.props
+const content = landPriceContent(lang)
+---
+
+<ToolPage content={content}>
+  <LandPriceCalculator client:load lang={lang} text={islandText(lang, LAND_PRICE_COPY, LAND_PRICE_MESSAGE_KEYS)} title={content.title} />
+</ToolPage>
